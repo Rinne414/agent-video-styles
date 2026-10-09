@@ -77,7 +77,21 @@ agent-video-styles/
 
 每個風格的欄位：`id`、名稱（英文、簡中）、`tier`、視覺特徵、適合與不適合的用途、平台與比例、主要工具和替代工具（附理由）、難度、出處（創作者、平台、連結、地區、使用工具）、製作配方（場景結構、時長節奏、緩動、字體、配色、版面）、常見坑、範本路徑。
 
-## 目前狀態（2026-10-10）
+## v1 完成（2026-10-10）
+
+- 已推送到 private repo：https://github.com/Rinne414/agent-video-styles
+- 17 個範本都由子代理只靠 skill 做出來，實際渲染並逐幀檢查過；每份測試報告在 `research/06-template-reports/`，回報的缺口已分兩輪修進 skill。
+- 程式碼由不同模型（Sonnet）審查：1 個 HIGH、5 個 MEDIUM、4 個 LOW，全部修正並重測。
+- 圖鑑網站用 headless Chrome 測過：篩選、選擇器、細節頁、語言切換、手機版、鍵盤焦點、返回捲動位置。
+
+### 後續（v2 與發布）
+
+1. 從 `data/candidates.yaml` 挑風格補證據；`data/drafts/` 已有 editorial-swiss、map-geo-story 的配方草稿。
+2. 修正後的 skill 尚未重新跑一次全部範本（第二輪修正之後沒有再測）；改版時建議抽幾個風格重跑當回歸測試。
+3. 公開前：改 repo 可見性，部署 `site/dist`（GitHub Pages 或 Vercel）。
+4. 未驗證項目：macOS / Linux 安裝指令、旁白與畫面的聽覺同步（只檢查了時間戳）。
+
+## 過程紀錄
 
 - v1 核心風格 17 種。研究後符合標準的有 19 種，其中 editorial-swiss 與 map-geo-story 的完整成片證據不足，已降級到 candidates，配方草稿保留在 `data/drafts/`。
 - 範本改為**每個資料夾獨立**（`templates/<id>/`，各自的 lockfile），不使用 pnpm workspace：避免並行製作時搶寫同一個 lockfile，使用者也能直接複製單一資料夾。
