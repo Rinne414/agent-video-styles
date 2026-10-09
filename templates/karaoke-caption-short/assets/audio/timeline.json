@@ -1,0 +1,315 @@
+{
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 5280,
+      "words": [
+        {
+          "text": "你",
+          "start_ms": 100,
+          "end_ms": 250
+        },
+        {
+          "text": "背",
+          "start_ms": 250,
+          "end_ms": 438
+        },
+        {
+          "text": "过",
+          "start_ms": 438,
+          "end_ms": 576
+        },
+        {
+          "text": "的",
+          "start_ms": 575,
+          "end_ms": 663
+        },
+        {
+          "text": "东西",
+          "start_ms": 675,
+          "end_ms": 1200
+        },
+        {
+          "text": "为什么",
+          "start_ms": 1525,
+          "end_ms": 1900
+        },
+        {
+          "text": "三",
+          "start_ms": 1925,
+          "end_ms": 2113
+        },
+        {
+          "text": "天",
+          "start_ms": 2112,
+          "end_ms": 2287
+        },
+        {
+          "text": "就",
+          "start_ms": 2300,
+          "end_ms": 2438
+        },
+        {
+          "text": "忘",
+          "start_ms": 2438,
+          "end_ms": 2713
+        },
+        {
+          "text": "试试",
+          "start_ms": 3275,
+          "end_ms": 3713
+        },
+        {
+          "text": "这",
+          "start_ms": 3738,
+          "end_ms": 3876
+        },
+        {
+          "text": "三",
+          "start_ms": 3875,
+          "end_ms": 4100
+        },
+        {
+          "text": "个",
+          "start_ms": 4100,
+          "end_ms": 4175
+        },
+        {
+          "text": "方法",
+          "start_ms": 4188,
+          "end_ms": 4700
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 6288,
+      "words": [
+        {
+          "text": "第一",
+          "start_ms": 100,
+          "end_ms": 538
+        },
+        {
+          "text": "间隔",
+          "start_ms": 788,
+          "end_ms": 1126
+        },
+        {
+          "text": "重复",
+          "start_ms": 1138,
+          "end_ms": 1676
+        },
+        {
+          "text": "今天",
+          "start_ms": 1950,
+          "end_ms": 2362
+        },
+        {
+          "text": "学",
+          "start_ms": 2362,
+          "end_ms": 2700
+        },
+        {
+          "text": "明天",
+          "start_ms": 2925,
+          "end_ms": 3263
+        },
+        {
+          "text": "复习",
+          "start_ms": 3275,
+          "end_ms": 3800
+        },
+        {
+          "text": "三",
+          "start_ms": 4125,
+          "end_ms": 4325
+        },
+        {
+          "text": "天后",
+          "start_ms": 4325,
+          "end_ms": 4687
+        },
+        {
+          "text": "再",
+          "start_ms": 4712,
+          "end_ms": 4874
+        },
+        {
+          "text": "复习",
+          "start_ms": 4888,
+          "end_ms": 5263
+        },
+        {
+          "text": "一次",
+          "start_ms": 5275,
+          "end_ms": 5713
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 4848,
+      "words": [
+        {
+          "text": "第二",
+          "start_ms": 100,
+          "end_ms": 512
+        },
+        {
+          "text": "主动",
+          "start_ms": 762,
+          "end_ms": 1124
+        },
+        {
+          "text": "回忆",
+          "start_ms": 1138,
+          "end_ms": 1613
+        },
+        {
+          "text": "合",
+          "start_ms": 1875,
+          "end_ms": 2025
+        },
+        {
+          "text": "上书",
+          "start_ms": 2025,
+          "end_ms": 2563
+        },
+        {
+          "text": "自己",
+          "start_ms": 2800,
+          "end_ms": 3075
+        },
+        {
+          "text": "把",
+          "start_ms": 3088,
+          "end_ms": 3250
+        },
+        {
+          "text": "重点",
+          "start_ms": 3262,
+          "end_ms": 3650
+        },
+        {
+          "text": "说",
+          "start_ms": 3675,
+          "end_ms": 3887
+        },
+        {
+          "text": "一",
+          "start_ms": 3888,
+          "end_ms": 4013
+        },
+        {
+          "text": "遍",
+          "start_ms": 4012,
+          "end_ms": 4274
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "file": "s4.mp3",
+      "duration_ms": 4512,
+      "words": [
+        {
+          "text": "第三",
+          "start_ms": 100,
+          "end_ms": 588
+        },
+        {
+          "text": "教给",
+          "start_ms": 850,
+          "end_ms": 1162
+        },
+        {
+          "text": "别人",
+          "start_ms": 1175,
+          "end_ms": 1625
+        },
+        {
+          "text": "能",
+          "start_ms": 1938,
+          "end_ms": 2100
+        },
+        {
+          "text": "讲",
+          "start_ms": 2100,
+          "end_ms": 2300
+        },
+        {
+          "text": "清楚",
+          "start_ms": 2312,
+          "end_ms": 2850
+        },
+        {
+          "text": "才",
+          "start_ms": 3050,
+          "end_ms": 3238
+        },
+        {
+          "text": "是",
+          "start_ms": 3238,
+          "end_ms": 3350
+        },
+        {
+          "text": "真的",
+          "start_ms": 3362,
+          "end_ms": 3687
+        },
+        {
+          "text": "懂",
+          "start_ms": 3688,
+          "end_ms": 3938
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "file": "s5.mp3",
+      "duration_ms": 3096,
+      "words": [
+        {
+          "text": "关注",
+          "start_ms": 100,
+          "end_ms": 525
+        },
+        {
+          "text": "我",
+          "start_ms": 525,
+          "end_ms": 787
+        },
+        {
+          "text": "明天",
+          "start_ms": 1062,
+          "end_ms": 1400
+        },
+        {
+          "text": "讲",
+          "start_ms": 1412,
+          "end_ms": 1612
+        },
+        {
+          "text": "怎么",
+          "start_ms": 1638,
+          "end_ms": 1826
+        },
+        {
+          "text": "做",
+          "start_ms": 1825,
+          "end_ms": 2000
+        },
+        {
+          "text": "笔记",
+          "start_ms": 2012,
+          "end_ms": 2500
+        }
+      ]
+    }
+  ]
+}

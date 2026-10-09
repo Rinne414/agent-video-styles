@@ -1,0 +1,96 @@
+id: pixel-retro
+tier: core
+evidence_strength: strong
+name:
+  en: Pixel Retro
+  zh: 像素复古风
+tagline:
+  en: An 8-bit world from palette grids, with chunky sprites, pixel fonts, stepped motion and beat-synced cuts.
+  zh: 用调色板网格搭出的 8-bit 世界：粗像素精灵、像素字体、逐格动作、卡点切换。
+signature:
+  en:
+    - Low-resolution logical canvas scaled up by an integer with nearest-neighbor sampling
+    - At most 16 colors, sprites defined as character grids in code
+    - Sprites animate on fours, and big events land on the beat
+    - Optional CRT scanlines and RPG dialog boxes for lyrics or text
+  zh:
+    - 低分辨率逻辑画布按整数倍放大，最近邻采样
+    - 最多 16 色，精灵在代码里用字符网格定义
+    - 精灵每 4 帧换一格，重要事件卡在节拍上
+    - 可选 CRT 扫描线与 RPG 对话框，用来放歌词或文字
+best_for:
+  en:
+    - Vertical music videos, PSAs and playful brand shorts for Douyin, TikTok and Reels
+    - Game, indie-dev and nostalgia-themed promos
+  zh:
+    - 抖音、TikTok、Reels 的竖屏 MV、公益短片和活泼的品牌短片
+    - 游戏、独立开发与怀旧主题的宣传
+avoid_when:
+  en:
+    - The audience expects a premium or corporate tone (use apple-keynote-minimal or saas-launch-promo)
+    - Real product UI must be shown legibly (use ui-camera-tour)
+  zh:
+    - 受众期待高级或企业调性（改用 apple-keynote-minimal 或 saas-launch-promo）
+    - 需要清晰展示真实产品界面（改用 ui-camera-tour）
+tags:
+  use: [music-video, brand-reel, social-short]
+  platform: [tiktok-douyin, instagram-reels, youtube-shorts, x]
+  aspect: ["9:16", "16:9"]
+  audio: [music, sfx, captions]
+  mood: [retro, playful, energetic]
+  needs: [script]
+duration: 15-60 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Most public pixel shorts were made with HyperFrames; a canvas drawn at logical size and scaled with image-rendering pixelated is plain HTML, and GSAP steps() eases give stepped motion. Remotion works equally with a canvas per frame.
+    zh: 公开的像素短片多数用 HyperFrames 制作；按逻辑尺寸绘制再以 image-rendering pixelated 放大的 canvas 就是普通 HTML，GSAP 的 steps() 缓动可以做出逐格动作。Remotion 逐帧画 canvas 同样可行。
+variants:
+  - id: crt-terminal
+    en: Green or amber phosphor terminal with typing, glitches and ASCII progress bars.
+    zh: 绿色或琥珀色磷光终端，打字效果、故障闪烁与 ASCII 进度条。
+  - id: pixel-brand-short
+    en: 15 s vertical brand piece with the logo rebuilt as a pixel sprite.
+    zh: 15 秒竖屏品牌短片，Logo 重建为像素精灵。
+  - id: side-scroller
+    en: 16:9 side-scrolling level where each stage is a point of the explanation.
+    zh: 16:9 横版卷轴关卡，每一关对应一个讲解要点。
+evidence:
+  - creator: a252937166/claude-video-studio
+    platform: GitHub
+    region: cn
+    url: https://github.com/a252937166/claude-video-studio
+    tool: Claude Code + HyperFrames
+    note: Five pixel-art MVs and PSAs in one week; 9:16 with lyric- and beat-synced captions, speed ramps and echo trails; 3D marked not recommended.
+    verified: opened
+  - creator: 益盛科技 (des13)
+    platform: Company blog
+    region: tw
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Opus 5.5 + HyperFrames
+    note: 15 s vertical brand short with 8-bit character art, 1080x1920 30 fps; 23 min plus a 4 min revision.
+    verified: opened
+  - creator: 바이브코더 루피 (vibecoder-loopy)
+    platform: Blog
+    region: kr
+    url: https://vibecoderloopy.com/blog/remotion-video-automation-oneday-class
+    tool: Remotion + Whisper + Claude Code
+    note: Retro terminal self-intro with typing, glitch, CRT scanlines, ASCII progress bars and the Neodunggeunmo pixel font.
+    verified: opened
+  - creator: Mrooo03
+    platform: X article
+    region: cn
+    url: https://x.com/Mrooo03/article/2105195950142566783
+    tool: Claude + HyperFrames
+    note: Pixel MV, flat animation and pop-science shorts in one week; geometric and pixel shapes suit code video, character turns do not.
+    verified: snippet
+  - creator: Skillry Pixel Promo skill
+    platform: Skillry
+    region: global
+    url: https://www.skillry.dev/skills?output=video
+    tool: HyperFrames / Remotion
+    note: Listed "Pixel Promo" video skill; contents not obtained.
+    verified: aggregator
+template: templates/pixel-retro

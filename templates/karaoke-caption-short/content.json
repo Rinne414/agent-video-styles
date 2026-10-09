@@ -1,0 +1,48 @@
+{
+  "video": { "fps": 30, "width": 1080, "height": 1920, "gapMs": 450, "tailMs": 1500 },
+  "voice": { "name": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+  "theme": {
+    "highlight": "#FFD400",
+    "text": "#FFFFFF",
+    "bgFrom": "#0E0E12",
+    "bgTo": "#1A1A2E",
+    "blobs": ["#6C3BFF", "#FF3D81", "#18B7FF"]
+  },
+  "segments": [
+    {
+      "id": "s1",
+      "text": "你背过的东西，为什么三天就忘？试试这三个方法。",
+      "keyTerms": ["三天", "三个"],
+      "emphasis": "忘",
+      "card": { "type": "hook", "big": "3", "unit": "天", "label": "记忆只剩一小半" }
+    },
+    {
+      "id": "s2",
+      "text": "第一，间隔重复：今天学，明天复习，三天后再复习一次。",
+      "keyTerms": ["第一", "间隔重复", "今天", "明天", "三天"],
+      "emphasis": "间隔",
+      "card": { "type": "spaced", "big": "1", "label": "间隔重复", "marks": ["今天", "明天", "3天后"] }
+    },
+    {
+      "id": "s3",
+      "text": "第二，主动回忆：合上书，自己把重点说一遍。",
+      "keyTerms": ["第二", "主动回忆", "合上书"],
+      "emphasis": "合上",
+      "card": { "type": "recall", "big": "2", "label": "主动回忆" }
+    },
+    {
+      "id": "s4",
+      "text": "第三，教给别人：能讲清楚，才是真的懂。",
+      "keyTerms": ["第三", "教给别人", "懂"],
+      "emphasis": "懂",
+      "card": { "type": "teach", "big": "3", "label": "教给别人" }
+    },
+    {
+      "id": "s5",
+      "text": "关注我，明天讲怎么做笔记。",
+      "keyTerms": ["关注", "明天", "笔记"],
+      "emphasis": "笔记",
+      "card": { "type": "cta", "big": "明天", "label": "怎么做笔记" }
+    }
+  ]
+}

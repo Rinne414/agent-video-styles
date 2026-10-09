@@ -1,0 +1,49 @@
+# Tools used by the core styles, as shown on the gallery. Details for agents live in skill/references/tools/.
+- id: remotion
+  name: Remotion
+  url: https://www.remotion.dev
+  best:
+    en: React components where every frame is a function of the frame number. Strongest ecosystem for promos, charts, captions and 3D via React Three Fiber.
+    zh: 每一帧都是帧号函数的 React 组件。宣传片、图表、字幕以及基于 React Three Fiber 的 3D 生态最完整。
+  license:
+    en: Source-available. Free for individuals and companies of up to 3 people; larger for-profit companies need a paid Company License.
+    zh: 源码可见。个人及 3 人以内公司免费；更大的营利公司需购买 Company License。
+  render:
+    en: "npx remotion render: headless Chrome + FFmpeg. Transparent ProRes 4444 / WebM supported."
+    zh: npx remotion render：无头 Chrome + FFmpeg。支持透明 ProRes 4444 / WebM。
+- id: hyperframes
+  name: HyperFrames
+  url: https://hyperframes.heygen.com
+  best:
+    en: Plain HTML, CSS and GSAP that an agent can edit directly. Built by HeyGen for agents; strong at kinetic type, web-native looks and captions.
+    zh: 纯 HTML、CSS 与 GSAP，Agent 可直接编辑。HeyGen 专为 Agent 打造，擅长动态文字、网页原生视觉与字幕。
+  license:
+    en: Apache-2.0.
+    zh: Apache-2.0。
+  render:
+    en: "npx hyperframes render: deterministic frame capture in headless Chrome + FFmpeg. Byte-identical repeat renders on Windows in our tests."
+    zh: npx hyperframes render：无头 Chrome 确定性逐帧捕获 + FFmpeg。我们在 Windows 上重复渲染结果逐字节一致。
+- id: manim
+  name: Manim Community
+  url: https://www.manim.community
+  best:
+    en: Python engine behind the 3Blue1Brown look. Equations, graphs and geometric transformations.
+    zh: 3Blue1Brown 风格背后的 Python 引擎。擅长公式、函数图像与几何变换。
+  license:
+    en: MIT. Formulas need a LaTeX distribution (MiKTeX, MacTeX or TeX Live).
+    zh: MIT。公式需要 LaTeX 发行版（MiKTeX、MacTeX 或 TeX Live）。
+  render:
+    en: "manim -qh scene.py Scene: Cairo + FFmpeg."
+    zh: manim -qh scene.py Scene：Cairo + FFmpeg。
+- id: html-capture
+  name: HTML capture
+  url: https://github.com/puppeteer/puppeteer
+  best:
+    en: Any deterministic web page, such as p5.js or canvas art, rendered frame by frame with this repo's capture_html.mjs.
+    zh: 任何确定性网页（如 p5.js、Canvas 绘画），用本仓库的 capture_html.mjs 逐帧渲染。
+  license:
+    en: The script is MIT; puppeteer-core is Apache-2.0.
+    zh: 脚本为 MIT；puppeteer-core 为 Apache-2.0。
+  render:
+    en: "node capture_html.mjs page.html: the page draws frame i on request, frames are piped to FFmpeg."
+    zh: node capture_html.mjs page.html：页面按请求绘制第 i 帧，再通过管道交给 FFmpeg。

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <script src="content.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000000; }
+    #root { position: relative; width: 1920px; height: 1080px; background: #000000; font-family: Inter, sans-serif; color: #F5F5F7; }
+    .scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; }
+    .wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .headline { font-size: 200px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.0; white-space: nowrap; }
+    .subhead { font-size: 44px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; color: #86868B; margin-top: 36px; }
+    .gradient { background: linear-gradient(90deg, #2997FF, #A855F7); -webkit-background-clip: text; background-clip: text; color: transparent; padding: 0 0.06em; }
+    .numeral-row { display: flex; align-items: baseline; justify-content: center; }
+    .numeral { font-size: 320px; font-weight: 700; letter-spacing: -0.04em; line-height: 1.0; font-variant-numeric: tabular-nums; }
+    .unit { font-size: 48px; font-weight: 500; color: #86868B; margin-left: 20px; }
+
+    /* App window drawn in CSS (16:9, 55% of frame height) */
+    .win { position: relative; width: 1056px; height: 594px; border-radius: 24px; background: #1C1C1E; border: 1px solid #2C2C2E; overflow: hidden; }
+    .titlebar { height: 56px; display: flex; align-items: center; padding-left: 24px; gap: 10px; border-bottom: 1px solid #2C2C2E; }
+    .dot { width: 14px; height: 14px; border-radius: 50%; background: #3A3A3C; }
+    .app-body { display: flex; height: 537px; }
+    .sidebar { width: 288px; border-right: 1px solid #2C2C2E; padding: 28px 24px; display: flex; flex-direction: column; gap: 22px; }
+    .side-item { height: 56px; border-radius: 12px; background: #242426; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+    .side-item.active { background: #2C2C2E; }
+    .bar { height: 10px; border-radius: 5px; background: #3A3A3C; }
+    .editor { flex: 1; padding: 44px 56px; display: flex; flex-direction: column; gap: 22px; }
+    .note-title { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; color: #F5F5F7; margin-bottom: 14px; }
+    .sweep { position: absolute; top: -50px; left: -400px; width: 260px; height: 700px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.20), rgba(255,255,255,0)); }
+
+    /* Phone drawn in CSS (55% of frame height) */
+    .phone { position: relative; width: 290px; height: 594px; border-radius: 48px; background: #1C1C1E; border: 2px solid #3A3A3C; display: flex; flex-direction: column; align-items: center; padding: 22px 30px; }
+    .pill { width: 84px; height: 24px; border-radius: 12px; background: #000000; margin-bottom: 40px; }
+    .phone .bar { width: 100%; margin-bottom: 16px; }
+    .lock-ring { width: 128px; height: 128px; border-radius: 50%; border: 2px solid #3A3A3C; display: flex; align-items: center; justify-content: center; margin: 54px 0 54px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1920" data-height="1080">
+
+    <div class="scene" id="s-name"><div class="wrap"><div class="headline" id="name-h"></div></div></div>
+
+    <div class="scene" id="s-hero"><div class="wrap">
+      <div id="hero-rise"><div id="hero-float">
+        <div class="win">
+          <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="app-body">
+            <div class="sidebar">
+              <div class="side-item active"><div class="bar" style="width:70%"></div><div class="bar" style="width:46%"></div></div>
+              <div class="side-item"><div class="bar" style="width:58%"></div><div class="bar" style="width:80%"></div></div>
+              <div class="side-item"><div class="bar" style="width:76%"></div><div class="bar" style="width:40%"></div></div>
+              <div class="side-item"><div class="bar" style="width:52%"></div><div class="bar" style="width:66%"></div></div>
+            </div>
+            <div class="editor">
+              <div class="note-title" id="app-title"></div>
+              <div class="bar" style="width:92%"></div>
+              <div class="bar" style="width:84%"></div>
+              <div class="bar" style="width:90%"></div>
+              <div class="bar" style="width:58%"></div>
+              <div class="bar" style="width:76%"></div>
+            </div>
+          </div>
+          <div class="sweep" id="sweep"></div>
+        </div>
+      </div></div>
+    </div></div>
+
+    <div class="scene" id="s-quiet"><div class="wrap"><div class="headline" id="quiet-h"></div><div class="subhead" id="quiet-s"></div></div></div>
+
+    <div class="scene" id="s-fast"><div class="wrap"><div class="headline" id="fast-h"></div></div></div>
+
+    <div class="scene" id="s-number"><div class="wrap">
+      <div id="num-block"><div class="numeral-row"><span class="numeral" id="num-v"></span><span class="unit" id="num-u"></span></div></div>
+      <div class="subhead" id="num-s"></div>
+    </div></div>
+
+    <div class="scene" id="s-yours"><div class="wrap"><div class="headline"><span class="gradient" id="yours-h"></span></div></div></div>
+
+    <div class="scene" id="s-device"><div class="wrap">
+      <div id="dev-rise"><div id="dev-float">
+        <div class="phone">
+          <div class="pill"></div>
+          <div class="bar" style="width:62%;height:14px"></div>
+          <div class="bar"></div>
+          <div class="lock-ring">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#F5F5F7" stroke-width="3.5" stroke-linecap="round">
+              <rect x="12" y="28" width="40" height="28" rx="7"></rect>
+              <path d="M20 28 V20 a12 12 0 0 1 24 0 V28"></path>
+            </svg>
+          </div>
+          <div class="bar" style="width:88%"></div>
+          <div class="bar" style="width:70%"></div>
+        </div>
+      </div></div>
+      <div class="subhead" id="dev-s"></div>
+    </div></div>
+
+    <div class="scene" id="s-end"><div class="wrap"><div class="headline" id="end-h"></div><div class="subhead" id="end-s"></div></div></div>
+
+  </div>
+  <script>
+    const C = window.CONTENT, FPS = C.fps, S = C.scenes;
+    const f = (n) => n / FPS;
+    const $ = (id) => document.getElementById(id);
+    const tl = gsap.timeline({ paused: true });
+
+    // Copy from content.json
+    $("name-h").textContent = S.name.headline;
+    $("app-title").textContent = S.hero.appTitle;
+    $("quiet-h").textContent = S.quiet.headline; $("quiet-s").textContent = S.quiet.subhead;
+    $("fast-h").textContent = S.fast.headline;
+    $("num-v").textContent = S.number.from.toFixed(1); $("num-u").textContent = S.number.unit; $("num-s").textContent = S.number.subhead;
+    $("yours-h").textContent = S.yours.headline;
+    $("dev-s").textContent = S.device.subhead;
+    $("end-h").textContent = S.end.headline; $("end-s").textContent = S.end.subhead;
+
+    // Motion grammar
+    const settle = (sel, at) => tl.fromTo(sel, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: f(24), ease: "power2.out" }, at);
+    const fadeUp = (sel, at) => tl.fromTo(sel, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: f(20), ease: "power2.out" }, at);
+    const rise = (sel, at) => tl.fromTo(sel, { y: 80, scale: 0.92, opacity: 0, filter: "blur(8px)" }, { y: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: f(40), ease: "power3.out" }, at);
+    const float = (sel, at) => { tl.to(sel, { y: -6, duration: 2, ease: "sine.inOut" }, at); tl.to(sel, { y: 0, duration: 2, ease: "sine.inOut" }, at + 2); };
+
+    // Scene scaffold: show, micro-scale 1.00 -> 1.03 across the shot, dip out (not on the last scene)
+    let cursor = 0;
+    const scene = (key, id, isLast) => {
+      const t0 = f(cursor), len = f(S[key].frames);
+      cursor += S[key].frames;
+      tl.set("#" + id, { opacity: 1 }, t0);
+      tl.fromTo("#" + id + " .wrap", { scale: 1.0 }, { scale: 1.03, duration: len, ease: "none" }, t0);
+      if (!isLast) tl.to("#" + id, { opacity: 0, duration: f(6), ease: "power1.in" }, t0 + len - f(6));
+      return t0;
+    };
+
+    let t = scene("name", "s-name");
+    settle("#name-h", t + f(6));
+
+    t = scene("hero", "s-hero");
+    rise("#hero-rise", t + f(6));
+    tl.fromTo("#sweep", { x: 0, skewX: -18 }, { x: 1700, skewX: -18, duration: f(30), ease: "power1.inOut" }, t + f(56));
+    float("#hero-float", t + f(46));
+
+    t = scene("quiet", "s-quiet");
+    settle("#quiet-h", t + f(6)); fadeUp("#quiet-s", t + f(18));
+
+    t = scene("fast", "s-fast");
+    settle("#fast-h", t + f(6));
+
+    t = scene("number", "s-number");
+    fadeUp("#num-block", t + f(4));
+    const proxy = { v: S.number.from };
+    tl.to(proxy, { v: S.number.value, duration: f(30), ease: "power3.out", onUpdate: () => { $("num-v").textContent = proxy.v.toFixed(1); } }, t + f(10));
+    fadeUp("#num-s", t + f(30));
+
+    t = scene("yours", "s-yours");
+    settle("#yours-h", t + f(6));
+
+    t = scene("device", "s-device");
+    rise("#dev-rise", t + f(6));
+    float("#dev-float", t + f(46));
+    fadeUp("#dev-s", t + f(40));
+
+    t = scene("end", "s-end", true);
+    settle("#end-h", t + f(6)); fadeUp("#end-s", t + f(18));
+
+    window.__timelines["main"] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

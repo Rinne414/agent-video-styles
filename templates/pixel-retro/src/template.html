@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width={{WIDTH}}, height={{HEIGHT}}" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+  @font-face { font-family: "Press Start 2P"; src: url("fonts/PressStart2P.woff2") format("woff2"); }
+  html, body { margin: 0; width: {{WIDTH}}px; height: {{HEIGHT}}px; overflow: hidden; background: #000000; }
+  #root { position: relative; width: 100%; height: 100%; }
+  #screen { position: absolute; left: 0; top: 0; width: {{WIDTH}}px; height: {{HEIGHT}}px; image-rendering: pixelated; }
+  #crt { position: absolute; inset: 0; pointer-events: none; display: {{CRT}};
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 4px); }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="{{DURATION}}" data-width="{{WIDTH}}" data-height="{{HEIGHT}}">
+  <canvas id="screen" width="270" height="480"></canvas>
+  <div id="crt"></div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const CONTENT = {{CONTENT}};
+{{SCRIPTS}}
+</script>
+</body></html>

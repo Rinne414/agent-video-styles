@@ -1,0 +1,39 @@
+{
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationInFrames": 750,
+  "accent": "#4F8CFF",
+  "faceBox": { "x": 150, "y": 100, "w": 440, "h": 580 },
+  "plate": {
+    "label": "YOUR FOOTAGE HERE",
+    "hint": "Placeholder plate. Replace with your talking-head clip.",
+    "speakerCenterX": 370
+  },
+  "lowerThird": {
+    "name": "Maya Chen",
+    "title": "CTO at Fernway",
+    "from": 24,
+    "to": 159,
+    "rect": { "x": 64, "y": 810, "w": 440, "h": 150 }
+  },
+  "steps": [
+    { "number": "01", "label": "Measure first", "from": 180, "to": 300, "rect": { "x": 1116, "y": 300, "w": 740, "h": 260 } },
+    { "number": "02", "label": "Rewrite the hot path", "from": 312, "to": 432, "rect": { "x": 1116, "y": 400, "w": 740, "h": 260 } },
+    { "number": "03", "label": "Keep the old API alive", "from": 444, "to": 564, "rect": { "x": 1116, "y": 500, "w": 740, "h": 260 } }
+  ],
+  "callout": {
+    "value": 38,
+    "unit": "%",
+    "caption": "less p99 latency",
+    "from": 576,
+    "to": 681,
+    "rect": { "x": 1056, "y": 330, "w": 800, "h": 360 }
+  },
+  "subscribe": {
+    "label": "Subscribe",
+    "from": 696,
+    "to": 750,
+    "rect": { "x": 1536, "y": 884, "w": 320, "h": 76 }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "title": "番茄工作法为什么有效",
+    "source": "《番茄工作法为什么有效》",
+    "author": "示例作者",
+    "handle": "@示例频道"
+  },
+  "theme": {
+    "bg": "#F7F5F0",
+    "card": "#FFFFFF",
+    "accent": "#F97316",
+    "text": "#1F2328",
+    "muted": "#6B7280"
+  },
+  "voice": {
+    "name": "zh-CN-YunxiNeural",
+    "rate": "+0%"
+  },
+  "timing": {
+    "padFrames": 10,
+    "fps": 30,
+    "outroHoldSec": 1.5
+  },
+  "cards": [
+    {
+      "id": "c1",
+      "layout": "title",
+      "icon": "timer",
+      "kicker": "科普 · 效率",
+      "headline": "番茄工作法为什么有效",
+      "narration": "你是不是总觉得，自己专注不了？今天，我们来聊聊：番茄工作法为什么有效。",
+      "highlight": "为什么有效"
+    },
+    {
+      "id": "c2",
+      "layout": "key",
+      "icon": "layout",
+      "kicker": "先记住这句话",
+      "text": "专注力不是意志力问题，而是环境设计问题。",
+      "highlight": "环境设计问题",
+      "narration": "先记住这句话。专注力不是意志力问题，而是环境设计问题。",
+      "variant": "plain"
+    },
+    {
+      "id": "c3",
+      "layout": "bignumber",
+      "icon": "timer",
+      "kicker": "做法",
+      "number": 25,
+      "unit": "分钟",
+      "label": "每段只做一件事",
+      "narration": "番茄工作法把时间切成 25 分钟一段，每段只做一件事。"
+    },
+    {
+      "id": "c4",
+      "layout": "compare",
+      "icon": "flag",
+      "kicker": "为什么有用",
+      "left": {
+        "tag": "没有终点",
+        "text": "不知道做到哪里才算完"
+      },
+      "right": {
+        "tag": "固定 25 分钟",
+        "text": "只需要坚持 25 分钟"
+      },
+      "narration": "为什么这样有用？因为固定的结束时间降低了开始的心理门槛：你只需要坚持 25 分钟。",
+      "highlight": "只需要坚持 25 分钟"
+    },
+    {
+      "id": "c5",
+      "layout": "key",
+      "icon": "coffee",
+      "kicker": "短休息",
+      "text": "短休息让大脑有机会整理刚刚的信息，而不是硬撑到疲劳。",
+      "highlight": "整理刚刚的信息",
+      "narration": "再看休息。短休息让大脑有机会整理刚刚的信息，而不是硬撑到疲劳。",
+      "phrases": [
+        "短休息让大脑",
+        "有机会整理刚刚的信息，",
+        "而不是硬撑到疲劳。"
+      ]
+    },
+    {
+      "id": "c6",
+      "layout": "tally",
+      "icon": "check",
+      "kicker": "看得见的进度",
+      "text": "每完成一个番茄，就记一个记号",
+      "count": 4,
+      "narration": "还有一点。每完成一个番茄，就记一个记号，进度变得看得见。"
+    },
+    {
+      "id": "c7",
+      "layout": "key",
+      "icon": "spark",
+      "kicker": "真正的秘诀",
+      "text": "先开始，再变好。",
+      "highlight": "先开始",
+      "narration": "所以，真正的秘诀是：先开始，再变好。",
+      "variant": "center"
+    },
+    {
+      "id": "c8",
+      "layout": "list",
+      "icon": "list",
+      "kicker": "回顾",
+      "title": "三件事就够了",
+      "bullets": [
+        "切成 25 分钟一段",
+        "短休息，别硬撑",
+        "记下每个番茄"
+      ],
+      "narration": "回头看，三件事就够了：把时间切成小段，认真地短休息，再把进度记下来。"
+    },
+    {
+      "id": "c9",
+      "layout": "outro",
+      "icon": "timer",
+      "kicker": "现在就试试",
+      "headline": "开始你的第一个番茄",
+      "narration": "现在，就去开始你的第一个番茄吧。"
+    }
+  ]
+}

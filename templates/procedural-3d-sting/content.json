@@ -1,0 +1,104 @@
+{
+  "brand": {
+    "studio": "Prism Studio",
+    "wordmark": "PRISM"
+  },
+  "colors": {
+    "void": "#06081A",
+    "rim": "#7C6BFF",
+    "key": "#FFFFFF",
+    "wordmark": "rgba(255,255,255,0.9)",
+    "spectrum": [
+      "#FF3B3B",
+      "#FF9A2E",
+      "#FFE94A",
+      "#3DFF8A",
+      "#2FA8FF",
+      "#4F6BFF",
+      "#8B5CFF"
+    ]
+  },
+  "timing": {
+    "fps": 30,
+    "durationInFrames": 240,
+    "dustFadeIn": [
+      0,
+      24
+    ],
+    "prismFadeIn": [
+      6,
+      30
+    ],
+    "beamTravel": [
+      24,
+      66
+    ],
+    "hit": 66,
+    "fanOpen": [
+      66,
+      104
+    ],
+    "sweep": [
+      66,
+      128
+    ],
+    "recombine": [
+      128,
+      168
+    ],
+    "slide": [
+      124,
+      170
+    ],
+    "beamFadeOut": [
+      166,
+      192
+    ],
+    "reveal": [
+      146,
+      186
+    ],
+    "colorSettle": 28,
+    "sheenA": [66, 100],
+    "sheenB": [168, 212],
+    "orbit": [
+      0,
+      192
+    ]
+  },
+  "motion": {
+    "sweepAngleDeg": [
+      -30,
+      8
+    ],
+    "fanSpreadDeg": 26,
+    "driftRadPerFrame": 0.0017,
+    "hitFlashFrames": 3,
+    "hitDecayFrames": 22
+  },
+  "layout": {
+    "prismSide": 2.2,
+    "prismDepth": 1.5,
+    "prismFinalX": -1.8,
+    "wordmarkLeft": 932,
+    "wordmarkWidth": 640,
+    "wordmarkFontSize": 170,
+    "underlineGap": 40,
+    "underlineHeight": 4
+  },
+  "camera": {
+    "fov": 38,
+    "distance": [
+      8.8,
+      8.0
+    ],
+    "orbitX": [
+      -0.9,
+      0.6
+    ]
+  },
+  "dust": {
+    "count": 70,
+    "seed": "prism-dust"
+  }
+}

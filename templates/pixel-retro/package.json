@@ -1,0 +1,15 @@
+{
+  "name": "@avs/pixel-retro",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/pixel-retro.mp4"
+  },
+  "devDependencies": {
+    "@fontsource/press-start-2p": "5.2.7",
+    "gsap": "3.14.2"
+  }
+}

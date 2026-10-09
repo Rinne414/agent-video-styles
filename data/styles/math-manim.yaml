@@ -1,0 +1,95 @@
+id: math-manim
+tier: core
+evidence_strength: medium
+name:
+  en: Math Explainer (Manim)
+  zh: 数学动画讲解（Manim）
+tagline:
+  en: 3Blue1Brown-style - geometry and equations morph step by step on a dark canvas, paced for understanding.
+  zh: 3Blue1Brown 风格——深色画布上几何与公式逐步变形，节奏为理解服务。
+signature:
+  en:
+    - Dark charcoal background with blue and gold accents; color always means the same quantity
+    - Geometry and intuition first, then the algebra that formalizes it
+    - Equations transform term by term instead of being replaced
+    - Opacity layering (focus 1.0, context 0.4, grid 0.15) and a pause after every reveal
+  zh:
+    - 深炭灰背景配蓝色与金色强调；同一种颜色始终代表同一个量
+    - 先几何与直觉，再用代数形式化
+    - 公式逐项变形，而不是整体替换
+    - 透明度分层（焦点 1.0、上下文 0.4、网格 0.15），每次揭示后停顿
+best_for:
+  en:
+    - Math, physics, algorithms and machine-learning concepts
+    - Teaching videos on YouTube and Bilibili
+  zh:
+    - 数学、物理、算法与机器学习概念
+    - YouTube 与 B站的教学视频
+avoid_when:
+  en:
+    - There are no formulas or geometry (use dark-diagram-explainer)
+    - The subject is code itself (use code-terminal-walkthrough)
+    - It is marketing (use saas-launch-promo)
+  zh:
+    - 没有公式或几何（改用 dark-diagram-explainer）
+    - 主题是代码本身（改用 code-terminal-walkthrough）
+    - 营销类内容（改用 saas-launch-promo）
+tags:
+  use: [education, explainer]
+  platform: [youtube, bilibili, youtube-shorts]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, music]
+  mood: [calm, technical]
+  needs: [script]
+duration: 60-300 s
+difficulty: 3
+tools:
+  primary: manim
+  alternatives: [motion-canvas]
+  why:
+    en: Manim Community is purpose-built for this look - LaTeX typesetting, coordinate systems and term-matching transforms - and is actively maintained. Motion Canvas suits the same look but has slowed down and lacks a first-class headless render.
+    zh: Manim 社区版专为这种风格打造——LaTeX 排版、坐标系、按项匹配的变形——且持续维护。Motion Canvas 也能做，但更新放缓，缺少一流的无头渲染。
+variants:
+  - id: algorithm-viz
+    en: Arrays as squares, pointers as arrows, swaps and comparisons animated; sorting, search and graph traversal.
+    zh: 数组画成方块、指针画成箭头，交换与比较全部动画化；适合排序、搜索与图遍历。
+  - id: vertical-short
+    en: 1080x1920 one-concept short, 30-60 s, equation in the top third and geometry below.
+    zh: 1080x1920 单概念短视频，30-60 秒，公式在上三分之一、几何在下方。
+evidence:
+  - creator: adithya-s-k/manim_skill
+    platform: GitHub
+    region: global
+    url: https://github.com/adithya-s-k/manim_skill
+    tool: Manim CE + ManimGL
+    note: Best-practice rules and examples for agents (MIT, 1,152 stars).
+    verified: opened
+  - creator: subinium (3b1b-style-animation-skill)
+    platform: GitHub
+    region: global
+    url: https://cdn.jsdelivr.net/gh/subinium/3b1b-style-animation-skill@main/README.md
+    tool: Claude Code + Manim
+    note: "#1c1c1c background, blue #3b82f6 + gold #fbbf24, geometry before algebra, opacity layering, wait() after reveals (MIT)."
+    verified: opened
+  - creator: gqy20 (manim-agent)
+    platform: GitHub
+    region: cn
+    url: https://github.com/gqy20/manim-agent
+    tool: Claude SDK + Manim + MiniMax TTS
+    note: Writes, renders, reviews and iterates Manim scenes; subtitle timestamp sync; demo site.
+    verified: opened
+  - creator: NousResearch (hermes-agent manim-video)
+    platform: skills.sh
+    region: global
+    url: https://www.skills.sh/nousresearch/hermes-agent/manim-video
+    tool: Manim CE
+    note: PLAN-CODE-RENDER-STITCH-AUDIO-REVIEW pipeline skill.
+    verified: opened
+  - creator: shuyicc (MathLens)
+    platform: GitHub
+    region: cn
+    url: https://github.com/shuyicc/MathLens
+    tool: Manim + Cursor
+    note: Math problem to analysis, script and Manim video.
+    verified: snippet
+template: templates/math-manim

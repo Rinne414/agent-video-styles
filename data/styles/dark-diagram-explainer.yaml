@@ -1,0 +1,97 @@
+id: dark-diagram-explainer
+tier: core
+evidence_strength: strong
+name:
+  en: Dark Diagram Explainer
+  zh: 暗色图解讲解
+tagline:
+  en: Narrated, faceless explainer - SVG diagrams build piece by piece on a dark canvas, synced to the voice.
+  zh: 无露脸旁白讲解——深色画布上的 SVG 图解随语音逐步搭建。
+signature:
+  en:
+    - Near-black canvas, white Inter type, one indigo accent and one green for results
+    - Boxes, arrows and line icons draw on the moment the narration names them
+    - The camera pans and zooms across one big diagram instead of cutting between slides
+    - Word-synced captions at the bottom; "Kurzgesagt meets Fireship" pacing
+  zh:
+    - 近黑画布、白色 Inter 字体，靛蓝色做强调、绿色表示结果
+    - 方框、箭头和线性图标在旁白提到的瞬间绘出
+    - 镜头在一张大图上平移缩放，而不是在幻灯片之间硬切
+    - 底部逐词同步字幕；"Kurzgesagt 遇上 Fireship" 的节奏
+best_for:
+  en:
+    - Explaining a technical concept, tool, architecture or piece of news
+    - Faceless channels on YouTube, Shorts, Bilibili and Douyin
+  zh:
+    - 讲解技术概念、工具、架构或新闻
+    - YouTube、Shorts、B站、抖音的无露脸频道
+avoid_when:
+  en:
+    - The content is a list of quotes from an article (use card-explainer)
+    - The subject is equations or proofs (use math-manim)
+    - The subject is real code (use code-terminal-walkthrough)
+    - It is a marketing piece with no explanation (use saas-launch-promo)
+  zh:
+    - 内容是文章金句的罗列（改用 card-explainer）
+    - 主题是公式或证明（改用 math-manim）
+    - 主题是真实代码（改用 code-terminal-walkthrough）
+    - 纯营销、不需要讲解（改用 saas-launch-promo）
+tags:
+  use: [explainer, education, social-short]
+  platform: [youtube, youtube-shorts, tiktok-douyin, bilibili, x]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, music, sfx]
+  mood: [technical, calm]
+  needs: [script]
+duration: 30-120 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Most public examples use Remotion; the narration timeline maps directly onto Sequences and calculateMetadata. HyperFrames ships an official /faceless-explainer workflow skill.
+    zh: 公开案例以 Remotion 为主；旁白时间轴可直接映射到 Sequence 与 calculateMetadata。HyperFrames 有官方 /faceless-explainer 工作流 skill。
+variants:
+  - id: black-canvas-neon
+    en: Pure black with a star-field or dot-field backdrop, white line art plus one purple accent, a HUD capsule on top and a chapter progress bar at the bottom; long-form 3-5 min.
+    zh: 纯黑底配星空或点阵背景，白色线稿加一种紫色强调，顶部 HUD 胶囊、底部章节进度条；3-5 分钟长视频。
+  - id: vertical-short
+    en: 1080x1920, 30-45 s, diagram in the middle third, larger captions, hook within 1.5 s.
+    zh: 1080x1920、30-45 秒，图解放在中间三分之一，字幕更大，1.5 秒内给出钩子。
+evidence:
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion
+    note: Prompt #1 - 30 s 1080x1920 explainer, #0a0a0a / #6366f1 / #22c55e, Inter, "Kurzgesagt meets Fireship" pacing.
+    verified: opened
+  - creator: andynocode
+    platform: YouTube
+    region: en
+    url: https://videohighlight.com/v/xAUifztpib8
+    tool: Claude Code + Remotion + ElevenLabs
+    note: Mars explainer built with a 9-phase pipeline; art direction and asset inventory files before code.
+    verified: aggregator
+  - creator: "@punitpalial"
+    platform: X
+    region: en
+    url: https://twitter.com/punitpalial/status/2014271129020739657
+    tool: Claude Code + Remotion
+    note: Under 1 h; Claude generated the voiceover and pulled web assets.
+    verified: aggregator
+  - creator: Vincentwei1021 (anything2explainer)
+    platform: GitHub
+    region: cn
+    url: https://github.com/Vincentwei1021/anything2explainer
+    tool: Claude Code / Codex + Remotion
+    note: Black-canvas neon variant - HUD capsule, chapter progress bar, word-aligned subtitles; 4 approval gates, 8 parallel agents.
+    verified: opened
+  - creator: HeyGen (/faceless-explainer)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes
+    tool: HyperFrames
+    note: Official workflow skill - topic to research, script, narration, captions.
+    verified: opened
+template: templates/dark-diagram-explainer

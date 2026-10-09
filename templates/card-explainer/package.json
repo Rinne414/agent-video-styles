@@ -1,0 +1,13 @@
+{
+  "name": "@avs/card-explainer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "tts": "node scripts/make-script.mjs && python ../../skill/scripts/tts.py assets/audio/script.json --out-dir assets/audio",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot",
+    "dev": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 preview",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/card-explainer.mp4"
+  }
+}

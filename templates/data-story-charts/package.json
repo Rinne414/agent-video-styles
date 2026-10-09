@@ -1,0 +1,22 @@
+{
+  "name": "@avs/data-story-charts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Data story chart video: KPI counter, line chart, ranking bars (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render DataStory out/data-story-charts.mp4",
+    "still": "remotion still DataStory out/still.png --image-format=png --frame=0"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.3.0",
+    "@remotion/cli": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,88 @@
+id: code-terminal-walkthrough
+tier: core
+evidence_strength: medium
+name:
+  en: Code & Terminal Walkthrough
+  zh: 代码与终端演示
+tagline:
+  en: Syntax-highlighted code types itself, diffs morph line by line and a terminal runs the result.
+  zh: 语法高亮的代码自动打出、diff 逐行变形，终端跑出结果。
+signature:
+  en:
+    - Editor window on a dark canvas with real syntax highlighting
+    - Code reveals by typing or line by line; unchanged lines dim to keep focus
+    - Before/after diffs morph token by token
+    - A terminal session runs the command and shows real output
+  zh:
+    - 深色画布上的编辑器窗口，真实语法高亮
+    - 代码以打字或逐行方式出现；未改动的行变暗以保持焦点
+    - 前后 diff 逐个 token 变形
+    - 终端执行命令并显示真实输出
+best_for:
+  en:
+    - Developer-tool launches, library and API tutorials, changelog or PR videos
+    - Dev-rel posts on X, YouTube and LinkedIn
+  zh:
+    - 开发者工具发布、库与 API 教程、更新日志或 PR 视频
+    - 在 X、YouTube、LinkedIn 发布的开发者关系内容
+avoid_when:
+  en:
+    - The audience is non-technical (use saas-launch-promo or card-explainer)
+    - The concept matters more than the code (use dark-diagram-explainer)
+    - The subject is a graphical product UI (use ui-camera-tour)
+  zh:
+    - 观众不是技术人员（改用 saas-launch-promo 或 card-explainer）
+    - 概念比代码更重要（改用 dark-diagram-explainer）
+    - 主题是图形化产品界面（改用 ui-camera-tour）
+tags:
+  use: [tutorial, feature-update, explainer]
+  platform: [x, youtube, linkedin, bilibili]
+  aspect: ["16:9", "1:1"]
+  audio: [music, sfx, voiceover, captions]
+  mood: [technical]
+  needs: [script]
+duration: 20-90 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion, motion-canvas]
+  why:
+    en: Code blocks are native HTML with Shiki highlighting, and HyperFrames ships a code-diff block and a code-editorial frame preset. Remotion's Code Hike template is the best choice for token-level morphs; Motion Canvas has a strong Code node but weak headless rendering.
+    zh: 代码块就是原生 HTML 加 Shiki 高亮，HyperFrames 自带 code-diff 组件和 code-editorial 版式。需要 token 级变形时 Remotion 的 Code Hike 模板最好；Motion Canvas 的 Code 节点很强但无头渲染较弱。
+variants:
+  - id: retro-crt-terminal
+    en: Green or amber phosphor on black, scanlines, glitch flashes, pixel font and ASCII progress bars - a hacker-style self-intro.
+    zh: 黑底绿色或琥珀色荧光字、扫描线、故障闪烁、像素字体与 ASCII 进度条——黑客风自我介绍。
+  - id: pr-to-video
+    en: A pull request as a short video - PR title card, 2-3 diffs, before/after result.
+    zh: 把一个 PR 做成短视频——PR 标题卡、2-3 段 diff、改动前后效果。
+evidence:
+  - creator: Remotion (Code Hike template)
+    platform: Web
+    region: global
+    url: https://www.remotion.dev/templates
+    tool: Remotion + Code Hike
+    note: Official code-animation template with token transitions.
+    verified: opened
+  - creator: HeyGen (code-diff block, code-editorial preset)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames
+    note: Official registry blocks and frame presets for code videos (Apache-2.0).
+    verified: opened
+  - creator: Prompt Motion (Code tag)
+    platform: Web
+    region: global
+    url: https://prompt-motion.com
+    tool: Opus 5.5 (mixed)
+    note: Gallery of agent-made videos with prompts; 21 videos tagged Code.
+    verified: opened
+  - creator: 바이브코더 루피 (vibecoder-loopy)
+    platform: Blog
+    region: kr
+    url: https://vibecoderloopy.com/blog/remotion-video-automation-oneday-class
+    tool: Remotion + Whisper + Claude Code
+    note: Retro terminal self-intro - typing, glitch, CRT scanlines, ASCII progress bars, pixel font.
+    verified: opened
+template: templates/code-terminal-walkthrough

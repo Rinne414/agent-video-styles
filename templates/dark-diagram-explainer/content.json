@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "title": "How a CDN makes websites fast",
+    "fps": 30,
+    "width": 1920,
+    "height": 1080
+  },
+  "voice": {
+    "name": "en-US-AndrewNeural",
+    "rate": "+6%"
+  },
+  "timing": {
+    "gapMs": 150,
+    "tailMs": 2200,
+    "padFrames": 8
+  },
+  "colors": {
+    "bg": "#0A0A0A",
+    "node": "#18181B",
+    "primary": "#6366F1",
+    "result": "#22C55E",
+    "problem": "#F43F5E",
+    "text": "#FAFAFA",
+    "muted": "#A1A1AA"
+  },
+  "labels": {
+    "userTokyo": "User, Tokyo",
+    "userParis": "User, Paris",
+    "edgeTokyo": "Edge, Tokyo",
+    "edgeParis": "Edge, Paris",
+    "origin": "Origin server",
+    "latency": "LATENCY",
+    "distance": "6,800 miles",
+    "rtt": "ms round trip",
+    "miss": "CACHE MISS",
+    "hit": "CACHE HIT",
+    "chapters": {
+      "s1": "How a CDN works",
+      "s2": "The problem: distance",
+      "s3": "The fix: edge servers",
+      "s4": "Cache miss",
+      "s5": "Cache hit",
+      "s6": "The result",
+      "end": ""
+    },
+    "crowd": "1,000,000 visitors",
+    "originFetches": "1 origin fetch",
+    "loadBefore": "Origin load",
+    "before": "200 ms",
+    "after": "20 ms",
+    "edgeNear": "5 ms",
+    "tagline": "Content, closer to everyone.",
+    "tagSub": "CDN in one minute",
+    "hookLoad": "Page loaded",
+    "hookTime": "20 ms",
+    "cdnFull": "Content Delivery Network",
+    "cdn": "CDN",
+    "loadLabel": "Origin load",
+    "originPlace": "Virginia, USA"
+  },
+  "segments": [
+    {
+      "id": "s1",
+      "chapter": "s1",
+      "speech": "Why does a website load fast in Tokyo, and just as fast in Paris?",
+      "caption": "Why does a website load fast in Tokyo, and just as fast in Paris?"
+    },
+    {
+      "id": "s2",
+      "chapter": "s2",
+      "speech": "Your site lives on one origin server. If that server is far away, every request must travel thousands of miles, and back. That delay is called latency.",
+      "caption": "Your site lives on one origin server. If that server is far away, every request must travel thousands of miles, and back. That delay is called latency."
+    },
+    {
+      "id": "s2b",
+      "chapter": "s2",
+      "speech": "From Tokyo to a server in Virginia, one round trip takes around two hundred milliseconds. And a single page needs dozens of them.",
+      "caption": "From Tokyo to a server in Virginia, one round trip takes around two hundred milliseconds. And a single page needs dozens of them."
+    },
+    {
+      "id": "s3",
+      "chapter": "s3",
+      "speech": "A C D N fixes this. It places edge servers close to your users, each one holding copies of your files.",
+      "caption": "A CDN fixes this. It places edge servers close to your users, each one holding copies of your files.",
+      "merge": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "id": "s4",
+      "chapter": "s4",
+      "speech": "First visit? That is a cache miss. The edge asks the origin once, then keeps a copy.",
+      "caption": "First visit? That is a cache miss. The edge asks the origin once, then keeps a copy."
+    },
+    {
+      "id": "s5",
+      "chapter": "s5",
+      "speech": "Next visit? That is a cache hit. The edge already has the file, and answers right away.",
+      "caption": "Next visit? That is a cache hit. The edge already has the file, and answers right away."
+    },
+    {
+      "id": "s5b",
+      "chapter": "s5",
+      "speech": "Now a million visitors can share one copy, and the origin barely notices.",
+      "caption": "Now a million visitors can share one copy, and the origin barely notices."
+    },
+    {
+      "id": "s6",
+      "chapter": "s6",
+      "speech": "The result: pages load in milliseconds, and the origin handles far less traffic. Everyone gets the fast version.",
+      "caption": "The result: pages load in milliseconds, and the origin handles far less traffic. Everyone gets the fast version."
+    },
+    {
+      "id": "s7",
+      "chapter": "end",
+      "speech": "A CDN. Content, closer to everyone.",
+      "caption": "A CDN. Content, closer to everyone."
+    }
+  ]
+}

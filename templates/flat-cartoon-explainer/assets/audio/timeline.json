@@ -1,0 +1,721 @@
+{
+  "voice": "en-US-JennyNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 6408,
+      "words": [
+        {
+          "text": "Ever",
+          "start_ms": 100,
+          "end_ms": 375
+        },
+        {
+          "text": "wonder",
+          "start_ms": 388,
+          "end_ms": 663
+        },
+        {
+          "text": "how",
+          "start_ms": 675,
+          "end_ms": 837
+        },
+        {
+          "text": "a",
+          "start_ms": 850,
+          "end_ms": 900
+        },
+        {
+          "text": "rainbow",
+          "start_ms": 912,
+          "end_ms": 1274
+        },
+        {
+          "text": "forms",
+          "start_ms": 1288,
+          "end_ms": 1876
+        },
+        {
+          "text": "It",
+          "start_ms": 2738,
+          "end_ms": 2900
+        },
+        {
+          "text": "starts",
+          "start_ms": 2912,
+          "end_ms": 3212
+        },
+        {
+          "text": "with",
+          "start_ms": 3225,
+          "end_ms": 3350
+        },
+        {
+          "text": "sunlight",
+          "start_ms": 3362,
+          "end_ms": 3924
+        },
+        {
+          "text": "and",
+          "start_ms": 3938,
+          "end_ms": 4038
+        },
+        {
+          "text": "a",
+          "start_ms": 4050,
+          "end_ms": 4100
+        },
+        {
+          "text": "lot",
+          "start_ms": 4112,
+          "end_ms": 4350
+        },
+        {
+          "text": "of",
+          "start_ms": 4362,
+          "end_ms": 4437
+        },
+        {
+          "text": "tiny",
+          "start_ms": 4450,
+          "end_ms": 4775
+        },
+        {
+          "text": "raindrops",
+          "start_ms": 4788,
+          "end_ms": 5526
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 4416,
+      "words": [
+        {
+          "text": "Sunlight",
+          "start_ms": 100,
+          "end_ms": 612
+        },
+        {
+          "text": "looks",
+          "start_ms": 625,
+          "end_ms": 863
+        },
+        {
+          "text": "white",
+          "start_ms": 875,
+          "end_ms": 1225
+        },
+        {
+          "text": "but",
+          "start_ms": 1400,
+          "end_ms": 1538
+        },
+        {
+          "text": "it",
+          "start_ms": 1550,
+          "end_ms": 1638
+        },
+        {
+          "text": "is",
+          "start_ms": 1650,
+          "end_ms": 1762
+        },
+        {
+          "text": "secretly",
+          "start_ms": 1775,
+          "end_ms": 2263
+        },
+        {
+          "text": "a",
+          "start_ms": 2275,
+          "end_ms": 2325
+        },
+        {
+          "text": "mix",
+          "start_ms": 2338,
+          "end_ms": 2650
+        },
+        {
+          "text": "of",
+          "start_ms": 2662,
+          "end_ms": 2762
+        },
+        {
+          "text": "every",
+          "start_ms": 2775,
+          "end_ms": 3000
+        },
+        {
+          "text": "color",
+          "start_ms": 3012,
+          "end_ms": 3550
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 6528,
+      "words": [
+        {
+          "text": "When",
+          "start_ms": 100,
+          "end_ms": 275
+        },
+        {
+          "text": "a",
+          "start_ms": 288,
+          "end_ms": 338
+        },
+        {
+          "text": "ray",
+          "start_ms": 350,
+          "end_ms": 550
+        },
+        {
+          "text": "enters",
+          "start_ms": 562,
+          "end_ms": 887
+        },
+        {
+          "text": "a",
+          "start_ms": 900,
+          "end_ms": 950
+        },
+        {
+          "text": "raindrop",
+          "start_ms": 962,
+          "end_ms": 1537
+        },
+        {
+          "text": "it",
+          "start_ms": 1688,
+          "end_ms": 1800
+        },
+        {
+          "text": "slows",
+          "start_ms": 1812,
+          "end_ms": 2124
+        },
+        {
+          "text": "down",
+          "start_ms": 2138,
+          "end_ms": 2413
+        },
+        {
+          "text": "and",
+          "start_ms": 2425,
+          "end_ms": 2537
+        },
+        {
+          "text": "bends",
+          "start_ms": 2550,
+          "end_ms": 3100
+        },
+        {
+          "text": "That",
+          "start_ms": 3962,
+          "end_ms": 4224
+        },
+        {
+          "text": "bend",
+          "start_ms": 4238,
+          "end_ms": 4488
+        },
+        {
+          "text": "is",
+          "start_ms": 4500,
+          "end_ms": 4612
+        },
+        {
+          "text": "called",
+          "start_ms": 4625,
+          "end_ms": 4875
+        },
+        {
+          "text": "refraction",
+          "start_ms": 4888,
+          "end_ms": 5650
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "file": "s4.mp3",
+      "duration_ms": 4968,
+      "words": [
+        {
+          "text": "Inside",
+          "start_ms": 100,
+          "end_ms": 712
+        },
+        {
+          "text": "the",
+          "start_ms": 850,
+          "end_ms": 962
+        },
+        {
+          "text": "light",
+          "start_ms": 975,
+          "end_ms": 1250
+        },
+        {
+          "text": "bounces",
+          "start_ms": 1262,
+          "end_ms": 1700
+        },
+        {
+          "text": "off",
+          "start_ms": 1712,
+          "end_ms": 1874
+        },
+        {
+          "text": "the",
+          "start_ms": 1888,
+          "end_ms": 1976
+        },
+        {
+          "text": "back",
+          "start_ms": 1988,
+          "end_ms": 2238
+        },
+        {
+          "text": "of",
+          "start_ms": 2250,
+          "end_ms": 2312
+        },
+        {
+          "text": "the",
+          "start_ms": 2325,
+          "end_ms": 2413
+        },
+        {
+          "text": "drop",
+          "start_ms": 2425,
+          "end_ms": 2837
+        },
+        {
+          "text": "like",
+          "start_ms": 3000,
+          "end_ms": 3175
+        },
+        {
+          "text": "a",
+          "start_ms": 3188,
+          "end_ms": 3238
+        },
+        {
+          "text": "tiny",
+          "start_ms": 3250,
+          "end_ms": 3588
+        },
+        {
+          "text": "mirror",
+          "start_ms": 3600,
+          "end_ms": 4100
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "file": "s5.mp3",
+      "duration_ms": 7440,
+      "words": [
+        {
+          "text": "On",
+          "start_ms": 100,
+          "end_ms": 262
+        },
+        {
+          "text": "the",
+          "start_ms": 275,
+          "end_ms": 350
+        },
+        {
+          "text": "way",
+          "start_ms": 362,
+          "end_ms": 550
+        },
+        {
+          "text": "out",
+          "start_ms": 562,
+          "end_ms": 687
+        },
+        {
+          "text": "it",
+          "start_ms": 700,
+          "end_ms": 788
+        },
+        {
+          "text": "bends",
+          "start_ms": 800,
+          "end_ms": 1050
+        },
+        {
+          "text": "again",
+          "start_ms": 1062,
+          "end_ms": 1512
+        },
+        {
+          "text": "and",
+          "start_ms": 1712,
+          "end_ms": 1812
+        },
+        {
+          "text": "the",
+          "start_ms": 1825,
+          "end_ms": 1913
+        },
+        {
+          "text": "colors",
+          "start_ms": 1925,
+          "end_ms": 2337
+        },
+        {
+          "text": "fan",
+          "start_ms": 2350,
+          "end_ms": 2562
+        },
+        {
+          "text": "out",
+          "start_ms": 2575,
+          "end_ms": 2950
+        },
+        {
+          "text": "Red",
+          "start_ms": 3812,
+          "end_ms": 4074
+        },
+        {
+          "text": "bends",
+          "start_ms": 4088,
+          "end_ms": 4338
+        },
+        {
+          "text": "the",
+          "start_ms": 4350,
+          "end_ms": 4462
+        },
+        {
+          "text": "least",
+          "start_ms": 4475,
+          "end_ms": 4925
+        },
+        {
+          "text": "and",
+          "start_ms": 5075,
+          "end_ms": 5175
+        },
+        {
+          "text": "violet",
+          "start_ms": 5188,
+          "end_ms": 5650
+        },
+        {
+          "text": "bends",
+          "start_ms": 5662,
+          "end_ms": 5912
+        },
+        {
+          "text": "the",
+          "start_ms": 5925,
+          "end_ms": 6013
+        },
+        {
+          "text": "most",
+          "start_ms": 6025,
+          "end_ms": 6575
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "file": "s6.mp3",
+      "duration_ms": 7656,
+      "words": [
+        {
+          "text": "Each",
+          "start_ms": 100,
+          "end_ms": 375
+        },
+        {
+          "text": "drop",
+          "start_ms": 388,
+          "end_ms": 638
+        },
+        {
+          "text": "sends",
+          "start_ms": 650,
+          "end_ms": 938
+        },
+        {
+          "text": "just",
+          "start_ms": 950,
+          "end_ms": 1212
+        },
+        {
+          "text": "one",
+          "start_ms": 1225,
+          "end_ms": 1450
+        },
+        {
+          "text": "color",
+          "start_ms": 1462,
+          "end_ms": 1800
+        },
+        {
+          "text": "toward",
+          "start_ms": 1812,
+          "end_ms": 2087
+        },
+        {
+          "text": "your",
+          "start_ms": 2100,
+          "end_ms": 2238
+        },
+        {
+          "text": "eye",
+          "start_ms": 2250,
+          "end_ms": 2575
+        },
+        {
+          "text": "Higher",
+          "start_ms": 3438,
+          "end_ms": 3788
+        },
+        {
+          "text": "drops",
+          "start_ms": 3800,
+          "end_ms": 4112
+        },
+        {
+          "text": "send",
+          "start_ms": 4125,
+          "end_ms": 4350
+        },
+        {
+          "text": "you",
+          "start_ms": 4362,
+          "end_ms": 4500
+        },
+        {
+          "text": "red",
+          "start_ms": 4512,
+          "end_ms": 4850
+        },
+        {
+          "text": "and",
+          "start_ms": 5088,
+          "end_ms": 5238
+        },
+        {
+          "text": "lower",
+          "start_ms": 5250,
+          "end_ms": 5500
+        },
+        {
+          "text": "drops",
+          "start_ms": 5512,
+          "end_ms": 5837
+        },
+        {
+          "text": "send",
+          "start_ms": 5850,
+          "end_ms": 6088
+        },
+        {
+          "text": "you",
+          "start_ms": 6100,
+          "end_ms": 6188
+        },
+        {
+          "text": "violet",
+          "start_ms": 6200,
+          "end_ms": 6788
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "file": "s7.mp3",
+      "duration_ms": 5616,
+      "words": [
+        {
+          "text": "Millions",
+          "start_ms": 100,
+          "end_ms": 562
+        },
+        {
+          "text": "of",
+          "start_ms": 575,
+          "end_ms": 663
+        },
+        {
+          "text": "drops",
+          "start_ms": 675,
+          "end_ms": 1187
+        },
+        {
+          "text": "each",
+          "start_ms": 1362,
+          "end_ms": 1537
+        },
+        {
+          "text": "sending",
+          "start_ms": 1550,
+          "end_ms": 1875
+        },
+        {
+          "text": "its",
+          "start_ms": 1888,
+          "end_ms": 2038
+        },
+        {
+          "text": "own",
+          "start_ms": 2050,
+          "end_ms": 2238
+        },
+        {
+          "text": "color",
+          "start_ms": 2250,
+          "end_ms": 2725
+        },
+        {
+          "text": "paint",
+          "start_ms": 2925,
+          "end_ms": 3163
+        },
+        {
+          "text": "a",
+          "start_ms": 3175,
+          "end_ms": 3225
+        },
+        {
+          "text": "bright",
+          "start_ms": 3238,
+          "end_ms": 3538
+        },
+        {
+          "text": "arc",
+          "start_ms": 3550,
+          "end_ms": 3775
+        },
+        {
+          "text": "across",
+          "start_ms": 3788,
+          "end_ms": 4126
+        },
+        {
+          "text": "the",
+          "start_ms": 4138,
+          "end_ms": 4238
+        },
+        {
+          "text": "sky",
+          "start_ms": 4250,
+          "end_ms": 4750
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "file": "s8.mp3",
+      "duration_ms": 6552,
+      "words": [
+        {
+          "text": "Stand",
+          "start_ms": 100,
+          "end_ms": 488
+        },
+        {
+          "text": "with",
+          "start_ms": 500,
+          "end_ms": 612
+        },
+        {
+          "text": "the",
+          "start_ms": 625,
+          "end_ms": 713
+        },
+        {
+          "text": "sun",
+          "start_ms": 725,
+          "end_ms": 963
+        },
+        {
+          "text": "behind",
+          "start_ms": 975,
+          "end_ms": 1337
+        },
+        {
+          "text": "you",
+          "start_ms": 1350,
+          "end_ms": 1588
+        },
+        {
+          "text": "and",
+          "start_ms": 1800,
+          "end_ms": 1912
+        },
+        {
+          "text": "the",
+          "start_ms": 1925,
+          "end_ms": 2013
+        },
+        {
+          "text": "rainbow",
+          "start_ms": 2025,
+          "end_ms": 2400
+        },
+        {
+          "text": "appears",
+          "start_ms": 2412,
+          "end_ms": 2762
+        },
+        {
+          "text": "in",
+          "start_ms": 2775,
+          "end_ms": 2875
+        },
+        {
+          "text": "front",
+          "start_ms": 2888,
+          "end_ms": 3388
+        },
+        {
+          "text": "Now",
+          "start_ms": 4250,
+          "end_ms": 4462
+        },
+        {
+          "text": "you",
+          "start_ms": 4475,
+          "end_ms": 4613
+        },
+        {
+          "text": "know",
+          "start_ms": 4625,
+          "end_ms": 4750
+        },
+        {
+          "text": "how",
+          "start_ms": 4762,
+          "end_ms": 4937
+        },
+        {
+          "text": "it",
+          "start_ms": 4950,
+          "end_ms": 5038
+        },
+        {
+          "text": "forms",
+          "start_ms": 5050,
+          "end_ms": 5688
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+id: painterly-canvas
+tier: core
+evidence_strength: medium
+name:
+  en: Painterly Canvas
+  zh: 水彩水墨笔触动画
+tagline:
+  en: Watercolor washes and ink brush strokes painted procedurally on canvas, seeded so every frame renders the same way twice.
+  zh: 在 canvas 上程序化绘制水彩晕染与水墨笔触，以固定种子保证每一帧可重复渲染。
+signature:
+  en:
+    - Grainy off-white paper with lots of empty space
+    - Textured brush outlines that gently "boil" and washes that bloom
+    - A restrained 5-7 color watercolor palette with sepia or indigo ink
+    - Strokes draw on and washes wipe across like a hand painting in real time
+  zh:
+    - 带纸纹的米白画纸，大量留白
+    - 有质感的笔触轮廓轻微抖动，颜色晕染慢慢化开
+    - 克制的 5-7 色水彩调色板，配棕褐或靛蓝墨线
+    - 笔触逐笔画出、颜色像手绘般晕开
+best_for:
+  en:
+    - Lyric videos, poems, story moments and emotional brand pieces
+    - Creators who want a hand-made look without image or video models
+  zh:
+    - 歌词视频、诗歌、故事片段与情感向品牌短片
+    - 想要手作质感、又不想用图像或视频模型的创作者
+avoid_when:
+  en:
+    - Precise information must be read (use card-explainer or data-story-charts)
+    - Render time is tight; watercolor fills are slow (use flat-cartoon-explainer)
+  zh:
+    - 需要准确传达信息（改用 card-explainer 或 data-story-charts）
+    - 渲染时间紧张，水彩填充很慢（改用 flat-cartoon-explainer）
+tags:
+  use: [music-video, brand-reel, social-short]
+  platform: [instagram-reels, youtube, tiktok-douyin, bilibili]
+  aspect: ["1:1", "9:16", "16:9"]
+  audio: [music, captions]
+  mood: [calm, cinematic]
+  needs: [script]
+duration: 15-60 s
+difficulty: 3
+tools:
+  primary: html-capture
+  alternatives: [hyperframes]
+  why:
+    en: p5.js + p5.brush gives real watercolor and ink brushes, but p5 is not natively seekable; the raw capture contract (window.renderFrame(i, fps) redraws frame i from scratch, captured by scripts/capture_html.mjs) keeps it deterministic. A seekable canvas inside HyperFrames is the alternative.
+    zh: p5.js + p5.brush 能提供真正的水彩与墨笔刷，但 p5 本身不支持逐帧定位；用原始截取约定（window.renderFrame(i, fps) 从零重画第 i 帧，由 scripts/capture_html.mjs 截取）即可保证可重复。也可在 HyperFrames 中使用可定位的 canvas。
+variants:
+  - id: ink-sumi
+    en: Black ink on rice paper with a single vermilion seal accent and brush calligraphy titles.
+    zh: 宣纸黑墨，配一枚朱红印章点缀与毛笔书法标题。
+  - id: painted-reveal
+    en: Line art reveals left to right, then washes fill in the same direction.
+    zh: 线稿由左到右显现，再以同一方向铺上淡彩。
+  - id: abstract-flow
+    en: No characters; flowing brush fields that react to the music's amplitude.
+    zh: 不用角色，流动的笔触场随音乐振幅变化。
+evidence:
+  - creator: JohnHeibel/ClaudeAnimationBase
+    platform: GitHub
+    region: global
+    url: https://github.com/JohnHeibel/ClaudeAnimationBase
+    tool: p5.js + p5.brush
+    note: Hand-painted cartoon animation kit with 31 emotions (MIT, 980 stars); its PDoomVideo showcase is listed in awesome-claude-video-skills.
+    verified: aggregator
+  - creator: tuzhechen2005/opus-video-skills (painted-animation)
+    platform: GitHub
+    region: cn
+    url: https://github.com/tuzhechen2005/opus-video-skills
+    tool: p5.js + p5.brush
+    note: 31 s watercolor and ink lyric video for 陶喆《小镇姑娘》 with character acting and karaoke lyrics; all imagery procedural.
+    verified: opened
+  - creator: 益盛科技 (des13)
+    platform: Company blog
+    region: tw
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Sonnet 5.5 + HyperFrames
+    note: 45 s paper-cut and watercolor church animation made in code.
+    verified: opened
+  - creator: xiejunjie524/handdraw-story-video
+    platform: GitHub
+    region: cn
+    url: https://github.com/xiejunjie524/handdraw-story-video
+    tool: HyperFrames + GSAP
+    note: Line art reveals left to right, then low-saturation color fills, 720x960 vertical; needs externally generated color master images, so only the reveal technique is in scope.
+    verified: opened
+template: templates/painterly-canvas

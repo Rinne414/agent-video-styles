@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "title": "How does a rainbow form?",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "voice": { "id": "en-US-JennyNeural", "rate": "+0%" },
+  "timing": { "leadSec": 0.4, "gapSec": 0.2, "tailSec": 1.5 },
+  "palette": {
+    "coral": "#FF6B6B",
+    "orange": "#FF9F1C",
+    "yellow": "#FFD166",
+    "mint": "#06D6A0",
+    "blue": "#118AB2",
+    "violet": "#8E7DFF",
+    "ink": "#2B2D42",
+    "sky": "#E8F4FF",
+    "floor": "#FFE2B8",
+    "white": "#FFFFFF"
+  },
+  "host": { "name": "Pip", "trait": "antenna" },
+  "labels": {
+    "title": "How does a rainbow form?",
+    "whiteLight": "white light",
+    "allColors": "all colors",
+    "refraction": "refraction!",
+    "bounce": "bounce!",
+    "red": "red",
+    "violet": "violet",
+    "eye": "your eye",
+    "sunBehind": "sun behind you",
+    "recap": "sunlight + raindrops = rainbow"
+  },
+  "segments": [
+    { "id": "s1", "text": "Ever wonder how a rainbow forms? It starts with sunlight and a lot of tiny raindrops." },
+    { "id": "s2", "text": "Sunlight looks white, but it is secretly a mix of every color." },
+    { "id": "s3", "text": "When a ray enters a raindrop, it slows down and bends. That bend is called refraction." },
+    { "id": "s4", "text": "Inside, the light bounces off the back of the drop, like a tiny mirror." },
+    { "id": "s5", "text": "On the way out it bends again, and the colors fan out. Red bends the least, and violet bends the most." },
+    { "id": "s6", "text": "Each drop sends just one color toward your eye. Higher drops send you red, and lower drops send you violet." },
+    { "id": "s7", "text": "Millions of drops, each sending its own color, paint a bright arc across the sky." },
+    { "id": "s8", "text": "Stand with the sun behind you, and the rainbow appears in front. Now you know how it forms!" }
+  ],
+  "scenes": [
+    { "id": "open", "segments": ["s1"], "iris": "yellow" },
+    { "id": "white", "segments": ["s2"], "iris": "coral" },
+    { "id": "drop", "segments": ["s3", "s4", "s5"], "iris": "mint" },
+    { "id": "eye", "segments": ["s6"], "iris": "blue" },
+    { "id": "arc", "segments": ["s7"], "iris": "violet" },
+    { "id": "wrap", "segments": ["s8"], "iris": null }
+  ],
+  "factLedger": [
+    "Sunlight is a mix of all visible wavelengths (NASA Science, 'Visible Light').",
+    "Light bends when it passes between air and water (refraction); different colors bend by slightly different amounts, red least and violet most.",
+    "Light reflects once off the back inside the drop in a primary rainbow (NOAA/NWS, 'How Rainbows Form').",
+    "Each raindrop sends one color toward a given observer; red is seen on the outside/top of the arc, violet on the inside/bottom.",
+    "The observer stands with the sun behind them; the rainbow is centered on the point opposite the sun."
+  ]
+}

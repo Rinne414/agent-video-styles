@@ -1,0 +1,93 @@
+id: saas-launch-promo
+tier: core
+evidence_strength: strong
+name:
+  en: SaaS Launch Promo
+  zh: SaaS 产品发布宣传片
+tagline:
+  en: Dark canvas, one brand accent, kinetic headlines and floating UI cards cut to the beat.
+  zh: 深色画布、单一品牌色、动态大标题加悬浮 UI 卡片，卡点剪辑。
+signature:
+  en:
+    - Near-black background with a soft glow of the brand color behind the focal element
+    - Big tight-tracked sans headlines punching in word by word
+    - Mock app windows and feature cards sliding in with springs
+    - Hard cuts on the beat, a short logo reveal, CTA held at the end
+  zh:
+    - 近黑背景，焦点元素后方有品牌色柔光
+    - 紧字距的大号无衬线标题逐词弹入
+    - 模拟 App 窗口与功能卡片以弹簧动画滑入
+    - 卡点硬切、短 Logo 揭示，结尾停留在行动号召
+best_for:
+  en:
+    - App, SaaS or browser-extension launch on X, Product Hunt or LinkedIn
+    - Feature announcement teasers (15-45 s)
+  zh:
+    - 在 X、Product Hunt、LinkedIn 发布 App、SaaS 或浏览器插件
+    - 新功能预告短片（15-45 秒）
+avoid_when:
+  en:
+    - The message needs explanation or narration (use dark-diagram-explainer)
+    - The brand is warm, playful or consumer-lifestyle (use flat-cartoon-explainer or glass variant)
+  zh:
+    - 内容需要讲解或旁白（改用 dark-diagram-explainer）
+    - 品牌调性温暖、活泼或偏生活方式（改用 flat-cartoon-explainer 或玻璃变体）
+tags:
+  use: [product-launch, feature-update, social-short]
+  platform: [x, product-hunt, linkedin, youtube]
+  aspect: ["16:9", "9:16"]
+  audio: [music, sfx]
+  mood: [energetic, premium, technical]
+  needs: [logo, screenshots]
+duration: 20-45 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Most public examples use Remotion; springs, Series and TransitionSeries map directly onto beat-cut scene lists. HyperFrames + GSAP is equally capable and Apache-2.0.
+    zh: 公开案例以 Remotion 为主；spring、Series、TransitionSeries 天然适合卡点分镜。HyperFrames + GSAP 同样胜任，且是 Apache-2.0 授权。
+variants:
+  - id: glass-gradient
+    en: Soft animated mesh gradient, frosted-glass cards, emoji or icon glyphs; friendlier consumer tone.
+    zh: 柔和流动渐变背景、毛玻璃卡片、emoji 或图标；更亲和的消费级调性。
+  - id: vertical-teaser
+    en: 9:16, 15 s cut-down with stacked layout for Reels, Shorts and Douyin.
+    zh: 9:16、15 秒精简版，上下堆叠布局，适合 Reels、Shorts、抖音。
+evidence:
+  - creator: Mike Codeur
+    platform: Blog
+    region: global
+    url: https://blog.mikecodeur.com/en/post/remotion-claude-code-video-product-hunt
+    tool: Claude Code + Remotion skills
+    note: 30 s Product Hunt video for YouThumb.ai; short conversational edits for transitions, logo and brand colors.
+    verified: opened
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion
+    note: Prompt "product URL to launch ad" - dark background, brand-color glow, cursor-driven mock UI, particle burst.
+    verified: opened
+  - creator: "@EnvolDev"
+    platform: X
+    region: global
+    url: https://x.com/EnvolDev/status/2107547689819017555
+    tool: Opus 5.5 + Remotion
+    note: TopSlash launch, 57 s, "no video editor, only code".
+    verified: aggregator
+  - creator: Yuto Shintani (AUN Tech Blog)
+    platform: Zenn
+    region: jp
+    url: https://zenn.dev/aun_phonogram/articles/remotion-skill-video-creation
+    tool: Remotion + remotion-dev/skills
+    note: Glass-gradient variant - gradient background, frosted cards, emoji icons, spring stagger.
+    verified: opened
+  - creator: latent-spaces/brag
+    platform: GitHub
+    region: global
+    url: https://github.com/latent-spaces/brag
+    tool: HyperFrames
+    note: One-command 20 s launch video with music and share copy (MIT).
+    verified: opened
+template: templates/saas-launch-promo

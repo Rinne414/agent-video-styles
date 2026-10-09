@@ -1,0 +1,51 @@
+@font-face { font-family: "Noto Sans SC"; src: url("assets/fonts/NotoSansSC-subset.woff2") format("woff2"); font-weight: 400 800; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 1920px; height: 1080px; font-family: "Noto Sans SC", sans-serif; color: var(--text); background: var(--bg); }
+.scene { position: absolute; inset: 0; }
+.card { position: absolute; left: 240px; top: 160px; width: 1440px; height: 760px; border-radius: 28px; background: var(--card); box-shadow: 0 24px 60px rgba(17,24,39,0.10); overflow: hidden; }
+.card-inner { position: absolute; inset: 0; padding: 72px 96px; box-sizing: border-box; }
+.col { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 22px; height: 100%; align-items: flex-start; }
+.col.center { align-items: center; text-align: center; }
+.ico { stroke: var(--accent); flex: none; }
+.ico .soft { fill: var(--accent-soft); }
+.kicker { font-size: 24px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); }
+.h-key { margin: 0; font-size: 84px; font-weight: 700; line-height: 1.2; }
+.h-mid { margin: 0; font-size: 64px; font-weight: 700; line-height: 1.25; }
+.body { font-size: 40px; font-weight: 500; line-height: 1.4; }
+.muted-text { color: var(--muted); }
+.key { display: flex; flex-direction: column; gap: 6px; font-size: 76px; font-weight: 700; line-height: 1.35; }
+.center .key { align-items: center; font-size: 84px; }
+.phrase { white-space: nowrap; }
+.hl { position: relative; display: inline-block; }
+.hl b { position: relative; font-weight: inherit; }
+.hl-bar { position: absolute; left: -6px; right: -6px; bottom: 6%; height: 42%; background: var(--accent-hl); border-radius: 6px; transform-origin: left center; }
+.art { position: absolute; right: 90px; top: 120px; }
+.tomato { width: 340px; height: 340px; }
+.tomato.big { width: 380px; height: 380px; }
+.t-body { fill: var(--accent); }
+.t-shine { fill: rgba(255,255,255,0.35); }
+.t-leaf { fill: #9A3412; }
+.attrib { position: absolute; left: 96px; bottom: 44px; font-size: 20px; opacity: 0.5; color: var(--text); }
+.counter { position: absolute; right: 250px; top: 120px; font-size: 24px; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; }
+.bar { position: absolute; left: 0; top: 0; width: 1920px; height: 6px; background: rgba(17,24,39,0.06); }
+.bar-fill { width: 1920px; height: 6px; background: var(--accent); transform-origin: left center; }
+.bignum { display: flex; align-items: baseline; gap: 20px; }
+.num { font-size: 260px; font-weight: 800; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.unit { font-size: 80px; font-weight: 700; }
+.ring { position: absolute; right: 110px; top: 190px; width: 380px; height: 380px; }
+.ring-bg { fill: none; stroke: var(--accent-soft); stroke-width: 14; }
+.ring-fg { fill: none; stroke: var(--accent); stroke-width: 14; stroke-linecap: round; stroke-dasharray: 540.35; }
+.wide { width: 100%; }
+.cmp { display: flex; align-items: center; gap: 28px; width: 100%; margin-top: 8px; }
+.cmp-col { flex: 1; border-radius: 22px; padding: 44px; box-sizing: border-box; min-height: 300px; display: flex; flex-direction: column; gap: 22px; }
+.cmp-col.muted { border: 3px solid transparent; background: #F3F4F6; color: var(--muted); }
+.cmp-col.hot { background: var(--accent-soft); border: 3px solid var(--accent); color: var(--text); }
+.tag { font-size: 56px; font-weight: 700; }
+.cmp-col.hot .tag { color: var(--accent); }
+.vs { flex: none; width: 76px; height: 76px; border-radius: 50%; background: var(--text); color: #fff; font-weight: 700; font-size: 24px; display: flex; align-items: center; justify-content: center; letter-spacing: 0.04em; }
+.marks { display: flex; gap: 36px; margin-top: 14px; }
+.mark .tomato { width: 170px; height: 170px; }
+ul { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 26px; }
+li { display: flex; align-items: center; gap: 24px; font-size: 52px; font-weight: 600; }
+.captions { position: absolute; left: 0; top: 944px; width: 1920px; height: 110px; }
+.cap { position: absolute; left: 0; right: 0; top: 0; text-align: center; font-size: 48px; font-weight: 500; line-height: 1.3; opacity: 0; }

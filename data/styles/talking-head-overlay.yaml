@@ -1,0 +1,117 @@
+id: talking-head-overlay
+tier: core
+evidence_strength: strong
+name:
+  en: Talking-Head Overlay Package
+  zh: 口播动效叠加包
+tagline:
+  en: Lower thirds, glass badges, step numbers and data callouts pinned to the speaker's words, never covering the face.
+  zh: 下标题、毛玻璃标签、步骤编号与数据标注卡在说话者的字句上出现，绝不遮脸。
+signature:
+  en:
+    - The original footage stays untouched; graphics live in the empty space around the speaker
+    - Name lower third, frosted pill badges, big step numerals, count-up data callouts
+    - Every overlay appears on the exact word that mentions it
+    - Can ship as a transparent overlay layer for Premiere, CapCut or DaVinci
+  zh:
+    - 原始素材不动，图形放在说话者周围的留白处
+    - 姓名下标题、毛玻璃胶囊标签、大号步骤编号、数字滚动的数据标注
+    - 每个叠加元素都在提到它的那个字上出现
+    - 可输出透明叠加层，直接拖进 Premiere、剪映或 DaVinci
+best_for:
+  en:
+    - Knowledge creators and founders who already record talking-head videos
+    - Turning a plain interview, vlog or course recording into a produced piece
+  zh:
+    - 已经在拍口播的知识博主与创始人
+    - 把普通访谈、vlog 或课程录像升级成有包装的成片
+avoid_when:
+  en:
+    - There is no footage at all (use karaoke-caption-short or dark-diagram-explainer)
+    - The video is mainly a product demo (use ui-camera-tour)
+  zh:
+    - 完全没有拍摄素材（改用 karaoke-caption-short 或 dark-diagram-explainer）
+    - 视频主体是产品演示（改用 ui-camera-tour）
+tags:
+  use: [overlay, explainer, personal-brand, tutorial]
+  platform: [youtube, youtube-shorts, tiktok-douyin, bilibili, linkedin, instagram-reels]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, sfx]
+  mood: [technical, editorial, energetic]
+  needs: [footage, script]
+duration: footage length (30 s - 20 min)
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Remotion's OffthreadVideo, word-timed captions and ProRes 4444 / WebM alpha export cover both the composited and the overlay-only deliverable. HyperFrames ships an official talking-head-recut skill and also exports transparent layers.
+    zh: Remotion 的 OffthreadVideo、逐字字幕和 ProRes 4444 / WebM 透明导出，同时满足合成成片与纯叠加层两种交付。HyperFrames 有官方 talking-head-recut skill，也能导出透明层。
+variants:
+  - id: overlay-only
+    en: No footage in the render; a transparent ProRes 4444 or WebM-alpha layer the editor drops above the footage.
+    zh: 渲染中不含素材，只输出透明 ProRes 4444 或 WebM 透明层，剪辑师叠到素材上方。
+  - id: pip-split
+    en: The speaker shrinks to a rounded picture-in-picture while a panel, chart or quote fills the rest of the frame.
+    zh: 说话者缩成圆角画中画，其余画面放面板、图表或金句。
+  - id: vertical-talk
+    en: 1080x1920 talking head with captions in the lower band and badges in the upper band.
+    zh: 1080x1920 竖屏口播，字幕在下方区域，标签在上方区域。
+evidence:
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion + Whisper
+    note: Prompt 4 - footage untouched, dark gradient over the top 40%, glass badges, step numbers, progress bars and captions synced to word timestamps.
+    verified: opened
+  - creator: Rescroll
+    platform: Blog
+    region: en
+    url: https://www.rescroll.ai/blog/claude-code-remotion-motion-graphics-2026
+    tool: Claude Code + Remotion
+    note: Counter overlay walkthrough; notes that agent placement can ignore the speaker's face.
+    verified: opened
+  - creator: HeyGen talking-head-recut skill
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes
+    tool: HyperFrames
+    note: Official skill for lower thirds, data callouts, kinetic titles, pull-quotes, side panels and PiP.
+    verified: opened
+  - creator: 老胡 (LaohuAD) laohu-CapMotion
+    platform: GitHub
+    region: cn
+    url: https://github.com/LaohuAD/laohu-CapMotion
+    tool: ASR + EDL rough cut + Remotion / HyperFrames
+    note: 口播精剪 workflow with animated captions and overlays; code MIT, rules CC BY-SA 4.0.
+    verified: opened
+  - creator: browser-use video-use
+    platform: GitHub
+    region: global
+    url: https://github.com/browser-use/video-use
+    tool: Claude Code + HyperFrames / Remotion
+    note: Cuts filler words, burns two-word uppercase captions, adds overlays; covered at https://developer.cloud.tencent.com/article/2701503
+    verified: opened
+  - creator: Wells (wellstsai)
+    platform: Blog
+    region: tw
+    url: https://wellstsai.com/post/remotion-video-animation-tutorial/
+    tool: Remotion + Claude Code / Codex
+    note: Title cards pop in at 0.8 s intervals with SFX; exported as transparent ProRes 4444 (yuva444p10le) to overlay on screen recordings.
+    verified: opened
+  - creator: Barty-Bart/motion-graphics
+    platform: GitHub
+    region: global
+    url: https://github.com/Barty-Bart/motion-graphics
+    tool: HTML + Playwright
+    note: motion-broll side panels; skeleton lines instead of invented numbers; closed-form springs.
+    verified: opened
+  - creator: Maciej Dziuba (MM Editing)
+    platform: YouTube
+    region: en
+    url: https://videohighlight.com/v/Xwa5x0jJI0Y
+    tool: Claude Code + HyperFrames
+    note: Lower thirds and captions built by the agent (seen through a video summary page).
+    verified: aggregator
+template: templates/talking-head-overlay

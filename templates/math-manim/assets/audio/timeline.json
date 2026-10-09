@@ -1,0 +1,726 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 6360,
+      "words": [
+        {
+          "text": "How",
+          "start_ms": 105,
+          "end_ms": 223
+        },
+        {
+          "text": "much",
+          "start_ms": 237,
+          "end_ms": 448
+        },
+        {
+          "text": "space",
+          "start_ms": 461,
+          "end_ms": 948
+        },
+        {
+          "text": "does",
+          "start_ms": 961,
+          "end_ms": 1106
+        },
+        {
+          "text": "a",
+          "start_ms": 1118,
+          "end_ms": 1171
+        },
+        {
+          "text": "circle",
+          "start_ms": 1184,
+          "end_ms": 1566
+        },
+        {
+          "text": "cover",
+          "start_ms": 1579,
+          "end_ms": 1987
+        },
+        {
+          "text": "The",
+          "start_ms": 2421,
+          "end_ms": 2500
+        },
+        {
+          "text": "answer",
+          "start_ms": 2513,
+          "end_ms": 2855
+        },
+        {
+          "text": "is",
+          "start_ms": 2868,
+          "end_ms": 2986
+        },
+        {
+          "text": "famous",
+          "start_ms": 3000,
+          "end_ms": 3605
+        },
+        {
+          "text": "pi",
+          "start_ms": 3868,
+          "end_ms": 4092
+        },
+        {
+          "text": "r",
+          "start_ms": 4105,
+          "end_ms": 4210
+        },
+        {
+          "text": "squared",
+          "start_ms": 4224,
+          "end_ms": 4711
+        },
+        {
+          "text": "But",
+          "start_ms": 5158,
+          "end_ms": 5250
+        },
+        {
+          "text": "why",
+          "start_ms": 5263,
+          "end_ms": 5421
+        },
+        {
+          "text": "is",
+          "start_ms": 5434,
+          "end_ms": 5539
+        },
+        {
+          "text": "it",
+          "start_ms": 5553,
+          "end_ms": 5632
+        },
+        {
+          "text": "true",
+          "start_ms": 5645,
+          "end_ms": 5974
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 5616,
+      "words": [
+        {
+          "text": "Take",
+          "start_ms": 105,
+          "end_ms": 263
+        },
+        {
+          "text": "a",
+          "start_ms": 276,
+          "end_ms": 329
+        },
+        {
+          "text": "circle",
+          "start_ms": 342,
+          "end_ms": 776
+        },
+        {
+          "text": "of",
+          "start_ms": 789,
+          "end_ms": 894
+        },
+        {
+          "text": "radius",
+          "start_ms": 908,
+          "end_ms": 1342
+        },
+        {
+          "text": "r",
+          "start_ms": 1355,
+          "end_ms": 1710
+        },
+        {
+          "text": "and",
+          "start_ms": 2000,
+          "end_ms": 2079
+        },
+        {
+          "text": "cut",
+          "start_ms": 2092,
+          "end_ms": 2276
+        },
+        {
+          "text": "it",
+          "start_ms": 2289,
+          "end_ms": 2368
+        },
+        {
+          "text": "into",
+          "start_ms": 2382,
+          "end_ms": 2685
+        },
+        {
+          "text": "equal",
+          "start_ms": 2829,
+          "end_ms": 3171
+        },
+        {
+          "text": "wedges",
+          "start_ms": 3184,
+          "end_ms": 3697
+        },
+        {
+          "text": "like",
+          "start_ms": 3987,
+          "end_ms": 4132
+        },
+        {
+          "text": "slicing",
+          "start_ms": 4145,
+          "end_ms": 4632
+        },
+        {
+          "text": "a",
+          "start_ms": 4645,
+          "end_ms": 4698
+        },
+        {
+          "text": "pizza",
+          "start_ms": 4711,
+          "end_ms": 5211
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 6384,
+      "words": [
+        {
+          "text": "Now",
+          "start_ms": 105,
+          "end_ms": 316
+        },
+        {
+          "text": "unroll",
+          "start_ms": 329,
+          "end_ms": 697
+        },
+        {
+          "text": "it",
+          "start_ms": 711,
+          "end_ms": 869
+        },
+        {
+          "text": "Lay",
+          "start_ms": 1303,
+          "end_ms": 1461
+        },
+        {
+          "text": "the",
+          "start_ms": 1474,
+          "end_ms": 1579
+        },
+        {
+          "text": "wedges",
+          "start_ms": 1592,
+          "end_ms": 1974
+        },
+        {
+          "text": "side",
+          "start_ms": 1987,
+          "end_ms": 2276
+        },
+        {
+          "text": "by",
+          "start_ms": 2289,
+          "end_ms": 2447
+        },
+        {
+          "text": "side",
+          "start_ms": 2461,
+          "end_ms": 2935
+        },
+        {
+          "text": "pointing",
+          "start_ms": 3316,
+          "end_ms": 3750
+        },
+        {
+          "text": "up",
+          "start_ms": 3763,
+          "end_ms": 4013
+        },
+        {
+          "text": "then",
+          "start_ms": 4316,
+          "end_ms": 4513
+        },
+        {
+          "text": "down",
+          "start_ms": 4526,
+          "end_ms": 4947
+        },
+        {
+          "text": "then",
+          "start_ms": 5342,
+          "end_ms": 5460
+        },
+        {
+          "text": "up",
+          "start_ms": 5474,
+          "end_ms": 5606
+        },
+        {
+          "text": "again",
+          "start_ms": 5618,
+          "end_ms": 6000
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "file": "s4.mp3",
+      "duration_ms": 7488,
+      "words": [
+        {
+          "text": "The",
+          "start_ms": 118,
+          "end_ms": 197
+        },
+        {
+          "text": "pieces",
+          "start_ms": 211,
+          "end_ms": 685
+        },
+        {
+          "text": "interlock",
+          "start_ms": 750,
+          "end_ms": 1329
+        },
+        {
+          "text": "into",
+          "start_ms": 1342,
+          "end_ms": 1579
+        },
+        {
+          "text": "a",
+          "start_ms": 1592,
+          "end_ms": 1645
+        },
+        {
+          "text": "shape",
+          "start_ms": 1658,
+          "end_ms": 2105
+        },
+        {
+          "text": "that",
+          "start_ms": 2224,
+          "end_ms": 2356
+        },
+        {
+          "text": "is",
+          "start_ms": 2368,
+          "end_ms": 2513
+        },
+        {
+          "text": "almost",
+          "start_ms": 2526,
+          "end_ms": 2908
+        },
+        {
+          "text": "a",
+          "start_ms": 2921,
+          "end_ms": 2960
+        },
+        {
+          "text": "parallelogram",
+          "start_ms": 2974,
+          "end_ms": 3856
+        },
+        {
+          "text": "Cut",
+          "start_ms": 4289,
+          "end_ms": 4473
+        },
+        {
+          "text": "more",
+          "start_ms": 4487,
+          "end_ms": 4698
+        },
+        {
+          "text": "wedges",
+          "start_ms": 4711,
+          "end_ms": 5237
+        },
+        {
+          "text": "and",
+          "start_ms": 5447,
+          "end_ms": 5552
+        },
+        {
+          "text": "the",
+          "start_ms": 5566,
+          "end_ms": 5671
+        },
+        {
+          "text": "bumpy",
+          "start_ms": 5684,
+          "end_ms": 6092
+        },
+        {
+          "text": "edges",
+          "start_ms": 6105,
+          "end_ms": 6421
+        },
+        {
+          "text": "smooth",
+          "start_ms": 6434,
+          "end_ms": 6763
+        },
+        {
+          "text": "out",
+          "start_ms": 6776,
+          "end_ms": 7105
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "file": "s5.mp3",
+      "duration_ms": 5544,
+      "words": [
+        {
+          "text": "In",
+          "start_ms": 105,
+          "end_ms": 197
+        },
+        {
+          "text": "the",
+          "start_ms": 211,
+          "end_ms": 316
+        },
+        {
+          "text": "limit",
+          "start_ms": 329,
+          "end_ms": 711
+        },
+        {
+          "text": "it",
+          "start_ms": 1026,
+          "end_ms": 1105
+        },
+        {
+          "text": "becomes",
+          "start_ms": 1118,
+          "end_ms": 1473
+        },
+        {
+          "text": "a",
+          "start_ms": 1487,
+          "end_ms": 1553
+        },
+        {
+          "text": "perfect",
+          "start_ms": 1566,
+          "end_ms": 2132
+        },
+        {
+          "text": "rectangle",
+          "start_ms": 2145,
+          "end_ms": 2816
+        },
+        {
+          "text": "Its",
+          "start_ms": 3250,
+          "end_ms": 3368
+        },
+        {
+          "text": "height",
+          "start_ms": 3382,
+          "end_ms": 3724
+        },
+        {
+          "text": "is",
+          "start_ms": 3829,
+          "end_ms": 3934
+        },
+        {
+          "text": "the",
+          "start_ms": 3947,
+          "end_ms": 4039
+        },
+        {
+          "text": "radius",
+          "start_ms": 4053,
+          "end_ms": 4724
+        },
+        {
+          "text": "r",
+          "start_ms": 4842,
+          "end_ms": 5158
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "file": "s6.mp3",
+      "duration_ms": 6816,
+      "words": [
+        {
+          "text": "Its",
+          "start_ms": 105,
+          "end_ms": 237
+        },
+        {
+          "text": "width",
+          "start_ms": 250,
+          "end_ms": 539
+        },
+        {
+          "text": "is",
+          "start_ms": 618,
+          "end_ms": 736
+        },
+        {
+          "text": "half",
+          "start_ms": 750,
+          "end_ms": 1197
+        },
+        {
+          "text": "of",
+          "start_ms": 1211,
+          "end_ms": 1290
+        },
+        {
+          "text": "the",
+          "start_ms": 1303,
+          "end_ms": 1382
+        },
+        {
+          "text": "circumference",
+          "start_ms": 1395,
+          "end_ms": 2184
+        },
+        {
+          "text": "The",
+          "start_ms": 2632,
+          "end_ms": 2685
+        },
+        {
+          "text": "whole",
+          "start_ms": 2697,
+          "end_ms": 2894
+        },
+        {
+          "text": "circumference",
+          "start_ms": 2908,
+          "end_ms": 3579
+        },
+        {
+          "text": "is",
+          "start_ms": 3592,
+          "end_ms": 3710
+        },
+        {
+          "text": "two",
+          "start_ms": 3724,
+          "end_ms": 3961
+        },
+        {
+          "text": "pi",
+          "start_ms": 3974,
+          "end_ms": 4290
+        },
+        {
+          "text": "r",
+          "start_ms": 4303,
+          "end_ms": 4579
+        },
+        {
+          "text": "so",
+          "start_ms": 4947,
+          "end_ms": 5118
+        },
+        {
+          "text": "half",
+          "start_ms": 5132,
+          "end_ms": 5487
+        },
+        {
+          "text": "of",
+          "start_ms": 5500,
+          "end_ms": 5579
+        },
+        {
+          "text": "it",
+          "start_ms": 5592,
+          "end_ms": 5658
+        },
+        {
+          "text": "is",
+          "start_ms": 5671,
+          "end_ms": 5789
+        },
+        {
+          "text": "pi",
+          "start_ms": 5803,
+          "end_ms": 6132
+        },
+        {
+          "text": "r",
+          "start_ms": 6145,
+          "end_ms": 6434
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "file": "s7.mp3",
+      "duration_ms": 5328,
+      "words": [
+        {
+          "text": "Area",
+          "start_ms": 105,
+          "end_ms": 487
+        },
+        {
+          "text": "is",
+          "start_ms": 566,
+          "end_ms": 684
+        },
+        {
+          "text": "width",
+          "start_ms": 697,
+          "end_ms": 947
+        },
+        {
+          "text": "times",
+          "start_ms": 961,
+          "end_ms": 1277
+        },
+        {
+          "text": "height",
+          "start_ms": 1289,
+          "end_ms": 1710
+        },
+        {
+          "text": "Pi",
+          "start_ms": 2158,
+          "end_ms": 2382
+        },
+        {
+          "text": "r",
+          "start_ms": 2395,
+          "end_ms": 2645
+        },
+        {
+          "text": "times",
+          "start_ms": 2895,
+          "end_ms": 3224
+        },
+        {
+          "text": "r",
+          "start_ms": 3237,
+          "end_ms": 3540
+        },
+        {
+          "text": "gives",
+          "start_ms": 3763,
+          "end_ms": 3974
+        },
+        {
+          "text": "pi",
+          "start_ms": 3987,
+          "end_ms": 4316
+        },
+        {
+          "text": "r",
+          "start_ms": 4329,
+          "end_ms": 4434
+        },
+        {
+          "text": "squared",
+          "start_ms": 4447,
+          "end_ms": 4947
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "file": "s8.mp3",
+      "duration_ms": 4080,
+      "words": [
+        {
+          "text": "And",
+          "start_ms": 105,
+          "end_ms": 184
+        },
+        {
+          "text": "that",
+          "start_ms": 197,
+          "end_ms": 342
+        },
+        {
+          "text": "is",
+          "start_ms": 355,
+          "end_ms": 460
+        },
+        {
+          "text": "why",
+          "start_ms": 474,
+          "end_ms": 658
+        },
+        {
+          "text": "a",
+          "start_ms": 671,
+          "end_ms": 737
+        },
+        {
+          "text": "circle",
+          "start_ms": 750,
+          "end_ms": 1145
+        },
+        {
+          "text": "of",
+          "start_ms": 1158,
+          "end_ms": 1250
+        },
+        {
+          "text": "radius",
+          "start_ms": 1263,
+          "end_ms": 1789
+        },
+        {
+          "text": "r",
+          "start_ms": 1908,
+          "end_ms": 2026
+        },
+        {
+          "text": "has",
+          "start_ms": 2039,
+          "end_ms": 2289
+        },
+        {
+          "text": "area",
+          "start_ms": 2303,
+          "end_ms": 2619
+        },
+        {
+          "text": "pi",
+          "start_ms": 2632,
+          "end_ms": 3000
+        },
+        {
+          "text": "r",
+          "start_ms": 3013,
+          "end_ms": 3145
+        },
+        {
+          "text": "squared",
+          "start_ms": 3158,
+          "end_ms": 3684
+        }
+      ]
+    }
+  ]
+}

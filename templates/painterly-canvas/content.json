@@ -1,0 +1,22 @@
+{
+  "video": { "width": 1080, "height": 1080, "fps": 30, "frames": 600, "seed": 7 },
+  "palette": {
+    "paper": "#F3EDE0",
+    "indigo": "#2E4057",
+    "vermilion": "#C8553D",
+    "ochre": "#F2A541",
+    "teal": "#588B8B",
+    "sky": "#93B5C6",
+    "ink": "#4A3B31"
+  },
+  "font": { "family": "Cormorant Garamond", "weight": 500, "size": 68 },
+  "lines": [
+    { "text": "Rain on the window", "start": 30, "end": 150 },
+    { "text": "small rivers of light", "start": 150, "end": 285 },
+    { "text": "the city goes soft", "start": 285, "end": 420 },
+    { "text": "and I stay the night", "start": 420, "end": 600 }
+  ],
+  "stages": [24, 150, 285, 420],
+  "credit": "night rain",
+  "closeStart": 530
+}

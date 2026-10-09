@@ -1,0 +1,33 @@
+# Groups shown as film strips on the gallery. Every core style must appear exactly once.
+- id: launch
+  name:
+    en: Launch and brand
+    zh: 发布与品牌
+  blurb:
+    en: Promos, reels and intros that sell a product or a name.
+    zh: 推广产品或品牌的宣传片、混剪与片头。
+  ids: [saas-launch-promo, apple-keynote-minimal, ui-camera-tour, cinematic-hud-reel, procedural-3d-sting, kinetic-typography]
+- id: explain
+  name:
+    en: Explain and teach
+    zh: 讲解与教学
+  blurb:
+    en: Narrated or self-explaining videos built around an idea, data or code.
+    zh: 围绕概念、数据或代码展开的讲解视频。
+  ids: [dark-diagram-explainer, card-explainer, data-story-charts, math-manim, code-terminal-walkthrough]
+- id: social
+  name:
+    en: Shorts and footage
+    zh: 短视频与素材包装
+  blurb:
+    en: Caption-led shorts, character talk and packaging for footage you filmed.
+    zh: 字幕驱动的短视频、角色对话，以及为实拍素材做包装。
+  ids: [karaoke-caption-short, talking-head-overlay, character-dialogue]
+- id: illustrated
+  name:
+    en: Illustrated
+    zh: 插画风
+  blurb:
+    en: Drawn worlds made entirely in code.
+    zh: 完全用代码画出来的世界。
+  ids: [flat-cartoon-explainer, pixel-retro, painterly-canvas]

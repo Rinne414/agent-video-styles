@@ -1,0 +1,31 @@
+{
+  "name": "@avs/saas-launch-promo",
+  "version": "1.0.0",
+  "description": "Driftboard launch promo (saas-launch-promo style)",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@remotion/cli": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.534",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render": "remotion render driftboard-launch out/saas-launch-promo.mp4",
+    "still": "remotion still driftboard-launch out/still.png --frame=0"
+  }
+}

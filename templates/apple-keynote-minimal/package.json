@@ -1,0 +1,12 @@
+{
+  "name": "@avs/apple-keynote-minimal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 preview",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 1.5,5.4,7,10,12.5,15,17.5,20,24",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/apple-keynote-minimal.mp4"
+  }
+}

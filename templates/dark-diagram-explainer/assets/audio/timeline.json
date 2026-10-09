@@ -1,0 +1,848 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 3960,
+      "words": [
+        {
+          "text": "Why",
+          "start_ms": 106,
+          "end_ms": 189
+        },
+        {
+          "text": "does",
+          "start_ms": 200,
+          "end_ms": 306
+        },
+        {
+          "text": "a",
+          "start_ms": 318,
+          "end_ms": 377
+        },
+        {
+          "text": "website",
+          "start_ms": 389,
+          "end_ms": 849
+        },
+        {
+          "text": "load",
+          "start_ms": 861,
+          "end_ms": 1097
+        },
+        {
+          "text": "fast",
+          "start_ms": 1108,
+          "end_ms": 1474
+        },
+        {
+          "text": "in",
+          "start_ms": 1486,
+          "end_ms": 1545
+        },
+        {
+          "text": "Tokyo",
+          "start_ms": 1557,
+          "end_ms": 2052
+        },
+        {
+          "text": "and",
+          "start_ms": 2311,
+          "end_ms": 2405
+        },
+        {
+          "text": "just",
+          "start_ms": 2417,
+          "end_ms": 2617
+        },
+        {
+          "text": "as",
+          "start_ms": 2630,
+          "end_ms": 2713
+        },
+        {
+          "text": "fast",
+          "start_ms": 2724,
+          "end_ms": 3031
+        },
+        {
+          "text": "in",
+          "start_ms": 3042,
+          "end_ms": 3101
+        },
+        {
+          "text": "Paris",
+          "start_ms": 3113,
+          "end_ms": 3597
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 9624,
+      "words": [
+        {
+          "text": "Your",
+          "start_ms": 94,
+          "end_ms": 212
+        },
+        {
+          "text": "site",
+          "start_ms": 224,
+          "end_ms": 483
+        },
+        {
+          "text": "lives",
+          "start_ms": 495,
+          "end_ms": 754
+        },
+        {
+          "text": "on",
+          "start_ms": 766,
+          "end_ms": 931
+        },
+        {
+          "text": "one",
+          "start_ms": 943,
+          "end_ms": 1167
+        },
+        {
+          "text": "origin",
+          "start_ms": 1179,
+          "end_ms": 1533
+        },
+        {
+          "text": "server",
+          "start_ms": 1545,
+          "end_ms": 1993
+        },
+        {
+          "text": "If",
+          "start_ms": 2382,
+          "end_ms": 2476
+        },
+        {
+          "text": "that",
+          "start_ms": 2488,
+          "end_ms": 2653
+        },
+        {
+          "text": "server",
+          "start_ms": 2665,
+          "end_ms": 2995
+        },
+        {
+          "text": "is",
+          "start_ms": 3007,
+          "end_ms": 3113
+        },
+        {
+          "text": "far",
+          "start_ms": 3125,
+          "end_ms": 3361
+        },
+        {
+          "text": "away",
+          "start_ms": 3373,
+          "end_ms": 3739
+        },
+        {
+          "text": "every",
+          "start_ms": 4080,
+          "end_ms": 4316
+        },
+        {
+          "text": "request",
+          "start_ms": 4328,
+          "end_ms": 4835
+        },
+        {
+          "text": "must",
+          "start_ms": 4847,
+          "end_ms": 5071
+        },
+        {
+          "text": "travel",
+          "start_ms": 5083,
+          "end_ms": 5508
+        },
+        {
+          "text": "thousands",
+          "start_ms": 5519,
+          "end_ms": 5991
+        },
+        {
+          "text": "of",
+          "start_ms": 6002,
+          "end_ms": 6061
+        },
+        {
+          "text": "miles",
+          "start_ms": 6073,
+          "end_ms": 6592
+        },
+        {
+          "text": "and",
+          "start_ms": 6769,
+          "end_ms": 6887
+        },
+        {
+          "text": "back",
+          "start_ms": 6899,
+          "end_ms": 7335
+        },
+        {
+          "text": "That",
+          "start_ms": 7736,
+          "end_ms": 7866
+        },
+        {
+          "text": "delay",
+          "start_ms": 7877,
+          "end_ms": 8325
+        },
+        {
+          "text": "is",
+          "start_ms": 8384,
+          "end_ms": 8478
+        },
+        {
+          "text": "called",
+          "start_ms": 8491,
+          "end_ms": 8739
+        },
+        {
+          "text": "latency",
+          "start_ms": 8750,
+          "end_ms": 9281
+        }
+      ]
+    },
+    {
+      "id": "s2b",
+      "file": "s2b.mp3",
+      "duration_ms": 7728,
+      "words": [
+        {
+          "text": "From",
+          "start_ms": 130,
+          "end_ms": 236
+        },
+        {
+          "text": "Tokyo",
+          "start_ms": 248,
+          "end_ms": 732
+        },
+        {
+          "text": "to",
+          "start_ms": 743,
+          "end_ms": 908
+        },
+        {
+          "text": "a",
+          "start_ms": 920,
+          "end_ms": 991
+        },
+        {
+          "text": "server",
+          "start_ms": 1002,
+          "end_ms": 1450
+        },
+        {
+          "text": "in",
+          "start_ms": 1462,
+          "end_ms": 1568
+        },
+        {
+          "text": "Virginia",
+          "start_ms": 1580,
+          "end_ms": 2099
+        },
+        {
+          "text": "one",
+          "start_ms": 2453,
+          "end_ms": 2653
+        },
+        {
+          "text": "round",
+          "start_ms": 2665,
+          "end_ms": 2877
+        },
+        {
+          "text": "trip",
+          "start_ms": 2889,
+          "end_ms": 3148
+        },
+        {
+          "text": "takes",
+          "start_ms": 3278,
+          "end_ms": 3514
+        },
+        {
+          "text": "around",
+          "start_ms": 3526,
+          "end_ms": 3856
+        },
+        {
+          "text": "two",
+          "start_ms": 3939,
+          "end_ms": 4187
+        },
+        {
+          "text": "hundred",
+          "start_ms": 4198,
+          "end_ms": 4469
+        },
+        {
+          "text": "milliseconds",
+          "start_ms": 4481,
+          "end_ms": 5200
+        },
+        {
+          "text": "And",
+          "start_ms": 5590,
+          "end_ms": 5661
+        },
+        {
+          "text": "a",
+          "start_ms": 5672,
+          "end_ms": 5719
+        },
+        {
+          "text": "single",
+          "start_ms": 5731,
+          "end_ms": 6073
+        },
+        {
+          "text": "page",
+          "start_ms": 6085,
+          "end_ms": 6486
+        },
+        {
+          "text": "needs",
+          "start_ms": 6498,
+          "end_ms": 6757
+        },
+        {
+          "text": "dozens",
+          "start_ms": 6769,
+          "end_ms": 7087
+        },
+        {
+          "text": "of",
+          "start_ms": 7099,
+          "end_ms": 7193
+        },
+        {
+          "text": "them",
+          "start_ms": 7205,
+          "end_ms": 7370
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 6912,
+      "words": [
+        {
+          "text": "A",
+          "start_ms": 94,
+          "end_ms": 177
+        },
+        {
+          "text": "C",
+          "start_ms": 189,
+          "end_ms": 401
+        },
+        {
+          "text": "D",
+          "start_ms": 413,
+          "end_ms": 696
+        },
+        {
+          "text": "N",
+          "start_ms": 814,
+          "end_ms": 991
+        },
+        {
+          "text": "fixes",
+          "start_ms": 1002,
+          "end_ms": 1391
+        },
+        {
+          "text": "this",
+          "start_ms": 1403,
+          "end_ms": 1769
+        },
+        {
+          "text": "It",
+          "start_ms": 2158,
+          "end_ms": 2241
+        },
+        {
+          "text": "places",
+          "start_ms": 2252,
+          "end_ms": 2677
+        },
+        {
+          "text": "edge",
+          "start_ms": 2689,
+          "end_ms": 2878
+        },
+        {
+          "text": "servers",
+          "start_ms": 2889,
+          "end_ms": 3255
+        },
+        {
+          "text": "close",
+          "start_ms": 3266,
+          "end_ms": 3561
+        },
+        {
+          "text": "to",
+          "start_ms": 3573,
+          "end_ms": 3656
+        },
+        {
+          "text": "your",
+          "start_ms": 3667,
+          "end_ms": 3797
+        },
+        {
+          "text": "users",
+          "start_ms": 3809,
+          "end_ms": 4328
+        },
+        {
+          "text": "each",
+          "start_ms": 4752,
+          "end_ms": 4905
+        },
+        {
+          "text": "one",
+          "start_ms": 4917,
+          "end_ms": 5129
+        },
+        {
+          "text": "holding",
+          "start_ms": 5142,
+          "end_ms": 5472
+        },
+        {
+          "text": "copies",
+          "start_ms": 5484,
+          "end_ms": 5861
+        },
+        {
+          "text": "of",
+          "start_ms": 5873,
+          "end_ms": 5932
+        },
+        {
+          "text": "your",
+          "start_ms": 5943,
+          "end_ms": 6061
+        },
+        {
+          "text": "files",
+          "start_ms": 6073,
+          "end_ms": 6557
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "file": "s4.mp3",
+      "duration_ms": 5472,
+      "words": [
+        {
+          "text": "First",
+          "start_ms": 130,
+          "end_ms": 307
+        },
+        {
+          "text": "visit",
+          "start_ms": 318,
+          "end_ms": 636
+        },
+        {
+          "text": "That",
+          "start_ms": 1038,
+          "end_ms": 1109
+        },
+        {
+          "text": "is",
+          "start_ms": 1120,
+          "end_ms": 1191
+        },
+        {
+          "text": "a",
+          "start_ms": 1203,
+          "end_ms": 1250
+        },
+        {
+          "text": "cache",
+          "start_ms": 1262,
+          "end_ms": 1557
+        },
+        {
+          "text": "miss",
+          "start_ms": 1568,
+          "end_ms": 1934
+        },
+        {
+          "text": "The",
+          "start_ms": 2323,
+          "end_ms": 2429
+        },
+        {
+          "text": "edge",
+          "start_ms": 2441,
+          "end_ms": 2748
+        },
+        {
+          "text": "asks",
+          "start_ms": 2759,
+          "end_ms": 3113
+        },
+        {
+          "text": "the",
+          "start_ms": 3125,
+          "end_ms": 3208
+        },
+        {
+          "text": "origin",
+          "start_ms": 3219,
+          "end_ms": 3608
+        },
+        {
+          "text": "once",
+          "start_ms": 3620,
+          "end_ms": 4021
+        },
+        {
+          "text": "then",
+          "start_ms": 4245,
+          "end_ms": 4410
+        },
+        {
+          "text": "keeps",
+          "start_ms": 4422,
+          "end_ms": 4670
+        },
+        {
+          "text": "a",
+          "start_ms": 4682,
+          "end_ms": 4729
+        },
+        {
+          "text": "copy",
+          "start_ms": 4741,
+          "end_ms": 5118
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "file": "s5.mp3",
+      "duration_ms": 5160,
+      "words": [
+        {
+          "text": "Next",
+          "start_ms": 94,
+          "end_ms": 271
+        },
+        {
+          "text": "visit",
+          "start_ms": 283,
+          "end_ms": 590
+        },
+        {
+          "text": "That",
+          "start_ms": 991,
+          "end_ms": 1074
+        },
+        {
+          "text": "is",
+          "start_ms": 1085,
+          "end_ms": 1156
+        },
+        {
+          "text": "a",
+          "start_ms": 1167,
+          "end_ms": 1214
+        },
+        {
+          "text": "cache",
+          "start_ms": 1226,
+          "end_ms": 1544
+        },
+        {
+          "text": "hit",
+          "start_ms": 1557,
+          "end_ms": 1805
+        },
+        {
+          "text": "The",
+          "start_ms": 2193,
+          "end_ms": 2276
+        },
+        {
+          "text": "edge",
+          "start_ms": 2288,
+          "end_ms": 2536
+        },
+        {
+          "text": "already",
+          "start_ms": 2547,
+          "end_ms": 2865
+        },
+        {
+          "text": "has",
+          "start_ms": 2877,
+          "end_ms": 3077
+        },
+        {
+          "text": "the",
+          "start_ms": 3090,
+          "end_ms": 3173
+        },
+        {
+          "text": "file",
+          "start_ms": 3184,
+          "end_ms": 3585
+        },
+        {
+          "text": "and",
+          "start_ms": 3868,
+          "end_ms": 3962
+        },
+        {
+          "text": "answers",
+          "start_ms": 3974,
+          "end_ms": 4316
+        },
+        {
+          "text": "right",
+          "start_ms": 4328,
+          "end_ms": 4481
+        },
+        {
+          "text": "away",
+          "start_ms": 4493,
+          "end_ms": 4811
+        }
+      ]
+    },
+    {
+      "id": "s5b",
+      "file": "s5b.mp3",
+      "duration_ms": 4776,
+      "words": [
+        {
+          "text": "Now",
+          "start_ms": 94,
+          "end_ms": 294
+        },
+        {
+          "text": "a",
+          "start_ms": 307,
+          "end_ms": 342
+        },
+        {
+          "text": "million",
+          "start_ms": 354,
+          "end_ms": 802
+        },
+        {
+          "text": "visitors",
+          "start_ms": 814,
+          "end_ms": 1250
+        },
+        {
+          "text": "can",
+          "start_ms": 1262,
+          "end_ms": 1392
+        },
+        {
+          "text": "share",
+          "start_ms": 1403,
+          "end_ms": 1721
+        },
+        {
+          "text": "one",
+          "start_ms": 1734,
+          "end_ms": 1923
+        },
+        {
+          "text": "copy",
+          "start_ms": 1934,
+          "end_ms": 2394
+        },
+        {
+          "text": "and",
+          "start_ms": 2689,
+          "end_ms": 2783
+        },
+        {
+          "text": "the",
+          "start_ms": 2795,
+          "end_ms": 2889
+        },
+        {
+          "text": "origin",
+          "start_ms": 2901,
+          "end_ms": 3373
+        },
+        {
+          "text": "barely",
+          "start_ms": 3443,
+          "end_ms": 3773
+        },
+        {
+          "text": "notices",
+          "start_ms": 3785,
+          "end_ms": 4410
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "file": "s6.mp3",
+      "duration_ms": 7008,
+      "words": [
+        {
+          "text": "The",
+          "start_ms": 106,
+          "end_ms": 153
+        },
+        {
+          "text": "result",
+          "start_ms": 165,
+          "end_ms": 578
+        },
+        {
+          "text": "pages",
+          "start_ms": 943,
+          "end_ms": 1332
+        },
+        {
+          "text": "load",
+          "start_ms": 1344,
+          "end_ms": 1639
+        },
+        {
+          "text": "in",
+          "start_ms": 1651,
+          "end_ms": 1745
+        },
+        {
+          "text": "milliseconds",
+          "start_ms": 1757,
+          "end_ms": 2500
+        },
+        {
+          "text": "and",
+          "start_ms": 2783,
+          "end_ms": 2866
+        },
+        {
+          "text": "the",
+          "start_ms": 2877,
+          "end_ms": 2983
+        },
+        {
+          "text": "origin",
+          "start_ms": 2995,
+          "end_ms": 3384
+        },
+        {
+          "text": "handles",
+          "start_ms": 3396,
+          "end_ms": 3856
+        },
+        {
+          "text": "far",
+          "start_ms": 3868,
+          "end_ms": 4210
+        },
+        {
+          "text": "less",
+          "start_ms": 4222,
+          "end_ms": 4399
+        },
+        {
+          "text": "traffic",
+          "start_ms": 4410,
+          "end_ms": 4917
+        },
+        {
+          "text": "Everyone",
+          "start_ms": 5307,
+          "end_ms": 5649
+        },
+        {
+          "text": "gets",
+          "start_ms": 5660,
+          "end_ms": 5872
+        },
+        {
+          "text": "the",
+          "start_ms": 5884,
+          "end_ms": 5967
+        },
+        {
+          "text": "fast",
+          "start_ms": 5979,
+          "end_ms": 6309
+        },
+        {
+          "text": "version",
+          "start_ms": 6321,
+          "end_ms": 6663
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "file": "s7.mp3",
+      "duration_ms": 3120,
+      "words": [
+        {
+          "text": "A",
+          "start_ms": 94,
+          "end_ms": 141
+        },
+        {
+          "text": "CDN",
+          "start_ms": 153,
+          "end_ms": 743
+        },
+        {
+          "text": "Content",
+          "start_ms": 1132,
+          "end_ms": 1557
+        },
+        {
+          "text": "closer",
+          "start_ms": 1804,
+          "end_ms": 2158
+        },
+        {
+          "text": "to",
+          "start_ms": 2170,
+          "end_ms": 2276
+        },
+        {
+          "text": "everyone",
+          "start_ms": 2288,
+          "end_ms": 2772
+        }
+      ]
+    }
+  ]
+}

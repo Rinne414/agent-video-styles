@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+.venv/
+__pycache__/
+
+# render output (finished previews live in previews/)
+out/
+media/
+renders/
+snapshots/
+build/
+dist/
+.remotion/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

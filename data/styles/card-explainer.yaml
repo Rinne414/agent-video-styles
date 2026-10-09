@@ -1,0 +1,102 @@
+id: card-explainer
+tier: core
+evidence_strength: strong
+name:
+  en: Card Explainer
+  zh: 金句卡片讲解
+tagline:
+  en: An article or deck turned into a narrated sequence of clean animated cards - one key sentence per card.
+  zh: 把文章或幻灯片变成旁白配合的动画卡片序列——一张卡片一句金句。
+signature:
+  en:
+    - Clean paper-white (or soft dark) background with one centered card at a time
+    - PPT-like layouts - title, key sentence, list, big number, comparison
+    - The key phrase gets a highlighter sweep the moment it is spoken
+    - Narration plus subtitles; versions in both 16:9 and 9:16
+  zh:
+    - 干净的纸白（或柔和深色）背景，一次只出现一张居中卡片
+    - 类 PPT 版式——标题、金句、列表、大数字、对比
+    - 关键短语在被念到的瞬间出现荧光笔扫过效果
+    - 旁白加字幕；同时输出 16:9 与 9:16 版本
+best_for:
+  en:
+    - Turning blog posts, WeChat or Feishu articles, READMEs, PDFs or slide decks into 1-3 minute videos
+    - Course, training and Bilibili-style knowledge videos
+  zh:
+    - 把博客、公众号或飞书文章、README、PDF、幻灯片转成 1-3 分钟视频
+    - 课程、培训和 B站科普类知识视频
+avoid_when:
+  en:
+    - The idea needs relationships between parts drawn out (use dark-diagram-explainer)
+    - It is a short, punchy hype piece (use kinetic-typography)
+    - There is presenter footage to work with (use talking-head-overlay)
+  zh:
+    - 需要画出各部分之间的关系（改用 dark-diagram-explainer）
+    - 短促、有冲击力的宣传片（改用 kinetic-typography）
+    - 已有真人出镜素材（改用 talking-head-overlay）
+tags:
+  use: [explainer, education, tutorial]
+  platform: [bilibili, youtube, tiktok-douyin, x, linkedin]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, music]
+  mood: [calm, editorial]
+  needs: [script]
+duration: 45-180 s
+difficulty: 1
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Most Chinese-language examples are Codex or Claude Code plus HyperFrames; cards are plain HTML and CSS, and HyperFrames ships an official /slideshow skill. Remotion works equally well.
+    zh: 中文案例大多是 Codex 或 Claude Code 搭配 HyperFrames；卡片就是普通 HTML 与 CSS，HyperFrames 也有官方 /slideshow skill。Remotion 同样适用。
+variants:
+  - id: marp-slides
+    en: Markdown (Marp) slides as the source; each slide becomes a scene and its elements reveal in narration order.
+    zh: 以 Markdown（Marp）幻灯片为源；每页一个场景，元素按旁白顺序出现。
+  - id: vertical-feed
+    en: 1080x1920 feed version, card at 85% width, larger key sentence, captions above the bottom safe zone.
+    zh: 1080x1920 信息流版本，卡片占 85% 宽，金句更大，字幕位于底部安全区之上。
+evidence:
+  - creator: 不大姐姐AI智能体
+    platform: jishuzhan.net
+    region: cn
+    url: https://jishuzhan.net/article/2065385565364776961
+    tool: Codex + HyperFrames plugin
+    note: WeChat article to ~1 min pop-science style 16:9 video; 5-scene storyboard; standard CSS3 only to avoid render failures.
+    verified: opened
+  - creator: 鲸选AI
+    platform: Tencent News
+    region: cn
+    url: https://news.qq.com/rain/a/20260512A08LEG00
+    tool: Codex + HyperFrames
+    note: README-to-explainer and PDF to ~45 s narrated video cases.
+    verified: opened
+  - creator: かがん (Kikagaku)
+    platform: Zenn
+    region: jp
+    url: https://zenn.dev/kikagaku/articles/ai-slide-video-generation-system
+    tool: Cursor + Marp + Remotion + Gemini TTS
+    note: Slide-narration pipeline - predefined layouts, data-appear reveal order, durations locked to narration, forced-aligned subtitles.
+    verified: opened
+  - creator: Juejin vertical explainer
+    platform: Juejin
+    region: cn
+    url: https://juejin.cn/post/7684261460002504730
+    tool: HyperFrames
+    note: Feishu article to a 9:16 1080x1920 ~52 s video with typesetting, subtitles and animation.
+    verified: snippet
+  - creator: 大强同学
+    platform: cnblogs
+    region: cn
+    url: https://www.cnblogs.com/dqtx33/p/19959801
+    tool: Claude Code + HyperFrames
+    note: DESIGN.md (palette, fonts, style) first, then the article split into scenes.
+    verified: snippet
+  - creator: HeyGen (/slideshow)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes
+    tool: HyperFrames
+    note: Official slideshow workflow skill.
+    verified: opened
+template: templates/card-explainer

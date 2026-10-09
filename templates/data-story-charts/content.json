@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "data-story-charts",
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "kicker": "Northwind Coffee  |  2026 in numbers",
+    "sampleTag": "SAMPLE DATA",
+    "sourceLine": "Sample data (fictional)  |  Northwind Coffee, cups sold, Jan-Dec 2026"
+  },
+  "theme": {
+    "background": "#0B0D12",
+    "text": "#F4F6FA",
+    "neutral": "#3A4150",
+    "neutralLight": "#8A93A6",
+    "highlight": "#22D3EE",
+    "fontFamily": "Inter"
+  },
+  "scenes": {
+    "hook": 150,
+    "line": 300,
+    "ranking": 300,
+    "closing": 300
+  },
+  "hook": {
+    "value": 4.2,
+    "suffix": "M",
+    "decimals": 1,
+    "claim": "cups sold in 2026"
+  },
+  "line": {
+    "headline": "Sales peak in December, after a summer dip",
+    "subtitle": "Cups sold per month, thousands",
+    "yMax": 500,
+    "ticks": [0, 250, 500],
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "values": [300, 295, 330, 360, 390, 340, 290, 280, 345, 390, 420, 460],
+    "peakLabel": "Dec peak: 460K",
+    "dipLabel": "Summer dip: 280K"
+  },
+  "ranking": {
+    "headline": "Oat latte is the #1 drink",
+    "subtitle": "Share of cups sold, top 5 drinks",
+    "axisMax": 30,
+    "items": [
+      { "name": "Oat latte", "value": 28 },
+      { "name": "Cold brew", "value": 22 },
+      { "name": "Flat white", "value": 17 },
+      { "name": "Matcha", "value": 12 },
+      { "name": "Mocha", "value": 9 }
+    ],
+    "annotation": "= 1.18M cups"
+  },
+  "closing": {
+    "kicker": "The takeaway",
+    "lead": "Oat milk",
+    "rest": "now outsells dairy.",
+    "cards": [
+      { "value": "4.2M", "label": "cups sold in 2026" },
+      { "value": "460K", "label": "cups in peak month, Dec" },
+      { "value": "28%", "label": "of cups are oat lattes" }
+    ]
+  }
+}

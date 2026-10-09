@@ -1,0 +1,26 @@
+{
+  "name": "@avs/dark-diagram-explainer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Narrated dark-canvas SVG diagram explainer (Remotion)",
+  "scripts": {
+    "script": "node scripts/make-script.mjs",
+    "tts": "node scripts/make-script.mjs && python ../../skill/scripts/tts.py assets/audio/script.json --out-dir assets/audio",
+    "dev": "remotion studio",
+    "still": "remotion still Explainer out/still.png --frame=300 --image-format=png",
+    "render": "remotion render Explainer out/dark-diagram-explainer.mp4"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "lucide-react": "1.54.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534",
+    "@remotion/cli": "4.0.534",
+    "@remotion/media": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

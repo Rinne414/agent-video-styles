@@ -1,0 +1,95 @@
+id: cinematic-hud-reel
+tier: core
+evidence_strength: medium
+name:
+  en: Cinematic HUD Reel
+  zh: 电影感 HUD 炫技短片
+tagline:
+  en: Fast premium sizzle - motion blur, glow, camera hits, HUD overlays and a logo finale, all synced to code-made sound.
+  zh: 高速高级感炫技短片：动态模糊、辉光、镜头冲击、HUD 叠层与 Logo 收尾，全部卡在代码生成的音效上。
+signature:
+  en:
+    - Deep navy-black space with layered HUD rings, brackets, grids and ticking counters
+    - Electric blue or cyan glow with one warning-red hit color
+    - Scramble-decode and slam-in headlines with RGB split on impact
+    - Camera punches, shakes and whip pans on every beat, ending in a logo that assembles from HUD lines
+  zh:
+    - 深蓝黑空间，层叠 HUD 圆环、角框、网格与跳动计数器
+    - 电光蓝或青色辉光，加一种警示红作为冲击色
+    - 乱码解码和猛击式标题，撞击瞬间 RGB 分离
+    - 每个节拍都有镜头冲击、震动、甩镜，最后 Logo 由 HUD 线条组装而成
+best_for:
+  en:
+    - Personal-brand or creator intros, channel trailers
+    - Showpiece reels that demonstrate what an agent can do
+    - Hype openers for events, AI model or tool teasers
+  zh:
+    - 个人品牌或创作者片头、频道预告
+    - 展示 agent 能力的炫技作品
+    - 活动开场、AI 模型或工具预告
+avoid_when:
+  en:
+    - Viewers must read or understand details (use dark-diagram-explainer or ui-camera-tour)
+    - The brand is calm or premium-minimal (use apple-keynote-minimal)
+  zh:
+    - 观众需要阅读或理解细节（改用 dark-diagram-explainer 或 ui-camera-tour）
+    - 品牌调性沉稳极简（改用 apple-keynote-minimal）
+tags:
+  use: [brand-reel, personal-brand, social-short]
+  platform: [x, youtube, tiktok-douyin, instagram-reels]
+  aspect: ["16:9", "9:16"]
+  audio: [music, sfx]
+  mood: [cinematic, energetic, technical]
+  needs: [logo]
+duration: 15-40 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Layered CSS glow, filters, blend modes and GSAP timelines make HUD choreography cheap to write; several public reels pair HyperFrames with Python-generated sound. Remotion works equally well with @remotion/motion-blur.
+    zh: 层叠的 CSS 辉光、滤镜、混合模式与 GSAP 时间轴让 HUD 编排很容易写；多个公开作品用 HyperFrames 搭配 Python 生成音效。Remotion 配合 @remotion/motion-blur 同样可行。
+variants:
+  - id: clean-tech
+    en: Fewer HUD layers, glass panels and soft glow; slower 1 s shots for product teasers.
+    zh: 减少 HUD 层，改用玻璃面板与柔光；1 秒一镜，适合产品预告。
+  - id: vertical-intro
+    en: 9:16, 10-15 s personal intro - name, role, three keywords, handle.
+    zh: 9:16、10-15 秒个人介绍：名字、身份、三个关键词、账号。
+evidence:
+  - creator: "@humzaakhalid"
+    platform: X
+    region: en
+    url: https://x.com/humzaakhalid/status/2106640261623537875
+    tool: Opus 5.5 + Remotion
+    note: "AI In Public reel, 1920x1080 60 fps; palette #3D40FE / white / navy / ice; every frame and sound written in code."
+    verified: aggregator
+  - creator: "@Dheepanratnam"
+    platform: X
+    region: global
+    url: https://x.com/Dheepanratnam/status/2107568904075706454
+    tool: Opus 5.5 + HyperFrames + GSAP
+    note: 58 s reel; score and SFX generated in Python and synced by the agent.
+    verified: aggregator
+  - creator: "@tankazunori0914"
+    platform: X
+    region: jp
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: HyperFrames + Python BGM
+    note: 30 s motion graphic with BGM in about 11 minutes (listing slug tankazunori0914-156748).
+    verified: aggregator
+  - creator: "@SmitJainEditor"
+    platform: X
+    region: en
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: Opus 5.5 + Remotion
+    note: "\"Are Motion Designers Cooked?\" 40 s reel (listing slug smitjaineditor-843957)."
+    verified: aggregator
+  - creator: "@justinbuilds"
+    platform: X
+    region: en
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: HyperFrames Studio
+    note: One-shot 23 s reel with ElevenLabs voice (listing slug justinbuilds-412401).
+    verified: aggregator
+template: templates/cinematic-hud-reel

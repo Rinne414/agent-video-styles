@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #05070D; }
+    #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #05070D; font-family: 'JetBrains Mono', monospace; }
+    #stage { position: absolute; inset: 0; }
+    #stage > div { transform-origin: 50% 50%; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="22" data-width="1920" data-height="1080">
+    <section id="stage" class="clip" data-start="0" data-duration="22" data-track-index="0"></section>
+  </div>
+  <script>window.CONTENT = {"seed":7,"brand":{"name":"NOVA LABS","tagline":"AGENTS THAT SHIP","handle":"nova-labs.example/agents","sys":"NOVA//OS v4.2"},"format":{"width":1920,"height":1080,"fps":30,"bpm":128,"durationSec":22,"offsetFrames":0},"colors":{"bg":"#05070D","accent":"#3D7BFF","ice":"#CFE8FF","hit":"#FF3B5C","splitA":"#22D3EE","splitB":"#7A4DFF"},"fonts":{"headline":"Archivo","mono":"JetBrains Mono"},"beats":{"cold":0,"hits":4,"build":16,"drop":32,"finale":40,"lock":43,"riserFrom":28},"hitBeats":[4,6,8,10,12,14,16,18,20,22,24,26,28,32,33,34,35,36,37,38,39,40,43],"cold":{"boot":["> NOVA//OS 4.2 BOOT","> LINK ESTABLISHED","> AGENT MESH ....... ONLINE"],"center":"SYNC 128 BPM"},"hits":{"shots":[{"beat":4,"line":0,"row":-1,"text":"WE BUILD","tag":"[01] RUNTIME // SPAWN"},{"beat":6,"line":0,"row":1,"text":"AGENTS.","tag":"[02] AGT-0xA4 // ONLINE"},{"beat":8,"line":1,"row":-1,"text":"THEY SHIP","tag":"[03] PIPELINE // ARMED"},{"beat":10,"line":1,"row":1,"text":"CODE.","tag":"[04] PR #4096 // MERGED"}],"metricsBeat":12,"metrics":[{"label":"AGENTS ONLINE","value":128,"decimals":0},{"label":"PRS MERGED","value":4096,"decimals":0},{"label":"UPTIME %","value":99.99,"decimals":2}]},"build":{"words":[{"beat":16,"text":"SCOPE"},{"beat":18,"text":"BUILD"},{"beat":20,"text":"TEST"},{"beat":22,"text":"REVIEW"},{"beat":24,"text":"MERGE"},{"beat":26,"text":"DEPLOY"}],"never":{"beat":28,"text":"THEY NEVER"},"terminal":["$ nova run scope --repo api","[ok] plan: 7 tasks","$ nova run build","[ok] 412 files compiled","$ nova run test","[ok] 1204/1204 passed","$ nova run review","[ok] 0 blocking issues","$ nova run merge","[ok] PR #4096 merged","$ nova run deploy","[ok] 3 regions live","$ nova watch --forever","[..] standing by"]},"drop":{"text":"SLEEP.","lead":"THEY NEVER","alert":"ALERT // DOWNTIME 00:00:00"},"finale":{"sub":"HUD LINK ESTABLISHED"}};</script>
+  <script>
+// Theme + timing helpers. Scenes read tokens only from T (which reads content.json).
+const T = (() => {
+  const C = window.CONTENT;
+  const fm = C.format;
+  const col = C.colors;
+  const W = fm.width;
+  const H = fm.height;
+  const fps = fm.fps;
+  const N = Math.round(fm.durationSec * fps);
+  const beatF = (b) => Math.round(((b * 60) / fm.bpm) * fps) + fm.offsetFrames;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const prog = (f, a, b) => clamp((f - a) / (b - a));
+  const expoOut = (p) => (p >= 1 ? 1 : 1 - Math.pow(2, -10 * p));
+  const expoIn = (p) => (p <= 0 ? 0 : Math.pow(2, 10 * p - 10));
+  const sineInOut = (p) => -(Math.cos(Math.PI * p) - 1) / 2;
+
+  // Frame-indexed seeded random: same keys, same value, every render.
+  function hrand(...keys) {
+    let h = (C.seed | 0) ^ 0x9e3779b9;
+    for (const k of keys) {
+      h = Math.imul(h ^ (k | 0), 0x85ebca6b);
+      h ^= h >>> 13;
+      h = Math.imul(h, 0xc2b2ae35);
+      h ^= h >>> 16;
+    }
+    return (h >>> 0) / 4294967296;
+  }
+
+  const B = C.beats;
+  const drop0 = beatF(B.drop);
+  const finale0 = beatF(B.finale);
+  // One list: camera punch, flash, RGB split (and sound, if added) all read it.
+  const hits = C.hitBeats.map((beat) => {
+    const inDrop = beat >= B.drop && beat < B.finale;
+    const heavy = beat === B.drop || beat === B.finale;
+    return {
+      beat,
+      f: beatF(beat),
+      w: inDrop || heavy ? 1 : 0.75,
+      flash: heavy ? 0.3 : inDrop ? 0.14 : beat === B.lock ? 0.2 : 0,
+      split: inDrop || beat >= B.finale ? 8 : 4,
+    };
+  });
+
+  function camera(f) {
+    let s = 1;
+    let x = 0;
+    let y = 0;
+    for (const h of hits) {
+      const d = f - h.f;
+      if (d < 0 || d >= 6) continue;
+      const amp = 0.06 * h.w;
+      s = d < 2 ? 1 + amp * expoOut((d + 1) / 2) : 1 + amp * (1 - sineInOut((d - 1) / 4));
+      if (d < 4) {
+        const k = (1 - d / 4) * 6 * h.w;
+        x = (hrand(h.f, d, 1) * 2 - 1) * k;
+        y = (hrand(h.f, d, 2) * 2 - 1) * k;
+      }
+    }
+    return { s, x, y };
+  }
+
+  const glow = (k = 1) =>
+    `0 0 ${24 * k}px ${col.accent}99, 0 0 ${64 * k}px ${col.accent}40` + (k > 1.3 ? `, 0 0 ${140 * k}px ${col.accent}30` : "");
+
+  function mk(parent, css, text, tag = "div") {
+    const e = document.createElement(tag);
+    e.style.cssText = "position:absolute;" + css;
+    if (text != null) e.textContent = text;
+    parent.appendChild(e);
+    return e;
+  }
+
+  const GLYPHS = "01<>/\\|#$%&*+=?";
+  // Left-to-right resolve; chars not yet resolved show seeded glyphs.
+  function decode(text, d, frames, salt) {
+    let out = "";
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (c === " ") out += c;
+      else if (d >= ((i + 1) * frames) / text.length) out += c;
+      else out += GLYPHS[Math.floor(hrand(salt, d, i) * GLYPHS.length)];
+    }
+    return out;
+  }
+
+  const head = (px) => `font-family:'${C.fonts.headline}',sans-serif;font-weight:800;font-size:${px}px;letter-spacing:0.02em;text-transform:uppercase;color:${col.ice};white-space:nowrap;line-height:1;`;
+  const mono = (px, op = 0.6) => `font-family:'${C.fonts.mono}',monospace;font-size:${px}px;letter-spacing:0.12em;text-transform:uppercase;color:${col.ice};opacity:${op};white-space:nowrap;`;
+  const centered = (x, y, s = 1) => `left:50%;top:50%;transform:translate(-50%,-50%) translate(${x}px,${y}px) scale(${s});`;
+
+  return { C, col, W, H, fps, N, beatF, clamp, lerp, prog, expoOut, expoIn, sineInOut, hrand, hits, camera, glow, mk, decode, head, mono, centered, drop0, finale0, B };
+})();
+
+const SCENES = [];
+// Persistent layers: far (stars + grid), mid (HUD), near (scene type). All values are pure functions of the frame.
+const HUD = (() => {
+  const { W, H, col, mk, prog, expoOut, hrand, beatF, C } = T;
+  const CX = W / 2;
+  const CY = H / 2;
+  const SAFE = 96;
+  const RINGS = [
+    { r: 240, dash: "3 9", w: 2, op: 0.55, rate: 0.6 },
+    { r: 330, dash: "140 30 40 30", w: 1.5, op: 0.6, rate: -1.1 },
+    { r: 450, dash: "2 14", w: 1, op: 0.45, rate: 0.9 },
+    { r: 560, dash: "260 60", w: 2, op: 0.35, rate: -0.5 },
+    { r: 640, dash: "1 6", w: 1, op: 0.3, rate: 1.6 },
+  ];
+  const riserA = beatF(C.beats.riserFrom);
+  const riserB = beatF(C.beats.drop);
+  const L = {};
+  const ringG = [];
+  let drawRing;
+  let scan;
+  let flashEl;
+  let blackEl;
+  let rulerL;
+  let rulerR;
+  let tr;
+  let bl;
+  let br;
+  let brk;
+
+  // Ring clock: f plus the integral of a 1->4x speed ramp over the riser.
+  function ringClock(f) {
+    const len = riserB - riserA;
+    const r = Math.min(Math.max(f - riserA, 0), len);
+    return f + (r * r * r) / (len * len);
+  }
+
+  function drawFar() {
+    const cv = document.createElement("canvas");
+    cv.width = 2300;
+    cv.height = 1300;
+    cv.style.cssText = "position:absolute;left:-190px;top:-110px;";
+    const g = cv.getContext("2d");
+    g.strokeStyle = "rgba(255,255,255,0.03)";
+    g.lineWidth = 1;
+    for (let x = 0; x <= 2300; x += 80) {
+      g.beginPath();
+      g.moveTo(x + 0.5, 0);
+      g.lineTo(x + 0.5, 1300);
+      g.stroke();
+    }
+    for (let y = 0; y <= 1300; y += 80) {
+      g.beginPath();
+      g.moveTo(0, y + 0.5);
+      g.lineTo(2300, y + 0.5);
+      g.stroke();
+    }
+    for (let i = 0; i < 240; i++) {
+      const a = 0.02 + 0.02 * T.hrand(1000, i, 3);
+      g.fillStyle = `rgba(255,255,255,${a})`;
+      const s = 1 + Math.floor(T.hrand(1000, i, 4) * 2);
+      g.fillRect(T.hrand(1000, i, 1) * 2300, T.hrand(1000, i, 2) * 1300, s, s);
+    }
+    L.far.appendChild(cv);
+  }
+
+  function ringSvg() {
+    const c = col.accent;
+    let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="position:absolute;left:0;top:0;overflow:visible">`;
+    s += `<g id="hudRings">`;
+    RINGS.forEach((r, i) => {
+      s += `<g id="ring${i}"><circle r="${r.r}" fill="none" stroke="${c}" stroke-width="${r.w}" stroke-dasharray="${r.dash}"/></g>`;
+    });
+    s += `<circle id="drawRing" r="285" fill="none" stroke="${col.ice}" stroke-opacity="0.5" stroke-width="1.5" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(-90)"/>`;
+    s += `</g>`;
+    s += `<g stroke="${c}" stroke-width="2" fill="none" opacity="0.8" id="brk">`;
+    const a = 40;
+    const o = SAFE;
+    s += `<path d="M${o},${o + a} V${o} H${o + a}"/><path d="M${W - o - a},${o} H${W - o} V${o + a}"/>`;
+    s += `<path d="M${o},${H - o - a} V${H - o} H${o + a}"/><path d="M${W - o - a},${H - o} H${W - o} V${H - o - a}"/>`;
+    s += `</g>`;
+    s += `<g stroke="${col.ice}" stroke-opacity="0.5" stroke-width="1" id="xhair"><path d="M${CX - 14},${CY} H${CX + 14} M${CX},${CY - 14} V${CY + 14}"/></g>`;
+    s += `</svg>`;
+    return s;
+  }
+
+  function build(stage) {
+    L.far = mk(stage, `left:0;top:0;width:${W}px;height:${H}px;`);
+    L.mid = mk(stage, `left:0;top:0;width:${W}px;height:${H}px;`);
+    L.near = mk(stage, `left:0;top:0;width:${W}px;height:${H}px;`);
+    drawFar();
+    L.mid.insertAdjacentHTML("beforeend", ringSvg());
+    RINGS.forEach((_, i) => ringG.push(document.getElementById("ring" + i)));
+    drawRing = document.getElementById("drawRing");
+    brk = document.getElementById("brk");
+    const ruler = `repeating-linear-gradient(to bottom, rgba(207,232,255,0.5) 0 1px, transparent 1px 12px)`;
+    rulerL = mk(L.mid, `left:${SAFE + 16}px;top:340px;width:14px;height:400px;background:${ruler};opacity:0.35;`);
+    rulerR = mk(L.mid, `left:${W - SAFE - 30}px;top:340px;width:14px;height:400px;background:${ruler};opacity:0.35;`);
+    scan = mk(L.mid, `left:0;top:0;width:${W}px;height:60px;background:linear-gradient(to bottom, transparent, ${col.accent}22 90%, ${col.accent}aa 98%, ${col.accent} 100%);opacity:0.5;`);
+    mk(L.mid, `left:${SAFE + 28}px;top:${SAFE + 20}px;${T.mono(16)}`, C.brand.sys + "  //  SYS.ONLINE");
+    tr = mk(L.mid, `right:${SAFE + 28}px;top:${SAFE + 20}px;${T.mono(16)}text-align:right;`);
+    bl = mk(L.mid, `left:${SAFE + 28}px;bottom:${SAFE + 20}px;${T.mono(14, 0.5)}line-height:1.5;`);
+    br = mk(L.mid, `right:${SAFE + 28}px;bottom:${SAFE + 20}px;${T.mono(16)}text-align:right;`);
+    flashEl = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;background:#fff;opacity:0;`);
+    blackEl = mk(stage, `left:0;top:0;width:${W}px;height:${H}px;background:${col.bg};opacity:0;`);
+    return L;
+  }
+
+  const pad = (n, k = 2) => String(n).padStart(k, "0");
+
+  function update(f, ctx, cam) {
+    const apply = (el, k) => {
+      el.style.transform = `translate(${cam.x * k}px,${cam.y * k}px) scale(${1 + (cam.s - 1) * k})`;
+    };
+    L.far.style.transform = `translate(${cam.x * 0.3 - f * 0.2}px,${cam.y * 0.3}px) scale(${1 + (cam.s - 1) * 0.3})`;
+    apply(L.mid, 0.6);
+    apply(L.near, 1);
+    L.mid.style.opacity = ctx.hudOp;
+
+    const clk = ringClock(f);
+    RINGS.forEach((r, i) => {
+      const d = T.clamp(ctx.ringDraw * 1.6 - i * 0.15);
+      const sc = ctx.ringScale * (0.7 + 0.3 * expoOut(d));
+      ringG[i].setAttribute("transform", `translate(${CX + ctx.ringDX} ${CY + ctx.ringDY}) rotate(${clk * r.rate}) scale(${sc})`);
+      ringG[i].setAttribute("opacity", (r.op * expoOut(d) * ctx.ringOp).toFixed(3));
+    });
+    drawRing.setAttribute("stroke-dashoffset", (1 - ctx.ringDraw).toFixed(3));
+    drawRing.setAttribute("transform", `translate(${CX + ctx.ringDX} ${CY + ctx.ringDY}) rotate(-90) scale(${ctx.ringScale})`);
+
+    const sy = ((f * ctx.scanSpeed) % 45) / 45;
+    scan.style.transform = `translateY(${sy * H - 60}px)`;
+    rulerL.style.backgroundPositionY = `${f * 3}px`;
+    rulerR.style.backgroundPositionY = `${-f * 3}px`;
+    brk.setAttribute("opacity", (0.8 - 0.3 * (T.hits.some((h) => f - h.f >= 0 && f - h.f < 2) ? 0 : 1)).toFixed(2));
+
+    const sec = Math.floor(f / T.fps);
+    const fr = Math.floor((f % T.fps) / 2) * 2;
+    tr.textContent = `TC 00:${pad(sec)}:${pad(fr)}  //  REC`;
+    const hx = (n) => Math.floor(hrand(77, Math.floor(f / 2), n) * 0xffffff).toString(16).toUpperCase().padStart(6, "0");
+    bl.innerHTML = `0x${hx(1)} 0x${hx(2)}<br>0x${hx(3)} 0x${hx(4)}<br>MESH ${pad(128 - (Math.floor(f / 6) % 3))}/128`;
+    const beat = (f * C.format.bpm) / (60 * T.fps);
+    br.textContent = `BPM ${C.format.bpm}  //  BAR ${pad(Math.floor(beat / 4) + 1)}.${Math.floor(beat % 4) + 1}`;
+
+    let fl = 0;
+    let sp = 0;
+    for (const h of T.hits) {
+      const d = f - h.f;
+      if (d >= 0 && d < 2) fl = Math.max(fl, h.flash);
+      if (d >= 0 && d < 3) sp = Math.max(sp, h.split * (1 - d / 3));
+    }
+    flashEl.style.opacity = fl;
+    L.near.style.setProperty("--sp", sp.toFixed(1) + "px");
+    blackEl.style.opacity = ctx.blackout;
+  }
+
+  return { build, update, ringClock };
+})();
+
+// Cold open: black, boot lines type in, rings draw on, loading bar fills up to the first hit.
+SCENES.push(
+  (() => {
+    const { C, mk, mono, prog, clamp, expoOut, col, W, H, beatF } = T;
+    const s = { name: "cold", start: 0, end: beatF(C.beats.hits) };
+    const lines = C.cold.boot;
+    const total = lines.reduce((n, l) => n + l.length, 0);
+    let boot;
+    let bar;
+    let barFill;
+    let centerEl;
+
+    s.build = (L) => {
+      s.near = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      boot = mk(s.near, `left:160px;top:${H / 2 - 40}px;${mono(20, 0.75)}line-height:1.7;`);
+      centerEl = mk(s.near, `left:50%;top:${H / 2 + 330}px;transform:translateX(-50%);${mono(18, 0.7)}`);
+      bar = mk(s.near, `left:${W / 2 - 240}px;top:${H / 2 + 372}px;width:480px;height:2px;background:${col.accent}33;`);
+      barFill = mk(bar, `left:0;top:0;height:2px;width:0;background:${col.accent};`);
+    };
+
+    s.update = (f, ctx) => {
+      const p = prog(f, 0, s.end - 6);
+      ctx.hudOp = clamp(f / 14);
+      ctx.ringDraw = expoOut(prog(f, 4, s.end - 8));
+      ctx.scanSpeed = 1.5;
+      let typed = Math.floor(total * clamp((f - 4) / (s.end - 16)));
+      let html = "";
+      for (const l of lines) {
+        const n = clamp(typed, 0, l.length);
+        html += l.slice(0, n) + (n > 0 && n < l.length && Math.floor(f / 3) % 2 ? "█" : "") + "<br>";
+        typed -= l.length;
+      }
+      boot.innerHTML = html;
+      centerEl.textContent = p > 0.3 ? C.cold.center + "  " + String(Math.floor(p * 100)).padStart(3, "0") + "%" : "";
+      barFill.style.width = `${p * 480}px`;
+    };
+    return s;
+  })()
+);
+
+// Hits I: keyword slams on the beat, lock-on brackets, then a metrics shot that whips in.
+SCENES.push(
+  (() => {
+    const { C, mk, mono, head, glow, prog, clamp, expoOut, expoIn, lerp, col, W, H, beatF, decode, centered, B } = T;
+    const cfg = C.hits;
+    const s = { name: "hits", start: beatF(B.hits), end: beatF(B.build) };
+    const shots = cfg.shots.map((x) => ({ ...x, f: beatF(x.beat) }));
+    const mf = beatF(cfg.metricsBeat);
+    const WHIP = 5;
+    const lineIds = [...new Set(shots.map((x) => x.line))];
+    const lines = lineIds.map((id, i) => {
+      const mine = shots.filter((x) => x.line === id);
+      const nextF = i + 1 < lineIds.length ? shots.find((x) => x.line === lineIds[i + 1]).f : mf;
+      return { shots: mine, show: mine[0].f - 5, end: nextF - 6 };
+    });
+    let words = [];
+    let tags = [];
+    let box;
+    let corners = [];
+    let met;
+    let metEls = [];
+
+    s.build = (L) => {
+      s.near = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      shots.forEach((x) => {
+        const sp = `text-shadow:var(--sp) 0 0 ${col.splitA}, calc(var(--sp) * -1) 0 0 ${col.splitB};`;
+        words.push(mk(s.near, `${head(176)}${sp}`, x.text));
+        tags.push(mk(s.near, `${mono(16, 0.65)}left:50%;top:50%;`, ""));
+      });
+      box = mk(s.near, "left:0;top:0;width:10px;height:10px;");
+      for (let i = 0; i < 4; i++) {
+        const cs = `width:40px;height:40px;border:0 solid ${col.accent};`;
+        const b = [`border-top-width:2px;border-left-width:2px;left:0;top:0;`, `border-top-width:2px;border-right-width:2px;right:0;top:0;`, `border-bottom-width:2px;border-left-width:2px;left:0;bottom:0;`, `border-bottom-width:2px;border-right-width:2px;right:0;bottom:0;`][i];
+        corners.push(mk(box, cs + b));
+      }
+      met = mk(s.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      cfg.metrics.forEach((m, i) => {
+        const x = W / 2 + (i - 1) * 520;
+        const col1 = mk(met, `left:${x}px;top:${H / 2}px;transform:translate(-50%,-50%);text-align:center;`);
+        const num = mk(col1, `${head(i === 1 ? 140 : 108)}position:relative;font-variant-numeric:tabular-nums;`, "0");
+        const lab = mk(col1, `${mono(16, 0.65)}position:relative;margin-top:22px;`, m.label);
+        metEls.push({ col1, num, lab, m });
+      });
+    };
+
+    s.update = (f, ctx) => {
+      ctx.hudOp = 1;
+      let focal = -1;
+      let focalLine = null;
+      lines.forEach((ln, li) => {
+        const vis = f >= ln.show && f < ln.end;
+        const wp = prog(f, ln.end - WHIP, ln.end);
+        ln.shots.forEach((x) => {
+          const i = shots.indexOf(x);
+          const el = words[i];
+          const on = vis && f >= x.f - 5;
+          el.style.display = on ? "block" : "none";
+          tags[i].style.display = on ? "block" : "none";
+          if (!on) return;
+          const p = prog(f, x.f - 5, x.f);
+          const latest = ln.shots.filter((y) => f >= y.f - 5).slice(-1)[0] === x;
+          const sc = 1.4 - 0.4 * expoOut(p);
+          const dx = -W * expoIn(wp);
+          const blur = 24 * wp;
+          const st = el.style;
+          st.left = "50%";
+          st.top = "50%";
+          st.transform = `translate(-50%,-50%) translate(${dx}px,${x.row * 105}px) scale(${sc})`;
+          st.opacity = (clamp(p * 1.6) * (latest ? 1 : 0.8)).toFixed(2);
+          st.filter = blur > 0.5 ? `blur(${blur.toFixed(1)}px)` : "none";
+          st.textShadow = `var(--sp) 0 0 ${col.splitA}, calc(var(--sp) * -1) 0 0 ${col.splitB}${latest ? "," + glow(1) : ""}`;
+          tags[i].style.transform = `translate(-50%,-50%) translate(${dx}px,${x.row * 105 + (x.row > 0 ? 130 : -118)}px)`;
+          tags[i].textContent = latest ? decode(x.tag, Math.max(0, f - x.f), 8, i + 11) : x.tag;
+          tags[i].style.opacity = latest ? 0.7 : 0.3;
+          if (latest && wp === 0) {
+            focal = i;
+            focalLine = x;
+          }
+        });
+      });
+      // lock-on box around the newest word
+      if (focal >= 0) {
+        const el = words[focal];
+        const w = el.offsetWidth * 1.0;
+        const h = 176;
+        const k = 1 - expoOut(prog(f, focalLine.f - 5, focalLine.f + 3));
+        const pad = 36 + 70 * k;
+        const cx = W / 2;
+        const cy = H / 2 + focalLine.row * 105;
+        box.style.display = "block";
+        Object.assign(box.style, { left: `${cx - w / 2 - pad}px`, top: `${cy - h / 2 - pad}px`, width: `${w + pad * 2}px`, height: `${h + pad * 2}px`, opacity: 0.9 - 0.4 * k });
+        ctx.ringDY = focalLine.row * 40;
+      } else {
+        box.style.display = "none";
+      }
+      // metrics shot
+      const metOn = f >= mf - 6;
+      met.style.display = metOn ? "block" : "none";
+      if (metOn) {
+        const enter = expoOut(prog(f, mf - 6, mf));
+        const wx = W * (1 - enter);
+        const blur = 24 * (1 - enter);
+        const count = expoOut(prog(f, mf, beatF(cfg.metricsBeat + 2)));
+        const lockD = f - beatF(cfg.metricsBeat + 2);
+        met.style.transform = `translateX(${wx}px)`;
+        met.style.filter = blur > 0.5 ? `blur(${blur.toFixed(1)}px)` : "none";
+        metEls.forEach((e, i) => {
+          const v = e.m.value * count;
+          const txt = v.toLocaleString("en-US", { minimumFractionDigits: e.m.decimals, maximumFractionDigits: e.m.decimals });
+          e.num.textContent = txt;
+          const focalNum = i === 1;
+          e.num.style.textShadow = focalNum ? glow(lockD >= 0 && lockD < 8 ? 1.6 : 1) : "none";
+          e.num.style.opacity = focalNum ? 1 : 0.85;
+        });
+        ctx.ringDY = 0;
+        ctx.ringScale *= 1 + 0.06 * (1 - enter);
+      }
+    };
+    return s;
+  })()
+);
+
+// Build: one decoded keyword per two beats, terminal micro-type, data spikes, riser into "THEY NEVER".
+SCENES.push(
+  (() => {
+    const { C, mk, mono, head, glow, prog, clamp, expoOut, col, W, H, beatF, decode, hrand, B } = T;
+    const cfg = C.build;
+    const s = { name: "build", start: beatF(B.build), end: beatF(B.drop) };
+    const DECODE = 9;
+    const words = cfg.words.map((w) => ({ ...w, f: beatF(w.beat) }));
+    const never = { ...cfg.never, f: beatF(cfg.never.beat) };
+    const BARS = 20;
+    const SP = "text-shadow:var(--sp) 0 0 " + col.splitA + ", calc(var(--sp) * -1) 0 0 " + col.splitB + ";";
+    let term;
+    let termTitle;
+    let bars = [];
+    let chartLabel;
+    let wordEl;
+    let neverEl;
+    let cells = [];
+    let panels;
+
+    // Per-character cells keep the layout stable while glyphs cycle.
+    function cellWord(parent, text, px) {
+      const wrap = mk(parent, `left:50%;top:50%;${head(px)}display:flex;transform:translate(-50%,-50%);`);
+      const cells = Array.from(text).map((ch) => {
+        const c = document.createElement("span");
+        c.style.cssText = "display:inline-block;text-align:center;";
+        c.textContent = ch;
+        wrap.appendChild(c);
+        return { c, ch };
+      });
+      return { wrap, cells, measured: false };
+    }
+
+    s.build = (L) => {
+      s.near = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      panels = mk(s.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      termTitle = mk(panels, `left:120px;top:300px;${mono(14, 0.5)}`, "AGENT.LOG // LIVE");
+      mk(panels, `left:120px;top:326px;width:280px;height:1px;background:${col.accent}66;`);
+      term = mk(panels, `left:120px;top:340px;width:280px;${mono(15, 0.7)}line-height:1.65;`);
+      chartLabel = mk(panels, `right:120px;top:300px;${mono(14, 0.5)}text-align:right;`, "THROUGHPUT // PR/MIN");
+      mk(panels, `right:120px;top:326px;width:280px;height:1px;background:${col.accent}66;`);
+      for (let i = 0; i < BARS; i++) {
+        bars.push(mk(panels, `right:${120 + (BARS - 1 - i) * 15}px;top:340px;width:9px;height:10px;background:${col.accent};opacity:0.7;transform-origin:50% 0;`));
+      }
+      mk(panels, `right:120px;top:560px;${mono(14, 0.5)}text-align:right;`, "UTIL 98.6%  //  QUEUE 0");
+      neverEl = mk(s.near, `${head(160)}${SP}left:50%;top:50%;`, never.text);
+      s.wordMeta = [];
+      words.forEach((w) => {
+        s.wordMeta.push({ w, ...cellWord(s.near, w.text, 168) });
+      });
+    };
+
+    s.update = (f, ctx) => {
+      ctx.hudOp = 1;
+      const nv = f >= never.f - 5;
+      const riser = prog(f, beatF(C.beats.riserFrom), beatF(B.drop));
+      panels.style.opacity = nv ? 0.4 : 1;
+      // terminal: ~1 line / 7 frames
+      const t = f - s.start;
+      const idx = Math.floor(t / 7);
+      const lines = cfg.terminal;
+      let html = "";
+      for (let i = Math.max(0, idx - 8); i <= idx; i++) {
+        const ln = lines[i % lines.length];
+        const part = i === idx ? ln.slice(0, Math.ceil(ln.length * ((t % 7) + 1) / 7)) : ln;
+        html += `<span style="color:${ln.startsWith("[ok]") ? col.accent : col.ice}">${part}</span><br>`;
+      }
+      term.innerHTML = html;
+      bars.forEach((b, i) => {
+        const h = 20 + 150 * hrand(31, Math.floor(f / 2), i) * (0.5 + 0.5 * Math.sin(i * 0.5 + f * 0.05) ** 2 + riser * 0.8);
+        b.style.height = Math.min(190, h) + "px";
+        b.style.opacity = i === (Math.floor(f / 2) % BARS) ? 1 : 0.6;
+      });
+      // decoded keywords
+      s.wordMeta.forEach((m, mi) => {
+        const nextF = words[mi + 1] ? words[mi + 1].f - 3 : never.f - 5;
+        const on = f >= m.w.f - 3 && f < nextF;
+        m.wrap.style.display = on ? "flex" : "none";
+        if (!on) return;
+        if (!m.measured && document.fonts.status === "loaded") {
+          m.cells.forEach((c) => {
+            c.c.style.width = "";
+            c.c.style.width = c.c.offsetWidth + 2 + "px";
+          });
+          m.measured = true;
+        }
+        const d = f - (m.w.f - 3);
+        m.cells.forEach((c, i) => {
+          const done = d >= ((i + 1) * DECODE) / m.cells.length;
+          c.c.textContent = done ? c.ch : T.decode("x", d, 99, 50 + i * 7 + mi)[0];
+          c.c.style.color = done ? col.ice : col.accent;
+        });
+        const k = 1 - expoOut(prog(f, m.w.f - 3, m.w.f + 3));
+        m.wrap.style.transform = `translate(-50%,-50%) scale(${1 + 0.1 * k})`;
+        m.wrap.style.textShadow = glow(1);
+      });
+      // THEY NEVER slam
+      neverEl.style.display = nv ? "block" : "none";
+      if (nv) {
+        const p = prog(f, never.f - 5, never.f);
+        neverEl.style.transform = `translate(-50%,-50%) scale(${1.4 - 0.4 * expoOut(p)})`;
+        neverEl.style.opacity = clamp(p * 1.6);
+        neverEl.style.textShadow = `var(--sp) 0 0 ${col.splitA}, calc(var(--sp) * -1) 0 0 ${col.splitB}, ${glow(1 + 0.8 * riser)}`;
+        ctx.ringScale *= 1 + 0.1 * riser * riser;
+      }
+      // riser: flicker the HUD, then a 2-frame blackout before the drop
+      if (riser > 0) ctx.hudOp = hrand(9, f) > riser * 0.5 ? 1 : 0.5;
+      ctx.scanSpeed = 1 + 2 * riser;
+      if (f >= s.end - 2) ctx.blackout = 1;
+    };
+    return s;
+  })()
+);
+
+// Drop: full-frame word, hits on every beat, bloom peak, flash + RGB split (from the shared hit list), ring bursts.
+SCENES.push(
+  (() => {
+    const { C, mk, mono, head, glow, prog, clamp, expoOut, col, W, H, beatF, hrand, B } = T;
+    const cfg = C.drop;
+    const s = { name: "drop", start: beatF(B.drop), end: beatF(B.finale) };
+    const ROWS = 5;
+    const BEATS = B.finale - B.drop;
+    let word;
+    let lead;
+    let wall = [];
+    let burst;
+    let alert;
+    let stat;
+
+    s.build = (L) => {
+      s.near = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      const wallText = Array(8).fill(cfg.text).join(" ");
+      for (let i = 0; i < ROWS; i++) {
+        const row = mk(s.near, `${head(150)}left:0;top:${60 + i * 200}px;color:${col.accent};opacity:0.09;`, wallText);
+        row.setAttribute("data-layout-allow-overflow", "");
+        wall.push(row);
+      }
+      burst = mk(s.near, `left:${W / 2}px;top:${H / 2}px;width:10px;height:10px;`);
+      burst.innerHTML = `<svg width="2000" height="2000" viewBox="-1000 -1000 2000 2000" style="position:absolute;left:-1000px;top:-1000px"><circle id="burstC" r="100" fill="none" stroke="${col.ice}" stroke-width="2"/></svg>`;
+      lead = mk(s.near, `${head(70)}left:50%;top:50%;`, cfg.lead);
+      word = mk(s.near, `${head(400)}left:50%;top:50%;`, cfg.text);
+      alert = mk(s.near, `${mono(20, 1)}left:50%;top:${180}px;transform:translateX(-50%);color:${col.hit};border:2px solid ${col.hit};padding:8px 20px;`, cfg.alert);
+      stat = mk(s.near, `${mono(16, 0.7)}left:${W / 2}px;top:${H - 190}px;transform:translateX(-50%);`);
+    };
+
+    s.update = (f, ctx) => {
+      ctx.hudOp = 1;
+      const t = f - s.start;
+      const bi = Math.min(BEATS - 1, Math.floor(((f * C.format.bpm) / (60 * T.fps)) - B.drop));
+      const bf = beatF(B.drop + bi);
+      const d = f - bf;
+      // word slams in on the first beat, then dollies slowly forever
+      const p = prog(f, s.start - 5 + 5, s.start + 5);
+      const slam = 1.4 - 0.4 * expoOut(prog(f, s.start - 1, s.start + 4));
+      const dolly = 1 + 0.07 * (t / (s.end - s.start));
+      // bloom peak on the first hit, decaying; smaller pulse every beat after
+      const k = 1 + (bi === 0 ? 1.4 : 0.7) * Math.max(0, 1 - d / 10) + 0.1 * (BEATS - bi) / BEATS;
+      word.style.transform = `translate(-50%,-50%) translate(0px,40px) scale(${slam * dolly})`;
+      word.style.opacity = clamp(t / 2 + 0.3);
+      word.style.textShadow = `var(--sp) 0 0 ${col.splitA}, calc(var(--sp) * -1) 0 0 ${col.splitB}, ${glow(k)}`;
+      lead.style.transform = `translate(-50%,-50%) translate(0px,-290px) scale(${dolly})`;
+      lead.style.textShadow = "none";
+      lead.style.opacity = 0.9;
+      // wall rows slide, kicked on each beat
+      wall.forEach((w, i) => {
+        const dir = i % 2 ? 1 : -1;
+        w.style.transform = `translateX(${dir * (t * 7 + 90 * expoOut(clamp(d / 8))) - 1200}px)`;
+        w.style.opacity = bi >= 1 ? 0.09 : 0.03 + 0.06 * clamp(t / 10);
+      });
+      // ring burst every beat; the first one is the hit color (moment 1 of 2)
+      const c = burst.firstChild.firstChild;
+      const bp = expoOut(clamp(d / 10));
+      c.setAttribute("r", 120 + 800 * bp);
+      c.setAttribute("stroke", bi === 0 ? col.hit : col.ice);
+      c.setAttribute("stroke-opacity", (0.7 * (1 - bp)).toFixed(2));
+      // alert strip: hit color, moment 2 of 2
+      const al = bi === 4 || bi === 5;
+      alert.style.display = al ? "block" : "none";
+      alert.style.opacity = al ? (Math.floor(f / 3) % 2 ? 1 : 0.55) : 0;
+      stat.textContent = `UPTIME 100.00%  //  AGENTS AWAKE ${String(128 - (bi % 2)).padStart(3, "0")}/128  //  HITS ${String(bi + 1).padStart(2, "0")}`;
+      ctx.ringScale *= 1 + 0.08 * Math.max(0, 1 - d / 8);
+      ctx.ringDY = 40;
+      ctx.scanSpeed = 2;
+    };
+    return s;
+  })()
+);
+
+// Logo finale: NOVA LABS assembles from stroked line segments, locks on the beat, glow settles, tagline + handle.
+SCENES.push(
+  (() => {
+    const { C, mk, mono, glow, prog, clamp, expoOut, lerp, col, W, H, beatF, hrand, B, decode, N } = T;
+    const s = { name: "finale", start: beatF(B.finale), end: N };
+    const lockF = beatF(B.lock);
+    const U = 25; // grid unit in px
+    const ADV = 5.4;
+    // Stroke letters on a 4 x 6 grid (y down), chamfered corners for a HUD feel.
+    const GLYPH = {
+      N: [[[0, 6], [0, 0], [4, 6], [4, 0]]],
+      O: [[[1, 0], [3, 0], [4, 1], [4, 5], [3, 6], [1, 6], [0, 5], [0, 1], [1, 0]]],
+      V: [[[0, 0], [2, 6], [4, 0]]],
+      A: [[[0, 6], [2, 0], [4, 6]], [[0.9, 4], [3.1, 4]]],
+      L: [[[0, 0], [0, 6], [4, 6]]],
+      B: [[[0, 6], [0, 0], [3, 0], [4, 1], [4, 2], [3, 3], [0, 3]], [[3, 3], [4, 4], [4, 5], [3, 6], [0, 6]]],
+      S: [[[4, 1], [3, 0], [1, 0], [0, 1], [0, 2], [1, 3], [3, 3], [4, 4], [4, 5], [3, 6], [1, 6], [0, 5]]],
+    };
+    const name = C.brand.name;
+    const totalW = (name.length - 1) * ADV + 4;
+    const x0 = (W - totalW * U) / 2;
+    const y0 = H / 2 - 3 * U - 20;
+    const segs = [];
+    let svgPaths = "";
+    Array.from(name).forEach((ch, i) => {
+      (GLYPH[ch] || []).forEach((pts, j) => {
+        const d = pts.map((p, k) => `${k ? "L" : "M"}${(x0 + (i * ADV + p[0]) * U).toFixed(1)},${(y0 + p[1] * U).toFixed(1)}`).join(" ");
+        const id = segs.length;
+        svgPaths += `<path id="seg${id}" d="${d}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" />`;
+        segs.push({ id, i, j, dx: (hrand(5, id, 1) * 2 - 1) * 520, dy: (hrand(5, id, 2) * 2 - 1) * 300, rot: (hrand(5, id, 3) * 2 - 1) * 25, cx: x0 + (i * ADV + 2) * U, cy: y0 + 3 * U });
+      });
+    });
+    let svg;
+    let logo;
+    let tag;
+    let handle;
+    let subEl;
+    const els = [];
+
+    s.build = (L) => {
+      s.near = mk(L.near, `left:0;top:0;width:${W}px;height:${H}px;`);
+      const hl = y0 + 3 * U;
+      s.near.insertAdjacentHTML(
+        "beforeend",
+        `<svg id="logoSvg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="position:absolute;left:0;top:0;overflow:visible">
+          <g id="logoG" fill="none" stroke="${col.ice}" stroke-width="5" stroke-linejoin="miter" stroke-linecap="square">${svgPaths}</g>
+          <g stroke="${col.accent}" stroke-width="2" id="rule">
+            <path id="ruleL" d="M${x0 - 40},${hl} H${x0 - 320}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+            <path id="ruleR" d="M${x0 + totalW * U + 40},${hl} H${x0 + totalW * U + 320}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+          </g></svg>`
+      );
+      svg = document.getElementById("logoSvg");
+      logo = document.getElementById("logoG");
+      segs.forEach((g) => els.push(document.getElementById("seg" + g.id)));
+      subEl = mk(s.near, `${mono(16, 0.6)}left:50%;top:${y0 - 70}px;transform:translateX(-50%);`);
+      tag = mk(s.near, `${mono(26, 0.95)}left:50%;top:${y0 + 6 * U + 56}px;transform:translateX(-50%);`);
+      handle = mk(s.near, `${mono(18, 0.6)}left:50%;top:${y0 + 6 * U + 120}px;transform:translateX(-50%);`);
+    };
+
+    s.update = (f, ctx) => {
+      ctx.hudOp = 1;
+      const t = f - s.start;
+      ctx.ringScale *= 0.92;
+      ctx.ringDY = -20;
+      segs.forEach((g) => {
+        const t0 = s.start + 3 + g.i * 2 + g.j * 1;
+        const p = expoOut(prog(f, t0, t0 + 24));
+        const e = els[g.id];
+        e.setAttribute("stroke-dashoffset", (1 - p).toFixed(3));
+        e.setAttribute("opacity", clamp(p * 4).toFixed(2));
+        e.setAttribute("transform", `translate(${((1 - p) * g.dx).toFixed(1)} ${((1 - p) * g.dy).toFixed(1)}) rotate(${((1 - p) * g.rot).toFixed(1)} ${g.cx.toFixed(1)} ${g.cy.toFixed(1)})`);
+      });
+      ["ruleL", "ruleR"].forEach((id) => {
+        document.getElementById(id).setAttribute("stroke-dashoffset", (1 - expoOut(prog(f, s.start + 10, lockF))).toFixed(3));
+      });
+      // glow peaks on the lock hit, then settles
+      const settle = f < lockF ? 0.6 + 0.4 * prog(f, s.start, lockF) : 1 + 1.2 * Math.max(0, 1 - (f - lockF) / 24);
+      const breathe = 1 + 0.06 * Math.sin(f * 0.18);
+      const k = settle * breathe;
+      let sp = 0;
+      for (const h of T.hits) if (f - h.f >= 0 && f - h.f < 3) sp = Math.max(sp, h.split * (1 - (f - h.f) / 3));
+      logo.style.filter = `drop-shadow(${sp}px 0 0 ${col.splitA}) drop-shadow(${-sp}px 0 0 ${col.splitB}) drop-shadow(0 0 ${14 * k}px ${col.accent}) drop-shadow(0 0 ${40 * k}px ${col.accent}88)`;
+      subEl.textContent = prog(f, lockF - 14, lockF) > 0 ? decode(C.finale.sub, Math.max(0, f - (lockF - 14)), 14, 71) : "";
+      tag.textContent = f >= lockF + 2 ? decode(C.brand.tagline, f - lockF - 2, 12, 72) : "";
+      handle.textContent = f >= lockF + 10 ? decode(C.brand.handle, f - lockF - 10, 12, 73) : "";
+    };
+    return s;
+  })()
+);
+
+// Single driver: a GSAP proxy tween calls render(frame); every visual value derives from the frame number.
+(() => {
+  const stage = document.getElementById("stage");
+  const layers = HUD.build(stage);
+  SCENES.forEach((s) => s.build(layers));
+
+  const lastBeatPulse = (f) => {
+    const b = Math.floor((f * T.C.format.bpm) / (60 * T.fps));
+    const d = f - T.beatF(b);
+    return d < 8 ? 0.08 * Math.pow(1 - d / 8, 2) : 0;
+  };
+
+  function render(raw) {
+    const f = Math.max(0, Math.min(T.N - 1, Math.round(raw)));
+    const ctx = { hudOp: 1, ringScale: 1 + lastBeatPulse(f), ringDX: 0, ringDY: 0, ringDraw: 1, ringOp: 1, scanSpeed: 1, blackout: 0 };
+    SCENES.forEach((s) => {
+      const on = f >= s.start && f < s.end;
+      s.near.style.display = on ? "block" : "none";
+      if (on) s.update(f, ctx);
+    });
+    HUD.update(f, ctx, T.camera(f));
+  }
+
+  const proxy = { f: 0 };
+  const tl = gsap.timeline({ paused: true });
+  tl.to(proxy, { f: T.N, duration: T.N / T.fps, ease: "none", onUpdate: () => render(proxy.f) }, 0);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["main"] = tl;
+  window.__renderFrame = render;
+  render(0);
+})();
+
+  </script>
+</body>
+</html>

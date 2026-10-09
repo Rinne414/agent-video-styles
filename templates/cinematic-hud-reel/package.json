@@ -1,0 +1,12 @@
+{
+  "name": "@avs/cinematic-hud-reel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "dev": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 preview",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/cinematic-hud-reel.mp4"
+  }
+}

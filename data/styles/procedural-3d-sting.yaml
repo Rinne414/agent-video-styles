@@ -1,0 +1,96 @@
+id: procedural-3d-sting
+tier: core
+evidence_strength: strong
+name:
+  en: Procedural 3D Sting
+  zh: 程序化 3D 片头标志
+tagline:
+  en: A short, mostly wordless 3D or shader reveal - particles, glass and light converge into a logo.
+  zh: 简短、几乎无字的 3D 或着色器揭示：粒子、玻璃与光线汇聚成 Logo。
+signature:
+  en:
+    - One hero object (extruded logo, crystal, torus knot or particle sphere) on a dark void
+    - Physically based metal or glass materials with a single light sweep at the reveal
+    - Fragments or particles converging while shader noise settles to zero
+    - Slow orbiting camera, bloom peak on the hit, wordmark fades in at the end
+  zh:
+    - 暗色空间中只有一个主角物体（挤出 Logo、晶体、环面结或粒子球）
+    - 金属或玻璃的物理材质，揭示时一道光扫过
+    - 碎片或粒子汇聚，着色器噪声逐渐归零
+    - 镜头缓慢环绕，撞击点辉光峰值，结尾文字标志淡入
+best_for:
+  en:
+    - Logo stings, channel or app openers, game and festival intros
+    - 5-15 s teasers where mood matters more than information
+  zh:
+    - Logo 片头、频道或 App 开场、游戏与活动开场
+    - 重氛围轻信息的 5-15 秒预告
+avoid_when:
+  en:
+    - The video must explain features (use saas-launch-promo or ui-camera-tour)
+    - The machine renders WebGL slowly or not at all headless (use kinetic-typography)
+  zh:
+    - 需要说明功能（改用 saas-launch-promo 或 ui-camera-tour）
+    - 机器无法或很难无头渲染 WebGL（改用 kinetic-typography）
+tags:
+  use: [brand-reel, product-launch]
+  platform: [x, youtube, website-hero]
+  aspect: ["16:9", "1:1"]
+  audio: [music, sfx]
+  mood: [cinematic, premium]
+  needs: [logo]
+duration: 6-15 s
+difficulty: 3
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: "@remotion/three wraps React Three Fiber so every transform is a function of useCurrentFrame, which keeps 3D deterministic; several public stings use exactly this stack. HyperFrames also renders seekable Three.js scenes."
+    zh: "@remotion/three 封装了 React Three Fiber，所有变换都由 useCurrentFrame 决定，3D 画面因此可重现；多个公开片头正是用这套组合。HyperFrames 也能渲染可跳帧的 Three.js 场景。"
+variants:
+  - id: shader-only
+    en: A single full-screen GLSL fragment shader driven by time = frame / fps; no meshes.
+    zh: 单个全屏 GLSL 片段着色器，time = frame / fps 驱动，不用网格。
+  - id: particle-logo
+    en: Points sampled from the logo SVG fly in from a noise field and lock into the mark.
+    zh: 从 Logo SVG 采样的点从噪声场飞入并锁定成标志。
+  - id: power-on
+    en: Fictional console or device power-on - scanline flash, chrome logo, synth chime.
+    zh: 虚构主机或设备开机：扫描线闪光、铬金属 Logo、合成器提示音。
+evidence:
+  - creator: "@DengenT"
+    platform: X
+    region: global
+    url: https://x.com/DengenT/status/2107425308773412996
+    tool: Claude Code + Remotion 4 + @remotion/three (R3F)
+    note: Cardilife 1.3 3D opening; Python stdlib music; JA and EN versions exported from one codebase via props.
+    verified: aggregator
+  - creator: "@arumii_movie"
+    platform: X
+    region: global
+    url: https://x.com/arumii_movie/status/2107790132061622720
+    tool: Opus 5.5 + HyperFrames + Three.js + GLSL
+    note: Fictional game-console power-on logo (25 s) and fictional company logo (15 s).
+    verified: aggregator
+  - creator: "@argbeknwn"
+    platform: X
+    region: global
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: Opus 5.5 + Remotion
+    note: "15 s wordless piece from the prompt \"Show me what's inside your mind... No words. Music.\" (listing slug argbeknwn-466818)."
+    verified: aggregator
+  - creator: "@LeowenAI"
+    platform: X
+    region: global
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: Remotion + GLSL + Python music
+    note: 25 s model teaser (listing slug leowenai-125931).
+    verified: aggregator
+  - creator: HeyGen (HyperFrames showcase)
+    platform: Web
+    region: global
+    url: https://hyperframes.heygen.com/showcase
+    tool: HyperFrames
+    note: VFX reel and Texture launch - shader effects and motion design with texture.
+    verified: opened
+template: templates/procedural-3d-sting

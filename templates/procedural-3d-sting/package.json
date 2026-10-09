@@ -1,0 +1,37 @@
+{
+  "name": "@avs/procedural-3d-sting",
+  "version": "1.0.0",
+  "description": "My Remotion video",
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@fontsource/inter": "5.2.5",
+    "@react-three/fiber": "9.1.2",
+    "@remotion/cli": "4.0.534",
+    "@remotion/fonts": "4.0.534",
+    "@remotion/google-fonts": "4.0.534",
+    "@remotion/three": "4.0.534",
+    "@types/three": "0.171.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534",
+    "three": "0.171.0"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.534",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render": "remotion render procedural-3d-sting out/procedural-3d-sting.mp4 --gl=angle --image-format=png --pixel-format=yuv420p",
+    "still": "remotion still procedural-3d-sting out/still.png --gl=angle --frame=66"
+  }
+}

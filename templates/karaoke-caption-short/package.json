@@ -1,0 +1,23 @@
+{
+  "name": "@avs/karaoke-caption-short",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Karaoke caption short: 1080x1920 word-by-word highlighted Chinese captions (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "still": "remotion still KaraokeShort out/still.png --frame=60",
+    "render": "remotion render KaraokeShort out/karaoke-caption-short.mp4 --pixel-format=yuv420p"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-sc": "5.2.9",
+    "@remotion/cli": "4.0.534",
+    "@remotion/media": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

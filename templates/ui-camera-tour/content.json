@@ -1,0 +1,327 @@
+{
+  "brand": {
+    "name": "Ledgerly",
+    "accent": "#10B981",
+    "accentInk": "#04261D",
+    "headline": [
+      "Meet",
+      "Ledgerly"
+    ],
+    "subline": "Invoices that get paid.",
+    "cta": "ledgerly.example",
+    "user": "Ana Mora"
+  },
+  "format": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "bpm": 120,
+    "durationBeats": 70
+  },
+  "invoice": {
+    "number": "#1043",
+    "client": "Acme Studio",
+    "clientEmail": "billing@acmestudio.example",
+    "taxRate": 0.08,
+    "terms": "Due in 14 days",
+    "items": [
+      {
+        "desc": "Brand identity design",
+        "qty": 1,
+        "rate": 2400
+      },
+      {
+        "desc": "Logo animation",
+        "qty": 3,
+        "rate": 350
+      }
+    ]
+  },
+  "dashboard": {
+    "stats": [
+      {
+        "label": "Outstanding",
+        "value": "$12,480",
+        "delta": "+4.2%"
+      },
+      {
+        "label": "Paid this month",
+        "value": "$8,920",
+        "delta": "+12.8%"
+      },
+      {
+        "label": "Overdue",
+        "value": "$1,150",
+        "delta": "-2 invoices"
+      }
+    ],
+    "revenue": [
+      38,
+      52,
+      46,
+      61,
+      58,
+      72,
+      66,
+      80,
+      74,
+      88,
+      82,
+      96
+    ],
+    "months": [
+      "J",
+      "F",
+      "M",
+      "A",
+      "M",
+      "J",
+      "J",
+      "A",
+      "S",
+      "O",
+      "N",
+      "D"
+    ],
+    "clients": [
+      {
+        "name": "Harbor & Pine",
+        "amount": "$18,400",
+        "share": 0.9
+      },
+      {
+        "name": "Lumen Works",
+        "amount": "$12,150",
+        "share": 0.62
+      },
+      {
+        "name": "Pinecrest Labs",
+        "amount": "$7,980",
+        "share": 0.4
+      },
+      {
+        "name": "Fig & Fennel",
+        "amount": "$4,300",
+        "share": 0.22
+      }
+    ],
+    "rows": [
+      {
+        "no": "#1042",
+        "client": "Harbor & Pine",
+        "amount": "$1,860.00",
+        "status": "paid",
+        "due": "Oct 02"
+      },
+      {
+        "no": "#1041",
+        "client": "Lumen Works",
+        "amount": "$4,200.00",
+        "status": "sent",
+        "due": "Oct 09"
+      },
+      {
+        "no": "#1040",
+        "client": "Pinecrest Labs",
+        "amount": "$950.00",
+        "status": "overdue",
+        "due": "Sep 28"
+      }
+    ]
+  },
+  "nav": [
+    "Dashboard",
+    "Invoices",
+    "Clients",
+    "Reports",
+    "Settings"
+  ],
+  "callouts": [
+    {
+      "text": "One click to start",
+      "target": "pageTitle",
+      "fromBeat": 13.2,
+      "toBeat": 17,
+      "offset": [
+        330,
+        70
+      ]
+    },
+    {
+      "text": "Totals update live",
+      "target": "totalValue",
+      "fromBeat": 39.9,
+      "toBeat": 42.9,
+      "offset": [
+        0,
+        252
+      ]
+    },
+    {
+      "text": "Paid in seconds",
+      "target": "statusChip",
+      "fromBeat": 50.4,
+      "toBeat": 54.8,
+      "offset": [
+        300,
+        44
+      ]
+    }
+  ],
+  "timeline": {
+    "travelFrames": 24,
+    "clickDelayFrames": 4,
+    "tiltSettleBeat": 7,
+    "camera": [
+      {
+        "id": "overview",
+        "at": 0,
+        "target": "window",
+        "zoom": 0.76,
+        "anchor": [
+          0.62,
+          0.5
+        ]
+      },
+      {
+        "id": "newBtn",
+        "at": 9,
+        "dur": 2,
+        "target": "newBtn",
+        "zoom": 2.2,
+        "anchor": [
+          0.62,
+          0.38
+        ]
+      },
+      {
+        "id": "page",
+        "at": 13,
+        "dur": 2,
+        "target": "pageFocus",
+        "zoom": 1.3
+      },
+      {
+        "id": "client",
+        "at": 20,
+        "cut": true,
+        "target": "clientFocus",
+        "zoom": 2.3
+      },
+      {
+        "id": "items",
+        "at": 27,
+        "dur": 2,
+        "target": "itemsFocus",
+        "zoom": 1.6
+      },
+      {
+        "id": "send",
+        "at": 43,
+        "cut": true,
+        "target": "sendBtn",
+        "zoom": 2.2
+      },
+      {
+        "id": "chip",
+        "at": 48,
+        "dur": 3,
+        "target": "statusChip",
+        "zoom": 2.2,
+        "anchor": [
+          0.35,
+          0.25
+        ]
+      },
+      {
+        "id": "pageEnd",
+        "at": 56,
+        "dur": 2,
+        "target": "pageFocus",
+        "zoom": 1.3
+      },
+      {
+        "id": "outro",
+        "at": 60,
+        "dur": 2,
+        "target": "window",
+        "zoom": 0.8,
+        "anchor": [
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "cursor": [
+      {
+        "target": "cursorRest",
+        "at": 0
+      },
+      {
+        "target": "newBtn",
+        "at": 10,
+        "dx": -30,
+        "dy": 6,
+        "click": true
+      },
+      {
+        "target": "clientField",
+        "at": 19,
+        "dx": 120,
+        "dy": 4,
+        "click": true
+      },
+      {
+        "target": "item1Desc",
+        "at": 27,
+        "dx": 60,
+        "dy": 2,
+        "click": true
+      },
+      {
+        "target": "item2Desc",
+        "at": 35.6,
+        "dx": 40,
+        "dy": 2,
+        "click": true
+      },
+      {
+        "target": "sendBtn",
+        "at": 43.4,
+        "dx": -40,
+        "dy": 4,
+        "click": true
+      },
+      {
+        "target": "statusChip",
+        "at": 47.6,
+        "dx": 20,
+        "dy": 36
+      }
+    ],
+    "typing": {
+      "clientAtBeat": 20.2,
+      "itemStartAfterClickFrames": 6
+    },
+    "chipPaidAtBeat": 50,
+    "outro": {
+      "fadeFromBeat": 60,
+      "fadeToBeat": 64,
+      "uiOpacity": 0.3,
+      "lockupFromBeat": 61,
+      "settledBeat": 65.5
+    }
+  },
+  "spotlights": [
+    {
+      "target": "newBtn",
+      "fromBeat": 8.8,
+      "toBeat": 10.3
+    },
+    {
+      "target": "sendBtn",
+      "fromBeat": 43,
+      "toBeat": 43.8
+    }
+  ]
+}

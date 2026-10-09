@@ -1,0 +1,96 @@
+id: flat-cartoon-explainer
+tier: core
+evidence_strength: strong
+name:
+  en: Flat Cartoon Explainer
+  zh: 扁平卡通科普
+tagline:
+  en: Bright flat-vector pop-science with a simple host character and code-drawn figures, every action pinned to a narration word.
+  zh: 明亮的扁平矢量科普：简单的主持角色与代码绘制的人物道具，每个动作都卡在旁白的某个词上。
+signature:
+  en:
+    - Cream or pale-blue flat background, 6-color palette, uniform dark outlines
+    - Geometric host character built from circles and capsules, front or 3/4 view only
+    - Pop-ins with squash and stretch; concept diagrams assembled piece by piece
+    - Something moves at least every 2 seconds
+  zh:
+    - 奶油色或浅蓝扁平背景、6 色调色板、统一的深色描边
+    - 用圆形和胶囊形拼出的几何主持角色，只用正面或 3/4 侧面
+    - 带挤压拉伸的弹出动画，概念图一块块拼出来
+    - 每 2 秒内至少有东西在动
+best_for:
+  en:
+    - Pop-science, kids' education and "how does X work" explainers on YouTube and Bilibili
+    - Friendly product or service explainers for non-technical audiences
+  zh:
+    - YouTube、B站上的科普、儿童教育和“X 是怎么运作的”讲解
+    - 面向非技术受众的亲和型产品或服务讲解
+avoid_when:
+  en:
+    - The audience is technical and expects precision (use dark-diagram-explainer or math-manim)
+    - The story needs realistic character acting, walking or turning (code-drawn rigs look broken)
+  zh:
+    - 受众是技术人群、需要精确表达（改用 dark-diagram-explainer 或 math-manim）
+    - 故事需要写实的角色表演、走路或转身（代码绘制的角色骨骼会显得别扭）
+tags:
+  use: [explainer, education]
+  platform: [youtube, bilibili, tiktok-douyin, youtube-shorts]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, music, sfx]
+  mood: [playful, calm]
+  needs: [script]
+duration: 45 s - 6 min
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: The documented pop-science pipelines draw characters on Canvas and SVG inside HyperFrames with GSAP timelines keyed to narration words. Remotion with inline SVG components is an equal alternative.
+    zh: 有记录的科普流程都在 HyperFrames 里用 Canvas 与 SVG 画角色，并以 GSAP 时间线对齐旁白词语。Remotion 配合内联 SVG 组件同样可行。
+variants:
+  - id: flat-cutout
+    en: Paper-cutout look with an offset drop shadow and slight rotation jitter between poses.
+    zh: 剪纸风：错位投影，姿势之间带轻微旋转抖动。
+  - id: vertical-short
+    en: 1080x1920 with the host on top, the concept in the middle and captions below.
+    zh: 1080x1920，主持人在上、概念图在中、字幕在下。
+  - id: icon-infographic
+    en: No characters; flat icons and labels in the same palette carry the story.
+    zh: 不用角色，以同色系扁平图标和标签讲述内容。
+evidence:
+  - creator: mofyer/pop-science-video
+    platform: GitHub
+    region: cn
+    url: https://github.com/mofyer/pop-science-video
+    tool: Claude Code skill + HyperFrames
+    note: Flat cartoon robot host and figures drawn frame by frame on Canvas; every action pinned to a narration word, no static stretch over 2 s; fact ledger + beat table approved before coding; 6 min demo at https://youtu.be/ogl79nqNduM
+    verified: opened
+  - creator: a252937166/claude-video-studio
+    platform: GitHub
+    region: cn
+    url: https://github.com/a252937166/claude-video-studio
+    tool: Claude Code + HyperFrames (HTML/GSAP)
+    note: Flat cutout World Cup edits marked publish-ready alongside its pixel-art work.
+    verified: opened
+  - creator: bangtutorial/bang-motion
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: Single-file HTML skill
+    note: Flat vector illustration and cartoon stage style directions with anti-slideshow rules (MIT).
+    verified: opened
+  - creator: 宝玉AI (Baoyu)
+    platform: AITNT
+    region: cn
+    url: https://m.aitntnews.com/newDetail.html?newId=29909
+    tool: Opus 5.5
+    note: Opus 5.5 code-video pipeline breakdown; a hand-drawn cartoon teaching video is the author's own example.
+    verified: opened
+  - creator: Mrooo03
+    platform: X article
+    region: cn
+    url: https://x.com/Mrooo03/article/2105195950142566783
+    tool: Claude + HyperFrames
+    note: Flat animation shorts; geometric and flat shapes suit the method, character turns and natural limb motion do not.
+    verified: snippet
+template: templates/flat-cartoon-explainer

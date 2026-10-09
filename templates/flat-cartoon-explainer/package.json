@@ -1,0 +1,16 @@
+{
+  "name": "@avs/flat-cartoon-explainer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "tts": "node scripts/build.mjs --script && python ../../skill/scripts/tts.py assets/audio/script.json --out-dir assets/audio",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 2,8,13,18,23,29,36,43,50",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/flat-cartoon-explainer.mp4"
+  },
+  "devDependencies": {
+    "@fontsource/baloo-2": "5.3.0",
+    "@fontsource/nunito": "5.3.0"
+  }
+}

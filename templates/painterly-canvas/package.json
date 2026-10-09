@@ -1,0 +1,15 @@
+{
+  "name": "@avs/painterly-canvas",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "content": "node scripts/build-content.mjs",
+    "render": "node scripts/build-content.mjs && node scripts/capture_html.mjs index.html --out out/painterly-canvas.mp4 --width 1080 --height 1080 --fps 30 --frames 600",
+    "still": "node scripts/build-content.mjs && node scripts/still.mjs"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "5.2.11",
+    "puppeteer-core": "25.13.0"
+  }
+}

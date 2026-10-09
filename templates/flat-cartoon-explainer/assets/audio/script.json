@@ -1,0 +1,38 @@
+{
+  "voice": "en-US-JennyNeural",
+  "rate": "+0%",
+  "segments": [
+    {
+      "id": "s1",
+      "text": "Ever wonder how a rainbow forms? It starts with sunlight and a lot of tiny raindrops."
+    },
+    {
+      "id": "s2",
+      "text": "Sunlight looks white, but it is secretly a mix of every color."
+    },
+    {
+      "id": "s3",
+      "text": "When a ray enters a raindrop, it slows down and bends. That bend is called refraction."
+    },
+    {
+      "id": "s4",
+      "text": "Inside, the light bounces off the back of the drop, like a tiny mirror."
+    },
+    {
+      "id": "s5",
+      "text": "On the way out it bends again, and the colors fan out. Red bends the least, and violet bends the most."
+    },
+    {
+      "id": "s6",
+      "text": "Each drop sends just one color toward your eye. Higher drops send you red, and lower drops send you violet."
+    },
+    {
+      "id": "s7",
+      "text": "Millions of drops, each sending its own color, paint a bright arc across the sky."
+    },
+    {
+      "id": "s8",
+      "text": "Stand with the sun behind you, and the rainbow appears in front. Now you know how it forms!"
+    }
+  ]
+}

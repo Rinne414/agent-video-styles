@@ -1,0 +1,694 @@
+{
+ "segments": [
+  {
+   "id": "l01",
+   "file": "l01.mp3",
+   "duration_ms": 3696,
+   "words": [
+    {
+     "text": "Welcome",
+     "start_ms": 95,
+     "end_ms": 369
+    },
+    {
+     "text": "to",
+     "start_ms": 381,
+     "end_ms": 464
+    },
+    {
+     "text": "the",
+     "start_ms": 476,
+     "end_ms": 559
+    },
+    {
+     "text": "board",
+     "start_ms": 571,
+     "end_ms": 928
+    },
+    {
+     "text": "Today's",
+     "start_ms": 1321,
+     "end_ms": 1559
+    },
+    {
+     "text": "question",
+     "start_ms": 1571,
+     "end_ms": 1988
+    },
+    {
+     "text": "what",
+     "start_ms": 2357,
+     "end_ms": 2452
+    },
+    {
+     "text": "is",
+     "start_ms": 2464,
+     "end_ms": 2559
+    },
+    {
+     "text": "an",
+     "start_ms": 2571,
+     "end_ms": 2666
+    },
+    {
+     "text": "A",
+     "start_ms": 2679,
+     "end_ms": 2798
+    },
+    {
+     "text": "P",
+     "start_ms": 2810,
+     "end_ms": 3108
+    },
+    {
+     "text": "I",
+     "start_ms": 3119,
+     "end_ms": 3345
+    }
+   ],
+   "speaker": "juno"
+  },
+  {
+   "id": "l02",
+   "file": "l02.mp3",
+   "duration_ms": 5760,
+   "words": [
+    {
+     "text": "Hi",
+     "start_ms": 95,
+     "end_ms": 352
+    },
+    {
+     "text": "Juno",
+     "start_ms": 362,
+     "end_ms": 898
+    },
+    {
+     "text": "I",
+     "start_ms": 1663,
+     "end_ms": 1808
+    },
+    {
+     "text": "keep",
+     "start_ms": 1819,
+     "end_ms": 2087
+    },
+    {
+     "text": "hearing",
+     "start_ms": 2098,
+     "end_ms": 2444
+    },
+    {
+     "text": "about",
+     "start_ms": 2455,
+     "end_ms": 2756
+    },
+    {
+     "text": "A",
+     "start_ms": 2768,
+     "end_ms": 2868
+    },
+    {
+     "text": "P",
+     "start_ms": 2879,
+     "end_ms": 3125
+    },
+    {
+     "text": "Is",
+     "start_ms": 3136,
+     "end_ms": 3482
+    },
+    {
+     "text": "What",
+     "start_ms": 4252,
+     "end_ms": 4475
+    },
+    {
+     "text": "is",
+     "start_ms": 4487,
+     "end_ms": 4632
+    },
+    {
+     "text": "one",
+     "start_ms": 4643,
+     "end_ms": 4978
+    }
+   ],
+   "speaker": "pip"
+  },
+  {
+   "id": "l03",
+   "file": "l03.mp3",
+   "duration_ms": 4320,
+   "words": [
+    {
+     "text": "Picture",
+     "start_ms": 107,
+     "end_ms": 333
+    },
+    {
+     "text": "a",
+     "start_ms": 345,
+     "end_ms": 381
+    },
+    {
+     "text": "restaurant",
+     "start_ms": 393,
+     "end_ms": 964
+    },
+    {
+     "text": "You",
+     "start_ms": 1357,
+     "end_ms": 1440
+    },
+    {
+     "text": "sit",
+     "start_ms": 1452,
+     "end_ms": 1678
+    },
+    {
+     "text": "at",
+     "start_ms": 1690,
+     "end_ms": 1785
+    },
+    {
+     "text": "a",
+     "start_ms": 1798,
+     "end_ms": 1846
+    },
+    {
+     "text": "table",
+     "start_ms": 1857,
+     "end_ms": 2250
+    },
+    {
+     "text": "the",
+     "start_ms": 2536,
+     "end_ms": 2607
+    },
+    {
+     "text": "food",
+     "start_ms": 2619,
+     "end_ms": 3036
+    },
+    {
+     "text": "is",
+     "start_ms": 3048,
+     "end_ms": 3143
+    },
+    {
+     "text": "made",
+     "start_ms": 3155,
+     "end_ms": 3405
+    },
+    {
+     "text": "in",
+     "start_ms": 3417,
+     "end_ms": 3488
+    },
+    {
+     "text": "the",
+     "start_ms": 3500,
+     "end_ms": 3571
+    },
+    {
+     "text": "kitchen",
+     "start_ms": 3583,
+     "end_ms": 3964
+    }
+   ],
+   "speaker": "juno"
+  },
+  {
+   "id": "l04",
+   "file": "l04.mp3",
+   "duration_ms": 3384,
+   "words": [
+    {
+     "text": "But",
+     "start_ms": 95,
+     "end_ms": 262
+    },
+    {
+     "text": "I",
+     "start_ms": 273,
+     "end_ms": 385
+    },
+    {
+     "text": "cannot",
+     "start_ms": 396,
+     "end_ms": 764
+    },
+    {
+     "text": "just",
+     "start_ms": 775,
+     "end_ms": 1032
+    },
+    {
+     "text": "walk",
+     "start_ms": 1043,
+     "end_ms": 1311
+    },
+    {
+     "text": "into",
+     "start_ms": 1322,
+     "end_ms": 1534
+    },
+    {
+     "text": "the",
+     "start_ms": 1546,
+     "end_ms": 1646
+    },
+    {
+     "text": "kitchen",
+     "start_ms": 1657,
+     "end_ms": 2059
+    },
+    {
+     "text": "right",
+     "start_ms": 2293,
+     "end_ms": 2605
+    }
+   ],
+   "speaker": "pip"
+  },
+  {
+   "id": "l05",
+   "file": "l05.mp3",
+   "duration_ms": 4728,
+   "words": [
+    {
+     "text": "Exactly",
+     "start_ms": 95,
+     "end_ms": 607
+    },
+    {
+     "text": "The",
+     "start_ms": 1012,
+     "end_ms": 1072
+    },
+    {
+     "text": "waiter",
+     "start_ms": 1083,
+     "end_ms": 1381
+    },
+    {
+     "text": "carries",
+     "start_ms": 1393,
+     "end_ms": 1750
+    },
+    {
+     "text": "your",
+     "start_ms": 1762,
+     "end_ms": 1917
+    },
+    {
+     "text": "order",
+     "start_ms": 1929,
+     "end_ms": 2155
+    },
+    {
+     "text": "to",
+     "start_ms": 2167,
+     "end_ms": 2227
+    },
+    {
+     "text": "the",
+     "start_ms": 2238,
+     "end_ms": 2321
+    },
+    {
+     "text": "kitchen",
+     "start_ms": 2333,
+     "end_ms": 2714
+    },
+    {
+     "text": "then",
+     "start_ms": 3071,
+     "end_ms": 3261
+    },
+    {
+     "text": "brings",
+     "start_ms": 3274,
+     "end_ms": 3536
+    },
+    {
+     "text": "the",
+     "start_ms": 3548,
+     "end_ms": 3643
+    },
+    {
+     "text": "food",
+     "start_ms": 3655,
+     "end_ms": 3976
+    },
+    {
+     "text": "back",
+     "start_ms": 3988,
+     "end_ms": 4369
+    }
+   ],
+   "speaker": "juno"
+  },
+  {
+   "id": "l06",
+   "file": "l06.mp3",
+   "duration_ms": 3624,
+   "words": [
+    {
+     "text": "Oh",
+     "start_ms": 97,
+     "end_ms": 398
+    },
+    {
+     "text": "So",
+     "start_ms": 1150,
+     "end_ms": 1373
+    },
+    {
+     "text": "the",
+     "start_ms": 1384,
+     "end_ms": 1496
+    },
+    {
+     "text": "waiter",
+     "start_ms": 1507,
+     "end_ms": 1864
+    },
+    {
+     "text": "is",
+     "start_ms": 1875,
+     "end_ms": 2054
+    },
+    {
+     "text": "the",
+     "start_ms": 2065,
+     "end_ms": 2177
+    },
+    {
+     "text": "A",
+     "start_ms": 2188,
+     "end_ms": 2344
+    },
+    {
+     "text": "P",
+     "start_ms": 2355,
+     "end_ms": 2578
+    },
+    {
+     "text": "I",
+     "start_ms": 2589,
+     "end_ms": 2835
+    }
+   ],
+   "speaker": "pip"
+  },
+  {
+   "id": "l07",
+   "file": "l07.mp3",
+   "duration_ms": 6240,
+   "words": [
+    {
+     "text": "Yes",
+     "start_ms": 107,
+     "end_ms": 476
+    },
+    {
+     "text": "An",
+     "start_ms": 857,
+     "end_ms": 952
+    },
+    {
+     "text": "A",
+     "start_ms": 964,
+     "end_ms": 1083
+    },
+    {
+     "text": "P",
+     "start_ms": 1095,
+     "end_ms": 1393
+    },
+    {
+     "text": "I",
+     "start_ms": 1405,
+     "end_ms": 1643
+    },
+    {
+     "text": "is",
+     "start_ms": 1655,
+     "end_ms": 1798
+    },
+    {
+     "text": "a",
+     "start_ms": 1810,
+     "end_ms": 1893
+    },
+    {
+     "text": "waiter",
+     "start_ms": 1905,
+     "end_ms": 2238
+    },
+    {
+     "text": "between",
+     "start_ms": 2250,
+     "end_ms": 2548
+    },
+    {
+     "text": "your",
+     "start_ms": 2560,
+     "end_ms": 2774
+    },
+    {
+     "text": "app",
+     "start_ms": 2786,
+     "end_ms": 3024
+    },
+    {
+     "text": "and",
+     "start_ms": 3119,
+     "end_ms": 3226
+    },
+    {
+     "text": "a",
+     "start_ms": 3238,
+     "end_ms": 3274
+    },
+    {
+     "text": "server",
+     "start_ms": 3286,
+     "end_ms": 3762
+    },
+    {
+     "text": "carrying",
+     "start_ms": 4131,
+     "end_ms": 4524
+    },
+    {
+     "text": "requests",
+     "start_ms": 4536,
+     "end_ms": 5072
+    },
+    {
+     "text": "and",
+     "start_ms": 5083,
+     "end_ms": 5226
+    },
+    {
+     "text": "responses",
+     "start_ms": 5238,
+     "end_ms": 5881
+    }
+   ],
+   "speaker": "juno"
+  },
+  {
+   "id": "l08",
+   "file": "l08.mp3",
+   "duration_ms": 3624,
+   "words": [
+    {
+     "text": "Neat",
+     "start_ms": 95,
+     "end_ms": 508
+    },
+    {
+     "text": "But",
+     "start_ms": 1261,
+     "end_ms": 1428
+    },
+    {
+     "text": "how",
+     "start_ms": 1440,
+     "end_ms": 1652
+    },
+    {
+     "text": "do",
+     "start_ms": 1663,
+     "end_ms": 1786
+    },
+    {
+     "text": "I",
+     "start_ms": 1797,
+     "end_ms": 1864
+    },
+    {
+     "text": "know",
+     "start_ms": 1875,
+     "end_ms": 2109
+    },
+    {
+     "text": "what",
+     "start_ms": 2121,
+     "end_ms": 2288
+    },
+    {
+     "text": "to",
+     "start_ms": 2299,
+     "end_ms": 2411
+    },
+    {
+     "text": "order",
+     "start_ms": 2422,
+     "end_ms": 2835
+    }
+   ],
+   "speaker": "pip"
+  },
+  {
+   "id": "l09",
+   "file": "l09.mp3",
+   "duration_ms": 4704,
+   "words": [
+    {
+     "text": "The",
+     "start_ms": 107,
+     "end_ms": 155
+    },
+    {
+     "text": "menu",
+     "start_ms": 167,
+     "end_ms": 477
+    },
+    {
+     "text": "lists",
+     "start_ms": 488,
+     "end_ms": 762
+    },
+    {
+     "text": "what",
+     "start_ms": 774,
+     "end_ms": 881
+    },
+    {
+     "text": "you",
+     "start_ms": 893,
+     "end_ms": 976
+    },
+    {
+     "text": "can",
+     "start_ms": 988,
+     "end_ms": 1107
+    },
+    {
+     "text": "order",
+     "start_ms": 1119,
+     "end_ms": 1452
+    },
+    {
+     "text": "For",
+     "start_ms": 1905,
+     "end_ms": 2024
+    },
+    {
+     "text": "an",
+     "start_ms": 2036,
+     "end_ms": 2131
+    },
+    {
+     "text": "A",
+     "start_ms": 2143,
+     "end_ms": 2274
+    },
+    {
+     "text": "P",
+     "start_ms": 2286,
+     "end_ms": 2572
+    },
+    {
+     "text": "I",
+     "start_ms": 2583,
+     "end_ms": 2809
+    },
+    {
+     "text": "that",
+     "start_ms": 3179,
+     "end_ms": 3334
+    },
+    {
+     "text": "is",
+     "start_ms": 3345,
+     "end_ms": 3416
+    },
+    {
+     "text": "the",
+     "start_ms": 3429,
+     "end_ms": 3512
+    },
+    {
+     "text": "documentation",
+     "start_ms": 3524,
+     "end_ms": 4357
+    }
+   ],
+   "speaker": "juno"
+  },
+  {
+   "id": "l10",
+   "file": "l10.mp3",
+   "duration_ms": 5928,
+   "words": [
+    {
+     "text": "Got",
+     "start_ms": 95,
+     "end_ms": 352
+    },
+    {
+     "text": "it",
+     "start_ms": 362,
+     "end_ms": 585
+    },
+    {
+     "text": "Request",
+     "start_ms": 1362,
+     "end_ms": 1898
+    },
+    {
+     "text": "in",
+     "start_ms": 1908,
+     "end_ms": 2109
+    },
+    {
+     "text": "response",
+     "start_ms": 2366,
+     "end_ms": 2879
+    },
+    {
+     "text": "out",
+     "start_ms": 2891,
+     "end_ms": 3203
+    },
+    {
+     "text": "Thanks",
+     "start_ms": 3973,
+     "end_ms": 4431
+    },
+    {
+     "text": "Juno",
+     "start_ms": 4643,
+     "end_ms": 5156
+    }
+   ],
+   "speaker": "pip"
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+{
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "bpm": 120,
+    "pixelScale": 4
+  },
+  "crt": false,
+  "palette": {
+    "black": "#000000",
+    "navy": "#1D2B53",
+    "plum": "#7E2553",
+    "green": "#008751",
+    "brown": "#AB5236",
+    "stone": "#5F574F",
+    "silver": "#C2C3C7",
+    "white": "#FFF1E8",
+    "red": "#FF004D",
+    "orange": "#FFA300",
+    "yellow": "#FFEC27",
+    "lime": "#00E436",
+    "blue": "#29ADFF",
+    "lavender": "#83769C",
+    "pink": "#FF77A8",
+    "peach": "#FFCCAA"
+  },
+  "title": {
+    "lines": [
+      "MORNING",
+      "QUEST"
+    ],
+    "prompt": "PRESS START",
+    "dropFrame": 15,
+    "wakeFrame": 60
+  },
+  "hud": {
+    "levelStart": 1,
+    "levelEnd": 2,
+    "xpMax": 60
+  },
+  "quests": [
+    {
+      "kind": "water",
+      "label": "QUEST 1/3",
+      "name": "DRINK WATER",
+      "check": "WATER",
+      "xp": 20,
+      "completeAt": 60
+    },
+    {
+      "kind": "stretch",
+      "label": "QUEST 2/3",
+      "name": "STRETCH",
+      "check": "STRETCH",
+      "xp": 20,
+      "completeAt": 75
+    },
+    {
+      "kind": "task",
+      "label": "QUEST 3/3",
+      "name": "PICK 1 TASK",
+      "check": "TASK",
+      "xp": 20,
+      "completeAt": 60,
+      "tasks": [
+        "WRITE",
+        "CALL",
+        "TIDY"
+      ],
+      "picked": 1
+    }
+  ],
+  "levelUp": {
+    "headline": "LV UP!",
+    "lines": [
+      "HAVE A",
+      "GOOD DAY"
+    ]
+  },
+  "timing": {
+    "titleFrames": 90,
+    "questFrames": 120,
+    "outroFrames": 90
+  },
+  "skies": {
+    "title": [
+      "#1D2B53",
+      "#7E2553",
+      "#FF77A8",
+      "#FFA300"
+    ],
+    "water": [
+      "#7E2553",
+      "#FF77A8",
+      "#FFA300",
+      "#FFEC27"
+    ],
+    "stretch": [
+      "#FF77A8",
+      "#FFA300",
+      "#FFEC27",
+      "#FFEC27"
+    ],
+    "task": [
+      "#29ADFF",
+      "#29ADFF",
+      "#29ADFF",
+      "#FFEC27"
+    ],
+    "outro": [
+      "#29ADFF",
+      "#29ADFF",
+      "#29ADFF",
+      "#FFF1E8"
+    ]
+  },
+  "sun": {
+    "x": 222,
+    "y": {
+      "title": 304,
+      "water": 282,
+      "stretch": 262,
+      "task": 248,
+      "outro": 232
+    }
+  }
+}

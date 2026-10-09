@@ -1,0 +1,98 @@
+id: kinetic-typography
+tier: core
+evidence_strength: strong
+name:
+  en: Kinetic Typography
+  zh: 动态文字快闪
+tagline:
+  en: An empty stage and one word at a time - type appears, settles and exits exactly on the beat.
+  zh: 空舞台，一次一个词：文字在节拍上出现、落定、离场。
+signature:
+  en:
+    - Solid background with no imagery; type is the only visual
+    - One heavy or condensed display face at 180-400 px, 1-3 words on screen
+    - Appear, settle, exit cycle locked to a beat grid
+    - Masks, slams, splits and color flips on downbeats
+  zh:
+    - 纯色背景、无图片，文字是唯一的视觉元素
+    - 单一粗重或窄体展示字体，180-400 px，屏幕上只有 1-3 个词
+    - 出现、落定、离场的循环锁定在节拍网格上
+    - 在强拍上做遮罩、猛击、拆分和颜色翻转
+best_for:
+  en:
+    - Manifestos, announcements, quotes and teasers with no visuals available
+    - Music-led social shorts and lyric videos
+    - Openers and section breaks inside longer videos
+  zh:
+    - 没有素材时的宣言、公告、金句与预告
+    - 以音乐为主的社交短视频与歌词视频
+    - 长视频的开场与段落转场
+avoid_when:
+  en:
+    - The message needs a product shown (use ui-camera-tour or saas-launch-promo)
+    - There is narration to follow word for word (use karaoke-caption-short)
+  zh:
+    - 需要展示产品（改用 ui-camera-tour 或 saas-launch-promo）
+    - 需要逐字跟随旁白（改用 karaoke-caption-short）
+tags:
+  use: [social-short, brand-reel, music-video, product-launch]
+  platform: [tiktok-douyin, instagram-reels, youtube-shorts, x]
+  aspect: ["9:16", "16:9", "1:1"]
+  audio: [music]
+  mood: [energetic, editorial]
+  needs: [script]
+duration: 15-45 s
+difficulty: 1
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Type set in HTML/CSS with GSAP timelines is the shortest path from a beat list to motion, and public examples (GPTers 30 s piece, bang-motion) are HTML-based. Remotion works the same way with spring and interpolate.
+    zh: 用 HTML/CSS 排字、GSAP 时间轴编排，从节拍表到动画路径最短；公开案例（GPTers 的 30 秒作品、bang-motion）都基于 HTML。Remotion 用 spring 和 interpolate 同样可行。
+variants:
+  - id: poster-color-block
+    en: Huge cropped words and solid color fields slamming in on the beat, 3-4 color palette.
+    zh: 超大裁切文字与纯色色块随节拍猛击进场，3-4 色调色板。
+  - id: lyric-mv
+    en: Lyrics from a timed SRT, each line in its own layout, words landing on vocal onsets.
+    zh: 歌词来自带时间轴的 SRT，每句独立排版，词落在人声起始点。
+  - id: webgl-type
+    en: Condensed display type over procedural three.js terrain or liquid backgrounds with HUD micro-type.
+    zh: 窄体展示字配 three.js 程序化地形或液态背景，加 HUD 小字。
+evidence:
+  - creator: Todd
+    platform: GPTers
+    region: kr
+    url: https://www.gpters.org/nocode/post/made-30second-motion-graphics-hDm8TvYhGuFCjqZ
+    tool: Claude Code + HyperFrames
+    note: 9:16, 30 s, 6 scenes; AI frame review caught a text pre-reveal bug; re-timed to 125 BPM for the music version.
+    verified: opened
+  - creator: tuzhechen2005/opus-video-skills
+    platform: GitHub
+    region: cn
+    url: https://github.com/tuzhechen2005/opus-video-skills
+    tool: 2D type canvas + three.js + WebGL post
+    note: kinetic-reel skill - condensed display type, HUD micro-type, particle terrain; 84 s Work Reel '26.
+    verified: opened
+  - creator: bangtutorial/bang-motion
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: HTML
+    note: Poster color-block direction - huge cropped words, solid color fields slam in on the beat (MIT).
+    verified: opened
+  - creator: Kimeur/motion-launch-videos
+    platform: GitHub
+    region: global
+    url: https://github.com/Kimeur/motion-launch-videos
+    tool: Single HTML file
+    note: Looping kinetic-typography launch video.
+    verified: snippet
+  - creator: Prompt Motion
+    platform: Web
+    region: global
+    url: https://prompt-motion.com
+    tool: Mixed
+    note: Gallery tag "Kinetic type" holds 97 Opus 5.5 videos, the largest tag after Product UI.
+    verified: opened
+template: templates/kinetic-typography

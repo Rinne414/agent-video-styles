@@ -1,0 +1,24 @@
+{
+  "name": "@avs/talking-head-overlay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Talking-head motion-graphics overlay package (Remotion): composite preview plus transparent ProRes 4444 overlay",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "remotion studio",
+    "still": "remotion still Composite out/still.png --frame=240 --image-format=png",
+    "check": "node scripts/check-face-safe.mjs && tsc",
+    "render": "remotion render Composite out/talking-head-overlay.mp4 && remotion render Overlay out/talking-head-overlay.mov --codec=prores --prores-profile=4444 --pixel-format=yuva444p10le --image-format=png"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@remotion/cli": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

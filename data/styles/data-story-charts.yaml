@@ -1,0 +1,102 @@
+id: data-story-charts
+tier: core
+evidence_strength: strong
+name:
+  en: Data Story Charts
+  zh: 数据故事动画
+tagline:
+  en: Charts, counters and rankings that build over time, one insight per scene.
+  zh: 图表、计数器与排行榜随时间生长，一个场景只讲一个结论。
+signature:
+  en:
+    - Chart-first layout on a dark or paper-white ground with one highlight color for the insight
+    - Bars grow, lines draw on and hero numbers count up with ease-out curves
+    - Every scene lands on a single takeaway headline or annotated value
+    - Units and data source always visible
+  zh:
+    - 以图表为主体，深色或纸白底，只用一种高亮色标出结论
+    - 柱子生长、折线描绘、核心数字以缓出曲线递增
+    - 每个场景落在一句结论标题或一个带标注的数值上
+    - 单位与数据来源始终可见
+best_for:
+  en:
+    - Metrics announcements, reports and survey results
+    - Top-N rankings, bar-chart races and year-in-review recaps
+  zh:
+    - 指标发布、报告与调研结果
+    - Top-N 排行榜、动态条形图竞赛与年度回顾
+avoid_when:
+  en:
+    - There is no real dataset (use kinetic-typography or saas-launch-promo)
+    - The story is mainly geographic routes or regions (a dedicated map style is still in the v2 backlog)
+    - The topic needs a step-by-step concept explanation (use dark-diagram-explainer)
+  zh:
+    - 没有真实数据（改用 kinetic-typography 或 saas-launch-promo）
+    - 内容主要是地理路线或区域（专门的地图风格仍在 v2 待办中）
+    - 主题需要逐步讲解概念（改用 dark-diagram-explainer）
+tags:
+  use: [data-report, explainer, social-short]
+  platform: [x, linkedin, youtube, tiktok-douyin, bilibili]
+  aspect: ["16:9", "9:16", "1:1"]
+  audio: [music, sfx, voiceover]
+  mood: [technical, editorial, energetic]
+  needs: [data]
+duration: 20-60 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Data lives in props or JSON and every chart is a pure function of the frame; calculateMetadata can size the video from the row count. HyperFrames has a ready bar-chart-race block.
+    zh: 数据放在 props 或 JSON 中，每个图表都是帧号的纯函数；calculateMetadata 可按数据行数决定时长。HyperFrames 自带现成的 bar-chart-race 组件。
+variants:
+  - id: ranking-countdown
+    en: Top-N countdown or bar-chart race - rank cards or sorted bars re-ordering per period, the winner gets a burst.
+    zh: Top-N 倒数或条形图竞赛——排名卡片或按期重排的条形，第一名配爆发特效。
+  - id: year-in-review
+    en: Personal or company recap - activity over time, top categories, best month callouts, warm accent.
+    zh: 个人或公司年度回顾——时间线活跃度、热门分类、最佳月份标注，暖色强调。
+evidence:
+  - creator: Will Larson (lethain)
+    platform: Blog
+    region: en
+    url: https://lethain.com/blog-recap-2026/
+    tool: Claude Code + Remotion
+    note: Blog-data recap - posts-over-time and tags-over-time timelines; Claude built the dataset with scripts; under 10 min total.
+    verified: opened
+  - creator: Bruce (heyuan110)
+    platform: Blog
+    region: cn
+    url: https://www.heyuan110.com/posts/ai/2026-01-26-claude-code-remotion-video/
+    tool: Claude Code + Remotion (remotion-best-practices)
+    note: 2025 Douyin Top-10 ranking video - red/cyan palette, spring rank badges, typewriter titles, particle burst for #1.
+    verified: opened
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion
+    note: Prompt "CSV to dashboard" (15 s) - #0a0a0a, glass panels, indigo-violet bars, KPI card + bar + donut + line.
+    verified: opened
+  - creator: Danny (dannywhy.com)
+    platform: YouTube
+    region: en
+    url: https://videohighlight.com/v/idVMGLzrrnU
+    tool: Claude Code + Remotion
+    note: Chart rising 0% to 78% with glow; notes that simple prompts gave cluttered output.
+    verified: aggregator
+  - creator: HeyGen (SpaceX explainer)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes-launches/tree/main/spacex-launch
+    tool: HyperFrames
+    note: Official launch composition showcasing data and motion at scale (Apache-2.0).
+    verified: opened
+  - creator: 鲸选AI
+    platform: Tencent News
+    region: cn
+    url: https://news.qq.com/rain/a/20260512A08LEG00
+    tool: Codex + HyperFrames
+    note: Case list includes CSV to bar-chart race.
+    verified: opened
+template: templates/data-story-charts

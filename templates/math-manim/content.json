@@ -1,0 +1,61 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "-5%",
+  "segments": [
+    {
+      "id": "s1",
+      "text": "How much space does a circle cover? The answer is famous: pi r squared. But why is it true?"
+    },
+    {
+      "id": "s2",
+      "text": "Take a circle of radius r, and cut it into equal wedges, like slicing a pizza."
+    },
+    {
+      "id": "s3",
+      "text": "Now unroll it. Lay the wedges side by side, pointing up, then down, then up again."
+    },
+    {
+      "id": "s4",
+      "text": "The pieces interlock into a shape that is almost a parallelogram. Cut more wedges, and the bumpy edges smooth out."
+    },
+    {
+      "id": "s5",
+      "text": "In the limit, it becomes a perfect rectangle. Its height is the radius, r."
+    },
+    {
+      "id": "s6",
+      "text": "Its width is half of the circumference. The whole circumference is two pi r, so half of it is pi r."
+    },
+    {
+      "id": "s7",
+      "text": "Area is width times height. Pi r, times r, gives pi r squared."
+    },
+    {
+      "id": "s8",
+      "text": "And that is why a circle of radius r has area pi r squared."
+    }
+  ],
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "gapSeconds": 0.35,
+    "holdSeconds": 1.8
+  },
+  "colors": {
+    "background": "#1C1C1C",
+    "text": "#F5F5F5",
+    "area": "#3B82F6",
+    "areaAlt": "#60A5FA",
+    "radius": "#FBBF24",
+    "result": "#22C55E"
+  },
+  "geometry": {
+    "radius": 2.0,
+    "coarseWedges": 16,
+    "fineWedges": 64
+  },
+  "fonts": {
+    "prose": "Inter"
+  }
+}

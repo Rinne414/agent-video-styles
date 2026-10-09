@@ -1,0 +1,177 @@
+{
+  "seed": 7,
+  "brand": {
+    "name": "NOVA LABS",
+    "tagline": "AGENTS THAT SHIP",
+    "handle": "nova-labs.example/agents",
+    "sys": "NOVA//OS v4.2"
+  },
+  "format": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "bpm": 128,
+    "durationSec": 22,
+    "offsetFrames": 0
+  },
+  "colors": {
+    "bg": "#05070D",
+    "accent": "#3D7BFF",
+    "ice": "#CFE8FF",
+    "hit": "#FF3B5C",
+    "splitA": "#22D3EE",
+    "splitB": "#7A4DFF"
+  },
+  "fonts": {
+    "headline": "Archivo",
+    "mono": "JetBrains Mono"
+  },
+  "beats": {
+    "cold": 0,
+    "hits": 4,
+    "build": 16,
+    "drop": 32,
+    "finale": 40,
+    "lock": 43,
+    "riserFrom": 28
+  },
+  "hitBeats": [
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    43
+  ],
+  "cold": {
+    "boot": [
+      "> NOVA//OS 4.2 BOOT",
+      "> LINK ESTABLISHED",
+      "> AGENT MESH ....... ONLINE"
+    ],
+    "center": "SYNC 128 BPM"
+  },
+  "hits": {
+    "shots": [
+      {
+        "beat": 4,
+        "line": 0,
+        "row": -1,
+        "text": "WE BUILD",
+        "tag": "[01] RUNTIME // SPAWN"
+      },
+      {
+        "beat": 6,
+        "line": 0,
+        "row": 1,
+        "text": "AGENTS.",
+        "tag": "[02] AGT-0xA4 // ONLINE"
+      },
+      {
+        "beat": 8,
+        "line": 1,
+        "row": -1,
+        "text": "THEY SHIP",
+        "tag": "[03] PIPELINE // ARMED"
+      },
+      {
+        "beat": 10,
+        "line": 1,
+        "row": 1,
+        "text": "CODE.",
+        "tag": "[04] PR #4096 // MERGED"
+      }
+    ],
+    "metricsBeat": 12,
+    "metrics": [
+      {
+        "label": "AGENTS ONLINE",
+        "value": 128,
+        "decimals": 0
+      },
+      {
+        "label": "PRS MERGED",
+        "value": 4096,
+        "decimals": 0
+      },
+      {
+        "label": "UPTIME %",
+        "value": 99.99,
+        "decimals": 2
+      }
+    ]
+  },
+  "build": {
+    "words": [
+      {
+        "beat": 16,
+        "text": "SCOPE"
+      },
+      {
+        "beat": 18,
+        "text": "BUILD"
+      },
+      {
+        "beat": 20,
+        "text": "TEST"
+      },
+      {
+        "beat": 22,
+        "text": "REVIEW"
+      },
+      {
+        "beat": 24,
+        "text": "MERGE"
+      },
+      {
+        "beat": 26,
+        "text": "DEPLOY"
+      }
+    ],
+    "never": {
+      "beat": 28,
+      "text": "THEY NEVER"
+    },
+    "terminal": [
+      "$ nova run scope --repo api",
+      "[ok] plan: 7 tasks",
+      "$ nova run build",
+      "[ok] 412 files compiled",
+      "$ nova run test",
+      "[ok] 1204/1204 passed",
+      "$ nova run review",
+      "[ok] 0 blocking issues",
+      "$ nova run merge",
+      "[ok] PR #4096 merged",
+      "$ nova run deploy",
+      "[ok] 3 regions live",
+      "$ nova watch --forever",
+      "[..] standing by"
+    ]
+  },
+  "drop": {
+    "text": "SLEEP.",
+    "lead": "THEY NEVER",
+    "alert": "ALERT // DOWNTIME 00:00:00"
+  },
+  "finale": {
+    "sub": "HUD LINK ESTABLISHED"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "rate": "+6%",
+  "segments": [
+    {
+      "id": "s1",
+      "text": "Why does a website load fast in Tokyo, and just as fast in Paris?"
+    },
+    {
+      "id": "s2",
+      "text": "Your site lives on one origin server. If that server is far away, every request must travel thousands of miles, and back. That delay is called latency."
+    },
+    {
+      "id": "s2b",
+      "text": "From Tokyo to a server in Virginia, one round trip takes around two hundred milliseconds. And a single page needs dozens of them."
+    },
+    {
+      "id": "s3",
+      "text": "A C D N fixes this. It places edge servers close to your users, each one holding copies of your files."
+    },
+    {
+      "id": "s4",
+      "text": "First visit? That is a cache miss. The edge asks the origin once, then keeps a copy."
+    },
+    {
+      "id": "s5",
+      "text": "Next visit? That is a cache hit. The edge already has the file, and answers right away."
+    },
+    {
+      "id": "s5b",
+      "text": "Now a million visitors can share one copy, and the origin barely notices."
+    },
+    {
+      "id": "s6",
+      "text": "The result: pages load in milliseconds, and the origin handles far less traffic. Everyone gets the fast version."
+    },
+    {
+      "id": "s7",
+      "text": "A CDN. Content, closer to everyone."
+    }
+  ]
+}

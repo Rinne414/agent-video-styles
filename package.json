@@ -1,0 +1,13 @@
+{
+  "name": "agent-video-styles",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check"
+  },
+  "devDependencies": {
+    "marked": "^15.0.0",
+    "yaml": "^2.8.0"
+  }
+}

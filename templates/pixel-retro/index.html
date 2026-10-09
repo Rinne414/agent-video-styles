@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+  @font-face { font-family: "Press Start 2P"; src: url("fonts/PressStart2P.woff2") format("woff2"); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000000; }
+  #root { position: relative; width: 100%; height: 100%; }
+  #screen { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; image-rendering: pixelated; }
+  #crt { position: absolute; inset: 0; pointer-events: none; display: none;
+    background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 4px); }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="18" data-width="1080" data-height="1920">
+  <canvas id="screen" width="270" height="480"></canvas>
+  <div id="crt"></div>
+</div>
+<script>
+window.__timelines = window.__timelines || {};
+const CONTENT = {"video":{"width":1080,"height":1920,"fps":30,"bpm":120,"pixelScale":4},"crt":false,"palette":{"black":"#000000","navy":"#1D2B53","plum":"#7E2553","green":"#008751","brown":"#AB5236","stone":"#5F574F","silver":"#C2C3C7","white":"#FFF1E8","red":"#FF004D","orange":"#FFA300","yellow":"#FFEC27","lime":"#00E436","blue":"#29ADFF","lavender":"#83769C","pink":"#FF77A8","peach":"#FFCCAA"},"title":{"lines":["MORNING","QUEST"],"prompt":"PRESS START","dropFrame":15,"wakeFrame":60},"hud":{"levelStart":1,"levelEnd":2,"xpMax":60},"quests":[{"kind":"water","label":"QUEST 1/3","name":"DRINK WATER","check":"WATER","xp":20,"completeAt":60},{"kind":"stretch","label":"QUEST 2/3","name":"STRETCH","check":"STRETCH","xp":20,"completeAt":75},{"kind":"task","label":"QUEST 3/3","name":"PICK 1 TASK","check":"TASK","xp":20,"completeAt":60,"tasks":["WRITE","CALL","TIDY"],"picked":1}],"levelUp":{"headline":"LV UP!","lines":["HAVE A","GOOD DAY"]},"timing":{"titleFrames":90,"questFrames":120,"outroFrames":90},"skies":{"title":["#1D2B53","#7E2553","#FF77A8","#FFA300"],"water":["#7E2553","#FF77A8","#FFA300","#FFEC27"],"stretch":["#FF77A8","#FFA300","#FFEC27","#FFEC27"],"task":["#29ADFF","#29ADFF","#29ADFF","#FFEC27"],"outro":["#29ADFF","#29ADFF","#29ADFF","#FFF1E8"]},"sun":{"x":222,"y":{"title":304,"water":282,"stretch":262,"task":248,"outro":232}}};
+// ---- gfx: logical 270x480 canvas, integer-only drawing, palette-pure text ----
+const W = 270, H = 480, GROUND_Y = 300;
+const PAL = CONTENT.palette;
+const cv = document.getElementById("screen");
+const ctx = cv.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+const FONT = '"Press Start 2P"';
+const BAYER4 = [[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]];
+
+const ri = (v) => Math.round(v);
+function rect(x, y, w, h, c) {
+  ctx.fillStyle = c;
+  ctx.fillRect(ri(x), ri(y), ri(w), ri(h));
+}
+
+function makeCanvas(w, h) {
+  const c = document.createElement("canvas");
+  c.width = w; c.height = h;
+  const g = c.getContext("2d");
+  g.imageSmoothingEnabled = false;
+  return [c, g];
+}
+
+function hexToRgb(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+// Text is rasterised once at its native size, then alpha is thresholded so no
+// anti-aliased (off-palette) pixels survive.
+const textCache = {};
+function textSprite(str, size, color) {
+  const key = str + "|" + size + "|" + color;
+  if (textCache[key]) return textCache[key];
+  // Rasterise at 8x, then sample the centre of every font pixel: immune to sub-pixel baseline offsets
+  const K = 8, w = Math.max(1, str.length * size);
+  const [big, bg] = makeCanvas(w * K, size * K);
+  bg.font = size * K + "px " + FONT;
+  bg.textBaseline = "top";
+  bg.fillStyle = "#fff";
+  bg.fillText(str, 0, 0);
+  const src = bg.getImageData(0, 0, w * K, size * K).data;
+  const [c, g] = makeCanvas(w, size);
+  const out = g.createImageData(w, size);
+  const [r, gg, b] = hexToRgb(color);
+  for (let y = 0; y < size; y++) for (let x = 0; x < w; x++) {
+    const on = src[((y * K + K / 2) * w * K + (x * K + K / 2)) * 4 + 3] > 127;
+    const o = (y * w + x) * 4;
+    out.data[o] = r; out.data[o + 1] = gg; out.data[o + 2] = b; out.data[o + 3] = on ? 255 : 0;
+  }
+  g.putImageData(out, 0, 0);
+  if (document.fonts.check(size * K + "px " + FONT)) textCache[key] = c;
+  return c;
+}
+
+const textWidth = (str, size) => str.length * size;
+
+// opts: outline (px, black), shadow (px, color), chars (typewriter count)
+function drawText(str, x, y, size, color, opts = {}) {
+  const n = opts.chars === undefined ? str.length : Math.max(0, Math.min(str.length, opts.chars));
+  if (n === 0) return;
+  const s = str.slice(0, n);
+  x = ri(x); y = ri(y);
+  if (opts.outline) {
+    const o = opts.outline, k = textSprite(s, size, PAL.black);
+    for (const [ox, oy] of [[-o, 0], [o, 0], [0, -o], [0, o], [-o, -o], [o, -o], [-o, o], [o, o]]) ctx.drawImage(k, x + ox, y + oy);
+  }
+  if (opts.shadow) ctx.drawImage(textSprite(s, size, opts.shadowColor || PAL.black), x + opts.shadow, y + opts.shadow);
+  ctx.drawImage(textSprite(s, size, color), x, y);
+}
+
+function drawCentered(str, cx, y, size, color, opts = {}) {
+  drawText(str, cx - Math.floor(textWidth(str, size) / 2), y, size, color, opts);
+}
+
+// RPG dialog box: 2 px border on navy
+function dialog(x, y, w, h, fill = PAL.navy, border = PAL.white) {
+  rect(x, y, w, h, border);
+  rect(x + 2, y + 2, w - 4, h - 4, fill);
+}
+
+// Sprite from a string grid; map char -> palette color; auto 1 px outline
+function gridSprite(rows, map, outline = true) {
+  const h = rows.length, w = rows[0].length, pad = outline ? 1 : 0;
+  const [c, g] = makeCanvas(w + pad * 2, h + pad * 2);
+  const at = (x, y) => (x >= 0 && y >= 0 && x < w && y < h && rows[y][x] !== "." ? map[rows[y][x]] : null);
+  for (let y = -pad; y < h + pad; y++) {
+    for (let x = -pad; x < w + pad; x++) {
+      let col = at(x, y);
+      if (!col && outline && (at(x - 1, y) || at(x + 1, y) || at(x, y - 1) || at(x, y + 1))) col = PAL.black;
+      if (col) { g.fillStyle = col; g.fillRect(x + pad, y + pad, 1, 1); }
+    }
+  }
+  return c;
+}
+
+function drawSprite(c, x, y, scale = 1) {
+  ctx.drawImage(c, ri(x), ri(y), c.width * scale, c.height * scale);
+}
+
+// Bayer 4x4 dither mask in a colour: level 0..16 of 16 pixels covered
+const maskCache = {};
+function ditherMask(level, color) {
+  const key = level + color;
+  if (maskCache[key]) return maskCache[key];
+  const [c, g] = makeCanvas(W, H);
+  g.fillStyle = color;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (BAYER4[y & 3][x & 3] < level) g.fillRect(x, y, 1, 1);
+  maskCache[key] = c;
+  return c;
+}
+
+const CLOUD = gridSprite([
+  "......WWWW......",
+  "...WWWWWWWWW....",
+  "..WWWWWWWWWWWW..",
+  ".WWWWWWWWWWWWWW.",
+  "WWWWWWWWWWWWWWWW",
+  "SSSSSSSSSSSSSSSS",
+], { W: PAL.white, S: PAL.silver }, false);
+
+const STAR = gridSprite([
+  "..Y..",
+  "..Y..",
+  "YYWYY",
+  "..Y..",
+  "..Y..",
+], { Y: PAL.yellow, W: PAL.white }, false);
+
+const STAR_SMALL = gridSprite([".Y.", "YWY", ".Y."], { Y: PAL.yellow, W: PAL.white }, false);
+
+// ---- hero: 32x32 sprite composed from rects per pose, then outlined ----
+const heroCache = {};
+const HERO_GRID = 32;
+
+function heroSprite(p) {
+  const key = JSON.stringify(p);
+  if (heroCache[key]) return heroCache[key];
+  const G = HERO_GRID;
+  const grid = new Array(G * G).fill(null);
+  const put = (x, y, c) => { if (x >= 0 && y >= 0 && x < G && y < G) grid[y * G + x] = c; };
+  const box = (x, y, w, h, c) => { for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) put(x + i, y + j, c); };
+  const h0 = 4 + (p.bob || 0), dx = p.dx || 0;
+
+  // legs (planted; only the upper body bobs)
+  if (p.legs === "jump") {
+    box(11, 25, 3, 3, PAL.navy); box(18, 25, 3, 3, PAL.navy);
+    box(8, 28, 5, 2, PAL.brown); box(19, 28, 5, 2, PAL.brown);
+  } else {
+    box(12, 25, 3, 5, PAL.navy); box(17, 25, 3, 5, PAL.navy);
+    box(11, 30, 4, 2, PAL.brown); box(17, 30, 4, 2, PAL.brown);
+  }
+  // body
+  box(11 + dx, h0 + 12, 10, 9, PAL.blue);
+  box(11 + dx, h0 + 18, 10, 1, PAL.white);
+  box(15 + dx, h0 + 18, 2, 1, PAL.yellow);
+  // head
+  box(11 + dx, h0, 10, 1, PAL.brown);
+  box(10 + dx, h0 + 1, 12, 2, PAL.brown);
+  box(10 + dx, h0 + 3, 12, 1, PAL.red);
+  put(22 + dx, h0 + 3, PAL.red); put(23 + dx, h0 + 4 + (p.bob ? 1 : 0), PAL.red); put(24 + dx, h0 + 5 + (p.bob ? 1 : 0), PAL.red);
+  box(10 + dx, h0 + 4, 12, 8, PAL.peach);
+  box(10 + dx, h0 + 4, 1, 3, PAL.brown); box(21 + dx, h0 + 4, 1, 3, PAL.brown);
+  box(11 + dx, h0 + 4, 4, 1, PAL.brown);
+  put(12 + dx, h0 + 9, PAL.pink); put(19 + dx, h0 + 9, PAL.pink);
+  // eyes
+  const eyes = p.eyes || "open";
+  if (eyes === "open") { box(13 + dx, h0 + 6, 1, 2, PAL.black); box(18 + dx, h0 + 6, 1, 2, PAL.black); }
+  else if (eyes === "shut") { box(12 + dx, h0 + 7, 3, 1, PAL.black); box(17 + dx, h0 + 7, 3, 1, PAL.black); }
+  else {
+    put(12 + dx, h0 + 7, PAL.black); put(13 + dx, h0 + 6, PAL.black); put(14 + dx, h0 + 7, PAL.black);
+    put(17 + dx, h0 + 7, PAL.black); put(18 + dx, h0 + 6, PAL.black); put(19 + dx, h0 + 7, PAL.black);
+  }
+  // mouth
+  const mouth = p.mouth || "smile";
+  if (mouth === "smile") { put(14 + dx, h0 + 10, PAL.black); put(17 + dx, h0 + 10, PAL.black); box(15 + dx, h0 + 11, 2, 1, PAL.black); }
+  else if (mouth === "o") box(15 + dx, h0 + 9, 2, 2, PAL.black);
+  else box(15 + dx, h0 + 10, 2, 1, PAL.black);
+  // cup (drawn over the face, under the hand)
+  if (p.cup) {
+    const { x, y, lv } = p.cup;
+    box(x - 1, y - 1, 8, 9, PAL.black);
+    box(x, y, 6, 7, PAL.navy);
+    box(x, y, 1, 7, PAL.white); box(x + 5, y, 1, 7, PAL.white); box(x, y + 6, 6, 1, PAL.white);
+    box(x + 1, y + 6 - lv, 4, lv, PAL.blue);
+  }
+  // arms: sleeve line from shoulder, skin hand at the target
+  const arm = (sx, sy, [tx, ty]) => {
+    let x = sx, y = sy;
+    const ddx = Math.abs(tx - x), ddy = -Math.abs(ty - y), stx = x < tx ? 1 : -1, sty = y < ty ? 1 : -1;
+    let err = ddx + ddy;
+    for (let guard = 0; guard < 80; guard++) {
+      box(x, y, 2, 2, PAL.blue);
+      if (x === tx && y === ty) break;
+      const e2 = 2 * err;
+      if (e2 >= ddy) { err += ddy; x += stx; }
+      if (e2 <= ddx) { err += ddx; y += sty; }
+    }
+    box(tx, ty, 2, 2, PAL.peach);
+  };
+  arm(10 + dx, h0 + 13, p.lh || [8, 24]);
+  arm(20 + dx, h0 + 13, p.rh || [22, 24]);
+
+  // outline pass
+  const [c, g] = makeCanvas(G + 2, G + 2);
+  const at = (x, y) => (x >= 0 && y >= 0 && x < G && y < G ? grid[y * G + x] : null);
+  for (let y = -1; y <= G; y++) for (let x = -1; x <= G; x++) {
+    let col = at(x, y);
+    if (!col && (at(x - 1, y) || at(x + 1, y) || at(x, y - 1) || at(x, y + 1))) col = PAL.black;
+    if (col) { g.fillStyle = col; g.fillRect(x + 1, y + 1, 1, 1); }
+  }
+  heroCache[key] = c;
+  return c;
+}
+
+const HERO_SCALE = 2;
+const HERO_X = 135 - (HERO_GRID + 2);               // centred, scale 2
+const HERO_Y = GROUND_Y + 6 - (HERO_GRID + 2) * HERO_SCALE;
+
+// dy is in logical px (negative = up)
+function drawHero(pose, dy = 0, shadowFlat = true) {
+  const lift = -dy;
+  const sw = Math.max(16, 44 - Math.floor(lift / 3) * 2);
+  rect(135 - sw / 2, GROUND_Y + 4, sw, 2, PAL.black);
+  drawSprite(heroSprite(pose), HERO_X, HERO_Y + dy, HERO_SCALE);
+}
+
+// stepped hop: dy values held 2 frames each
+const HOP = [0, -4, -8, -10, -8, -4, 0];
+function hopDy(l) { return l >= 0 && l < HOP.length * 2 ? HOP[Math.floor(l / 2)] : 0; }
+// last beat-aligned hop before/at frame l among starts
+function hopFrom(starts, l) {
+  for (const s of starts) { const d = hopDy(l - s); if (d !== 0) return d; }
+  return 0;
+}
+
+// ---- world: dithered sky bands, sun, parallax hills, ground ----
+const BG_PAD = 4; // extra pixels so screen shake never reveals an edge
+const skyCache = {};
+
+function skyCanvas(name) {
+  if (skyCache[name]) return skyCache[name];
+  const cols = CONTENT.skies[name];
+  const [c, g] = makeCanvas(W + BG_PAD * 2, GROUND_Y);
+  const bandH = GROUND_Y / cols.length, blend = 16;
+  const bayer2 = [[0, 2], [3, 1]];
+  for (let y = 0; y < GROUND_Y; y++) {
+    const k = Math.min(cols.length - 1, Math.floor(y / bandH));
+    const edge = (k + 1) * bandH, d = y - (edge - blend / 2);
+    if (k < cols.length - 1 && d >= 0) {
+      for (let x = 0; x < c.width; x++) {
+        g.fillStyle = (d / blend) * 4 > bayer2[y & 1][x & 1] + 0.5 ? cols[k + 1] : cols[k];
+        g.fillRect(x, y, 1, 1);
+      }
+    } else {
+      g.fillStyle = cols[k]; g.fillRect(0, y, c.width, 1);
+    }
+  }
+  skyCache[name] = c;
+  return c;
+}
+
+function drawSun(cx, cy) {
+  const R = 16;
+  for (let dy = -R; dy <= R; dy++) {
+    const half = Math.floor(Math.sqrt(R * R - dy * dy));
+    rect(cx - half, cy + dy, half * 2 + 1, 1, PAL.red);
+    const inner = Math.floor(Math.sqrt(Math.max(0, (R - 2) * (R - 2) - dy * dy)));
+    if (Math.abs(dy) <= R - 2) rect(cx - inner, cy + dy, inner * 2 + 1, 1, PAL.white);
+  }
+}
+
+function drawStars(f) {
+  const rng = mulberry32(7);
+  for (let i = 0; i < 26; i++) {
+    const x = Math.floor(rng() * W), y = 4 + Math.floor(rng() * 190), ph = Math.floor(rng() * 40);
+    if ((f + ph) % 40 < 30) rect(x, y, 1 + (i % 4 === 0 ? 1 : 0), 1 + (i % 4 === 0 ? 1 : 0), i % 3 ? PAL.white : PAL.yellow);
+  }
+}
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function drawClouds(f) {
+  const step = Math.floor(f / 6); // integer scroll, 1 px per 6 frames
+  const span = W + 80;
+  [[40, 30], [200, 146], [110, 190]].forEach(([x0, y], i) => {
+    const x = ((x0 - step * (i % 2 + 1) + 200 * span) % span) - 40;
+    drawSprite(CLOUD, x, y, 2);
+  });
+}
+
+function drawHills(f) {
+  const farOff = Math.floor(f / 24), midOff = Math.floor(f / 10);
+  for (let x = -BG_PAD; x < W + BG_PAD; x++) {
+    const hf = 40 + Math.round(10 * Math.sin((x + farOff) / 41) + 6 * Math.sin((x + farOff) / 17));
+    rect(x, GROUND_Y - hf, 1, hf, PAL.lavender);
+    const hm = 20 + Math.round(8 * Math.sin((x + midOff) / 29 + 1) + 3 * Math.sin((x + midOff) / 11));
+    rect(x, GROUND_Y - hm, 1, hm, PAL.green);
+    rect(x, GROUND_Y - hm, 1, 1, PAL.lime);
+  }
+}
+
+function drawGround() {
+  rect(-BG_PAD, GROUND_Y, W + BG_PAD * 2, 5, PAL.lime);
+  rect(-BG_PAD, GROUND_Y + 5, W + BG_PAD * 2, 30, PAL.green);
+  // dirt with 2x2 Bayer-style checker transition
+  for (let y = GROUND_Y + 35; y < H + BG_PAD; y++) {
+    const dense = y < GROUND_Y + 43;
+    for (let x = -BG_PAD; x < W + BG_PAD; x++) {
+      const on = dense ? (x + y) % 2 === 0 : true;
+      if (dense) rect(x, y, 1, 1, on ? PAL.brown : PAL.green);
+    }
+  }
+  rect(-BG_PAD, GROUND_Y + 43, W + BG_PAD * 2, H, PAL.brown);
+  const rng = mulberry32(11);
+  for (let i = 0; i < 40; i++) rect(Math.floor(rng() * W), GROUND_Y + 48 + Math.floor(rng() * 120), 3, 2, PAL.stone);
+}
+
+function drawFlowers() {
+  const spots = [[22, 0, PAL.red], [58, 3, PAL.yellow], [212, 1, PAL.pink], [246, 4, PAL.white], [186, 6, PAL.red]];
+  for (const [x, o, c] of spots) {
+    rect(x + 1, GROUND_Y + 8 + o, 1, 3, PAL.black);
+    rect(x, GROUND_Y + 6 + o, 3, 3, c);
+    rect(x + 1, GROUND_Y + 7 + o, 1, 1, PAL.yellow);
+  }
+}
+
+function drawWorld(f, skyName, opts = {}) {
+  ctx.drawImage(skyCanvas(skyName), -BG_PAD, 0);
+  if (opts.stars) drawStars(f);
+  drawSun(CONTENT.sun.x, CONTENT.sun.y[skyName]);
+  drawClouds(f);
+  drawHills(f);
+  drawGround();
+  drawFlowers();
+}
+
+// ---- timeline model + HUD pieces ----
+const T = CONTENT.timing;
+const BEAT = Math.round((CONTENT.video.fps * 60) / CONTENT.video.bpm); // frames per beat
+const SCENES = (() => {
+  const list = [{ id: "title", kind: "title", start: 0, len: T.titleFrames }];
+  let s = T.titleFrames;
+  CONTENT.quests.forEach((q, i) => { list.push({ id: "q" + i, kind: q.kind, start: s, len: T.questFrames, q, i }); s += T.questFrames; });
+  list.push({ id: "outro", kind: "outro", start: s, len: T.outroFrames });
+  return list;
+})();
+const TOTAL_FRAMES = SCENES[SCENES.length - 1].start + SCENES[SCENES.length - 1].len;
+const OUTRO_START = SCENES[SCENES.length - 1].start;
+const COMPLETE_FRAMES = SCENES.filter((s) => s.q).map((s) => s.start + s.q.completeAt);
+
+function sceneAt(f) {
+  for (let i = SCENES.length - 1; i >= 0; i--) if (f >= SCENES[i].start) return SCENES[i];
+  return SCENES[0];
+}
+
+// screen shake: alternating integer offsets for 6 frames after an event
+function shakeAt(f, events) {
+  for (const [ef, amp] of events) {
+    const l = f - ef;
+    if (l >= 0 && l < 6) {
+      const a = Math.max(1, amp - Math.floor(l / 3));
+      return [(l % 2 ? -a : a), (l % 2 ? a : -a) >> 1];
+    }
+  }
+  return [0, 0];
+}
+const SHAKE_EVENTS = [[CONTENT.title.dropFrame, 2], [CONTENT.title.dropFrame + BEAT, 2],
+  ...COMPLETE_FRAMES.map((c) => [c, 1]), [OUTRO_START, 2]];
+
+function xpValue(f) {
+  let v = 0;
+  CONTENT.quests.forEach((q, i) => { v += q.xp * Math.min(1, Math.max(0, (f - COMPLETE_FRAMES[i]) / 8)); });
+  const l = f - OUTRO_START;
+  if (l >= 24) v = v * (1 - Math.min(1, (l - 24) / 12)); // drains after the level-up
+  return v;
+}
+
+function drawHud(f) {
+  const l = f - OUTRO_START, leveled = l >= 0;
+  const lv = CONTENT.hud[leveled ? "levelEnd" : "levelStart"];
+  const flash = leveled && l < 24 && Math.floor(l / 2) % 2 === 0;
+  drawText("LV " + lv, 14, 62, 8, flash ? PAL.yellow : PAL.white, { outline: 1 });
+  const bx = 56, by = 58, bw = 198, bh = 14;
+  rect(bx, by, bw, bh, PAL.black);
+  rect(bx + 1, by + 1, bw - 2, bh - 2, PAL.white);
+  rect(bx + 2, by + 2, bw - 4, bh - 4, PAL.navy);
+  const chunks = 32, chunkW = 6;
+  const filled = Math.floor((xpValue(f) / CONTENT.hud.xpMax) * chunks + 1e-6);
+  for (let i = 0; i < filled; i++) rect(bx + 3 + i * chunkW, by + 3, chunkW - 1, bh - 6, flash ? PAL.yellow : PAL.lime);
+}
+
+function drawBanner(label, name, L) {
+  dialog(14, 88, 242, 40);
+  drawText(label, 22, 96, 8, PAL.yellow, { chars: Math.floor((L - 3) / 2) });
+  drawText(name, 22, 108, 16, PAL.white, { chars: Math.floor((L - 9) / 2) });
+}
+
+function drawChecklist(f) {
+  const items = CONTENT.quests, inner = 238, y = 342;
+  dialog(14, y, 242, 24);
+  const widths = items.map((q) => 12 + q.check.length * 8);
+  const gap = Math.floor((inner - widths.reduce((a, b) => a + b, 0)) / (items.length + 1));
+  let x = 16 + gap;
+  items.forEach((q, i) => {
+    const done = f >= COMPLETE_FRAMES[i];
+    rect(x, y + 8, 8, 8, PAL.white);
+    rect(x + 1, y + 9, 6, 6, done ? PAL.lime : PAL.navy);
+    if (done) { rect(x + 2, y + 12, 1, 1, PAL.black); rect(x + 3, y + 13, 1, 1, PAL.black); rect(x + 4, y + 12, 1, 1, PAL.black); rect(x + 5, y + 11, 1, 1, PAL.black); rect(x + 6, y + 10, 1, 1, PAL.black); }
+    drawText(q.check, x + 12, y + 8, 8, done ? PAL.white : PAL.silver);
+    x += widths[i] + gap;
+  });
+}
+
+function drawBeatPips(f) {
+  const on = Math.floor(f / BEAT) % 4;
+  for (let i = 0; i < 4; i++) rect(115 + i * 10, 374, 6, 6, i === on ? PAL.yellow : PAL.navy);
+}
+
+// "+20 XP" pop: size swap squash on the first 2 frames, then rises in steps
+function drawXpPop(str, l) {
+  if (l < 0 || l > 45) return;
+  const big = l < 2;
+  const size = big ? 24 : 16;
+  const y = 220 - Math.min(14, 3 * Math.floor(l / 2)) - (big ? 4 : 0);
+  if (l > 36 && Math.floor(l / 2) % 2 === 0) return;
+  drawCentered(str, 135, y, size, PAL.yellow, { outline: 2 });
+}
+
+// radial star burst, integer steps
+const BURST = [[1, 0], [-1, 0], [0, -1], [1, -1], [-1, -1], [2, -1], [-2, -1], [1, -2], [-1, -2], [0, 1]];
+function drawBurst(l, cx, cy, speed = 2, life = 16) {
+  if (l < 0 || l >= life) return;
+  BURST.forEach(([dx, dy], i) => {
+    if ((l + i) % 4 === 3) return; // flicker
+    const d = 6 + l * speed;
+    drawSprite(STAR, cx + dx * d - 2, cy + dy * d - 2);
+  });
+}
+
+// ---- scenes: each takes local frame L and draws its stage + hero ----
+const bobAt = (L) => (L % BEAT < 8 ? 0 : 1);
+
+function sceneTitle(f) {
+  const t = CONTENT.title, wake = t.wakeFrame;
+  drawWorld(f, "title", { stars: true });
+  const asleep = f < wake;
+  let dy = 0;
+  if (f >= wake && f < wake + 14) dy = hopDy(f - wake);
+  drawHero({ bob: bobAt(f), eyes: asleep ? "shut" : "open", mouth: asleep ? "flat" : "o" }, dy);
+  if (asleep) { // Z particles rise in 4 frame steps
+    for (let k = 0; k < 2; k++) {
+      const l = (f + k * 22) % 44, step = Math.floor(l / 4);
+      drawText("Z", 150 + step * 2, 240 - step * 3, k ? 8 : 16, PAL.white, { outline: 1 });
+    }
+  } else if (f < wake + 20) drawText("!", 140, 214, 16, PAL.red, { outline: 2 });
+  // title lines drop in stepped rows and land on beats 2 and 3
+  t.lines.forEach((line, i) => {
+    const land = t.dropFrame + i * BEAT, l = f - (land - 5), finalY = 92 + i * 44;
+    if (l < 0) return;
+    const y = l < 6 ? finalY - 20 * (5 - l) - 0 : l < 8 ? finalY + 4 : finalY;
+    const color = i ? PAL.red : PAL.yellow;
+    drawCentered(line, 135, y, 32, color, { outline: 2 });
+  });
+  const promptOn = f >= t.dropFrame + 2 * BEAT && Math.floor((f - (t.dropFrame + 2 * BEAT)) / 8) % 2 === 0;
+  if (promptOn) drawCentered(t.prompt, 135, 196, 16, PAL.white, { outline: 2 });
+}
+
+function questHero(kind, L, q) {
+  const done = L - q.completeAt;
+  const hops = [q.completeAt + BEAT, q.completeAt + 2 * BEAT, q.completeAt + 3 * BEAT];
+  const base = { bob: bobAt(L) };
+  let pose = base, dy = 0, extra = null;
+  if (kind === "water") {
+    const cupHeld = (lv, y) => ({ x: 16, y, lv });
+    if (L < 15) pose = base;
+    else if (L < 30) pose = { ...base, rh: [24, 22], cup: { x: 23, y: 15, lv: 4 } };
+    else if (L < q.completeAt) {
+      const lv = L < 37 ? 4 : L < 45 ? 3 : L < 52 ? 2 : 1;
+      pose = { ...base, bob: 0, eyes: "shut", rh: [22, 17], cup: cupHeld(lv, 12 + (Math.floor(L / 4) % 2 ? 0 : 1)) };
+    } else pose = { ...base, eyes: "happy", lh: [5, 8], rh: [22, 24] };
+  } else if (kind === "stretch") {
+    if (L < 15) pose = base;
+    else if (L < 30) pose = { ...base, lh: [1, 17], rh: [29, 17] };
+    else if (L < 45) pose = { ...base, lh: [6, 0], rh: [24, 0], mouth: "o" };
+    else if (L < 60) pose = { ...base, dx: -2, lh: [0, 3], rh: [18, 0], eyes: "shut" };
+    else if (L < q.completeAt) pose = { ...base, dx: 2, lh: [14, 0], rh: [30, 3], eyes: "shut" };
+    else pose = { ...base, lh: [6, 0], rh: [24, 0], eyes: "happy" };
+  } else if (kind === "task") {
+    if (L < 30) pose = base;
+    else if (L < q.completeAt) pose = { ...base, mouth: "flat", rh: [21, 16] };
+    else pose = { ...base, eyes: "happy", rh: [27, 1] };
+  }
+  if (done >= 0) dy = hopFrom(hops, L);
+  if (dy !== 0) pose = { ...pose, legs: "jump" };
+  return { pose, dy };
+}
+
+function drawPitcher(L) {
+  const g = (rows, m) => gridSprite(rows, m);
+  const pitcher = drawPitcher.s || (drawPitcher.s = g([
+    "...WWWWWW...",
+    "..WBBBBBBW..",
+    ".WBBBBBBBWWW",
+    ".WWBBBBBBW.W",
+    "..WBBBBBBW.W",
+    "..WBBBBBBWWW",
+    "..WBBBBBBW..",
+    "..WWWWWWWW..",
+  ], { W: PAL.white, B: PAL.blue }));
+  rect(42, GROUND_Y - 16, 28, 4, PAL.brown); rect(44, GROUND_Y - 12, 3, 16, PAL.brown); rect(65, GROUND_Y - 12, 3, 16, PAL.brown);
+  rect(42, GROUND_Y - 16, 28, 1, PAL.orange);
+  drawSprite(pitcher, 43, GROUND_Y - 16 - pitcher.height * 2, 2);
+}
+
+function drawMat() {
+  rect(95, GROUND_Y + 6, 80, 6, PAL.black);
+  rect(96, GROUND_Y + 6, 78, 5, PAL.red);
+  rect(96, GROUND_Y + 6, 78, 1, PAL.pink);
+}
+
+function drawCards(L, q) {
+  const cx = [14, 100, 186], w = 70, h = 56, y0 = 140, colors = [PAL.red, PAL.orange, PAL.blue];
+  const pick = L >= q.completeAt;
+  q.tasks.forEach((label, i) => {
+    const l = L - (15 + i * 5);
+    if (l < 0) return;
+    const y = y0 - Math.max(0, 72 - 12 * l);
+    const sel = i === q.picked;
+    const [c, g] = makeCanvas(w, h);
+    const save = ctx; // draw card into an offscreen canvas for the dither-out
+    const border = pick && sel ? (Math.floor((L - q.completeAt) / 2) % 2 && L - q.completeAt < 30 ? PAL.white : PAL.yellow) : PAL.white;
+    g.fillStyle = border; g.fillRect(0, 0, w, h);
+    g.fillStyle = PAL.navy; g.fillRect(2, 2, w - 4, h - 4);
+    g.fillStyle = colors[i]; g.fillRect(2, 2, w - 4, 8);
+    const num = textSprite(String(i + 1), 16, colors[i]); g.drawImage(num, 27, 18);
+    const lab = textSprite(label, 8, PAL.white); g.drawImage(lab, Math.floor((w - label.length * 8) / 2), 40);
+    if (pick && !sel) {
+      const lvl = Math.min(16, (L - q.completeAt) * 2);
+      const d = g.getImageData(0, 0, w, h);
+      for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) if (BAYER4[yy & 3][xx & 3] < lvl) d.data[(yy * w + xx) * 4 + 3] = 0;
+      g.putImageData(d, 0, 0);
+    }
+    ctx.drawImage(c, cx[i], y);
+  });
+  // pixel hand cursor hops on beats: card 1, card 3, then the picked card
+  if (L >= 30 && L < q.completeAt + 6) {
+    const seq = [0, 2, q.picked], idx = Math.min(2, Math.floor((L - 30) / BEAT));
+    const target = seq[idx], phase = (L - 30) % BEAT;
+    const hop = phase < 4 ? [0, 4, 6, 4][phase] : 0;
+    const bob = Math.floor(L / 8) % 2 ? 2 : 0;
+    drawSprite(CURSOR, cx[target] + w / 2 - 10, y0 + h + 4 - hop - bob, 2);
+  }
+}
+
+const CURSOR = gridSprite([
+  "...WW...",
+  "..WWWW..",
+  ".WWWWWW.",
+  "WWWWWWWW",
+  "...WW...",
+  "...WW...",
+  "...WW...",
+], { W: PAL.white }, true);
+
+function sceneQuest(f, s) {
+  const { q, i } = s, L = f - s.start;
+  drawWorld(f, q.kind === "task" ? "task" : q.kind);
+  if (q.kind === "water") drawPitcher(L);
+  if (q.kind === "stretch") drawMat();
+  const { pose, dy } = questHero(q.kind, L, q);
+  drawHero(pose, dy);
+  if (q.kind === "stretch" && L >= 30 && L < q.completeAt && Math.floor(L / 4) % 2 === 0) {
+    for (const [x, y] of [[96, 236], [166, 236], [92, 250], [170, 250]]) { rect(x, y, 5, 1, PAL.white); rect(x + 1, y + 4, 3, 1, PAL.white); }
+  }
+  if (q.kind === "task") drawCards(L, q);
+  const l = L - q.completeAt;
+  drawBurst(l, 135, 262);
+  drawXpPop("+" + q.xp + " XP", l);
+  drawBanner(q.label, q.name, L);
+}
+
+function sceneOutro(f) {
+  const L = f - OUTRO_START, lu = CONTENT.levelUp;
+  drawWorld(f, "outro");
+  const JUMP = [0, -6, -14, -22, -28, -32, -34, -32, -28, -22, -14, -6, 0];
+  const jumping = L < JUMP.length * 2;
+  const dy = jumping ? JUMP[Math.floor(L / 2)] : hopFrom([45, 75], L);
+  const pose = { bob: bobAt(L), eyes: "happy", lh: [6, 0], rh: [24, 0], legs: jumping || dy ? "jump" : "stand", mouth: "o" };
+  drawHero(pose, dy);
+  drawBurst(L, 135, 262, 3, 26);
+  // headline: pop at 40 px for 4 frames, then 32 px, colour cycles until it settles
+  const cycle = [PAL.yellow, PAL.orange, PAL.red, PAL.pink, PAL.white];
+  const col = L < 44 ? cycle[Math.floor(L / 4) % cycle.length] : PAL.yellow;
+  const size = L < 4 ? 40 : 32;
+  drawCentered(lu.headline, 135, L < 4 ? 90 : 94, size, col, { outline: 2 });
+  // dialog box with typewriter text
+  if (L >= 12) {
+    dialog(14, 144, 242, 66);
+    const chars = Math.floor((L - 15) / 2);
+    const [a, b] = lu.lines;
+    drawText(a, 24, 156, 16, PAL.white, { chars });
+    drawText(b, 24, 180, 16, PAL.white, { chars: chars - a.length });
+    if (chars >= a.length + b.length && Math.floor((L - 15) / 8) % 2 === 0) { rect(232, 194, 8, 1, PAL.yellow); rect(233, 195, 6, 1, PAL.yellow); rect(234, 196, 4, 1, PAL.yellow); rect(235, 197, 2, 1, PAL.yellow); }
+  }
+  // twinkles around the hero once settled
+  if (L >= 30) for (const [x, y, ph] of [[84, 250, 0], [186, 244, 8], [100, 226, 16], [170, 224, 24]]) if ((L + ph) % 32 < 20) drawSprite(STAR_SMALL, x, y);
+}
+
+// ---- main: one paused GSAP timeline, canvas redrawn as a pure function of the frame ----
+function draw(f) {
+  const s = sceneAt(f);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  rect(0, 0, W, H, PAL.black);
+  const [sx, sy] = shakeAt(f, SHAKE_EVENTS);
+  ctx.setTransform(1, 0, 0, 1, sx, sy);
+  if (s.kind === "title") sceneTitle(f);
+  else if (s.kind === "outro") sceneOutro(f);
+  else sceneQuest(f, s);
+  if (s.kind !== "title") { drawHud(f); drawChecklist(f); }
+  drawBeatPips(f);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // dither dissolve centred on each cut
+  for (const sc of SCENES.slice(1)) {
+    const d = f - sc.start;
+    if (d >= -6 && d < 6) ctx.drawImage(ditherMask(Math.round(16 * (1 - Math.abs(d + 0.5) / 6.5)), PAL.black), 0, 0);
+  }
+  if (f === OUTRO_START || f === OUTRO_START + 1) rect(0, 0, W, H, PAL.white); // 2 frame flash
+}
+
+const FPS = CONTENT.video.fps;
+const proxy = { t: 0 };
+const tl = gsap.timeline({ paused: true });
+tl.to(proxy, {
+  t: TOTAL_FRAMES / FPS,
+  duration: TOTAL_FRAMES / FPS,
+  ease: "none",
+  onUpdate: () => draw(Math.min(TOTAL_FRAMES - 1, Math.round(proxy.t * FPS))),
+}, 0);
+window.__timelines["main"] = tl;
+["8", "16", "24", "32", "40"].forEach((px) => document.fonts.load(px + "px " + FONT));
+draw(0);
+
+</script>
+</body></html>

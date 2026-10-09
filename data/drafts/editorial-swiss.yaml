@@ -1,0 +1,82 @@
+id: editorial-swiss
+tier: core
+evidence_strength: medium
+name:
+  en: Editorial Swiss Grid
+  zh: 瑞士网格编辑风
+tagline:
+  en: A strict modular grid, flush-left grotesk, giant numerals, hairline rules and one signal color - print design in motion.
+  zh: 严格的模块网格、左对齐无衬线字、巨大数字、细线分隔与单一信号色——会动的印刷设计。
+signature:
+  en:
+    - Off-white paper or ink-black ground on a visible 12-column logic
+    - Flush-left, ragged-right grotesk headlines and 300-480 px numerals
+    - Hairline rules drawing across columns, section numbers and small uppercase labels
+    - Blocks sliding exactly by column widths; color-block wipes in one signal color
+  zh:
+    - 米白纸面或墨黑底色，遵循清晰的 12 栏逻辑
+    - 左对齐、右侧参差的无衬线标题，300-480 px 的巨大数字
+    - 跨栏绘出的细线、章节编号与小号大写标签
+    - 区块按栏宽精确滑动，用单一信号色做色块转场
+best_for:
+  en:
+    - Reports, annual summaries, research findings and statistics
+    - Design studios, publications, cultural events and portfolios
+  zh:
+    - 报告、年度总结、研究发现与统计数据
+    - 设计工作室、出版物、文化活动与作品集
+avoid_when:
+  en:
+    - The data is the story and needs charts (use data-story-charts)
+    - The audience expects high-energy social pacing (use kinetic-typography)
+  zh:
+    - 数据本身就是主角、需要图表（改用 data-story-charts）
+    - 观众期待高能量的社交节奏（改用 kinetic-typography）
+tags:
+  use: [data-report, brand-reel, explainer]
+  platform: [linkedin, youtube, website-hero, x]
+  aspect: ["16:9", "4:5", "9:16"]
+  audio: [music, voiceover]
+  mood: [editorial, calm]
+  needs: [script]
+duration: 20-60 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: CSS grid gives exact column math, and HyperFrames ships official editorial frame presets and themes (biennale-yellow, cobalt-grid, bold-poster, editorial.css). Remotion works if the grid is computed in a helper.
+    zh: CSS grid 能精确计算栏位，HyperFrames 官方自带编辑风画面预设与主题（biennale-yellow、cobalt-grid、bold-poster、editorial.css）。Remotion 用辅助函数计算网格同样可行。
+variants:
+  - id: bold-poster
+    en: Signal-color ground, type cropped off the frame edges, one numeral per shot.
+    zh: 信号色底，文字裁出画面边缘，每镜一个数字。
+  - id: visual-journalism
+    en: Black ground, source-tagged photos, highlighter strokes and dashed annotations.
+    zh: 黑底、标注出处的图片、荧光笔划线与虚线注释。
+  - id: dark-editorial
+    en: "#111111 ground, #EDEBE6 type, the same grid and rules."
+    zh: "#111111 底色、#EDEBE6 文字，网格与细线不变。"
+evidence:
+  - creator: HeyGen (HyperFrames frame presets)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes/tree/main/skills/hyperframes-creative/frame-presets
+    tool: HyperFrames
+    note: Official presets incl. biennale-yellow, blockframe, bold-poster, broadside, cobalt-grid, code-editorial; themes editorial.css and bold.css.
+    verified: opened
+  - creator: bangtutorial/bang-motion
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: HTML
+    note: Style directions incl. White catalog, Visual journalism and Poster color-block (MIT).
+    verified: opened
+  - creator: kazu (谷 一徳, AI Academy)
+    platform: note
+    region: jp
+    url: https://note.com/kazu_t/n/n4a29f538c7a7
+    tool: HyperFrames + Whisper + Kokoro
+    note: 30 s service intro; templates named warm-grain, swiss-grid, vignelli and kinetic-type.
+    verified: opened
+template: templates/editorial-swiss

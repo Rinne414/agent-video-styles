@@ -1,0 +1,93 @@
+id: map-geo-story
+tier: core
+evidence_strength: medium
+name:
+  en: Map Geo Story
+  zh: 地图叙事动画
+tagline:
+  en: Routes draw across a projected map, places pulse and regions fill - Vox-style editorial geography.
+  zh: 路线在投影地图上绘出、地点脉动、区域填色——Vox 式的编辑型地理叙事。
+signature:
+  en:
+    - Flat projected map with muted land and a single highlight color
+    - Route lines that draw along great circles with a moving head marker
+    - Points that pop in and pulse; regions that fill as the story names them
+    - The camera zooms between regions; editorial labels with halos
+  zh:
+    - 平面投影地图，陆地低饱和，只用一种高亮色
+    - 沿大圆绘出的路线，前端带移动标记
+    - 地点弹出并脉动；故事提到的区域依次填色
+    - 镜头在区域间缩放；带描边光晕的编辑式标注
+best_for:
+  en:
+    - Travel, logistics or expansion routes; location datasets
+    - History, geopolitics and news explainers
+  zh:
+    - 旅行、物流或扩张路线；地点类数据集
+    - 历史、地缘政治与新闻解读
+avoid_when:
+  en:
+    - The data has no geographic dimension (use data-story-charts)
+    - Street-level or satellite imagery is required (needs map-tile APIs; out of scope)
+  zh:
+    - 数据没有地理维度（改用 data-story-charts）
+    - 需要街道级或卫星影像（需要地图瓦片 API，不在本范围）
+tags:
+  use: [explainer, data-report, news]
+  platform: [youtube, x, bilibili, linkedin]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, music, captions]
+  mood: [editorial, calm]
+  needs: [data]
+duration: 20-90 s
+difficulty: 3
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: d3-geo projections over world-atlas TopoJSON render as React SVG that is a pure function of the frame, with no API keys. Remotion also has an official maps skill (tile-based; may need a token). HyperFrames ships map blocks.
+    zh: 用 d3-geo 投影加 world-atlas TopoJSON，在 React SVG 中作为帧号的纯函数渲染，无需 API 密钥。Remotion 另有官方地图 skill（基于瓦片，可能需要 token）。HyperFrames 也有地图组件。
+variants:
+  - id: point-cloud
+    en: Thousands of locations rendered on canvas, revealed by time bucket with glow and a running total.
+    zh: 在 canvas 上绘制成千上万个地点，按时间分批显现，带光晕与累计计数。
+  - id: vox-annotated
+    en: Paper map with highlighter strokes, hand-drawn circles, dashed annotation lines and source-tagged photo cards.
+    zh: 纸质地图风格，荧光笔描线、手绘圈注、虚线标注与带出处的图片卡。
+evidence:
+  - creator: 益盛科技 (des13)
+    platform: Company blog
+    region: tw
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Opus 5.5 + HyperFrames
+    note: 40 s Taiwan church map plotted from 4,957 coordinates, built in 25 min; token use disclosed.
+    verified: opened
+  - creator: Remotion (remotion-maps skill)
+    platform: GitHub
+    region: global
+    url: https://github.com/remotion-dev/skills
+    tool: Remotion
+    note: Official maps skill in the remotion-dev/skills repo.
+    verified: opened
+  - creator: iart-ai (motion-skills, Vox-style maps pack)
+    platform: GitHub
+    region: global
+    url: https://github.com/iart-ai/motion-skills
+    tool: Remotion-based packs
+    note: Vox-style editorial map animation pack (vendor-linked, MIT).
+    verified: opened
+  - creator: HeyGen (maps blocks)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames
+    note: Official registry includes map blocks.
+    verified: opened
+  - creator: CSDN TopoJSON map animation
+    platform: Tencent Cloud
+    region: cn
+    url: https://developer.cloud.tencent.com/article/2649052
+    tool: Code-driven (TopoJSON)
+    note: Map animation from TopoJSON; seen only as a search snippet.
+    verified: snippet
+template: templates/map-geo-story

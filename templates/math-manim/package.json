@@ -1,0 +1,9 @@
+{
+  "name": "@avs/math-manim",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "render": "uv run manim render scene.py CircleArea -r 1920,1080 --fps 30 --media_dir media -o math-manim.mp4 && node -e \"require('fs').mkdirSync('out',{recursive:true});require('fs').copyFileSync('media/videos/scene/1080p30/math-manim.mp4','out/math-manim.mp4')\"",
+    "still": "uv run manim render scene.py CircleArea -s -r 1920,1080 --media_dir media"
+  }
+}

@@ -1,0 +1,110 @@
+id: karaoke-caption-short
+tier: core
+evidence_strength: strong
+name:
+  en: Karaoke Caption Short
+  zh: 逐字高亮字幕短视频
+tagline:
+  en: Vertical faceless short where huge word-by-word highlighted captions are the visual, carried by a TTS voice.
+  zh: 竖屏无露脸短视频，以超大逐字高亮字幕为主视觉，由 TTS 配音带动节奏。
+signature:
+  en:
+    - 9:16 frame with 2-4 word caption chunks in the middle of the screen
+    - The active word switches color or gets a pill exactly as it is spoken
+    - Simple moving backgrounds or b-roll cards change every 2-4 seconds
+    - The hook lands in the first frame, no intro
+  zh:
+    - 9:16 画面，屏幕中部显示 2-4 个词一组的字幕
+    - 正在念的词即时变色或加上胶囊底色
+    - 简单的动态背景或 B-roll 卡片每 2-4 秒切换一次
+    - 第一帧就是钩子，没有片头
+best_for:
+  en:
+    - Faceless TikTok, Douyin, Reels and Shorts channels at volume
+    - Turning a script, article or thread into a narrated short in minutes
+  zh:
+    - 批量运营的无露脸抖音、TikTok、Reels、Shorts 账号
+    - 把脚本、文章或推文串几分钟内变成有配音的短视频
+avoid_when:
+  en:
+    - The topic needs diagrams to be understood (use dark-diagram-explainer or card-explainer)
+    - You have talking-head footage (use talking-head-overlay)
+  zh:
+    - 主题需要图解才能讲清楚（改用 dark-diagram-explainer 或 card-explainer）
+    - 你有真人口播素材（改用 talking-head-overlay）
+tags:
+  use: [social-short, explainer, education]
+  platform: [tiktok-douyin, instagram-reels, youtube-shorts]
+  aspect: ["9:16"]
+  audio: [voiceover, captions, music]
+  mood: [energetic]
+  needs: [script]
+duration: 20-60 s
+difficulty: 1
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: "@remotion/captions groups word timings into TikTok-style pages and the official TikTok captions template is built on it. HyperFrames ships about 20 ready caption components (pill-karaoke, kinetic-slam and more)."
+    zh: "@remotion/captions 能把逐字时间戳分组成 TikTok 式字幕页，官方 TikTok 字幕模板就基于它。HyperFrames 内置约 20 种字幕组件（pill-karaoke、kinetic-slam 等）。"
+variants:
+  - id: single-word
+    en: One word at a time, 140-180 px, dead center; maximum energy.
+    zh: 一次只出一个词，140-180 px 居中；能量最高。
+  - id: pill-karaoke
+    en: The whole sentence stays on screen and a colored pill slides under the active word.
+    zh: 整句常驻屏幕，彩色胶囊底在当前词下滑动。
+  - id: template-swap-series
+    en: Scene components stay fixed and only the script changes per episode, for daily series.
+    zh: 场景组件固定，每集只换脚本，适合日更系列。
+evidence:
+  - creator: Philo (AI郵報)
+    platform: Blog
+    region: tw
+    url: https://www.aiposthub.com/claude-code-hyperframes-video-editing-guide/
+    tool: Claude Code + HyperFrames + FFmpeg + Whisper
+    note: 9:16 under 60 s; word-level highlights, about 14 CJK characters per line and 2 lines, captions kept off the face and phone UI; advises against rotation, flashing and heavy bounce.
+    verified: opened
+  - creator: Remotion TikTok captions template
+    platform: Official templates
+    region: global
+    url: https://www.remotion.dev/templates
+    tool: Remotion
+    note: Official word-by-word TikTok-style caption template.
+    verified: opened
+  - creator: HyperFrames caption catalog
+    platform: Docs
+    region: global
+    url: https://hyperframes.heygen.com/prompting/captions-catalog.md
+    tool: HyperFrames
+    note: About 20 caption components such as kinetic-slam, pill-karaoke, neon-glow and weight-shift.
+    verified: opened
+  - creator: 바이브코더 루피 (vibecoder-loopy)
+    platform: Blog
+    region: kr
+    url: https://vibecoderloopy.com/blog/remotion-video-automation-oneday-class
+    tool: Remotion + Whisper + Claude Code
+    note: Karaoke highlight captions, auto color theme per scene, --shorts flag for vertical output.
+    verified: opened
+  - creator: builder.ericc
+    platform: Threads
+    region: kr
+    url: https://www.threads.com/@seize.more/post/DWBXH9uEiU_
+    tool: Remotion + Claude Code + edge-tts
+    note: Reusable scene templates with the topic swapped per video, edge-tts voice and auto subtitles.
+    verified: opened
+  - creator: APIYI
+    platform: Blog
+    region: cn
+    url: https://help.apiyi.com/claude-opus-5-5-code-to-video-guide.html
+    tool: Opus 5.5 code-to-video
+    note: TTS word timestamps drive word-by-word highlighted captions, described as the dominant short-video caption style.
+    verified: opened
+  - creator: AgriciDaniel/claude-shorts
+    platform: GitHub
+    region: global
+    url: https://github.com/AgriciDaniel/claude-shorts
+    tool: Remotion
+    note: Long-form to short-form with animated captions (MIT); only the repo description was read.
+    verified: snippet
+template: templates/karaoke-caption-short

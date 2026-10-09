@@ -1,0 +1,733 @@
+{
+  "voice": "zh-CN-YunxiNeural",
+  "segments": [
+    {
+      "id": "c1",
+      "file": "c1.mp3",
+      "duration_ms": 8160,
+      "words": [
+        {
+          "text": "你",
+          "start_ms": 100,
+          "end_ms": 250
+        },
+        {
+          "text": "是不是",
+          "start_ms": 262,
+          "end_ms": 587
+        },
+        {
+          "text": "总",
+          "start_ms": 612,
+          "end_ms": 800
+        },
+        {
+          "text": "觉得",
+          "start_ms": 800,
+          "end_ms": 1325
+        },
+        {
+          "text": "自己",
+          "start_ms": 1575,
+          "end_ms": 1875
+        },
+        {
+          "text": "专注",
+          "start_ms": 1900,
+          "end_ms": 2212
+        },
+        {
+          "text": "不了",
+          "start_ms": 2225,
+          "end_ms": 2637
+        },
+        {
+          "text": "今天",
+          "start_ms": 3212,
+          "end_ms": 3787
+        },
+        {
+          "text": "我们",
+          "start_ms": 4100,
+          "end_ms": 4300
+        },
+        {
+          "text": "来",
+          "start_ms": 4312,
+          "end_ms": 4400
+        },
+        {
+          "text": "聊聊",
+          "start_ms": 4412,
+          "end_ms": 4862
+        },
+        {
+          "text": "番茄",
+          "start_ms": 5225,
+          "end_ms": 5650
+        },
+        {
+          "text": "工作法",
+          "start_ms": 5662,
+          "end_ms": 6374
+        },
+        {
+          "text": "为什么",
+          "start_ms": 6475,
+          "end_ms": 6875
+        },
+        {
+          "text": "有效",
+          "start_ms": 6888,
+          "end_ms": 7276
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "file": "c2.mp3",
+      "duration_ms": 6432,
+      "words": [
+        {
+          "text": "先",
+          "start_ms": 100,
+          "end_ms": 462
+        },
+        {
+          "text": "记住",
+          "start_ms": 462,
+          "end_ms": 687
+        },
+        {
+          "text": "这",
+          "start_ms": 700,
+          "end_ms": 825
+        },
+        {
+          "text": "句",
+          "start_ms": 825,
+          "end_ms": 925
+        },
+        {
+          "text": "话",
+          "start_ms": 925,
+          "end_ms": 1337
+        },
+        {
+          "text": "专注力",
+          "start_ms": 1900,
+          "end_ms": 2588
+        },
+        {
+          "text": "不是",
+          "start_ms": 2612,
+          "end_ms": 2874
+        },
+        {
+          "text": "意志力",
+          "start_ms": 2888,
+          "end_ms": 3250
+        },
+        {
+          "text": "问题",
+          "start_ms": 3262,
+          "end_ms": 3700
+        },
+        {
+          "text": "而是",
+          "start_ms": 4088,
+          "end_ms": 4426
+        },
+        {
+          "text": "环境",
+          "start_ms": 4450,
+          "end_ms": 4812
+        },
+        {
+          "text": "设计",
+          "start_ms": 4825,
+          "end_ms": 5137
+        },
+        {
+          "text": "问题",
+          "start_ms": 5150,
+          "end_ms": 5538
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "file": "c3.mp3",
+      "duration_ms": 5784,
+      "words": [
+        {
+          "text": "番茄",
+          "start_ms": 100,
+          "end_ms": 438
+        },
+        {
+          "text": "工作法",
+          "start_ms": 450,
+          "end_ms": 1050
+        },
+        {
+          "text": "把",
+          "start_ms": 1150,
+          "end_ms": 1300
+        },
+        {
+          "text": "时间",
+          "start_ms": 1312,
+          "end_ms": 1712
+        },
+        {
+          "text": "切成",
+          "start_ms": 1725,
+          "end_ms": 2075
+        },
+        {
+          "text": "25 分钟",
+          "start_ms": 2100,
+          "end_ms": 2762
+        },
+        {
+          "text": "一段",
+          "start_ms": 2775,
+          "end_ms": 3137
+        },
+        {
+          "text": "每",
+          "start_ms": 3500,
+          "end_ms": 3762
+        },
+        {
+          "text": "段",
+          "start_ms": 3762,
+          "end_ms": 4024
+        },
+        {
+          "text": "只",
+          "start_ms": 4050,
+          "end_ms": 4238
+        },
+        {
+          "text": "做",
+          "start_ms": 4238,
+          "end_ms": 4350
+        },
+        {
+          "text": "一",
+          "start_ms": 4350,
+          "end_ms": 4488
+        },
+        {
+          "text": "件",
+          "start_ms": 4488,
+          "end_ms": 4650
+        },
+        {
+          "text": "事",
+          "start_ms": 4650,
+          "end_ms": 4912
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "file": "c4.mp3",
+      "duration_ms": 8424,
+      "words": [
+        {
+          "text": "为什么",
+          "start_ms": 100,
+          "end_ms": 475
+        },
+        {
+          "text": "这样",
+          "start_ms": 500,
+          "end_ms": 662
+        },
+        {
+          "text": "有用",
+          "start_ms": 675,
+          "end_ms": 1250
+        },
+        {
+          "text": "因为",
+          "start_ms": 1825,
+          "end_ms": 2137
+        },
+        {
+          "text": "固定",
+          "start_ms": 2162,
+          "end_ms": 2500
+        },
+        {
+          "text": "的",
+          "start_ms": 2500,
+          "end_ms": 2612
+        },
+        {
+          "text": "结束",
+          "start_ms": 2625,
+          "end_ms": 2913
+        },
+        {
+          "text": "时间",
+          "start_ms": 2925,
+          "end_ms": 3387
+        },
+        {
+          "text": "降低",
+          "start_ms": 3488,
+          "end_ms": 3863
+        },
+        {
+          "text": "了",
+          "start_ms": 3862,
+          "end_ms": 3950
+        },
+        {
+          "text": "开始",
+          "start_ms": 3975,
+          "end_ms": 4300
+        },
+        {
+          "text": "的",
+          "start_ms": 4300,
+          "end_ms": 4400
+        },
+        {
+          "text": "心理",
+          "start_ms": 4425,
+          "end_ms": 4675
+        },
+        {
+          "text": "门槛",
+          "start_ms": 4688,
+          "end_ms": 5113
+        },
+        {
+          "text": "你",
+          "start_ms": 5362,
+          "end_ms": 5900
+        },
+        {
+          "text": "只",
+          "start_ms": 5912,
+          "end_ms": 6024
+        },
+        {
+          "text": "需要",
+          "start_ms": 6025,
+          "end_ms": 6275
+        },
+        {
+          "text": "坚持",
+          "start_ms": 6288,
+          "end_ms": 6638
+        },
+        {
+          "text": "25 分钟",
+          "start_ms": 6662,
+          "end_ms": 7550
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "file": "c5.mp3",
+      "duration_ms": 7032,
+      "words": [
+        {
+          "text": "再",
+          "start_ms": 100,
+          "end_ms": 288
+        },
+        {
+          "text": "看",
+          "start_ms": 288,
+          "end_ms": 413
+        },
+        {
+          "text": "休息",
+          "start_ms": 425,
+          "end_ms": 900
+        },
+        {
+          "text": "短",
+          "start_ms": 1475,
+          "end_ms": 1700
+        },
+        {
+          "text": "休息",
+          "start_ms": 1700,
+          "end_ms": 2312
+        },
+        {
+          "text": "让",
+          "start_ms": 2438,
+          "end_ms": 2613
+        },
+        {
+          "text": "大脑",
+          "start_ms": 2625,
+          "end_ms": 2913
+        },
+        {
+          "text": "有",
+          "start_ms": 2925,
+          "end_ms": 3050
+        },
+        {
+          "text": "机会",
+          "start_ms": 3050,
+          "end_ms": 3312
+        },
+        {
+          "text": "整理",
+          "start_ms": 3325,
+          "end_ms": 3587
+        },
+        {
+          "text": "刚刚的",
+          "start_ms": 3612,
+          "end_ms": 3937
+        },
+        {
+          "text": "信息",
+          "start_ms": 3950,
+          "end_ms": 4412
+        },
+        {
+          "text": "而",
+          "start_ms": 4825,
+          "end_ms": 5075
+        },
+        {
+          "text": "不是",
+          "start_ms": 5075,
+          "end_ms": 5275
+        },
+        {
+          "text": "硬",
+          "start_ms": 5300,
+          "end_ms": 5412
+        },
+        {
+          "text": "撑",
+          "start_ms": 5412,
+          "end_ms": 5562
+        },
+        {
+          "text": "到",
+          "start_ms": 5562,
+          "end_ms": 5650
+        },
+        {
+          "text": "疲劳",
+          "start_ms": 5662,
+          "end_ms": 6150
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "file": "c6.mp3",
+      "duration_ms": 6312,
+      "words": [
+        {
+          "text": "还有",
+          "start_ms": 100,
+          "end_ms": 475
+        },
+        {
+          "text": "一点",
+          "start_ms": 488,
+          "end_ms": 826
+        },
+        {
+          "text": "每",
+          "start_ms": 1400,
+          "end_ms": 1600
+        },
+        {
+          "text": "完成",
+          "start_ms": 1612,
+          "end_ms": 1937
+        },
+        {
+          "text": "一个",
+          "start_ms": 1950,
+          "end_ms": 2100
+        },
+        {
+          "text": "番茄",
+          "start_ms": 2112,
+          "end_ms": 2750
+        },
+        {
+          "text": "就",
+          "start_ms": 2975,
+          "end_ms": 3163
+        },
+        {
+          "text": "记",
+          "start_ms": 3162,
+          "end_ms": 3312
+        },
+        {
+          "text": "一个",
+          "start_ms": 3325,
+          "end_ms": 3500
+        },
+        {
+          "text": "记号",
+          "start_ms": 3512,
+          "end_ms": 4074
+        },
+        {
+          "text": "进度",
+          "start_ms": 4338,
+          "end_ms": 4726
+        },
+        {
+          "text": "变得",
+          "start_ms": 4738,
+          "end_ms": 4938
+        },
+        {
+          "text": "看",
+          "start_ms": 4962,
+          "end_ms": 5112
+        },
+        {
+          "text": "得",
+          "start_ms": 5112,
+          "end_ms": 5200
+        },
+        {
+          "text": "见",
+          "start_ms": 5200,
+          "end_ms": 5438
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "file": "c7.mp3",
+      "duration_ms": 5112,
+      "words": [
+        {
+          "text": "所以",
+          "start_ms": 100,
+          "end_ms": 625
+        },
+        {
+          "text": "真正",
+          "start_ms": 1025,
+          "end_ms": 1450
+        },
+        {
+          "text": "的",
+          "start_ms": 1450,
+          "end_ms": 1512
+        },
+        {
+          "text": "秘诀",
+          "start_ms": 1525,
+          "end_ms": 1825
+        },
+        {
+          "text": "是",
+          "start_ms": 1825,
+          "end_ms": 2175
+        },
+        {
+          "text": "先",
+          "start_ms": 2362,
+          "end_ms": 2687
+        },
+        {
+          "text": "开始",
+          "start_ms": 2688,
+          "end_ms": 3263
+        },
+        {
+          "text": "再",
+          "start_ms": 3512,
+          "end_ms": 3750
+        },
+        {
+          "text": "变",
+          "start_ms": 3750,
+          "end_ms": 3912
+        },
+        {
+          "text": "好",
+          "start_ms": 3912,
+          "end_ms": 4250
+        }
+      ]
+    },
+    {
+      "id": "c8",
+      "file": "c8.mp3",
+      "duration_ms": 7584,
+      "words": [
+        {
+          "text": "回头",
+          "start_ms": 100,
+          "end_ms": 438
+        },
+        {
+          "text": "看",
+          "start_ms": 438,
+          "end_ms": 776
+        },
+        {
+          "text": "三",
+          "start_ms": 1062,
+          "end_ms": 1337
+        },
+        {
+          "text": "件",
+          "start_ms": 1338,
+          "end_ms": 1463
+        },
+        {
+          "text": "事",
+          "start_ms": 1462,
+          "end_ms": 1574
+        },
+        {
+          "text": "就",
+          "start_ms": 1588,
+          "end_ms": 1713
+        },
+        {
+          "text": "够",
+          "start_ms": 1712,
+          "end_ms": 1950
+        },
+        {
+          "text": "了",
+          "start_ms": 1950,
+          "end_ms": 2175
+        },
+        {
+          "text": "把",
+          "start_ms": 2525,
+          "end_ms": 2663
+        },
+        {
+          "text": "时间",
+          "start_ms": 2675,
+          "end_ms": 3063
+        },
+        {
+          "text": "切成",
+          "start_ms": 3088,
+          "end_ms": 3438
+        },
+        {
+          "text": "小段",
+          "start_ms": 3438,
+          "end_ms": 3926
+        },
+        {
+          "text": "认真",
+          "start_ms": 4250,
+          "end_ms": 4600
+        },
+        {
+          "text": "地",
+          "start_ms": 4600,
+          "end_ms": 4675
+        },
+        {
+          "text": "短",
+          "start_ms": 4700,
+          "end_ms": 4912
+        },
+        {
+          "text": "休息",
+          "start_ms": 4912,
+          "end_ms": 5400
+        },
+        {
+          "text": "再",
+          "start_ms": 5588,
+          "end_ms": 5750
+        },
+        {
+          "text": "把",
+          "start_ms": 5750,
+          "end_ms": 5850
+        },
+        {
+          "text": "进度",
+          "start_ms": 5862,
+          "end_ms": 6137
+        },
+        {
+          "text": "记",
+          "start_ms": 6162,
+          "end_ms": 6324
+        },
+        {
+          "text": "下来",
+          "start_ms": 6325,
+          "end_ms": 6700
+        }
+      ]
+    },
+    {
+      "id": "c9",
+      "file": "c9.mp3",
+      "duration_ms": 3576,
+      "words": [
+        {
+          "text": "现在",
+          "start_ms": 100,
+          "end_ms": 800
+        },
+        {
+          "text": "就",
+          "start_ms": 1100,
+          "end_ms": 1262
+        },
+        {
+          "text": "去",
+          "start_ms": 1262,
+          "end_ms": 1337
+        },
+        {
+          "text": "开始",
+          "start_ms": 1350,
+          "end_ms": 1588
+        },
+        {
+          "text": "你的第一",
+          "start_ms": 1612,
+          "end_ms": 2000
+        },
+        {
+          "text": "个",
+          "start_ms": 2000,
+          "end_ms": 2062
+        },
+        {
+          "text": "番茄",
+          "start_ms": 2075,
+          "end_ms": 2375
+        },
+        {
+          "text": "吧",
+          "start_ms": 2375,
+          "end_ms": 2700
+        }
+      ]
+    }
+  ]
+}

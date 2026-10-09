@@ -1,0 +1,39 @@
+{
+  "video": { "width": 1080, "height": 1920, "fps": 30, "bpm": 120, "offsetFrames": 0, "totalBeats": 40 },
+  "font": { "family": "Anton", "tracking": "-0.02em", "lineHeight": 0.9 },
+  "motion": {
+    "slamFrom": 1.3,
+    "slamFrames": 6,
+    "exitFrames": 5,
+    "exitScale": 0.9,
+    "pulseScale": 1.04,
+    "pulseFrames": 6,
+    "anchorY": 900
+  },
+  "palette": {
+    "black": "#0A0A0A",
+    "white": "#F2F2F2",
+    "orange": "#FF4D00",
+    "blue": "#2F5BFF"
+  },
+  "phrases": [
+    { "startBeat": 0,  "words": ["Ship", "small."],   "keyIndex": 1, "stage": "black", "type": "white", "accent": "orange", "size": 360 },
+    { "startBeat": 8,  "words": ["Ship", "often."],   "keyIndex": 1, "stage": "black", "type": "white", "accent": "orange", "size": 360 },
+    { "startBeat": 16, "words": ["Listen", "hard."],  "keyIndex": 1, "stage": "white", "type": "black", "accent": "blue",   "size": 400 },
+    { "startBeat": 24, "words": ["Fix", "fast."],     "keyIndex": 1, "stage": "white", "type": "black", "accent": "blue",   "size": 400 }
+  ],
+  "phraseTiming": { "beatsPerPhrase": 8, "keyWordBeat": 2, "firstWordPulseBeat": 1, "keyPulseBeats": [3, 4, 5, 6] },
+  "poster": {
+    "text": "Repeat.",
+    "startBeat": 32,
+    "wipeFrames": 6,
+    "size": 520,
+    "fields": [
+      { "beat": 32, "bg": "orange", "fg": "black", "scale": 1.0,  "x": -120, "wipe": "left" },
+      { "beat": 33, "bg": "black",  "fg": "white", "scale": 1.0,  "x": 140,  "wipe": "bottom" },
+      { "beat": 34, "bg": "blue",   "fg": "white", "scale": 1.0,  "x": -60,  "wipe": "right" },
+      { "beat": 35, "bg": "white",  "fg": "black", "scale": 1.0,  "x": 80,   "wipe": "top" },
+      { "beat": 36, "bg": "orange", "fg": "black", "scale": 0.66, "x": 0,    "wipe": "left", "final": true }
+    ]
+  }
+}

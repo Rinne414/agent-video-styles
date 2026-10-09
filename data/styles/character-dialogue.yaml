@@ -1,0 +1,103 @@
+id: character-dialogue
+tier: core
+evidence_strength: medium
+name:
+  en: Character Dialogue Explainer
+  zh: 双角色对话讲解
+tagline:
+  en: Two mascots talk over a blackboard, mouths flapping to TTS, with a caption box under every line.
+  zh: 两个吉祥物在黑板前对话，嘴巴随 TTS 开合，每句台词下方都有字幕框。
+signature:
+  en:
+    - Two characters at the bottom of the frame, one asks and one explains
+    - Mouth sprites open and close only while that character's voice plays
+    - Blackboard or simple room background whose content changes with the dialogue
+    - Caption box with a colored speaker tag for every line
+  zh:
+    - 画面底部两个角色，一个提问、一个讲解
+    - 只有该角色的声音在播放时，嘴型图才会开合
+    - 黑板或简洁房间背景，内容随对话推进而变化
+    - 每句台词都有带彩色说话者标签的字幕框
+best_for:
+  en:
+    - Long-form explainers and news digests that need a friendly voice (the Japanese Zundamon / VOICEVOX format)
+    - Corporate training and course videos made at volume
+  zh:
+    - 需要亲和感的长篇讲解与资讯汇总（日本 Zundamon / VOICEVOX 格式）
+    - 批量制作的企业培训与课程视频
+avoid_when:
+  en:
+    - The brand needs a premium or serious tone (use dark-diagram-explainer or apple-keynote-minimal)
+    - The video is under 20 s (use karaoke-caption-short)
+  zh:
+    - 品牌需要高级或严肃的调性（改用 dark-diagram-explainer 或 apple-keynote-minimal）
+    - 视频不到 20 秒（改用 karaoke-caption-short）
+tags:
+  use: [explainer, education, news]
+  platform: [youtube, bilibili, tiktok-douyin]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, captions, music, sfx]
+  mood: [playful, calm]
+  needs: [script]
+duration: 30 s - 10 min
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: The most-copied open template (remotion-voicevox-template, MIT) is Remotion; per-line Sequences driven by audio durations and sprite swaps per frame are simple React state. HyperFrames works the same way with GSAP timelines.
+    zh: 被复用最多的开源模板（remotion-voicevox-template，MIT）基于 Remotion；按音频时长排布的逐句 Sequence 和逐帧换嘴型图都是简单的 React 状态。HyperFrames 用 GSAP 时间线同样可行。
+variants:
+  - id: single-host
+    en: One character beside the board in lecture mode.
+    zh: 单角色站在黑板旁，讲课模式。
+  - id: slide-board
+    en: The board shows slide images per section instead of chalk drawings.
+    zh: 黑板换成每段一张的幻灯片图片。
+  - id: vertical
+    en: 1080x1920 with the board on top and both characters side by side below.
+    zh: 1080x1920，黑板在上，两个角色并排在下。
+evidence:
+  - creator: nyanko3141592/remotion-voicevox-template
+    platform: GitHub
+    region: jp
+    url: https://github.com/nyanko3141592/remotion-voicevox-template
+    tool: Remotion + VOICEVOX
+    note: MIT, 282 stars; blackboard background, two VOICEVOX characters with mouth-open and mouth-closed sprites and expression variants, white Noto Sans JP 48 px captions, 1920x1080 30 fps. The template most Japanese posts build on.
+    verified: opened
+  - creator: 律 (ritsu_void)
+    platform: note
+    region: jp
+    url: https://note.com/ritsu_void/n/nfedcee9c6006
+    tool: Claude Code + VOICEVOX + Remotion
+    note: AI news videos, mostly text on screen with lip-sync to audio; a paid section exists and was not read.
+    verified: opened
+  - creator: dai365
+    platform: Hatena Blog
+    region: jp
+    url: https://powerdaaps.hatenablog.com/entry/2026/03/28/202812
+    tool: Claude Code
+    note: Corporate training videos with Zundamon.
+    verified: snippet
+  - creator: youtoy
+    platform: Qiita
+    region: jp
+    url: https://qiita.com/youtoy/items/701ec7a4c8092813c532
+    tool: Codex + remotion-voicevox-template
+    note: Shows the same template running under Codex.
+    verified: snippet
+  - creator: ussu_ussu_ussu
+    platform: Qiita
+    region: jp
+    url: https://qiita.com/ussu_ussu_ussu/items/343c0601a45cfb3922b3
+    tool: Remotion + VOICEVOX
+    note: Same stack; swaps ts-node for tsx.
+    verified: snippet
+  - creator: shogaku
+    platform: note
+    region: jp
+    url: https://note.com/syogaku/n/nd873c974ac5e
+    tool: Remotion + VOICEVOX
+    note: Same stack.
+    verified: snippet
+template: templates/character-dialogue

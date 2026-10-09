@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Video Styles</title>
+  <meta name="description" content="Video styles that coding agents can build, with recipes, rendered templates and the creators behind them.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23000'/%3E%3Crect x='6' y='9' width='20' height='14' rx='2' fill='%23edf0f3'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='10' fill='none' stroke='%23d7261e' stroke-width='2.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+    <defs>
+      <filter id="pencil-rough">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <header class="masthead">
+    <div class="masthead-row">
+      <h1 class="wordmark" data-i18n="title">Agent Video Styles</h1>
+      <button class="lang" type="button" id="lang-toggle" data-i18n="langSwitch">中文</button>
+    </div>
+    <p class="lede" data-i18n="lede"></p>
+  </header>
+
+  <main id="view"></main>
+
+  <footer class="colophon" id="colophon"></footer>
+</body>
+</html>

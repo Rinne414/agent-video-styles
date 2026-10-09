@@ -1,0 +1,93 @@
+id: ui-camera-tour
+tier: core
+evidence_strength: strong
+name:
+  en: UI Camera Tour
+  zh: 产品界面运镜导览
+tagline:
+  en: The real product UI as the set - the camera pushes in on whatever gets clicked, with 2.5D tilt, cursor and beat cuts.
+  zh: 以真实产品界面为舞台：镜头推近被点击的位置，配合 2.5D 倾斜、光标与卡点剪辑。
+signature:
+  en:
+    - Real screenshots or rebuilt components inside a floating app window
+    - Camera zooms 1.6-2.4x onto the element being used, then pulls back
+    - Tilted 2.5D overview that flattens as the camera moves in, with parallax callouts
+    - Eased cursor, click ripples, typing and motion blur during camera moves
+  zh:
+    - 悬浮应用窗口中放真实截图或重建组件
+    - 镜头推近 1.6-2.4 倍到正在操作的元素，再拉远
+    - 倾斜的 2.5D 全景在推近时摆正，标注层有视差
+    - 缓动光标、点击涟漪、打字效果，运镜时带动态模糊
+best_for:
+  en:
+    - Product demos, feature walkthroughs, changelog videos
+    - Landing-page hero videos and onboarding clips
+  zh:
+    - 产品演示、功能导览、更新日志视频
+    - 落地页主视频与新手引导短片
+avoid_when:
+  en:
+    - There is no product UI yet (use saas-launch-promo or kinetic-typography)
+    - The topic is a concept rather than a workflow (use dark-diagram-explainer)
+  zh:
+    - 还没有产品界面（改用 saas-launch-promo 或 kinetic-typography）
+    - 主题是概念而非操作流程（改用 dark-diagram-explainer）
+tags:
+  use: [product-launch, feature-update, tutorial]
+  platform: [x, youtube, product-hunt, website-hero, linkedin]
+  aspect: ["16:9", "9:16"]
+  audio: [music, sfx, voiceover]
+  mood: [technical, premium]
+  needs: [screenshots, logo]
+duration: 30-60 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes, html-capture]
+  why:
+    en: A camera is just a transform on a world container, and Remotion's interpolate plus @remotion/motion-blur make zoom targets and blur precise; the strongest public recipe library (video-shotcraft) is Remotion. HyperFrames or a raw Playwright capture suit UIs that already exist as HTML.
+    zh: 镜头本质是对整体容器做变换，Remotion 的 interpolate 加 @remotion/motion-blur 能精确控制推近目标与模糊；最完整的公开配方库 video-shotcraft 基于 Remotion。界面本来就是 HTML 时，HyperFrames 或直接 Playwright 录制也合适。
+variants:
+  - id: website-scroll
+    en: Long-page capture scrolled with eased stops at each section, callouts popping beside it.
+    zh: 长网页截图带缓动停顿地滚动，每段旁边弹出标注。
+  - id: mobile-device
+    en: 9:16 phone frame; taps instead of cursor clicks, screen transitions as in the app.
+    zh: 9:16 手机外框；以点按代替光标点击，按 App 原有方式切换页面。
+evidence:
+  - creator: Vincentwei1021/video-shotcraft
+    platform: GitHub
+    region: cn
+    url: https://github.com/Vincentwei1021/video-shotcraft
+    tool: Remotion
+    note: Real page captures, 2.5D camera moves, beat-synced cuts; 157 shot recipe cards and a rendered gallery (Apache-2.0).
+    verified: opened
+  - creator: howseen-ai/claude-motion-design
+    platform: GitHub
+    region: global
+    url: https://github.com/howseen-ai/claude-motion-design
+    tool: HTML + Playwright + ffmpeg
+    note: Motion-blur blending, beat map, SFX placed at measured peaks; Howseen launch video after 5 iterations (MIT).
+    verified: opened
+  - creator: bangtutorial/bang-motion
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: HTML
+    note: "\"Product tour with claims\" concept - UI lifted from a dashboard, camera follows clicks (MIT)."
+    verified: opened
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion + Claude in Chrome MCP
+    note: Product URL to launch ad with cursor-driven mock UI.
+    verified: opened
+  - creator: dlazy-ai/ai-product-video
+    platform: GitHub
+    region: global
+    url: https://github.com/dlazy-ai/ai-product-video
+    tool: Remotion
+    note: 152 shot recipe cards for product promos with real UI captures and 2.5D camera moves (Apache-2.0).
+    verified: opened
+template: templates/ui-camera-tour

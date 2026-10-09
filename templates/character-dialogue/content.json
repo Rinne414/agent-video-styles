@@ -1,0 +1,81 @@
+{
+  "video": { "width": 1920, "height": 1080, "fps": 30, "leadMs": 400, "gapMs": 200, "tailMs": 1400 },
+  "palette": {
+    "board": "#1F3A2E",
+    "frame": "#6B4423",
+    "chalkWhite": "#F2F2EA",
+    "chalkYellow": "#F5D547",
+    "chalkPink": "#F28BB0",
+    "outline": "#1E1E1E",
+    "mouth": "#7A1F2B"
+  },
+  "audio": { "bgmVolume": 0.1, "sfxVolume": 0.35 },
+  "topic": "API 101",
+  "characters": {
+    "pip": { "name": "Pip", "role": "asks", "voice": "en-US-AnaNeural", "rate": "+12%", "color": "#E84C8B" },
+    "juno": { "name": "Juno", "role": "explains", "voice": "en-US-AndrewNeural", "rate": "+5%", "color": "#34A853" }
+  },
+  "labels": {
+    "before": { "you": "You", "waiter": "Waiter", "kitchen": "Kitchen" },
+    "after": { "you": "Your app", "waiter": "API", "kitchen": "Server" },
+    "request": "request",
+    "response": "response",
+    "noAccess": "no direct access",
+    "menu": "menu"
+  },
+  "bullets": {
+    "question": "Q: What is an API?",
+    "waiter": "Waiter = API",
+    "menu": "Menu = API docs",
+    "summary": "Request in, response out"
+  },
+  "lines": [
+    { "id": "l01", "speaker": "juno", "expression": "happy", "reaction": "normal",
+      "text": "Welcome to the board! Today's question: what is an API?",
+      "tts": "Welcome to the board! Today's question: what is an A P I?" },
+    { "id": "l02", "speaker": "pip", "expression": "normal", "reaction": "normal",
+      "text": "Hi Juno! I keep hearing about APIs. What is one?",
+      "tts": "Hi Juno! I keep hearing about A P Is. What is one?" },
+    { "id": "l03", "speaker": "juno", "expression": "normal", "reaction": "normal",
+      "text": "Picture a restaurant. You sit at a table; the food is made in the kitchen.",
+      "tts": "Picture a restaurant. You sit at a table; the food is made in the kitchen." },
+    { "id": "l04", "speaker": "pip", "expression": "troubled", "reaction": "normal",
+      "text": "But I cannot just walk into the kitchen, right?",
+      "tts": "But I cannot just walk into the kitchen, right?" },
+    { "id": "l05", "speaker": "juno", "expression": "happy", "reaction": "normal",
+      "text": "Exactly! The waiter carries your order to the kitchen, then brings the food back.",
+      "tts": "Exactly! The waiter carries your order to the kitchen, then brings the food back." },
+    { "id": "l06", "speaker": "pip", "expression": "surprised", "reaction": "normal",
+      "text": "Oh! So the waiter is the API?",
+      "tts": "Oh! So the waiter is the A P I?" },
+    { "id": "l07", "speaker": "juno", "expression": "happy", "reaction": "happy",
+      "text": "Yes! An API is a waiter between your app and a server, carrying requests and responses.",
+      "tts": "Yes! An A P I is a waiter between your app and a server, carrying requests and responses." },
+    { "id": "l08", "speaker": "pip", "expression": "happy", "reaction": "normal",
+      "text": "Neat! But how do I know what to order?",
+      "tts": "Neat! But how do I know what to order?" },
+    { "id": "l09", "speaker": "juno", "expression": "normal", "reaction": "normal",
+      "text": "The menu lists what you can order. For an API, that is the documentation.",
+      "tts": "The menu lists what you can order. For an A P I, that is the documentation." },
+    { "id": "l10", "speaker": "pip", "expression": "happy", "reaction": "happy",
+      "text": "Got it! Request in, response out. Thanks, Juno!",
+      "tts": "Got it! Request in, response out. Thanks, Juno!" }
+  ],
+  "board": [
+    { "item": "title", "line": "l01", "delay": 8 },
+    { "item": "question", "line": "l02", "delay": 50 },
+    { "item": "you", "line": "l03", "delay": 30 },
+    { "item": "kitchen", "line": "l03", "delay": 90 },
+    { "item": "direct", "line": "l04", "delay": 40 },
+    { "item": "waiter", "line": "l05", "delay": 20 },
+    { "item": "request", "line": "l05", "delay": 60, "sfx": false },
+    { "item": "response", "line": "l05", "delay": 120, "sfx": false },
+    { "item": "ring", "line": "l06", "delay": 30 },
+    { "item": "bulletWaiter", "line": "l07", "delay": 10 },
+    { "item": "relabel", "line": "l07", "delay": 55, "sfx": false },
+    { "item": "menu", "line": "l09", "delay": 4 },
+    { "item": "bulletMenu", "line": "l09", "delay": 70 },
+    { "item": "summary", "line": "l10", "delay": 45 },
+    { "item": "underline", "line": "l10", "delay": 105, "sfx": false }
+  ]
+}

@@ -1,0 +1,79 @@
+id: apple-keynote-minimal
+tier: core
+evidence_strength: medium
+name:
+  en: Apple Keynote Minimal
+  zh: 苹果发布会极简风
+tagline:
+  en: Pure black or white stage, huge clean type, one product hero and calm, measured springs.
+  zh: 纯黑或纯白舞台、超大干净字体、单一产品主角，动效克制沉稳。
+signature:
+  en:
+    - Pure black or near-white background with 60% or more negative space
+    - Huge centered headlines of 2-4 words with very tight tracking
+    - One product hero (device, screenshot or logo) rising and settling slowly
+    - Fades, mask reveals and gentle scale settles with no overshoot, glow or particles
+  zh:
+    - 纯黑或近白背景，留白占画面 60% 以上
+    - 居中超大标题，每屏 2-4 个词，字距极紧
+    - 单一产品主角（设备、截图或 Logo）缓慢升起并落定
+    - 淡入、遮罩揭示、轻微缩放落定；不回弹、不发光、无粒子
+best_for:
+  en:
+    - Premium product or hardware reveals, major version launches
+    - Brand films where restraint signals quality
+  zh:
+    - 高端产品或硬件发布、大版本更新
+    - 用克制传达质感的品牌短片
+avoid_when:
+  en:
+    - The audience needs to see the product being used (use ui-camera-tour)
+    - The feed rewards high energy and fast hooks (use saas-launch-promo or kinetic-typography)
+  zh:
+    - 观众需要看到产品实际操作（改用 ui-camera-tour）
+    - 平台偏好高能量、快节奏开头（改用 saas-launch-promo 或 kinetic-typography）
+tags:
+  use: [product-launch, brand-reel]
+  platform: [x, youtube, website-hero, linkedin]
+  aspect: ["16:9", "9:16"]
+  audio: [music]
+  mood: [premium, calm]
+  needs: [logo, screenshots]
+duration: 20-40 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: HeyGen ships four re-brandable Apple-style launch compositions in hyperframes-launches, and CSS masks plus GSAP eases express the look directly. Remotion has a measured Apple-recap skill (apple-motion) if you prefer React.
+    zh: HeyGen 在 hyperframes-launches 中提供 4 个可换品牌的苹果风发布模板，CSS 遮罩加 GSAP 缓动能直接表达这种风格。偏好 React 时，Remotion 有基于实测数据的 apple-motion 技能。
+variants:
+  - id: light-stage
+    en: "#F5F5F7 background, #1D1D1F type; product shadow is the only depth cue."
+    zh: "#F5F5F7 背景、#1D1D1F 文字；产品阴影是唯一的景深线索。"
+  - id: fast-recap
+    en: Event-recap pacing - 0.5-1 s shots cut on the beat, full-frame type alternating black and white.
+    zh: 活动回顾节奏，0.5-1 秒一镜卡点切换，全屏文字黑白交替。
+evidence:
+  - creator: HeyGen (hyperframes-launches)
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes-launches
+    tool: HyperFrames
+    note: heygen-apple-motion - four re-brandable Apple-style launch compositions (Apache-2.0).
+    verified: opened
+  - creator: IskakovDamir/apple-motion
+    platform: GitHub
+    region: global
+    url: https://github.com/IskakovDamir/apple-motion
+    tool: Remotion
+    note: Skill built from frame-accurate measurements of six Apple recap videos (shot length, type size, spring params, LUFS, beat sync).
+    verified: opened
+  - creator: Maciej Dziuba (MM Editing)
+    platform: YouTube
+    region: en
+    url: https://videohighlight.com/v/Xwa5x0jJI0Y
+    tool: Claude Code + HyperFrames
+    note: apple.com website-to-animation demo; early outputs were too static until micro-motion was added.
+    verified: aggregator
+template: templates/apple-keynote-minimal

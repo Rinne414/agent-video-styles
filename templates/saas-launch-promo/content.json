@@ -1,0 +1,150 @@
+{
+  "video": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "bpm": 120
+  },
+  "brand": {
+    "name": "Driftboard",
+    "accent": "#6366F1",
+    "font": "Inter",
+    "background": "#0A0A0B",
+    "textPrimary": "#F5F7FA",
+    "textSecondary": "#9CA3AF",
+    "warning": "#F59E0B"
+  },
+  "timing": {
+    "hook": [
+      0,
+      90
+    ],
+    "reveal": [
+      90,
+      180
+    ],
+    "feature1": [
+      180,
+      345
+    ],
+    "feature2": [
+      345,
+      510
+    ],
+    "feature3": [
+      510,
+      675
+    ],
+    "proof": [
+      675,
+      780
+    ],
+    "cta": [
+      780,
+      900
+    ]
+  },
+  "hook": {
+    "lines": [
+      [
+        "Standups",
+        "eat"
+      ],
+      [
+        "your",
+        "morning."
+      ]
+    ],
+    "accentWord": "morning."
+  },
+  "reveal": {
+    "tagline": "Standups without the meeting."
+  },
+  "features": [
+    {
+      "label": "01  Record",
+      "lines": [
+        [
+          "Record",
+          "a"
+        ],
+        [
+          "60-second",
+          "update"
+        ]
+      ],
+      "accentWord": "update"
+    },
+    {
+      "label": "02  Summarize",
+      "lines": [
+        [
+          "An",
+          "AI",
+          "summary"
+        ],
+        [
+          "per",
+          "teammate"
+        ]
+      ],
+      "accentWord": "summary"
+    },
+    {
+      "label": "03  Unblock",
+      "lines": [
+        [
+          "Blockers",
+          "flagged"
+        ],
+        [
+          "automatically"
+        ]
+      ],
+      "accentWord": "automatically"
+    }
+  ],
+  "ui": {
+    "appTitle": "Daily update",
+    "sidebar": [
+      "Today",
+      "Team",
+      "Archive"
+    ],
+    "recordCta": "Record update",
+    "summaryTag": "AI summary",
+    "blockerTag": "Blocker",
+    "blockerCount": "1 blocker today",
+    "teammates": [
+      {
+        "name": "Maya Chen",
+        "initials": "MC",
+        "length": "0:58",
+        "summary": "Shipped the billing fix. Starting invoice export today.",
+        "blocker": false
+      },
+      {
+        "name": "Dev Patel",
+        "initials": "DP",
+        "length": "0:47",
+        "summary": "Blocked: waiting on staging access for the API rollout.",
+        "blocker": true
+      },
+      {
+        "name": "Lena Ortiz",
+        "initials": "LO",
+        "length": "1:00",
+        "summary": "Onboarding flow is done. Needs design sign-off.",
+        "blocker": false
+      }
+    ]
+  },
+  "proof": {
+    "value": 12000,
+    "label": "teams ship without the meeting"
+  },
+  "cta": {
+    "button": "Try Driftboard free",
+    "url": "driftboard.example"
+  }
+}
