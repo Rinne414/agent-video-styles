@@ -1,6 +1,6 @@
 # Agent Video Styles
 
-[简体中文](README.zh-CN.md)
+[简体中文](README.zh-CN.md) · **Gallery: https://agent-video-styles.vercel.app**
 
 Tell a coding agent "make a launch video" and it guesses: a gradient, some particles, text fading in and out. The videos people actually share on X, YouTube and Douyin follow a handful of recognizable styles, each with its own type scale, motion grammar, pacing and tooling.
 

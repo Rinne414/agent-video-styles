@@ -88,7 +88,7 @@ agent-video-styles/
 
 ### 後續
 
-1. 公開前：改 repo 可見性，部署 `site/dist`。
+1. 圖鑑網站已部署到 Vercel：https://agent-video-styles.vercel.app （repo 仍為 private；push 到 main 會自動重新部署正式網址）。若要開源，再改 repo 可見性。
 2. 實驗性風格若找到更多成品案例，可升級為核心（標準見上）。
 3. 未驗證：macOS / Linux 安裝指令、旁白的聽覺同步。
 

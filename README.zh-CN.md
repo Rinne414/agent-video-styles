@@ -1,6 +1,6 @@
 # Agent 视频风格图鉴
 
-[English](README.md)
+[English](README.md) · **图鉴网站：https://agent-video-styles.vercel.app/?lang=zh**
 
 对编程 Agent 说一句「做个发布视频」，它只能靠猜：一层渐变、几颗粒子、文字淡入淡出。而在 X、YouTube、抖音上真正被转发的视频，其实集中在几种辨识度很高的风格上，每一种都有自己的字号体系、动效语法、节奏和工具。
 
