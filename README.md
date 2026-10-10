@@ -30,11 +30,33 @@ Only code-rendered video is covered. Generative video models (Sora, Veo, Kling, 
 | [Kinetic Typography](skill/references/styles/kinetic-typography.md) | Manifestos, announcements, quotes and teasers with no visuals available | hyperframes | [watch](previews/kinetic-typography.mp4) |
 | [Math Explainer (Manim)](skill/references/styles/math-manim.md) | Math, physics, algorithms and machine-learning concepts | manim | [watch](previews/math-manim.mp4) |
 | [Painterly Canvas](skill/references/styles/painterly-canvas.md) | Lyric videos, poems, story moments and emotional brand pieces | html-capture | [watch](previews/painterly-canvas.mp4) |
+| [Paper-Cut Collage](skill/references/styles/paper-cut-collage.md) | Cultural, heritage and history stories with a handmade tone | hyperframes | [watch](previews/paper-cut-collage.mp4) |
 | [Pixel Retro](skill/references/styles/pixel-retro.md) | Vertical music videos, PSAs and playful brand shorts for Douyin, TikTok and Reels | hyperframes | [watch](previews/pixel-retro.mp4) |
 | [Procedural 3D Sting](skill/references/styles/procedural-3d-sting.md) | Logo stings, channel or app openers, game and festival intros | remotion | [watch](previews/procedural-3d-sting.mp4) |
 | [SaaS Launch Promo](skill/references/styles/saas-launch-promo.md) | App, SaaS or browser-extension launch on X, Product Hunt or LinkedIn | remotion | [watch](previews/saas-launch-promo.mp4) |
 | [Talking-Head Overlay Package](skill/references/styles/talking-head-overlay.md) | Knowledge creators and founders who already record talking-head videos | remotion | [watch](previews/talking-head-overlay.mp4) |
 | [UI Camera Tour](skill/references/styles/ui-camera-tour.md) | Product demos, feature walkthroughs, changelog videos | remotion | [watch](previews/ui-camera-tour.mp4) |
+
+**Experimental styles**: fewer public examples so far, but each can be the best choice for a narrow job.
+
+| Style | Best for | Tool | Preview |
+|---|---|---|---|
+| [Abstract Generative Loop](skill/references/styles/abstract-generative-loop.md) | Website hero backgrounds and ambient loops | html-capture | [watch](previews/abstract-generative-loop.mp4) |
+| [Audiogram & Music Visualizer](skill/references/styles/audiogram-visualizer.md) | Podcast clips and audio teasers for X, LinkedIn and Shorts | remotion | [watch](previews/audiogram-visualizer.mp4) |
+| [Broadcast News Desk](skill/references/styles/broadcast-news.md) | Daily AI-news or changelog digests with TTS narration, produced in bulk | hyperframes | [watch](previews/broadcast-news.mp4) |
+| [Chat & Social UI Story](skill/references/styles/chat-social-ui.md) | Story-driven or meme shorts told as a text conversation on TikTok, Reels and Shorts | hyperframes | [watch](previews/chat-social-ui.mp4) |
+| [Editorial Swiss Grid](skill/references/styles/editorial-swiss.md) | Reports, annual summaries, research findings and statistics | hyperframes | [watch](previews/editorial-swiss.mp4) |
+| [Glitch & VFX Hype](skill/references/styles/glitch-vfx.md) | Gaming, crypto and hacker-themed intros and stings (5-20 s) | hyperframes | [watch](previews/glitch-vfx.mp4) |
+| [Icon-Burst Title Card](skill/references/styles/icon-burst-title.md) | Channel intros and course openers (10-15 s) | remotion | [watch](previews/icon-burst-title.mp4) |
+| [Isometric Explainer](skill/references/styles/isometric-explainer.md) | Infrastructure, cloud, device and product-system explainers | remotion | [watch](previews/isometric-explainer.mp4) |
+| [Line-Reveal Illustrated Story](skill/references/styles/line-reveal-story.md) | Picture-book style and emotional brand stories for vertical platforms | hyperframes | [watch](previews/line-reveal-story.mp4) |
+| [Map Geo Story](skill/references/styles/map-geo-story.md) | Travel, logistics or expansion routes; location datasets | remotion | [watch](previews/map-geo-story.mp4) |
+| [3D Product Turntable](skill/references/styles/product-turntable-3d.md) | Hardware and e-commerce launch teasers | remotion | [watch](previews/product-turntable-3d.mp4) |
+| [Social Carousel Cards](skill/references/styles/social-carousel-cards.md) | Tips, listicles, tutorials and recaps for Instagram and Xiaohongshu feeds | remotion | [watch](previews/social-carousel-cards.mp4) |
+| [Storybook Picture Book](skill/references/styles/storybook-picture-book.md) | Children's bedtime stories and holiday greetings (30-60 s) | hyperframes | [watch](previews/storybook-picture-book.mp4) |
+| [Vintage Sketch](skill/references/styles/vintage-sketch.md) | History, craft, heritage and biography explainers | hyperframes | [watch](previews/vintage-sketch.mp4) |
+| [Visual Journalism (Vox-style)](skill/references/styles/visual-journalism.md) | Commentary and history explainers (60-120 s) | hyperframes | [watch](previews/visual-journalism.mp4) |
+| [Whiteboard & Handwriting](skill/references/styles/whiteboard-handwriting.md) | Classroom explainers and onboarding walkthroughs | hyperframes | [watch](previews/whiteboard-handwriting.mp4) |
 <!-- styles:end -->
 
 ## Quick start
@@ -70,12 +92,12 @@ python -m http.server 8000 --directory site/dist
 
 ## How a style gets in
 
-A style is listed only when:
+Every style has a recipe and a template that an agent produced **from the recipe alone**. Styles come in two tiers:
 
-1. at least **two independent public examples** exist of agents writing code to produce it (different creators or projects), and
-2. an agent working **from the recipe alone** produced the template in `templates/`.
+- **Core**: at least **two independent public examples** exist of agents writing code to produce it (different creators or projects).
+- **Experimental**: fewer public examples so far (sometimes only skill packs or component libraries), but each one was still built and checked from its recipe. Several are the best choice for a narrow job, such as podcast clips, chat-thread stories or isometric system diagrams. The agent picks these only when the brief asks for that specific look.
 
-Looks that did not meet the bar yet are kept in [`data/candidates.yaml`](data/candidates.yaml) with what is missing and where they might still be the best choice, for example chat-UI stories, broadcast news desks, whiteboard handwriting and map stories. Draft recipes for two of them live in `data/drafts/`.
+The two looks that were researched but deliberately not catalogued, and why, are in [`data/candidates.yaml`](data/candidates.yaml).
 
 The research behind every style, with sources, is in `research/`.
 

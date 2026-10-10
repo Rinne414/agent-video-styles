@@ -1,0 +1,79 @@
+id: broadcast-news
+tier: experimental
+evidence_strength: medium
+name:
+  en: Broadcast News Desk
+  zh: 新闻播报台
+tagline:
+  en: A TV-news digest on a dark set, with a color panel and big numeral per story, a BREAKING ticker and scanlines.
+  zh: 深色演播风新闻速递，每条新闻配彩色数字面板，底部滚动 BREAKING 字幕条，叠加扫描线。
+signature:
+  en:
+    - Left panel 340 px wide in a solid color per story, with a 200 px condensed numeral
+    - Right side builds in sequence, kicker then headline then three spec lines
+    - A BREAKING ticker scrolling along the bottom for the whole video
+    - Faint scanline overlay across the frame; narration sets the pace
+  zh:
+    - 左侧 340 px 宽纯色面板，每条新闻一种颜色，配 200 px 窄体大数字
+    - 右侧依次出现栏目词、标题、三行要点
+    - 底部 BREAKING 滚动字幕条贯穿全片
+    - 全画面淡淡的扫描线叠加，节奏由旁白决定
+best_for:
+  en:
+    - Daily AI-news or changelog digests with TTS narration, produced in bulk
+    - Weekly roundups for YouTube or Bilibili
+  zh:
+    - 带 TTS 旁白、可批量生产的每日 AI 资讯或更新日志速递
+    - YouTube、B 站的每周盘点
+avoid_when:
+  en:
+    - The audience expects a real presenter on camera (use talking-head-overlay)
+    - The content is a single deep topic rather than 3-5 items (use dark-diagram-explainer)
+  zh:
+    - 观众期待真人出镜主持（改用 talking-head-overlay）
+    - 内容是一个深入话题而非 3-5 条资讯（改用 dark-diagram-explainer）
+tags:
+  use: [news, explainer]
+  platform: [youtube, bilibili, x]
+  aspect: ["16:9"]
+  audio: [voiceover, sfx, captions]
+  mood: [technical, editorial]
+  needs: [script]
+duration: 30-60 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: The one documented example was built as hand-written HTML on a single GSAP master timeline, with scene lengths taken from TTS clips. HyperFrames' build-script pattern fits exactly; Remotion works with Series sized from the same durations.
+    zh: 唯一有记录的案例是手写 HTML 加单一 GSAP 主时间线，场景时长取自 TTS 音频。HyperFrames 的构建脚本模式完全契合；Remotion 可用 Series 按同样的时长实现。
+variants:
+  - id: portrait-digest
+    en: 9:16 version with the numeral panel moved to a top band and the ticker above the bottom safe zone.
+    zh: 9:16 版本，数字面板移到顶部横带，字幕条上移到底部安全区之上。
+  - id: light-studio
+    en: Off-white set with ink text and panels in deep red, blue and amber; scanlines dropped.
+    zh: 米白底、深色文字，面板用深红、深蓝、琥珀色；去掉扫描线。
+evidence:
+  - creator: Akiyoshi Masashi (akiyoshisanbass)
+    platform: note.com
+    region: jp
+    url: https://note.com/akiyoshisanbass/n/nae46cd554ae8
+    tool: Claude Code + HyperFrames + AivisSpeech
+    note: AI-news video, about 48 s, 1920x1080 30 fps, 5 voice clips (opening, 3 items, closing); the video file itself is not linked, only the write-up.
+    verified: opened
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames
+    note: Component library, not a finished video; lower-third blocks.
+    verified: opened
+  - creator: "@Remotion"
+    platform: remotion.dev/prompts
+    region: global
+    url: https://remotion.dev/prompts/news-article-headline-highlight
+    tool: Claude Code, Opus 4.5
+    note: Prompt only, no video shown; an adjacent news-screenshot highlighter look, not a desk layout.
+    verified: opened
+template: templates/broadcast-news

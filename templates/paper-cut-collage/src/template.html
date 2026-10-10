@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "Fredoka"; src: url("fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+    @font-face { font-family: "Caveat Brush"; src: url("fonts/caveat-brush-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1920px; height: 1080px; overflow: hidden; background: __TABLE__; }
+    #root { position: relative; width: 1920px; height: 1080px; }
+    #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="1920" data-height="1080">
+    <section class="clip" data-start="0" data-duration="__DUR__" data-track-index="0" style="position:absolute;inset:0">
+      <svg id="stage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+        <defs id="defs"></defs>
+        <rect width="1920" height="1080" fill="__TABLE__"/>
+        <g id="layer"></g>
+        <rect width="1920" height="1080" filter="url(#grain)" opacity="__GRAIN__" style="mix-blend-mode:multiply"/>
+      </svg>
+    </section>
+  </div>
+  <script>
+__SCRIPT__
+  </script>
+  <script>
+    document.getElementById("defs").innerHTML = defsMarkup();
+    const proxy = { t: 0 };
+    const tl = gsap.timeline({ paused: true });
+    const TOTAL = CONTENT.video.durationFrames / CONTENT.video.fps;
+    tl.to(proxy, { t: TOTAL, duration: TOTAL, ease: "none", onUpdate: () => draw(Math.round(proxy.t * CONTENT.video.fps)) }, 0);
+    draw(0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["main"] = tl;
+  </script>
+</body>
+</html>

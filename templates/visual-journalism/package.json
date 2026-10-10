@@ -1,0 +1,13 @@
+{
+  "name": "@avs/visual-journalism",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "tts": "node scripts/make-script.mjs && python ../../skill/scripts/tts.py assets/audio/script.json --out-dir assets/audio",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 1,5,9,14,19,24,29,33",
+    "dev": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 preview",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/visual-journalism.mp4"
+  }
+}

@@ -1,0 +1,88 @@
+id: visual-journalism
+tier: experimental
+evidence_strength: medium
+name:
+  en: Visual Journalism (Vox-style)
+  zh: 视觉新闻（Vox 风）
+tagline:
+  en: Dark ground, source-tagged images on paper, marker highlights and dashed annotations.
+  zh: 深色背景、带来源标签的纸质图片、马克笔高亮与虚线标注。
+signature:
+  en:
+    - Near-black ground with cream paper cards and a faint paper texture
+    - Every image carries a visible source tag; stand-ins are code-drawn and labelled
+    - Marker highlight sweeps left to right behind the key phrase
+    - Dashed annotation lines and arrows draw on, with a calm voiceover
+  zh:
+    - 近黑背景，奶油色纸卡，带淡淡的纸张纹理
+    - 每张图片都有可见来源标签；替代图由代码绘制并标注
+    - 马克笔高亮从左到右扫过关键词
+    - 虚线标注与箭头逐步绘出，配平静旁白
+best_for:
+  en:
+    - Commentary and history explainers (60-120 s)
+    - News-quote or headline-highlight openers for a longer piece
+  zh:
+    - 评论与历史类讲解（60-120 秒）
+    - 长视频的新闻引语或标题高亮开场
+avoid_when:
+  en:
+    - You have no rights-clear images and the topic depends on photos (use dark-diagram-explainer with code-drawn diagrams)
+    - The story is mostly a route or country map (use map-geo-story)
+    - A live broadcast look with ticker is wanted (use broadcast-news)
+  zh:
+    - 没有版权清晰的图片而主题依赖照片（改用 dark-diagram-explainer 配代码绘制的图示）
+    - 故事主要是路线或国家地图（改用 map-geo-story）
+    - 想要带滚动条的直播新闻风（改用 broadcast-news）
+tags:
+  use: [news, explainer, education]
+  platform: [youtube, bilibili, linkedin, x]
+  aspect: ["16:9", "9:16"]
+  audio: [voiceover, music, captions]
+  mood: [editorial, cinematic, technical]
+  needs: [script]
+duration: 45-120 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Text is plain DOM, so highlight boxes can be measured with getBoundingClientRect at build time; GSAP handles draw-on lines and layered parallax. Remotion with rough.js is equally valid.
+    zh: 文字是普通 DOM，构建时可用 getBoundingClientRect 测出高亮框；GSAP 负责描线与分层视差。Remotion 配合 rough.js 同样可行。
+variants:
+  - id: headline-highlight
+    en: A 5 s insert - a news-headline plate tilted 15 degrees, blur to sharp in 1 s, marker sweeping behind two phrases.
+    zh: 5 秒插入镜头：新闻标题板倾斜 15 度，1 秒内由模糊变清晰，马克笔扫过两个短语。
+  - id: halftone-cutouts
+    en: Three layers per scene - background, black-and-white halftone cut-outs, foreground structures - with red stroke marks behind cut-outs.
+    zh: 每个场景三层：背景、黑白半调剪影、前景结构，剪影后面加红色笔触。
+evidence:
+  - creator: "@Remotion (official account)"
+    platform: remotion.dev prompts gallery
+    region: global
+    url: https://www.remotion.dev/prompts/news-article-headline-highlight
+    tool: Claude Code + Remotion + rough.js + Tesseract OCR
+    note: 5 s Full HD headline clip - slight 3D tilt, blur to sharp, rough.js marker highlight. A short insert, not a full explainer; source of the highlighter technique.
+    verified: opened
+  - creator: not stated (video title only)
+    platform: YouTube via videohighlight.com summary
+    region: global
+    url: https://videohighlight.com/v/7wuYBfE131U
+    tool: Claude Code + Remotion + GPT image + Magnific MCP + ElevenLabs
+    note: About 11 min tutorial "Vox-Style Motion Graphics Using Only Claude Code & Remotion"; known only through an auto-generated summary; images came from image models, so not purely code-rendered.
+    verified: opened
+  - creator: bangtutorial
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: HyperFrames skill pack
+    note: Skill pack with a "Visual journalism" direction and one gallery still; not a finished video.
+    verified: opened
+  - creator: iart-ai
+    platform: GitHub
+    region: global
+    url: https://github.com/iart-ai/awesome-motion-skills
+    tool: Remotion skill packs
+    note: Vox-style map pack; supporting only.
+    verified: opened
+template: templates/visual-journalism

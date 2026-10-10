@@ -1,0 +1,55 @@
+{
+  "video": { "fps": 30, "width": 1080, "height": 1920, "composeWidth": 1088 },
+  "palette": {
+    "paper": "#F6F1E7",
+    "ink": "#2B2A33",
+    "rose": "#D9A5A0",
+    "sage": "#A9BFA8",
+    "mustard": "#D9C27A",
+    "slate": "#9DB0C6",
+    "gray": "#CFC6B8"
+  },
+  "type": {
+    "family": "Noto Serif",
+    "captionSize": 58,
+    "captionLineHeight": 1.4,
+    "titleSize": 96,
+    "subtitleSize": 44,
+    "captionTop": 250,
+    "sideMargin": 90
+  },
+  "stroke": { "width": 4.5 },
+  "timing": {
+    "lineStart": 6,
+    "lineFrames": 54,
+    "colorGap": 6,
+    "colorFrames": 54,
+    "lineFeather": 36,
+    "colorFeather": 90,
+    "captionStart": 30,
+    "captionFade": 12,
+    "zoomTo": 1.02
+  },
+  "scenes": [
+    {
+      "id": "title",
+      "frames": 120,
+      "title": "The Keeper's Light",
+      "subtitle": "a story for the evening tide",
+      "line": { "start": 4, "frames": 44 },
+      "color": { "start": 48, "frames": 44 },
+      "captionStart": 56
+    },
+    { "id": "arrive", "frames": 150, "caption": "At dusk, the keeper walks to the old tower." },
+    { "id": "climb", "frames": 150, "caption": "Step by step, he climbs the winding stairs." },
+    { "id": "light", "frames": 150, "caption": "At the top, he lights the great lamp." },
+    { "id": "beam", "frames": 150, "caption": "Its beam sweeps out across the dark water." },
+    {
+      "id": "safe",
+      "frames": 180,
+      "caption": "A small ship slips past the rocks, safe.",
+      "line": { "start": 6, "frames": 42 },
+      "color": { "start": 48, "frames": 42 }
+    }
+  ]
+}

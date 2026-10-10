@@ -1,0 +1,33 @@
+{
+  "images": "All images are code-drawn illustrations (tagged ILLUSTRATION).",
+  "sources": [
+    {
+      "id": "levinson",
+      "label": "M. Levinson, The Box (Princeton Univ. Press, 2006): break-bulk context",
+      "kind": "book",
+      "url": null,
+      "license": "cited, not reproduced"
+    },
+    {
+      "id": "rodrigue",
+      "label": "J.-P. Rodrigue, The Geography of Transport Systems (Hofstra Univ.): Ideal X voyage, 58 containers, McLean's $5.83 vs $0.16 per ton",
+      "kind": "web",
+      "url": "https://transportgeography.org/contents/chapter1/the-setting-of-global-transportation-systems/idealx-first-containeriship-1956/",
+      "license": "cited, not reproduced"
+    },
+    {
+      "id": "iso668",
+      "label": "ISO 668: freight container dimensions and ratings (20 ft and 40 ft)",
+      "kind": "standard",
+      "url": null,
+      "license": "cited, not reproduced"
+    },
+    {
+      "id": "bernhofen",
+      "label": "Bernhofen, El-Sahli & Kneller, Journal of International Economics, 2016",
+      "kind": "paper",
+      "url": null,
+      "license": "cited, not reproduced"
+    }
+  ]
+}

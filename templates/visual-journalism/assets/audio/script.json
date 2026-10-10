@@ -1,0 +1,34 @@
+{
+  "voice": "en-US-GuyNeural",
+  "rate": "+8%",
+  "segments": [
+    {
+      "id": "s1",
+      "text": "Before 1956, moving cargo across an ocean was slow, manual work."
+    },
+    {
+      "id": "s2",
+      "text": "Goods went aboard piece by piece, and ships sat in port for days."
+    },
+    {
+      "id": "s3",
+      "text": "On April 26, 1956, the Ideal X sailed from Newark with 58 metal containers."
+    },
+    {
+      "id": "s4",
+      "text": "Standard sizes followed: twenty or forty feet, stackable on any ship, train, or truck."
+    },
+    {
+      "id": "s5",
+      "text": "Loading cost fell from about six dollars a ton to sixteen cents."
+    },
+    {
+      "id": "s6",
+      "text": "Economists find containers lifted trade more than trade agreements did."
+    },
+    {
+      "id": "s7",
+      "text": "One steel box made the world smaller."
+    }
+  ]
+}

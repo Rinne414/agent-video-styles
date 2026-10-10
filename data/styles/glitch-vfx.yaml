@@ -1,0 +1,79 @@
+id: glitch-vfx
+tier: experimental
+evidence_strength: medium
+name:
+  en: Glitch & VFX Hype
+  zh: 故障风特效
+tagline:
+  en: Short seeded bursts of RGB split, scanline tearing and hologram flicker on a dark ground, resolving to clean type.
+  zh: 暗色画面上由种子随机触发的短促 RGB 分离、扫描线撕裂与全息闪烁，最终归于清晰文字。
+signature:
+  en:
+    - Near-black ground with scanlines and corner-bracket HUD marks
+    - RGB channel split and horizontal slice tearing fired in 3-6 frame bursts
+    - Hologram flicker on reveals and a tile shatter as the hard transition
+    - Clean, fully legible frames between bursts; usually an accent inside other styles
+  zh:
+    - 近黑底，带扫描线与角标式 HUD 标记
+    - RGB 通道分离与水平切片撕裂，以 3-6 帧短促爆发触发
+    - 出场时全息闪烁，碎片化破碎作为硬转场
+    - 爆发之间画面干净清晰；通常作为其他风格里的点缀
+best_for:
+  en:
+    - Gaming, crypto and hacker-themed intros and stings (5-20 s)
+    - Accent bursts on cuts and reveals inside tech promos and HUD reels
+  zh:
+    - 游戏、加密与黑客主题的开场和片头（5-20 秒）
+    - 科技宣传片与 HUD 片头里用在切点和出场的点缀
+avoid_when:
+  en:
+    - The tone is calm or premium (use apple-keynote-minimal)
+    - The piece carries long narration or dense information (use dark-diagram-explainer)
+  zh:
+    - 调性需要沉静或高端（改用 apple-keynote-minimal）
+    - 内容有长段旁白或信息密集（改用 dark-diagram-explainer）
+tags:
+  use: [overlay, logo-intro, brand-reel, social-short]
+  platform: [youtube, youtube-shorts, tiktok-douyin, x]
+  aspect: ["16:9", "9:16"]
+  audio: [music, sfx]
+  mood: [energetic, cinematic, technical]
+  needs: [logo]
+duration: 5-20 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Effects are DOM layers, SVG filters and clip-paths stepped by a seeded burst schedule, which suits HyperFrames' proxy-tween pattern. Remotion has glitch packages and transition libraries for the same effects.
+    zh: 特效由 DOM 图层、SVG 滤镜和 clip-path 按种子化的爆发计划逐帧驱动，适合 HyperFrames 的代理补间模式。Remotion 也有故障特效包与转场库可实现同样的效果。
+variants:
+  - id: as-accent
+    en: Bursts of 3-4 frames on cuts and reveals only, inside another style; at most 4 per 30 s.
+    zh: 仅在切点与出场处加 3-4 帧爆发，嵌入其他风格；每 30 秒最多 4 次。
+  - id: vhs-tape
+    en: Warm VHS look with tracking bars, horizontal noise and date-stamp text instead of the cyber HUD.
+    zh: 暖调 VHS 录像带质感，用跟踪条、横向噪点与日期戳取代赛博 HUD。
+evidence:
+  - creator: HeyGen
+    platform: hyperframes.heygen.com/showcase
+    region: US
+    url: https://static.heygen.ai/hyperframes-oss/docs/images/showcase/launch-vfx-heygen-combined-v1-s.mp4
+    tool: HyperFrames (shaders and effects)
+    note: Vendor VFX reel listed on the showcase page; the video was not viewed and its content is not confirmed to include glitch, so this is weak support only.
+    verified: aggregator
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames
+    note: Component library, not a finished video; glitch, hologram, holographic, vfx-shatter and vfx-portal blocks.
+    verified: opened
+  - creator: storybynumbers
+    platform: GitHub
+    region: unknown
+    url: https://github.com/storybynumbers/remotion-glitch-effect
+    tool: Remotion
+    note: Component package, not a finished video; RGB split with SVG filters, a burst scheduler and deterministic per-frame variation.
+    verified: snippet
+template: templates/glitch-vfx

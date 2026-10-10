@@ -1,0 +1,25 @@
+{
+  "name": "@avs/product-turntable-3d",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "render": "remotion render src/index.ts Turntable out/product-turntable-3d.mp4 --gl=angle --image-format=png",
+    "still": "remotion still src/index.ts Turntable out/still.png --gl=angle --image-format=png --frame=127",
+    "studio": "remotion studio src/index.ts"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.3.0",
+    "@react-three/fiber": "9.1.2",
+    "@remotion/cli": "4.0.534",
+    "@remotion/three": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534",
+    "three": "0.171.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/three": "0.171.0",
+    "typescript": "5.9.3"
+  }
+}

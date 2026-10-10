@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1350,
+    "handle": "@gitnotes_demo"
+  },
+  "colors": {
+    "paper": "#FAF6F1",
+    "ink": "#2D2D2D",
+    "accent": "#D4734A",
+    "white": "#FFFFFF"
+  },
+  "timing": {
+    "swipeFrames": 14,
+    "totalFrames": 600,
+    "starts": [
+      0,
+      90,
+      190,
+      290,
+      390,
+      490
+    ]
+  },
+  "cards": [
+    {
+      "id": "cover",
+      "dark": false,
+      "kicker": "Git 提交规范",
+      "title": [
+        "写好 commit",
+        "message 的",
+        "5 条规则"
+      ],
+      "body": "左滑看完，下次提交就用上",
+      "visual": {
+        "type": "log",
+        "sample": "示例",
+        "lines": [
+          "Add user login page",
+          "Fix timeout on slow networks",
+          "Remove unused config flags",
+          "Update docs for the v2 API"
+        ]
+      }
+    },
+    {
+      "id": "imperative",
+      "dark": false,
+      "kicker": "规则 1",
+      "title": [
+        "用祈使句",
+        "开头"
+      ],
+      "body": "像下指令：Add、Fix、Remove",
+      "visual": {
+        "type": "versus",
+        "sample": "示例",
+        "bad": "Added login page",
+        "good": "Add login page"
+      }
+    },
+    {
+      "id": "fifty",
+      "dark": false,
+      "kicker": "规则 2",
+      "title": [
+        "首行不超过",
+        "50 字符"
+      ],
+      "body": "标题行要短，列表里才读得完",
+      "visual": {
+        "type": "meter",
+        "sample": "示例",
+        "limit": 50,
+        "text": "Fix crash when the cart is empty"
+      }
+    },
+    {
+      "id": "why",
+      "dark": true,
+      "kicker": "规则 3",
+      "title": [
+        "说明为什么，",
+        "而不是怎么做"
+      ],
+      "body": "代码已经写了怎么做",
+      "visual": {
+        "type": "message",
+        "sample": "示例",
+        "subject": "Raise retry limit to 3",
+        "body": [
+          "The payment API drops requests",
+          "under load, so a single retry",
+          "was not enough."
+        ]
+      }
+    },
+    {
+      "id": "single",
+      "dark": false,
+      "kicker": "规则 4",
+      "title": [
+        "一个 commit",
+        "只做一件事"
+      ],
+      "body": "拆开提交，回滚和审查才轻松",
+      "visual": {
+        "type": "timeline",
+        "sample": "示例",
+        "commits": [
+          "feat: add login page",
+          "fix: round cart total",
+          "docs: update README"
+        ]
+      }
+    },
+    {
+      "id": "issue",
+      "dark": false,
+      "kicker": "规则 5",
+      "title": [
+        "引用 issue",
+        "编号"
+      ],
+      "body": "让提交和讨论串在一起",
+      "visual": {
+        "type": "issue",
+        "sample": "示例",
+        "subject": "Fix login timeout",
+        "footer": "Closes",
+        "issue": "#128"
+      },
+      "cta": "收藏备用 · @gitnotes_demo"
+    }
+  ]
+}

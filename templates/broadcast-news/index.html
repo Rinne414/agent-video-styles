@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Anton"; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Inter"; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Inter"; src: url("fonts/inter-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+@font-face { font-family: "Inter"; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+@font-face { font-family: "Inter"; src: url("fonts/inter-latin-800-normal.woff2") format("woff2"); font-weight: 800; }
+:root { --bg: #0B0F1A; --ticker: #11182A; --text: #F5F7FA; --muted: #C9D0DB; --red: #C8102E; --ink: #0A0A0A; --panelW: 340px; --panelH: 936px; --tickerY: 936px; --tickerH: 64px; --cx: 420px; --safe: 80px; --numeral: 200px; --kicker: 30px; --headline: 72px; --headlineLine: 1.08; --spec: 38px; --specStep: 64px; --tickerText: 30px; --tickerLabel: 28px; --tag: 24px; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 1920px; height: 1080px; background: var(--bg); font-family: Inter, sans-serif; color: var(--text); overflow: hidden; }
+.scene { position: absolute; inset: 0; }
+.panel { position: absolute; left: 0; top: 0; width: var(--panelW); height: var(--panelH); }
+.numeral { position: absolute; left: 0; top: 0; width: var(--panelW); height: var(--panelH); display: flex; align-items: center; justify-content: center;
+  font-family: Anton, sans-serif; font-size: var(--numeral); line-height: 1; font-variant-numeric: tabular-nums; }
+.right { position: absolute; left: var(--cx); top: 0; width: 1420px; height: var(--panelH); }
+.cam { position: absolute; inset: 0; transform-origin: 0 50%; }
+.kicker { position: absolute; left: 0; top: 230px; display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: var(--kicker);
+  letter-spacing: 0.12em; text-transform: uppercase; line-height: 40px; }
+.kicker i { display: block; width: 8px; height: 40px; }
+.headline { position: absolute; left: 0; top: 310px; width: 1100px; font-weight: 800; font-size: var(--headline); line-height: var(--headlineLine); }
+.ln { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.ln > span { display: block; }
+.specs { position: absolute; left: 0; top: 540px; }
+.spec { position: relative; height: var(--specStep); padding-left: 30px; font-weight: 500; font-size: var(--spec); line-height: var(--specStep); color: var(--muted); white-space: nowrap; }
+.spec::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 44px; background: var(--c); }
+/* opening + closing */
+.open-wrap { position: absolute; left: 160px; top: 0; width: 1600px; height: var(--panelH); }
+.open-title { position: absolute; left: 0; top: 300px; font-family: Anton, sans-serif; font-size: 230px; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+.open-sub { position: absolute; left: 0; top: 570px; font-weight: 500; font-size: var(--spec); color: var(--muted); }
+.chips { position: absolute; left: 0; top: 690px; display: flex; gap: 24px; }
+.chip { width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; font-family: Anton, sans-serif; font-size: 72px; }
+.recap-row { position: absolute; left: 0; display: flex; align-items: center; gap: 36px; }
+.recap-num { width: 130px; height: 110px; display: flex; align-items: center; justify-content: center; font-family: Anton, sans-serif; font-size: 80px; }
+.recap-head { font-weight: 800; font-size: 56px; line-height: 1.08; white-space: nowrap; }
+.source { position: absolute; left: 0; top: 790px; font-weight: 500; font-size: 30px; color: var(--muted); white-space: nowrap; }
+.signoff { position: absolute; left: 0; top: 840px; font-weight: 700; font-size: 38px; white-space: nowrap; }
+/* persistent layers */
+.tag { position: absolute; right: var(--safe); top: var(--safe); padding: 8px 16px; border: 2px solid var(--text); font-weight: 700; font-size: var(--tag);
+  letter-spacing: 0.14em; line-height: 1; z-index: 40; background: var(--bg); }
+#ticker { position: absolute; left: 0; top: var(--tickerY); width: 1920px; height: var(--tickerH); background: var(--ticker); z-index: 30; overflow: hidden; }
+#ticker .label { position: absolute; left: 24px; top: 8px; height: 48px; padding: 0 22px; display: flex; align-items: center; background: var(--red); color: #fff;
+  font-weight: 700; font-size: var(--tickerLabel); letter-spacing: 0.1em; z-index: 2; }
+#ticker .win { -webkit-mask-image: linear-gradient(#000,#000); contain: paint; position: absolute; left: 300px; top: 0; right: 0; height: var(--tickerH); overflow: hidden; }
+#ticker .track { position: absolute; left: 0; top: 0; height: var(--tickerH); display: flex; white-space: nowrap; width: max-content; }
+#ticker .item { display: block; line-height: var(--tickerH); font-weight: 600; font-size: var(--tickerText); margin-right: 36px; }
+#ticker .sep { display: block; line-height: var(--tickerH); font-weight: 600; font-size: var(--tickerText); margin-right: 36px; color: var(--muted); }
+#scan { position: absolute; inset: 0; z-index: 50; pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px); }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="31.233333333333334" data-width="1920" data-height="1080">
+<audio id="vo-open" src="assets/audio/open.mp3" data-start="0.2" data-duration="4.56" data-track-index="9" data-volume="1"></audio>
+<audio id="vo-s1" src="assets/audio/s1.mp3" data-start="5.766666666666667" data-duration="5.592" data-track-index="9" data-volume="1"></audio>
+<audio id="vo-s2" src="assets/audio/s2.mp3" data-start="12.366666666666667" data-duration="5.376" data-track-index="9" data-volume="1"></audio>
+<audio id="vo-s3" src="assets/audio/s3.mp3" data-start="18.766666666666666" data-duration="5.208" data-track-index="9" data-volume="1"></audio>
+<audio id="vo-close" src="assets/audio/close.mp3" data-start="25" data-duration="4.704" data-track-index="9" data-volume="1"></audio>
+
+<section id="sc-open" class="scene clip" data-start="0" data-duration="6.033333333333333" data-track-index="0" style="z-index:1"><div class="open-wrap"><div class="cam" style="position:absolute;inset:0">
+    <div class="kicker" style="top:210px"><i style="background:#F5F7FA"></i><span>Tech desk</span></div>
+    <div class="open-title"><span class="ln"><span>TODAY IN TECH</span></span></div>
+    <div class="open-sub">Sample bulletin - three fictional stories</div>
+    <div class="chips"><div class="chip" style="background:#C8102E;color:#FFFFFF">01</div><div class="chip" style="background:#00B8D9;color:#0A0A0A">02</div><div class="chip" style="background:#F5A623;color:#0A0A0A">03</div></div></div></div></section>
+<section id="sc-s1" class="scene clip" data-start="5.566666666666666" data-duration="7.066666666666666" data-track-index="1" style="z-index:2"><div class="panel" style="background:#C8102E"><div class="numeral" style="color:#FFFFFF">01</div></div>
+  <div class="right"><div class="cam">
+    <div class="kicker"><i style="background:#C8102E"></i><span>AI MODELS</span></div>
+    <h2 class="headline" style="margin:0"><span class="ln"><span>Model ships with</span></span><span class="ln"><span>2M-token context</span></span></h2>
+    <div class="specs" style="--c:#C8102E"><div class="spec">2M tokens in a single prompt</div><div class="spec">A whole codebase fits in one pass</div><div class="spec">Rolling out to every API tier</div></div>
+  </div></div></section>
+<section id="sc-s2" class="scene clip" data-start="12.166666666666666" data-duration="6.866666666666666" data-track-index="0" style="z-index:3"><div class="panel" style="background:#00B8D9"><div class="numeral" style="color:#0A0A0A">02</div></div>
+  <div class="right"><div class="cam">
+    <div class="kicker"><i style="background:#00B8D9"></i><span>OPEN DATA</span></div>
+    <h2 class="headline" style="margin:0"><span class="ln"><span>Open image dataset</span></span><span class="ln"><span>passes 1B images</span></span></h2>
+    <div class="specs" style="--c:#00B8D9"><div class="spec">Over one billion captioned images</div><div class="spec">Duplicates removed, open license</div><div class="spec">Mirrored on three public hosts</div></div>
+  </div></div></section>
+<section id="sc-s3" class="scene clip" data-start="18.566666666666666" data-duration="6.7" data-track-index="1" style="z-index:4"><div class="panel" style="background:#F5A623"><div class="numeral" style="color:#0A0A0A">03</div></div>
+  <div class="right"><div class="cam">
+    <div class="kicker"><i style="background:#F5A623"></i><span>ROBOTICS</span></div>
+    <h2 class="headline" style="margin:0"><span class="ln"><span>Robotics startup</span></span><span class="ln"><span>raises $40M</span></span></h2>
+    <div class="specs" style="--c:#F5A623"><div class="spec">$40M Series A funding round</div><div class="spec">Warehouse pick-and-place arms</div><div class="spec">Pilot sites open later this year</div></div>
+  </div></div></section>
+<section id="sc-close" class="scene clip" data-start="24.8" data-duration="6.433333333333334" data-track-index="0" style="z-index:5"><div class="cover" style="position:absolute;inset:0;background:#0B0F1A"></div>
+  <div class="open-wrap">
+    <div class="kicker" style="top:200px"><i style="background:#F5F7FA"></i><span>RECAP</span></div>
+    <div class="recap-row" style="top:290px">
+      <div class="recap-num" style="background:#C8102E;color:#FFFFFF">01</div>
+      <div class="recap-head">Model ships with 2M-token context</div></div><div class="recap-row" style="top:440px">
+      <div class="recap-num" style="background:#00B8D9;color:#0A0A0A">02</div>
+      <div class="recap-head">Open image dataset passes 1B images</div></div><div class="recap-row" style="top:590px">
+      <div class="recap-num" style="background:#F5A623;color:#0A0A0A">03</div>
+      <div class="recap-head">Robotics startup raises $40M</div></div>
+    <div class="source">Source: all stories, names and figures are fictional sample content.</div>
+    <div class="signoff">That is the sample bulletin. Goodnight.</div></div></section>
+
+<div class="tag">SAMPLE BULLETIN</div>
+<div id="ticker"><div class="label" data-layout-allow-overlap data-layout-ignore>BREAKING</div><div class="win" data-layout-allow-overflow><div class="track" id="track" data-layout-allow-overflow><span class="item">Model ships with 2M-token context</span><span class="sep">//</span><span class="item">Open image dataset passes 1B images</span><span class="sep">//</span><span class="item">Robotics startup raises $40M</span><span class="sep">//</span><span class="item">SAMPLE BULLETIN - FICTIONAL STORIES</span><span class="sep">//</span><span class="item">Model ships with 2M-token context</span><span class="sep">//</span><span class="item">Open image dataset passes 1B images</span><span class="sep">//</span><span class="item">Robotics startup raises $40M</span><span class="sep">//</span><span class="item">SAMPLE BULLETIN - FICTIONAL STORIES</span><span class="sep">//</span></div></div></div>
+<div id="scan"></div>
+</div>
+<script>
+const PLAN = {"fps":30,"total":937,"motion":{"wipe":14,"wipeEase":"expo.out","numeralFrom":6,"numeralDur":10,"numeralScale":1.25,"kickerAt":6,"kickerDur":10,"kickerSlide":40,"headlineAt":14,"headlineLineStep":8,"headlineDur":10,"specAt":[60,74,88],"specDur":10,"specEase":"power3.out","exit":8,"cameraScale":1.02,"tickerPxPerFrame":6,"scanlinePitch":4,"leadFrames":6,"closingHoldFrames":45},"scenes":[{"kind":"opening","id":"open","start":0,"len":167,"narrStart":6,"narrSec":4.56,"seg":"open"},{"kind":"story","id":"s1","start":167,"len":198,"narrStart":173,"narrSec":5.592,"seg":"s1","index":0},{"kind":"story","id":"s2","start":365,"len":192,"narrStart":371,"narrSec":5.376,"seg":"s2","index":1},{"kind":"story","id":"s3","start":557,"len":187,"narrStart":563,"narrSec":5.208,"seg":"s3","index":2},{"kind":"closing","id":"close","start":744,"len":193,"narrStart":750,"narrSec":4.704,"seg":"close"}]};
+// Runs inside the composition. PLAN is injected by scripts/build.mjs (see src/theme.mjs for the tokens).
+const F = 1 / PLAN.fps;
+const M = PLAN.motion;
+const at = (frame) => frame * F;
+const tl = gsap.timeline({ paused: true });
+
+function rise(sel, frame, extra = {}) {
+  tl.fromTo(sel, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: M.specDur * F, ease: M.specEase, ...extra }, at(frame));
+}
+
+function exitRight(sc, sel) {
+  tl.to(sel, { opacity: 0, duration: M.exit * F, ease: "none" }, at(sc.start + sc.len - M.exit));
+}
+
+function drift(sc, sel) {
+  tl.fromTo(sel, { scale: 1 }, { scale: M.cameraScale, duration: sc.len * F, ease: "none" }, at(sc.start));
+}
+
+function wipe(sc, sel) {
+  tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: M.wipe * F, ease: M.wipeEase }, at(sc.start));
+}
+
+function story(sc) {
+  const q = (s) => `#sc-${sc.id} ${s}`;
+  wipe(sc, q(".panel"));
+  tl.fromTo(q(".numeral"), { scale: M.numeralScale, opacity: 0 },
+    { scale: 1, opacity: 1, duration: M.numeralDur * F, ease: "power2.out" }, at(sc.start + M.numeralFrom));
+  tl.fromTo(q(".kicker"), { x: M.kickerSlide, opacity: 0 },
+    { x: 0, opacity: 1, duration: M.kickerDur * F, ease: M.specEase }, at(sc.start + M.kickerAt));
+  document.querySelectorAll(q(".ln > span")).forEach((el, i) => {
+    tl.fromTo(el, { yPercent: 110 }, { yPercent: 0, duration: M.headlineDur * F, ease: M.specEase },
+      at(sc.start + M.headlineAt + i * M.headlineLineStep));
+  });
+  document.querySelectorAll(q(".spec")).forEach((el, i) => rise(el, sc.start + M.specAt[i]));
+  drift(sc, q(".cam"));
+  exitRight(sc, q(".right"));
+}
+
+function opening(sc) {
+  const q = (s) => `#sc-${sc.id} ${s}`;
+  tl.fromTo(q(".kicker"), { x: M.kickerSlide, opacity: 0 }, { x: 0, opacity: 1, duration: M.kickerDur * F, ease: M.specEase }, at(sc.start + 4));
+  document.querySelectorAll(q(".ln > span")).forEach((el, i) => {
+    tl.fromTo(el, { yPercent: 110 }, { yPercent: 0, duration: 14 * F, ease: M.specEase }, at(sc.start + 12 + i * M.headlineLineStep));
+  });
+  rise(q(".open-sub"), sc.start + 40);
+  document.querySelectorAll(q(".chip")).forEach((el, i) => {
+    tl.fromTo(el, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: M.wipe * F, ease: M.wipeEase }, at(sc.start + 54 + i * M.specDur));
+  });
+  drift(sc, q(".open-wrap"));
+  exitRight(sc, q(".open-wrap"));
+}
+
+function closing(sc) {
+  const q = (s) => `#sc-${sc.id} ${s}`;
+  wipe(sc, q(".cover"));
+  tl.fromTo(q(".kicker"), { x: M.kickerSlide, opacity: 0 }, { x: 0, opacity: 1, duration: M.kickerDur * F, ease: M.specEase }, at(sc.start + 10));
+  document.querySelectorAll(q(".recap-row")).forEach((el, i) => rise(el, sc.start + 20 + i * 14));
+  rise(q(".source"), sc.start + 60);
+  rise(q(".signoff"), sc.start + 72);
+}
+
+for (const sc of PLAN.scenes) ({ story, opening, closing })[sc.kind](sc);
+
+// Ticker marquee and scanline drift: pure functions of the frame number.
+const track = document.getElementById("track");
+const scan = document.getElementById("scan");
+function applyLayers(frame) {
+  const loop = track.offsetWidth / 2;
+  track.style.transform = `translateX(${-((frame * M.tickerPxPerFrame) % loop)}px)`;
+  scan.style.backgroundPosition = `0px ${frame % M.scanlinePitch}px`;
+}
+const proxy = { f: 0 };
+tl.to(proxy, { f: PLAN.total, duration: PLAN.total * F, ease: "none", onUpdate: () => applyLayers(Math.round(proxy.f)) }, 0);
+applyLayers(0);
+
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+
+</script>
+</body></html>

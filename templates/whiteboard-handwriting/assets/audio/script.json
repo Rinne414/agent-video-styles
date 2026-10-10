@@ -1,0 +1,30 @@
+{
+  "voice": "en-US-JennyNeural",
+  "rate": "+10%",
+  "segments": [
+    {
+      "id": "hook",
+      "text": "Why does a hundred dollars snowball over time?"
+    },
+    {
+      "id": "year1",
+      "text": "Put a hundred dollars in the bank at ten percent a year. After one year, you have one hundred ten."
+    },
+    {
+      "id": "year2",
+      "text": "In year two, you earn ten percent on one hundred ten. That extra dollar is interest on interest."
+    },
+    {
+      "id": "snowball",
+      "text": "Like a snowball rolling downhill, it picks up more snow with every turn, so it grows faster and faster."
+    },
+    {
+      "id": "early",
+      "text": "So start early. Forty years of growth beats thirty by more than two and a half times."
+    },
+    {
+      "id": "end",
+      "text": "Start early, and let time do the work."
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Usage: make_preview.py <video> --out previews/<id>.mp4 --poster previews/<id>.we
 
 Output video: H.264 yuv420p, +faststart, AAC 96k when the input has audio, aspect
 ratio kept, longest side capped at --max-side (never upscaled). The poster is a
-WebP frame taken at --poster-at (fraction of the duration, 0-1).
+WebP frame taken at --poster-at (a fraction of the duration 0-1, or seconds if above 1).
 Requires ffmpeg (with libx264 and libwebp) and ffprobe on PATH.
 """
 
@@ -83,11 +83,11 @@ def main() -> int:
         "--poster-at",
         type=float,
         default=0.5,
-        help="poster position, fraction 0-1 (default 0.5)",
+        help="poster position: a fraction of the duration (0-1), or seconds if above 1 (default 0.5)",
     )
     args = ap.parse_args()
-    if not 0 <= args.poster_at <= 1:
-        ap.error("--poster-at must be between 0 and 1")
+    if args.poster_at < 0:
+        ap.error("--poster-at must be a fraction (0-1) or a time in seconds")
     if Path(args.out).resolve() == Path(args.video).resolve():
         ap.error("--out must differ from the input video")
     try:
@@ -122,7 +122,8 @@ def main() -> int:
             ]
         )
         # Seek on the source for the poster; clamp so the seek stays inside the file.
-        at = min(duration * args.poster_at, max(duration - 0.05, 0))
+        wanted = duration * args.poster_at if args.poster_at <= 1 else args.poster_at
+        at = min(wanted, max(duration - 0.05, 0))
         run(
             [
                 "ffmpeg",

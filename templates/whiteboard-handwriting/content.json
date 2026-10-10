@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "whiteboard-handwriting",
+    "title": "How compound interest works",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "tailSec": 1.4,
+    "leadSec": 0.4
+  },
+  "voice": { "name": "en-US-JennyNeural", "rate": "+10%" },
+  "gaps": { "betweenSec": 0, "beforeEraseSec": 0.75 },
+  "palette": {
+    "board": "#FAFAF7",
+    "frame": "#D9D9D2",
+    "tray": "#E6E6DF",
+    "ink": "#1B1F2A",
+    "blue": "#1F5FBF",
+    "red": "#C62828",
+    "green": "#1B7F3B"
+  },
+  "type": { "heading": 96, "label": 72, "body": 56 },
+  "pen": {
+    "letterPxPerSec": 3000,
+    "doodlePxPerSec": 1800,
+    "arrowPxPerSec": 1200,
+    "rampFrames": 2,
+    "letterRampFrames": 0,
+    "strokeLiftFrames": 2,
+    "letterLiftFrames": 0,
+    "wordGapFrames": 4,
+    "underlineDelayFrames": 4,
+    "wobblePx": 1.2,
+    "seed": 7
+  },
+  "hook": {
+    "speech": "Why does a hundred dollars snowball over time?",
+    "lines": ["Why does $100 snowball?"],
+    "underlineWord": "snowball",
+    "accent": "red"
+  },
+  "blocks": [
+    {
+      "id": "year1",
+      "speech": "Put a hundred dollars in the bank at ten percent a year. After one year, you have one hundred ten.",
+      "label": "Year 1",
+      "accent": "blue",
+      "from": "$100",
+      "to": "$110",
+      "rate": "+10%",
+      "gain": "+$10"
+    },
+    {
+      "id": "year2",
+      "speech": "In year two, you earn ten percent on one hundred ten. That extra dollar is interest on interest.",
+      "label": "Year 2",
+      "accent": "red",
+      "from": "$110",
+      "to": "$121",
+      "rate": "+10%",
+      "note": "interest on interest!"
+    },
+    {
+      "id": "snowball",
+      "speech": "Like a snowball rolling downhill, it picks up more snow with every turn, so it grows faster and faster.",
+      "label": "Snowball",
+      "accent": "blue",
+      "note": "bigger = faster"
+    },
+    {
+      "id": "early",
+      "speech": "So start early. Forty years of growth beats thirty by more than two and a half times.",
+      "label": "Start early",
+      "accent": "green",
+      "ratio": "2.6x",
+      "rows": [
+        { "years": "40 yrs", "value": "$4,526", "share": 1 },
+        { "years": "30 yrs", "value": "$1,745", "share": 0.386 }
+      ]
+    }
+  ],
+  "end": {
+    "speech": "Start early, and let time do the work.",
+    "lines": ["Start early!"],
+    "accent": "green"
+  }
+}

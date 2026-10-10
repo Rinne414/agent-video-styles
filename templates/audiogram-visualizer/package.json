@@ -1,0 +1,26 @@
+{
+  "name": "@avs/audiogram-visualizer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Podcast audiogram: audio-reactive bars, code-drawn cover art and word-timed captions (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "audio": "python scripts/mix.py",
+    "still": "remotion still Audiogram out/still.png --frame=300 --image-format=png",
+    "render": "remotion render Audiogram out/audiogram-visualizer.mp4 --image-format=png"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@remotion/cli": "4.0.534",
+    "@remotion/media": "4.0.534",
+    "@remotion/media-utils": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "typescript": "5.9.3"
+  }
+}

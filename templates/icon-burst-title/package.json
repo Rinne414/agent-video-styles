@@ -1,0 +1,24 @@
+{
+  "name": "@avs/icon-burst-title",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Icon-burst channel intro: dot bursts into rays, title bounces in, icons orbit into a badge (Remotion).",
+  "scripts": {
+    "dev": "remotion studio",
+    "still": "remotion still IconBurstTitle out/still.png --frame=95 --image-format=png",
+    "render": "remotion render IconBurstTitle out/icon-burst-title.mp4",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@remotion/cli": "4.0.534",
+    "lucide-react": "1.54.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "@avs/glitch-vfx",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 0.5,1.2,3.5,5.5,6.8,7.6,9",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/glitch-vfx.mp4",
+    "fonts": "node scripts/fonts.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@fontsource/space-grotesk": "5.3.0"
+  }
+}

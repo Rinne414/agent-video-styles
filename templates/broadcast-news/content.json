@@ -1,0 +1,77 @@
+{
+  "voice": "en-US-GuyNeural",
+  "rate": "+8%",
+  "gapSeconds": 0.3,
+  "tailFrames": 15,
+  "tag": "SAMPLE BULLETIN",
+  "ink": "#0A0A0A",
+  "colors": {
+    "bg": "#0B0F1A",
+    "tickerBar": "#11182A",
+    "text": "#F5F7FA",
+    "muted": "#C9D0DB",
+    "red": "#C8102E"
+  },
+  "opening": {
+    "title": "TODAY IN TECH",
+    "subtitle": "Sample bulletin - three fictional stories",
+    "speech": "Welcome to the tech desk. This is a sample bulletin."
+  },
+  "stories": [
+    {
+      "id": "s1",
+      "numeral": "01",
+      "panel": "#C8102E",
+      "numeralColor": "#FFFFFF",
+      "kicker": "AI MODELS",
+      "headline": "Model ships with 2M-token context",
+      "specs": [
+        "2M tokens in a single prompt",
+        "A whole codebase fits in one pass",
+        "Rolling out to every API tier"
+      ],
+      "speech": "Story one. A new model ships with a two million token context window."
+    },
+    {
+      "id": "s2",
+      "numeral": "02",
+      "panel": "#00B8D9",
+      "numeralColor": "#0A0A0A",
+      "kicker": "OPEN DATA",
+      "headline": "Open image dataset passes 1B images",
+      "specs": [
+        "Over one billion captioned images",
+        "Duplicates removed, open license",
+        "Mirrored on three public hosts"
+      ],
+      "speech": "Story two. An open image dataset passes one billion images."
+    },
+    {
+      "id": "s3",
+      "numeral": "03",
+      "panel": "#F5A623",
+      "numeralColor": "#0A0A0A",
+      "kicker": "ROBOTICS",
+      "headline": "Robotics startup raises $40M",
+      "specs": [
+        "$40M Series A funding round",
+        "Warehouse pick-and-place arms",
+        "Pilot sites open later this year"
+      ],
+      "speech": "Story three. A robotics startup raises forty million dollars."
+    }
+  ],
+  "closing": {
+    "title": "RECAP",
+    "source": "Source: all stories, names and figures are fictional sample content.",
+    "signoff": "That is the sample bulletin. Goodnight.",
+    "speech": "That was the sample bulletin. All stories are fictional."
+  },
+  "ticker": {
+    "label": "BREAKING",
+    "separator": "//",
+    "extra": [
+      "SAMPLE BULLETIN - FICTIONAL STORIES"
+    ]
+  }
+}

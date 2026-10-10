@@ -1,0 +1,19 @@
+{
+  "video": { "width": 1920, "height": 1080, "fps": 30, "durationFrames": 900, "holdFrames": 2, "grainOpacity": 0.16 },
+  "palette": {
+    "table": "#F3EAD6", "ink": "#2A1D18", "paper": "#FBF6EA", "navy": "#26315F", "mustard": "#D9A441",
+    "teal": "#3F9F9A", "mint": "#A9D9C6", "pink": "#F3A3BF", "sky": "#CFE2EE", "purple": "#8C7AD8",
+    "green": "#5AA05A", "orange": "#EC7A4F",
+    "skin": "#E8B592", "leafDark": "#2F6B3A", "olive": "#9A9A3F", "brown": "#8B5E3C", "kraft": "#C9A87C", "cupShade": "#E6DCC3"
+  },
+  "fonts": { "title": "Fredoka", "tag": "Caveat Brush", "titleWidthEm": 0.56, "tagWidthEm": 0.4 },
+  "title": { "text": "The Journey of Tea", "sub": "in four moments" },
+  "moments": [
+    { "start": 90,  "kicker": "moment one",   "title": "Picked in the mist" },
+    { "start": 270, "kicker": "moment two",   "title": "Rolled and dried" },
+    { "start": 450, "kicker": "moment three", "title": "Carried by sea" },
+    { "start": 630, "kicker": "moment four",  "title": "Poured at last" }
+  ],
+  "end": { "text": "From hill to cup.", "at": 840 },
+  "tagArriveFrame": 36
+}

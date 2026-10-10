@@ -1,0 +1,18 @@
+{
+  "segments": [
+    {
+      "id": "s1",
+      "start_ms": 1500
+    },
+    {
+      "id": "s2",
+      "start_ms": 7528
+    },
+    {
+      "id": "s3",
+      "start_ms": 14252
+    }
+  ],
+  "speech_end_ms": 16724,
+  "total_ms": 20024
+}

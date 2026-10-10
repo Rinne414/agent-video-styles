@@ -1,0 +1,14 @@
+{
+  "width": 1080,
+  "height": 1080,
+  "fps": 30,
+  "frames": 240,
+  "seed": 20241,
+  "ground": "#0B0D14",
+  "palette": ["#FF6B4A", "#FFB454", "#FF8FA8"],
+  "glow": 40,
+  "shapes": 9,
+  "particles": 700,
+  "stateFrames": [0, 60, 120, 180],
+  "comment": "frames must be a multiple of 60; stateFrames are the four quarter starts"
+}

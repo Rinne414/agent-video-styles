@@ -133,6 +133,76 @@ def font_option() -> str:
     return ""
 
 
+EDGE_BAND_PX = 8
+EDGE_DARK = 6  # mean luma at or below this counts as black
+EDGE_CONTRAST = 24  # the inner band must be at least this much brighter
+EDGES = {  # name: (outer crop, inner crop)
+    "right": (
+        f"{EDGE_BAND_PX}:ih:iw-{EDGE_BAND_PX}:0",
+        f"{EDGE_BAND_PX}:ih:iw-{2 * EDGE_BAND_PX}:0",
+    ),
+    "left": (f"{EDGE_BAND_PX}:ih:0:0", f"{EDGE_BAND_PX}:ih:{EDGE_BAND_PX}:0"),
+    "bottom": (
+        f"iw:{EDGE_BAND_PX}:0:ih-{EDGE_BAND_PX}",
+        f"iw:{EDGE_BAND_PX}:0:ih-{2 * EDGE_BAND_PX}",
+    ),
+    "top": (f"iw:{EDGE_BAND_PX}:0:0", f"iw:{EDGE_BAND_PX}:0:{EDGE_BAND_PX}"),
+}
+
+
+def edge_stripes(path: str, duration: float, samples: int = 8) -> list[str]:
+    """Find black bands along an edge that the neighbouring pixels do not share.
+
+    Catches encoder padding bugs (e.g. a renderer that pads odd widths with black)
+    that are invisible in thumbnails. Letterboxing is not flagged, because there
+    the inner band is dark too.
+    """
+    crops = [c for pair in EDGES.values() for c in pair]
+    labels = "".join(f"[s{i}]" for i in range(len(crops)))
+    chains = ";".join(
+        f"[s{i}]crop={c},scale=1:1:flags=area[o{i}]" for i, c in enumerate(crops)
+    )
+    outs = "".join(f"[o{i}]" for i in range(len(crops)))
+    graph = (
+        f"fps={samples}/{duration:.3f},split={len(crops)}{labels};{chains};"
+        f"{outs}hstack=inputs={len(crops)},format=gray"
+    )
+    res = subprocess.run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-i",
+            path,
+            "-an",
+            "-filter_complex",
+            graph,
+            "-f",
+            "rawvideo",
+            "-",
+        ],
+        capture_output=True,
+    )
+    data = res.stdout
+    if res.returncode != 0 or not data:
+        return []
+    found = []
+    width = len(crops)
+    rows = [data[i : i + width] for i in range(0, len(data) - width + 1, width)]
+    for k, name in enumerate(EDGES):
+        hits = sum(
+            1
+            for r in rows
+            if r[2 * k] <= EDGE_DARK and r[2 * k + 1] - r[2 * k] >= EDGE_CONTRAST
+        )
+        if hits >= 2:
+            found.append(
+                f"{name} edge: {EDGE_BAND_PX} px black band in {hits}/{len(rows)} sampled frames "
+                "(renderer padding? HyperFrames pads widths not divisible by 16)"
+            )
+    return found
+
+
 def build_sheet(path: str, duration: float, frames: int, out: str) -> bool:
     """Tile `frames` evenly spaced thumbnails, with timestamps when drawtext works."""
     cols = min(4, frames)
@@ -247,6 +317,7 @@ def main() -> int:
             warnings.append(
                 f"video looks static: frozen for {freeze:.1f}s of {duration:.1f}s"
             )
+        warnings.extend(edge_stripes(args.video, duration))
         Path(args.out).parent.mkdir(parents=True, exist_ok=True)
         if not build_sheet(args.video, duration, max(args.frames, 1), args.out):
             warnings.append(f"contact sheet was not written to {args.out}")

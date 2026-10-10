@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationFrames": 300
+  },
+  "brand": {
+    "title": "PIXEL RIFT",
+    "tagline": "Where pixels break free",
+    "hudTopLeft": "PXR // SIGNAL",
+    "hudBottomLeft": "RIFT.EXE v0.1",
+    "hudBottomRight": "SEED 2077"
+  },
+  "seed": 2077,
+  "reducedFlashing": false,
+  "colors": {
+    "ground": "#05060A",
+    "ink": "#F2F5FA",
+    "cyan": "#00E5FF",
+    "magenta": "#FF2E93",
+    "muted": "#B8C0CC"
+  },
+  "type": {
+    "display": "Space Grotesk",
+    "mono": "JetBrains Mono",
+    "titleSize": 168,
+    "taglineSize": 46,
+    "monoSize": 22
+  },
+  "layout": {
+    "logoCenterY": 500,
+    "taglineY": 700,
+    "markCell": 28,
+    "markGap": 6,
+    "lockupGap": 60
+  },
+  "beats": {
+    "bracketsDraw": [
+      3,
+      24
+    ],
+    "revealAt": 30,
+    "holoFlickerIn": [
+      92,
+      104
+    ],
+    "holoFlickerOut": [
+      136,
+      150
+    ],
+    "holoFlickerBack": [
+      160,
+      170
+    ],
+    "shatterAt": 200,
+    "lockAt": 226,
+    "taglineIn": [
+      232,
+      246
+    ]
+  },
+  "bursts": [
+    {
+      "start": 6,
+      "len": 5,
+      "intensity": 0.8,
+      "note": "opening tear on HUD"
+    },
+    {
+      "start": 24,
+      "len": 3,
+      "intensity": 0.5,
+      "note": "idle micro-burst"
+    },
+    {
+      "start": 30,
+      "len": 6,
+      "intensity": 1.0,
+      "note": "title resolve"
+    },
+    {
+      "start": 39,
+      "len": 4,
+      "intensity": 0.6,
+      "note": "aftershock"
+    },
+    {
+      "start": 51,
+      "len": 3,
+      "intensity": 0.4,
+      "note": "aftershock"
+    },
+    {
+      "start": 120,
+      "len": 3,
+      "intensity": 0.5,
+      "note": "hold micro-burst"
+    },
+    {
+      "start": 152,
+      "len": 5,
+      "intensity": 0.9,
+      "note": "tear while logo is out"
+    },
+    {
+      "start": 172,
+      "len": 3,
+      "intensity": 0.5,
+      "note": "hold micro-burst"
+    },
+    {
+      "start": 226,
+      "len": 2,
+      "intensity": 1.0,
+      "note": "hard cut / lock-in",
+      "mode": "cut"
+    }
+  ],
+  "shatter": {
+    "cols": 12,
+    "rows": 7,
+    "frames": 14,
+    "maxDelay": 10,
+    "driftMin": 20,
+    "driftMax": 80,
+    "rotateMax": 8
+  },
+  "tear": {
+    "slicesMin": 4,
+    "slicesMax": 8,
+    "heightMin": 20,
+    "heightMax": 120,
+    "holdEvery": 2
+  }
+}

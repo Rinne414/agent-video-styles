@@ -1,0 +1,79 @@
+id: chat-social-ui
+tier: experimental
+evidence_strength: medium
+name:
+  en: Chat & Social UI Story
+  zh: 聊天与社交界面故事
+tagline:
+  en: A fake phone thread where messages type, pop and react one by one, paced like a real conversation.
+  zh: 仿真手机聊天界面，消息逐条输入、弹出、点赞，节奏贴近真实对话。
+signature:
+  en:
+    - Vertical phone screen with a thread anchored to the bottom and older bubbles pushed up
+    - Typing-indicator dots before every incoming bubble, text typed into the input bar before every sent one
+    - Spring-in bubbles, tapback reactions, Delivered to Read receipt under the last sent message
+    - Notification banners and X-style post cards as cutaway beats
+  zh:
+    - 竖屏手机界面，对话固定在底部，旧气泡向上顶出
+    - 每条收到的消息前有输入中三点，每条发出的消息先在输入栏逐字打出
+    - 气泡弹簧弹入、点赞表情反应、最后一条已发送消息下方“已送达”变“已读”
+    - 通知横幅与推文卡片作为插入镜头
+best_for:
+  en:
+    - Story-driven or meme shorts told as a text conversation on TikTok, Reels and Shorts
+    - AI product demos that show a prompt box or chat exchange typing out
+  zh:
+    - 抖音、TikTok、Reels、Shorts 上以聊天记录讲述的故事或梗短片
+    - 展示提示词输入框或对话过程的 AI 产品演示
+avoid_when:
+  en:
+    - The product's real interface must be shown (use ui-camera-tour)
+    - The story is numbers or a dataset (use data-story-charts)
+  zh:
+    - 必须展示产品真实界面（改用 ui-camera-tour）
+    - 内容是数据或数字（改用 data-story-charts）
+tags:
+  use: [social-short, explainer, product-launch]
+  platform: [tiktok-douyin, instagram-reels, youtube-shorts, x]
+  aspect: ["9:16", "16:9"]
+  audio: [music, sfx, captions]
+  mood: [playful, energetic]
+  needs: [script]
+duration: 15-45 s
+difficulty: 2
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Message cadence is a list of timed events, which fits a HyperFrames build script that emits static markup plus one proxy tween. Remotion works equally well and has an iMessage-thread library as prior art.
+    zh: 消息节奏本质上是一串定时事件，适合用 HyperFrames 构建脚本生成静态标记加单个代理补间。Remotion 同样胜任，并已有 iMessage 对话库可参考。
+variants:
+  - id: composer-box
+    en: 16:9 white ground, one large prompt box, text dropping in character by character, camera following the caret, headline below.
+    zh: 16:9 白底，一个大号提示词输入框，文字逐字落入，镜头跟随光标，下方出现标题。
+  - id: social-feed
+    en: Post cards (avatar, name, text, like counter) stack in a feed, each revealing with a spring and a counting like total.
+    zh: 推文卡片（头像、昵称、正文、点赞数）在信息流中依次弹出，点赞数滚动增加。
+evidence:
+  - creator: HeyGen (heygen-com)
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes-launches/tree/main/codex-five-hour-limit-replica
+    tool: HyperFrames + GSAP
+    note: Finished example for the composer-box variant only (10 s, 3840x2160, silent, vendor-made replica of a third-party clip; the figure is a Veo alpha WebM, so hybrid). Not a message-thread video.
+    verified: opened
+  - creator: nikosmaheras-code
+    platform: GitHub
+    region: unknown
+    url: https://github.com/nikosmaheras-code/remotion-imessage
+    tool: Remotion
+    note: Component library, not a finished video; iMessage threads at 1080x1920 with typing indicators and tapbacks. Source of the cadence numbers.
+    verified: opened
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames
+    note: Component library, not a finished video; blocks chatgpt-exchange, x-post, message-thread-reveal.
+    verified: opened
+template: templates/chat-social-ui

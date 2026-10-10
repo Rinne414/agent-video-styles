@@ -6,7 +6,7 @@
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
     "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot",
-    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/pixel-retro.mp4"
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/raw.mp4 && ffmpeg -y -i out/raw.mp4 -vf crop=1080:1920:0:0 -c:v libx264 -crf 14 -preset slow -pix_fmt yuv420p -movflags +faststart out/pixel-retro.mp4"
   },
   "devDependencies": {
     "@fontsource/press-start-2p": "5.2.7",

@@ -1,0 +1,74 @@
+id: vintage-sketch
+tier: experimental
+evidence_strength: weak
+name:
+  en: Vintage Sketch
+  zh: 复古素描
+tagline:
+  en: Sepia paper, hatched engraving lines drawing themselves on, classic serifs and rust-red margin notes.
+  zh: 泛黄纸面、自己画出来的排线雕版插图、经典衬线字与锈红批注。
+signature:
+  en:
+    - Sepia paper ground with fine grain, a faint fold line and a vignette
+    - Engraving-style line art drawn on stroke by stroke, then filled with parallel hatching
+    - Classic serif headlines in dark brown ink, figure numbers and italic notes in rust red
+    - Stamps and leader-line annotations landing on the plate like a printed field guide
+  zh:
+    - 泛黄纸面，带细颗粒、淡折痕与暗角
+    - 雕版风线稿逐笔绘出，再用平行排线填充明暗
+    - 深棕墨色经典衬线标题，图号与斜体批注用锈红
+    - 印章与引线批注落在图版上，像印刷的图鉴
+best_for:
+  en:
+    - History, craft, heritage and biography explainers
+    - Museum, archive or book-style teasers (20-45 s)
+  zh:
+    - 历史、工艺、文化遗产与人物传记类讲解
+    - 博物馆、档案或图书风格的预告短片（20-45 秒）
+avoid_when:
+  en:
+    - The brief needs fast social energy or a modern tech tone (use kinetic-typography)
+    - Hand-drawn marker explanation on a board is wanted (use whiteboard-handwriting)
+    - A soft illustrated children's look is wanted (use storybook-picture-book)
+  zh:
+    - 需要高能量社交节奏或现代科技感（改用 kinetic-typography）
+    - 想要白板马克笔手绘讲解（改用 whiteboard-handwriting）
+    - 想要柔和的儿童插画风（改用 storybook-picture-book）
+tags:
+  use: [explainer, education, brand-reel]
+  platform: [youtube, instagram-reels, website-hero]
+  aspect: ["16:9", "4:5"]
+  audio: [music, voiceover]
+  mood: [retro, editorial, calm]
+  needs: [script]
+duration: 20-45 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [html-capture]
+  why:
+    en: Line drawing is stroke-dashoffset on SVG paths and the paper is CSS plus a baked grain image, all easy to express as HTML with GSAP. A canvas page rendered through html-capture works when the plates are drawn procedurally.
+    zh: 线条绘出就是 SVG 路径的 stroke-dashoffset，纸面由 CSS 加预烘焙的颗粒图完成，用 HTML 加 GSAP 最顺手。若图版由程序绘制，也可用 html-capture 渲染 canvas 页面。
+variants:
+  - id: field-guide
+    en: Numbered specimen plates (Fig. 1-3) with Latin-style captions and a measurement scale bar.
+    zh: 编号标本图版（图 1-3），带拉丁风格图注与比例尺。
+  - id: postcard
+    en: Plate framed as a postcard with a postmark stamp and a handwritten-style message; 4:5 friendly.
+    zh: 图版装进明信片，带邮戳与手写风留言；适合 4:5。
+evidence:
+  - creator: bang-motion (bangtutorial)
+    platform: GitHub
+    region: global
+    url: https://github.com/bangtutorial/bang-motion
+    tool: HyperFrames skill pack
+    note: Skill pack, not a finished video. Its 'Vintage sketch' direction names sepia paper, engraving-style art, classic serifs and rust-colored annotations; only a still frame (docs/gallery/10-vintage-sketch.jpg) exists.
+    verified: opened
+  - creator: des13 / 益盛科技
+    platform: Company blog
+    region: tw
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Claude Code + HyperFrames
+    note: Adjacent only - a 45 s heritage church video (paper-cut to watercolor to postcard and stamp), not sepia engraving. Shows the heritage-photo-to-illustration approach.
+    verified: opened
+template: templates/vintage-sketch

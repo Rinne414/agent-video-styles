@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const c = JSON.parse(readFileSync(join(root, "content.json"), "utf8"));
 const { width: W, height: H, fps: FPS, bpm: BPM, offsetFrames, totalBeats } = c.video;
+// HyperFrames blacks out the right-most 8 px when width is not a multiple of 16: compose wider, crop in `pnpm run render`.
+const CW = Math.ceil(W / 16) * 16;
 const { motion: M, palette: P, font: F, poster, phraseTiming: PT } = c;
 
 // Beat grid: always computed from the beat index, never accumulated.
@@ -73,21 +75,21 @@ const page = `<!doctype html>
 <html lang="en" data-resolution="portrait">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=${W}, height=${H}" />
+<meta name="viewport" content="width=${CW}, height=${H}" />
 <script src="vendor/gsap.min.js"></script>
 <style>
 @font-face { font-family: "Anton"; src: url("fonts/anton.woff2") format("woff2"); font-weight: 400; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: ${W}px; height: ${H}px; overflow: hidden; background: ${P.black}; }
+html, body { width: ${CW}px; height: ${H}px; overflow: hidden; background: ${P.black}; }
 #root { position: relative; width: 100%; height: 100%; font-family: "${F.family}", sans-serif; }
-.scene { position: absolute; inset: 0; overflow: hidden; }
-.word { position: absolute; left: 0; top: 0; width: 100%; height: ${M.anchorY * 2}px; display: flex; align-items: center; justify-content: center; white-space: nowrap; line-height: ${F.lineHeight}; letter-spacing: ${F.tracking}; opacity: 0; transform-origin: 50% 50%; }
-.field { position: absolute; inset: 0; }
-.ptext { position: absolute; left: 0; top: 0; width: 100%; height: ${M.anchorY * 2}px; display: flex; align-items: center; justify-content: center; white-space: nowrap; line-height: ${F.lineHeight}; letter-spacing: ${F.tracking}; }
+.scene { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; overflow: hidden; }
+.word { position: absolute; left: 0; top: 0; width: ${W}px; height: ${M.anchorY * 2}px; display: flex; align-items: center; justify-content: center; white-space: nowrap; line-height: ${F.lineHeight}; letter-spacing: ${F.tracking}; opacity: 0; transform-origin: 50% 50%; }
+.field { position: absolute; left: 0; top: 0; width: ${W}px; height: ${H}px; }
+.ptext { position: absolute; left: 0; top: 0; width: ${W}px; height: ${M.anchorY * 2}px; display: flex; align-items: center; justify-content: center; white-space: nowrap; line-height: ${F.lineHeight}; letter-spacing: ${F.tracking}; }
 </style>
 </head>
 <body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="${sec(TOTAL)}" data-width="${W}" data-height="${H}">
+<div id="root" data-composition-id="main" data-start="0" data-duration="${sec(TOTAL)}" data-width="${CW}" data-height="${H}">
 ${html}</div>
 <script>
 const tl = gsap.timeline({ paused: true });

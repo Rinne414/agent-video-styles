@@ -1,0 +1,295 @@
+{
+  "voice": "en-US-GuyNeural",
+  "segments": [
+    {
+      "id": "open",
+      "file": "open.mp3",
+      "duration_ms": 4560,
+      "words": [
+        {
+          "text": "Welcome",
+          "start_ms": 96,
+          "end_ms": 536
+        },
+        {
+          "text": "to",
+          "start_ms": 559,
+          "end_ms": 652
+        },
+        {
+          "text": "the",
+          "start_ms": 663,
+          "end_ms": 779
+        },
+        {
+          "text": "tech",
+          "start_ms": 802,
+          "end_ms": 1022
+        },
+        {
+          "text": "desk",
+          "start_ms": 1045,
+          "end_ms": 1462
+        },
+        {
+          "text": "This",
+          "start_ms": 2268,
+          "end_ms": 2523
+        },
+        {
+          "text": "is",
+          "start_ms": 2535,
+          "end_ms": 2651
+        },
+        {
+          "text": "a",
+          "start_ms": 2674,
+          "end_ms": 2732
+        },
+        {
+          "text": "sample",
+          "start_ms": 2755,
+          "end_ms": 3172
+        },
+        {
+          "text": "bulletin",
+          "start_ms": 3194,
+          "end_ms": 3726
+        }
+      ]
+    },
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 5592,
+      "words": [
+        {
+          "text": "Story",
+          "start_ms": 96,
+          "end_ms": 524
+        },
+        {
+          "text": "one",
+          "start_ms": 548,
+          "end_ms": 907
+        },
+        {
+          "text": "A",
+          "start_ms": 1701,
+          "end_ms": 1794
+        },
+        {
+          "text": "new",
+          "start_ms": 1817,
+          "end_ms": 1979
+        },
+        {
+          "text": "model",
+          "start_ms": 1991,
+          "end_ms": 2303
+        },
+        {
+          "text": "ships",
+          "start_ms": 2315,
+          "end_ms": 2616
+        },
+        {
+          "text": "with",
+          "start_ms": 2639,
+          "end_ms": 2778
+        },
+        {
+          "text": "a",
+          "start_ms": 2801,
+          "end_ms": 2859
+        },
+        {
+          "text": "two",
+          "start_ms": 2882,
+          "end_ms": 3067
+        },
+        {
+          "text": "million",
+          "start_ms": 3079,
+          "end_ms": 3415
+        },
+        {
+          "text": "token",
+          "start_ms": 3438,
+          "end_ms": 3785
+        },
+        {
+          "text": "context",
+          "start_ms": 3808,
+          "end_ms": 4306
+        },
+        {
+          "text": "window",
+          "start_ms": 4329,
+          "end_ms": 4746
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 5376,
+      "words": [
+        {
+          "text": "Story",
+          "start_ms": 96,
+          "end_ms": 559
+        },
+        {
+          "text": "two",
+          "start_ms": 571,
+          "end_ms": 953
+        },
+        {
+          "text": "An",
+          "start_ms": 1748,
+          "end_ms": 1933
+        },
+        {
+          "text": "open",
+          "start_ms": 1956,
+          "end_ms": 2211
+        },
+        {
+          "text": "image",
+          "start_ms": 2234,
+          "end_ms": 2500
+        },
+        {
+          "text": "dataset",
+          "start_ms": 2512,
+          "end_ms": 2963
+        },
+        {
+          "text": "passes",
+          "start_ms": 2986,
+          "end_ms": 3368
+        },
+        {
+          "text": "one",
+          "start_ms": 3391,
+          "end_ms": 3657
+        },
+        {
+          "text": "billion",
+          "start_ms": 3681,
+          "end_ms": 4005
+        },
+        {
+          "text": "images",
+          "start_ms": 4028,
+          "end_ms": 4537
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 5208,
+      "words": [
+        {
+          "text": "Story",
+          "start_ms": 96,
+          "end_ms": 536
+        },
+        {
+          "text": "three",
+          "start_ms": 559,
+          "end_ms": 1057
+        },
+        {
+          "text": "A",
+          "start_ms": 1852,
+          "end_ms": 1956
+        },
+        {
+          "text": "robotics",
+          "start_ms": 1968,
+          "end_ms": 2454
+        },
+        {
+          "text": "startup",
+          "start_ms": 2477,
+          "end_ms": 2871
+        },
+        {
+          "text": "raises",
+          "start_ms": 2894,
+          "end_ms": 3218
+        },
+        {
+          "text": "forty",
+          "start_ms": 3241,
+          "end_ms": 3542
+        },
+        {
+          "text": "million",
+          "start_ms": 3553,
+          "end_ms": 3865
+        },
+        {
+          "text": "dollars",
+          "start_ms": 3889,
+          "end_ms": 4364
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "file": "close.mp3",
+      "duration_ms": 4704,
+      "words": [
+        {
+          "text": "That",
+          "start_ms": 96,
+          "end_ms": 385
+        },
+        {
+          "text": "was",
+          "start_ms": 409,
+          "end_ms": 583
+        },
+        {
+          "text": "the",
+          "start_ms": 606,
+          "end_ms": 722
+        },
+        {
+          "text": "sample",
+          "start_ms": 744,
+          "end_ms": 1172
+        },
+        {
+          "text": "bulletin",
+          "start_ms": 1196,
+          "end_ms": 1682
+        },
+        {
+          "text": "All",
+          "start_ms": 2488,
+          "end_ms": 2720
+        },
+        {
+          "text": "stories",
+          "start_ms": 2743,
+          "end_ms": 3160
+        },
+        {
+          "text": "are",
+          "start_ms": 3183,
+          "end_ms": 3287
+        },
+        {
+          "text": "fictional",
+          "start_ms": 3310,
+          "end_ms": 3877
+        }
+      ]
+    }
+  ]
+}

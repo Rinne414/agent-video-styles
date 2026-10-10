@@ -1,0 +1,175 @@
+{
+  "theme": {
+    "paper": "#EFE3C8",
+    "ink": "#3B2A1A",
+    "inkSoft": "#6B5640",
+    "rust": "#A4452C",
+    "font": "EB Garamond",
+    "titleSize": 132,
+    "headSize": 100,
+    "noteSize": 38,
+    "figSize": 30,
+    "eraSize": 40,
+    "contourWidth": 3,
+    "hatchWidth": 1.5,
+    "hatchGap": 9,
+    "fps": 30
+  },
+  "timing": {
+    "title": 75,
+    "plates": [
+      190,
+      195,
+      190
+    ],
+    "colophon": 100,
+    "fade": 6
+  },
+  "title": {
+    "lines": [
+      "How a clock",
+      "keeps time"
+    ],
+    "era": "Mechanical clockwork: the anchor escapement, c. 1670"
+  },
+  "plates": [
+    {
+      "fig": "Fig. 1",
+      "caption": "The power source",
+      "head": "A weight stores the power",
+      "notes": [
+        {
+          "text": "a weight, sinking slowly",
+          "x": 1080,
+          "y": 725,
+          "at": 66,
+          "lead": [
+            1068,
+            713,
+            826,
+            700
+          ]
+        },
+        {
+          "text": "or a spring, unwinding",
+          "x": 330,
+          "y": 912,
+          "at": 92,
+          "lead": [
+            495,
+            872,
+            495,
+            826
+          ]
+        },
+        {
+          "text": "the gear passes the pull on",
+          "x": 1080,
+          "y": 395,
+          "at": 118,
+          "lead": [
+            1068,
+            383,
+            806,
+            420
+          ]
+        }
+      ]
+    },
+    {
+      "fig": "Fig. 2",
+      "caption": "Escape wheel and anchor",
+      "head": "The escapement frees one tooth",
+      "notes": [
+        {
+          "text": "tick: the anchor catches a tooth",
+          "x": 1080,
+          "y": 470,
+          "at": 62,
+          "lead": [
+            1068,
+            458,
+            706,
+            466
+          ]
+        },
+        {
+          "text": "tock: it frees the next",
+          "x": 1080,
+          "y": 640,
+          "at": 88,
+          "lead": [
+            1068,
+            628,
+            784,
+            694
+          ]
+        },
+        {
+          "text": "one tooth per swing",
+          "x": 1080,
+          "y": 810,
+          "at": 112,
+          "lead": [
+            1068,
+            798,
+            800,
+            790
+          ]
+        }
+      ]
+    },
+    {
+      "fig": "Fig. 3",
+      "caption": "The pendulum",
+      "head": "The pendulum keeps the beat",
+      "notes": [
+        {
+          "text": "one swing, one second",
+          "x": 1080,
+          "y": 790,
+          "at": 64,
+          "lead": [
+            1068,
+            778,
+            772,
+            828
+          ]
+        },
+        {
+          "text": "a rod about one metre long",
+          "x": 1080,
+          "y": 480,
+          "at": 90,
+          "lead": [
+            1068,
+            468,
+            652,
+            402
+          ]
+        },
+        {
+          "text": "the anchor nudges it each swing",
+          "x": 1080,
+          "y": 340,
+          "at": 116,
+          "lead": [
+            1068,
+            328,
+            658,
+            330
+          ]
+        }
+      ]
+    }
+  ],
+  "colophon": {
+    "lines": [
+      "Weight pushes.",
+      "Escapement counts.",
+      "Pendulum keeps the beat."
+    ],
+    "source": "Schematic drawing, not to scale. Sample illustration for demonstration.",
+    "stamp": "KEEPS TIME"
+  }
+}

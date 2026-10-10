@@ -1,0 +1,81 @@
+id: storybook-picture-book
+tier: experimental
+evidence_strength: medium
+name:
+  en: Storybook Picture Book
+  zh: 绘本故事
+tagline:
+  en: Soft watercolor-paper pages, code-drawn shapes, page turns and a gentle voice.
+  zh: 水彩纸质感的页面、代码绘制的柔和图形、翻页转场与轻柔旁白。
+signature:
+  en:
+    - Each scene is a page with a generated watercolor-paper grain and wobbly hand-drawn outlines
+    - Round, soft shapes - sun, hills, animals built from circles and blobs
+    - Page-turn transition every 4 s with a paper sound
+    - One or two lines of story text per page, read aloud or music-box only
+  zh:
+    - 每个场景是一页，带程序生成的水彩纸颗粒与抖动的手绘轮廓
+    - 圆润柔和的图形：太阳、山丘、由圆和团块搭成的动物
+    - 每 4 秒一次翻页转场，配纸张声
+    - 每页一两句故事文字，可配朗读或仅用八音盒
+best_for:
+  en:
+    - Children's bedtime stories and holiday greetings (30-60 s)
+    - Gentle heritage or brand stories told as picture-book pages
+  zh:
+    - 儿童睡前故事与节日祝福（30-60 秒）
+    - 以绘本页形式讲述的温和的文化或品牌故事
+avoid_when:
+  en:
+    - The audience expects detailed illustrated characters; code-drawn shapes cannot match an illustrator (use line-reveal-story with supplied art)
+    - The topic is a technical explainer (use flat-cartoon-explainer)
+    - A cut-paper, stepped look is wanted (use paper-cut-collage)
+  zh:
+    - 受众期待精细的插画角色，代码绘制的图形无法媲美插画师（有素材时改用 line-reveal-story）
+    - 主题是技术讲解（改用 flat-cartoon-explainer）
+    - 想要剪纸、定格感的外观（改用 paper-cut-collage）
+tags:
+  use: [education, social-short, brand-reel]
+  platform: [youtube, bilibili, youtube-shorts, instagram-reels, tiktok-douyin]
+  aspect: ["16:9", "9:16", "1:1"]
+  audio: [music, sfx, voiceover, captions]
+  mood: [calm, playful, retro]
+  needs: [script]
+duration: 30-60 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Narration sets page lengths, and HyperFrames pairs SVG/canvas drawing with GSAP and the TTS timeline contract. Remotion works if the page art is React components.
+    zh: 旁白决定每页时长，HyperFrames 将 SVG/canvas 绘制、GSAP 与 TTS 时间线约定自然结合。若页面插画用 React 组件实现，也可用 Remotion。
+variants:
+  - id: music-box-only
+    en: No voiceover; a synthesized music-box arpeggio and large page text carry the story.
+    zh: 无旁白，由合成八音盒琶音和较大的页面文字讲述故事。
+  - id: heritage-postcard
+    en: Pages progress from paper-cut to watercolor to a stamped postcard frame, for history and place stories.
+    zh: 页面由剪纸过渡到水彩，再到带邮戳的明信片边框，适合历史与地方故事。
+evidence:
+  - creator: not stated (unnamed in roundup)
+    platform: WeChat article via ai-bot.cn roundup
+    region: CN
+    url: https://ai-bot.cn/claude-opus-5-5-video-tutorial/
+    tool: Claude Opus 5.5 + Canvas 2D
+    note: 30 s, 7-page rabbit National Day story; noise-generated watercolor paper, hand-drawn wobble, page-turn audio, music-box arpeggio. Described in the article, no media link.
+    verified: opened
+  - creator: des13 (Claude Code, published by 益盛科技)
+    platform: des13.com article
+    region: TW
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Claude Code + HyperFrames
+    note: Adjacent, not a children's book - 45 s 8-scene church history piece, photo to paper-cut to watercolor to postcard/stamp.
+    verified: opened
+  - creator: Li-Evan
+    platform: GitHub
+    region: CN
+    url: https://github.com/Li-Evan/awesome-opus-5.5-video-prompts
+    tool: Opus 5.5 prompts
+    note: Category Stories / Hand-drawn / Stop-motion; a prompt list, not a finished video; supporting only.
+    verified: opened
+template: templates/storybook-picture-book

@@ -21,6 +21,7 @@
 | Prose | `Text(..., font="Inter")` 28-36; CJK `Text(..., font="Noto Sans SC")` |
 | Strokes | main shapes `stroke_width` 4, auxiliary lines 2 |
 | Layout | one idea per screen; equation in the top third (`to_edge(UP, buff=0.6)`), geometry in the center; keep `buff >= 0.3` between mobjects |
+| Caption safe area | frame is 8 units high (135 px/unit at 1080p; a vertical frame is 8 x 14.22). Caption bottom edge 0.6 units (80 px) above the frame bottom, or 0.67 (90 px) when the brief asks for 90 px. Anchor it with `align_to`, not `to_edge(DOWN)` (about 54 px), see `../tools/manim.md`. An equation in the top third needs `to_edge(UP, buff >= 0.8)` for a similar margin; lower the geometry if a top brace label would collide |
 
 Color is meaning: once `r` is gold, every `r` stays gold in every equation and shape (`set_color_by_tex` or `{{ }}` substrings). Result rule: the box or outline around a final answer is green; the symbols inside keep their own colors. `set_color_by_tex("r")` matches substrings such as `\frac`; color parts by exact match over `tex_strings`.
 
@@ -46,6 +47,19 @@ Color is meaning: once `r` is gold, every `r` stays gold in every equation and s
 | Recap | 3300-3600 | One-line summary, held |
 
 Manim works in seconds (`run_time`, `wait`); with narration, scene timing comes from the narration segments.
+
+Short piece, about 40 s (about 6 segments, roughly 105-115 narrated words at 2.4 words/s; a 42 s result was reported from one run):
+
+| Segment | Seconds | Content |
+|---|---|---|
+| 1 Question | 0-5 | State the puzzle with one concrete visual |
+| 2 Build | 5-13 | Build the concrete example (a small `n` such as 5), term by term |
+| 3 Copy / rotate | 13-21 | Copy the construction and rotate it (a rigid `Rotate` of the whole group is enough) so the pieces pair up |
+| 4 Rectangle | 21-28 | The pairs form a simple shape; label its sides, gold on the quantity discussed |
+| 5 Formula | 28-36 | Equation emerges from the picture (split with `{{ }}`), `Circumscribe` + green box |
+| 6 Recap | 36-42 | One-line summary, held >= 2 s |
+
+Scale the first four segments for other short lengths; keep question and recap fixed.
 
 ## Audio
 
@@ -77,7 +91,7 @@ Format: 1920x1080 30fps, <length> s; LaTeX available: yes/no
 
 - **No LaTeX**: `MathTex` raises at render. Install a TeX distribution (on Windows MiKTeX with on-the-fly package install enabled) or fall back to `Text` with Unicode.
 - **TeX errors**: use raw strings `r"\frac{a}{b}"`; LaTeX errors surface as cryptic log paths - read the `.log` in `media/Tex`.
-- **Transforms that scramble**: `TransformMatchingTex` only matches identical substrings; split with `{{ }}` consistently in both equations.
+- **Transforms that scramble**: `TransformMatchingTex` only matches identical substrings; split with `{{ }}` consistently in both equations, with a space around every group (adjacent groups merge, see `../tools/manim.md`). `Indicate(eq[-1])` indexes by part position, so print `[p.tex_string for p in eq]` first.
 - **CE vs GL**: Manim Community (`from manim import *`) and 3b1b ManimGL (`from manimlib import *`) have different APIs; never mix examples from both.
 - **Slow iteration**: preview with `-ql`, render final with `-qh` (or `-r 1920,1080 --fps 30`).
 - **Overlapping mobjects**: position with `next_to`, `arrange(buff=0.4)` and `to_edge`, never absolute coordinates guessed by eye.

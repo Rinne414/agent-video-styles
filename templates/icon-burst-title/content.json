@@ -1,0 +1,66 @@
+{
+  "title": "Code with Kai",
+  "titleAccentWord": "Kai",
+  "tagline": "New videos every week",
+  "icons": [
+    { "icon": "terminal", "label": "Learn" },
+    { "icon": "lightbulb", "label": "Build" },
+    { "icon": "rocket", "label": "Ship" }
+  ],
+  "colors": {
+    "ground": "#1E1E1E",
+    "accent": "#E55A2B",
+    "accentLight": "#FFB38F",
+    "text": "#FFFFFF"
+  },
+  "video": { "width": 1920, "height": 1080, "fps": 30, "durationInFrames": 300 },
+  "sizes": {
+    "titlePx": 180,
+    "titleSmallScale": 0.7,
+    "labelPx": 120,
+    "taglinePx": 80,
+    "iconPx": 180,
+    "iconStrokePx": 11,
+    "dotPx": 48,
+    "rayCount": 12,
+    "rayWidthPx": 10,
+    "rayLengthPx": 460,
+    "badgePx": 520,
+    "badgeRingPx": 8,
+    "badgeOrbitRadiusPx": 150,
+    "badgeSettleScale": 0.8
+  },
+  "layout": {
+    "centerX": 960,
+    "centerY": 540,
+    "titleTopY": 170,
+    "rowsCenterY": 650,
+    "rowGapPx": 230,
+    "iconX": 700,
+    "labelX": 900,
+    "badgeSettleX": 540,
+    "taglineX": 830
+  },
+  "timing": {
+    "dotRiseFrames": 24,
+    "raysStart": 24,
+    "raysExtendFrames": 14,
+    "raysRetractFrames": 18,
+    "titleStart": 40,
+    "letterGapFrames": 4,
+    "titleMoveStart": 100,
+    "titleMoveFrames": 24,
+    "iconsStart": 112,
+    "iconGapFrames": 8,
+    "iconFlyFrames": 20,
+    "labelDelayFrames": 6,
+    "orbitStart": 176,
+    "orbitFrames": 45,
+    "settleStart": 226,
+    "settleFrames": 24,
+    "taglineStart": 236,
+    "taglineFrames": 18,
+    "fadeOutFrames": 9,
+    "cameraZoomEnd": 1.03
+  }
+}

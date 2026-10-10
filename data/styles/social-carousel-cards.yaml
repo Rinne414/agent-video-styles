@@ -1,0 +1,74 @@
+id: social-carousel-cards
+tier: experimental
+evidence_strength: weak
+name:
+  en: Social Carousel Cards
+  zh: 社交轮播卡片
+tagline:
+  en: 4:5 cards with bold copy, swiped one by one like an Instagram or Xiaohongshu carousel, with a still exported per card.
+  zh: 4:5 卡片配大字文案，像 Instagram、小红书轮播一样逐张滑动，每张卡同时导出静态图。
+signature:
+  en:
+    - 1080x1350 cards on a warm paper ground with a strict four-color limit
+    - Two to three lines of oversized copy plus one simple visual per card
+    - A horizontal swipe-and-snap between cards, page counter and swipe hint
+    - Every card also exported as a numbered PNG for posting as a real carousel
+  zh:
+    - 1080x1350 卡片，暖色纸面，严格限定四种颜色
+    - 每张卡 2-3 行超大文案加一个简洁视觉元素
+    - 卡片之间水平滑动并吸附定格，带页码与滑动提示
+    - 每张卡同时导出编号 PNG，可直接作为真正的轮播发布
+best_for:
+  en:
+    - Tips, listicles, tutorials and recaps for Instagram and Xiaohongshu feeds
+    - Turning one article or thread into a swipeable post plus a preview clip
+  zh:
+    - 面向 Instagram 与小红书信息流的干货、清单、教程与复盘
+    - 把一篇文章或长推文变成可滑动的图文加预览短片
+avoid_when:
+  en:
+    - The message needs long explanation or narration (use card-explainer)
+    - A product launch with UI and beat cuts is wanted (use saas-launch-promo)
+    - Kinetic full-screen text is wanted (use kinetic-typography)
+  zh:
+    - 内容需要长篇讲解或旁白（改用 card-explainer）
+    - 需要带 UI 与卡点的产品发布片（改用 saas-launch-promo）
+    - 需要全屏动态文字（改用 kinetic-typography）
+tags:
+  use: [social-short, education, tutorial]
+  platform: [instagram-reels, tiktok-douyin]
+  aspect: ["4:5"]
+  audio: [music]
+  mood: [playful, editorial]
+  needs: [script]
+duration: 15-45 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: One React component per card, one Still composition per card for the PNG export, and a single horizontal strip for the swipe video, all driven by content.json. HyperFrames works if the strip is plain HTML with GSAP.
+    zh: 每张卡一个 React 组件，每张卡一个 Still 合成用于导出 PNG，再用一条横向长带生成滑动视频，全部由 content.json 驱动。若长带用纯 HTML 加 GSAP 实现，HyperFrames 也可行。
+variants:
+  - id: dark-neon
+    en: Near-black ground with one neon accent; text stays near-white.
+    zh: 近黑底配单一霓虹强调色；文字保持近白。
+  - id: clip-cards
+    en: Some cards hold a 3-4 s screen recording or photo with 1-3 lines of copy, the rest stay static.
+    zh: 部分卡片放 3-4 秒屏幕录制或照片加 1-3 行文案，其余保持静态。
+evidence:
+  - creator: anharu-dev
+    platform: GitHub
+    region: kr
+    url: https://github.com/anharu-dev/haru-cardnews
+    tool: Claude Code plugin + Remotion
+    note: Plugin, not a finished video. Renders 4:5 cards, MP4 for clip cards and PNG for text and CTA cards, with 11 moods; no sample gallery on the page.
+    verified: opened
+  - creator: editor_소연
+    platform: GPTers community
+    region: kr
+    url: https://www.gpters.org/nocode/post/creating-card-news-claude-9TDMoF7L4Q73LcX
+    tool: Claude Code skill (/card-news) + HTML + Puppeteer
+    note: Finished static PNG card-news workflow (1080x1350 at 2x), not video. Source of the palette, 4-color limit and text-size lessons.
+    verified: opened
+template: templates/social-carousel-cards

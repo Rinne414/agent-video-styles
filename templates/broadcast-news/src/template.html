@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=1920, height=1080" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+/*FONTFACE*/
+:root { /*VARS*/ }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 1920px; height: 1080px; background: var(--bg); font-family: Inter, sans-serif; color: var(--text); overflow: hidden; }
+.scene { position: absolute; inset: 0; }
+.panel { position: absolute; left: 0; top: 0; width: var(--panelW); height: var(--panelH); }
+.numeral { position: absolute; left: 0; top: 0; width: var(--panelW); height: var(--panelH); display: flex; align-items: center; justify-content: center;
+  font-family: Anton, sans-serif; font-size: var(--numeral); line-height: 1; font-variant-numeric: tabular-nums; }
+.right { position: absolute; left: var(--cx); top: 0; width: 1420px; height: var(--panelH); }
+.cam { position: absolute; inset: 0; transform-origin: 0 50%; }
+.kicker { position: absolute; left: 0; top: 230px; display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: var(--kicker);
+  letter-spacing: 0.12em; text-transform: uppercase; line-height: 40px; }
+.kicker i { display: block; width: 8px; height: 40px; }
+.headline { position: absolute; left: 0; top: 310px; width: 1100px; font-weight: 800; font-size: var(--headline); line-height: var(--headlineLine); }
+.ln { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.ln > span { display: block; }
+.specs { position: absolute; left: 0; top: 540px; }
+.spec { position: relative; height: var(--specStep); padding-left: 30px; font-weight: 500; font-size: var(--spec); line-height: var(--specStep); color: var(--muted); white-space: nowrap; }
+.spec::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 44px; background: var(--c); }
+/* opening + closing */
+.open-wrap { position: absolute; left: 160px; top: 0; width: 1600px; height: var(--panelH); }
+.open-title { position: absolute; left: 0; top: 300px; font-family: Anton, sans-serif; font-size: 230px; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; }
+.open-sub { position: absolute; left: 0; top: 570px; font-weight: 500; font-size: var(--spec); color: var(--muted); }
+.chips { position: absolute; left: 0; top: 690px; display: flex; gap: 24px; }
+.chip { width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; font-family: Anton, sans-serif; font-size: 72px; }
+.recap-row { position: absolute; left: 0; display: flex; align-items: center; gap: 36px; }
+.recap-num { width: 130px; height: 110px; display: flex; align-items: center; justify-content: center; font-family: Anton, sans-serif; font-size: 80px; }
+.recap-head { font-weight: 800; font-size: 56px; line-height: 1.08; white-space: nowrap; }
+.source { position: absolute; left: 0; top: 790px; font-weight: 500; font-size: 30px; color: var(--muted); white-space: nowrap; }
+.signoff { position: absolute; left: 0; top: 840px; font-weight: 700; font-size: 38px; white-space: nowrap; }
+/* persistent layers */
+.tag { position: absolute; right: var(--safe); top: var(--safe); padding: 8px 16px; border: 2px solid var(--text); font-weight: 700; font-size: var(--tag);
+  letter-spacing: 0.14em; line-height: 1; z-index: 40; background: var(--bg); }
+#ticker { position: absolute; left: 0; top: var(--tickerY); width: 1920px; height: var(--tickerH); background: var(--ticker); z-index: 30; overflow: hidden; }
+#ticker .label { position: absolute; left: 24px; top: 8px; height: 48px; padding: 0 22px; display: flex; align-items: center; background: var(--red); color: #fff;
+  font-weight: 700; font-size: var(--tickerLabel); letter-spacing: 0.1em; z-index: 2; }
+#ticker .win { -webkit-mask-image: linear-gradient(#000,#000); contain: paint; position: absolute; left: 300px; top: 0; right: 0; height: var(--tickerH); overflow: hidden; }
+#ticker .track { position: absolute; left: 0; top: 0; height: var(--tickerH); display: flex; white-space: nowrap; width: max-content; }
+#ticker .item { display: block; line-height: var(--tickerH); font-weight: 600; font-size: var(--tickerText); margin-right: 36px; }
+#ticker .sep { display: block; line-height: var(--tickerH); font-weight: 600; font-size: var(--tickerText); margin-right: 36px; color: var(--muted); }
+#scan { position: absolute; inset: 0; z-index: 50; pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 4px); }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="/*DURATION*/" data-width="1920" data-height="1080">
+<!--AUDIO-->
+<!--SCENES-->
+<div class="tag">/*TAG*/</div>
+<div id="ticker"><div class="label" data-layout-allow-overlap data-layout-ignore>/*LABEL*/</div><div class="win" data-layout-allow-overflow><div class="track" id="track" data-layout-allow-overflow><!--TICKER--></div></div></div>
+<div id="scan"></div>
+</div>
+<script>
+/*PLAN*/
+/*ANIMATE*/
+</script>
+</body></html>

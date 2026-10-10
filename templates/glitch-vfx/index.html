@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "Space Grotesk"; src: url("fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "Space Grotesk"; src: url("fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #05060A; }
+    #root { position: relative; width: 1920px; height: 1080px; }
+    .scene { position: absolute; inset: 0; }
+    canvas { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .preload { position: absolute; left: 0; top: 0; opacity: 0.01; font-size: 8px; color: #05060A; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1920" data-height="1080">
+    <section id="stage" class="scene clip" data-start="0" data-duration="10" data-track-index="0">
+      <canvas id="c" width="1920" height="1080"></canvas>
+      <span class="preload" style="font-family: 'Space Grotesk'; font-weight: 700;">A</span>
+      <span class="preload" style="font-family: 'Space Grotesk'; font-weight: 500;">A</span>
+      <span class="preload" style="font-family: 'JetBrains Mono'; font-weight: 400;">A</span>
+    </section>
+  </div>
+  <script>window.CONTENT = {"meta":{"fps":30,"width":1920,"height":1080,"durationFrames":300},"brand":{"title":"PIXEL RIFT","tagline":"Where pixels break free","hudTopLeft":"PXR // SIGNAL","hudBottomLeft":"RIFT.EXE v0.1","hudBottomRight":"SEED 2077"},"seed":2077,"reducedFlashing":false,"colors":{"ground":"#05060A","ink":"#F2F5FA","cyan":"#00E5FF","magenta":"#FF2E93","muted":"#B8C0CC"},"type":{"display":"Space Grotesk","mono":"JetBrains Mono","titleSize":168,"taglineSize":46,"monoSize":22},"layout":{"logoCenterY":500,"taglineY":700,"markCell":28,"markGap":6,"lockupGap":60},"beats":{"bracketsDraw":[3,24],"revealAt":30,"holoFlickerIn":[92,104],"holoFlickerOut":[136,150],"holoFlickerBack":[160,170],"shatterAt":200,"lockAt":226,"taglineIn":[232,246]},"bursts":[{"start":6,"len":5,"intensity":0.8,"note":"opening tear on HUD"},{"start":24,"len":3,"intensity":0.5,"note":"idle micro-burst"},{"start":30,"len":6,"intensity":1,"note":"title resolve"},{"start":39,"len":4,"intensity":0.6,"note":"aftershock"},{"start":51,"len":3,"intensity":0.4,"note":"aftershock"},{"start":120,"len":3,"intensity":0.5,"note":"hold micro-burst"},{"start":152,"len":5,"intensity":0.9,"note":"tear while logo is out"},{"start":172,"len":3,"intensity":0.5,"note":"hold micro-burst"},{"start":226,"len":2,"intensity":1,"note":"hard cut / lock-in","mode":"cut"}],"shatter":{"cols":12,"rows":7,"frames":14,"maxDelay":10,"driftMin":20,"driftMax":80,"rotateMax":8},"tear":{"slicesMin":4,"slicesMax":8,"heightMin":20,"heightMax":120,"holdEvery":2}};</script>
+  <script>
+// Theme: every token comes from content.json (injected as window.CONTENT). Other modules read only from here.
+const CONTENT = window.CONTENT;
+const FPS = CONTENT.meta.fps;
+const W = CONTENT.meta.width;
+const H = CONTENT.meta.height;
+const TOTAL_FRAMES = CONTENT.meta.durationFrames;
+const SEED = CONTENT.seed;
+const REDUCED = CONTENT.reducedFlashing;
+const COL = CONTENT.colors;
+const TYPE = CONTENT.type;
+const LAYOUT = CONTENT.layout;
+const BRAND = CONTENT.brand;
+const BEATS = CONTENT.beats;
+const SHATTER = CONTENT.shatter;
+const TEAR = CONTENT.tear;
+
+const INSET = 80; // HUD bracket inset from the frame edge
+const ARM = 48; // HUD bracket arm length
+const DRIFT = 0.03; // slow push-in over the whole piece
+const CHANNEL_BASE = 4; // RGB split base offset in px
+const CHANNEL_GAIN = 10; // RGB split extra offset at intensity 1
+const CUT_SPLIT = 24; // full-frame split on the hard cut
+
+function clamp01(x) {
+  return Math.min(1, Math.max(0, x));
+}
+function easeOut(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
+function rgba(hex, a) {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`;
+}
+function mulberry32(a) {
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function makeCanvas() {
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  return c;
+}
+
+// Logo lockup: a 6x6 pixel block split along a diagonal rift, plus the wordmark. Drawn in code, no external art.
+const MARK_N = 6;
+const MARK_PITCH = LAYOUT.markCell + LAYOUT.markGap;
+const MARK_SIZE = MARK_N * MARK_PITCH - LAYOUT.markGap;
+const RIFT_SHIFT = 8; // each half moves this far away from the crack
+const STRAY = 12; // loose pixel size inside the crack
+
+function setTitleFont(ctx) {
+  ctx.font = `700 ${TYPE.titleSize}px "${TYPE.display}"`;
+  ctx.letterSpacing = `${-0.03 * TYPE.titleSize}px`;
+  ctx.textBaseline = "alphabetic";
+}
+
+function lockupGeometry(ctx) {
+  setTitleFont(ctx);
+  const m = ctx.measureText(BRAND.title);
+  const markBlock = MARK_SIZE + RIFT_SHIFT * 2;
+  const total = markBlock + LAYOUT.lockupGap + m.width;
+  const x0 = (W - total) / 2;
+  return {
+    markX: x0 + RIFT_SHIFT,
+    markY: LAYOUT.logoCenterY - MARK_SIZE / 2,
+    textX: x0 + markBlock + LAYOUT.lockupGap,
+    baseline: LAYOUT.logoCenterY + m.actualBoundingBoxAscent / 2,
+  };
+}
+
+function markRects(g) {
+  const cells = [];
+  const strays = [];
+  for (let r = 0; r < MARK_N; r++) {
+    for (let c = 0; c < MARK_N; c++) {
+      const s = r + c;
+      const x = g.markX + c * MARK_PITCH;
+      const y = g.markY + r * MARK_PITCH;
+      if (s === MARK_N - 1) {
+        if (r % 2 === 1 || r === 4) strays.push([x + (LAYOUT.markCell - STRAY) / 2, y + (LAYOUT.markCell - STRAY) / 2, STRAY]);
+        continue;
+      }
+      const shift = s < MARK_N - 1 ? -RIFT_SHIFT : RIFT_SHIFT;
+      cells.push([x + shift, y + shift, LAYOUT.markCell]);
+    }
+  }
+  return cells.concat(strays);
+}
+
+// mode: "fill" paints solid shapes, "stroke" paints the outline only.
+function drawLogoShapes(ctx, g, mode) {
+  const rects = markRects(g);
+  for (const [x, y, s] of rects) {
+    if (mode === "fill") ctx.fillRect(x, y, s, s);
+    else ctx.strokeRect(x + 1.5, y + 1.5, s - 3, s - 3);
+  }
+  setTitleFont(ctx);
+  if (mode === "fill") ctx.fillText(BRAND.title, g.textX, g.baseline);
+  else ctx.strokeText(BRAND.title, g.textX, g.baseline);
+}
+
+function paintScanBand(ctx, scanY) {
+  const grad = ctx.createLinearGradient(0, scanY - 34, 0, scanY + 34);
+  grad.addColorStop(0, rgba(COL.cyan, 0));
+  grad.addColorStop(0.5, "rgba(230,255,255,0.95)");
+  grad.addColorStop(1, rgba(COL.cyan, 0));
+  ctx.globalCompositeOperation = "source-atop";
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, scanY - 34, W, 68);
+  ctx.globalCompositeOperation = "source-over";
+}
+
+// Solid clean logo, optionally lit by a scan band.
+function drawSolidLogo(target, tmp, alpha, scanY, jitter) {
+  if (alpha <= 0) return;
+  tmp.clearRect(0, 0, W, H);
+  const g = lockupGeometry(tmp);
+  tmp.fillStyle = COL.ink;
+  drawLogoShapes(tmp, g, "fill");
+  if (scanY !== null) paintScanBand(tmp, scanY);
+  target.globalAlpha = alpha;
+  target.drawImage(tmp.canvas, jitter, 0);
+  target.globalAlpha = 1;
+}
+
+// Hologram: translucent cyan fill, edge-lit outline, horizontal stripes, glow.
+function drawHoloLogo(target, tmp, alpha, scanY, jitter) {
+  if (alpha <= 0) return;
+  tmp.clearRect(0, 0, W, H);
+  const g = lockupGeometry(tmp);
+  tmp.lineJoin = "round";
+  tmp.fillStyle = rgba(COL.cyan, 0.16);
+  drawLogoShapes(tmp, g, "fill");
+  tmp.strokeStyle = COL.cyan;
+  tmp.lineWidth = 3;
+  drawLogoShapes(tmp, g, "stroke");
+  tmp.globalCompositeOperation = "destination-out";
+  tmp.fillStyle = "rgba(0,0,0,0.38)";
+  for (let y = 0; y < H; y += 4) tmp.fillRect(0, y, W, 1.5);
+  tmp.globalCompositeOperation = "source-over";
+  if (scanY !== null) paintScanBand(tmp, scanY);
+  target.save();
+  target.globalAlpha = alpha;
+  target.shadowColor = rgba(COL.cyan, 0.75);
+  target.shadowBlur = 22;
+  target.drawImage(tmp.canvas, jitter, 0);
+  target.restore();
+}
+
+// Scene state per frame (pure function of the frame number) and scene painting.
+const FLICKER_IN = [1, 0.6, 1, 0.85]; // opacity pattern, 2 frames each
+const FLICKER_OUT = [1, 0.25, 1, 0, 0.7, 0, 0];
+const FLICKER_BACK = [0.5, 0, 0.9, 0.6, 1];
+const SCAN_SPEED = 120; // px per frame
+const SCAN_WINDOWS = [
+  { start: 64, strength: 0.6 },
+  { start: BEATS.holoFlickerIn[0], strength: 1 },
+  { start: 180, strength: 0.8 },
+];
+
+function pattern(f, start, list) {
+  const i = Math.floor((f - start) / 2);
+  return list[Math.min(i, list.length - 1)];
+}
+
+// story A: solid logo resolves, dissolves into a hologram, flickers out and back.
+function holoStory(f) {
+  const [fi0, fi1] = BEATS.holoFlickerIn;
+  const [fo0, fo1] = BEATS.holoFlickerOut;
+  const [fb0, fb1] = BEATS.holoFlickerBack;
+  if (f < BEATS.revealAt) return { solid: 0, holo: 0, flicker: false };
+  if (f < fi0) return { solid: 1, holo: 0.4, flicker: false };
+  if (f < fi1) {
+    const m = pattern(f, fi0, FLICKER_IN);
+    const p = (f - fi0) / (fi1 - fi0);
+    return { solid: m * (1 - p), holo: m * (0.4 + 0.6 * p), flicker: true };
+  }
+  if (f < fo0) return { solid: 0, holo: 1, flicker: false };
+  if (f < fo1) return { solid: 0, holo: pattern(f, fo0, FLICKER_OUT), flicker: true };
+  if (f < fb0) return { solid: 0, holo: 0, flicker: false };
+  if (f < fb1) return { solid: 0, holo: pattern(f, fb0, FLICKER_BACK), flicker: true };
+  return { solid: 0, holo: 1, flicker: false };
+}
+
+function scanFor(f) {
+  for (const w of SCAN_WINDOWS) {
+    const k = f - w.start;
+    if (k >= 0 && k <= Math.ceil(H / SCAN_SPEED)) return { y: k * SCAN_SPEED - 40, strength: w.strength };
+  }
+  return null;
+}
+
+function drawBrackets(ctx, f) {
+  const [b0, b1] = BEATS.bracketsDraw;
+  const corners = [
+    [INSET, INSET, 1, 1],
+    [W - INSET, INSET, -1, 1],
+    [W - INSET, H - INSET, -1, -1],
+    [INSET, H - INSET, 1, -1],
+  ];
+  ctx.strokeStyle = rgba(COL.ink, 0.5);
+  ctx.lineWidth = 3;
+  ctx.lineCap = "square";
+  corners.forEach(([x, y, sx, sy], i) => {
+    const len = ARM * easeOut(clamp01((f - b0 - i * 2) / (b1 - b0 - 6)));
+    if (len <= 0) return;
+    ctx.beginPath();
+    ctx.moveTo(x + sx * len, y);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x, y + sy * len);
+    ctx.stroke();
+  });
+}
+
+function timecode(f) {
+  const s = Math.floor(f / FPS);
+  const ff = f % FPS;
+  return `TC 00:${String(s).padStart(2, "0")}:${String(ff).padStart(2, "0")}`;
+}
+
+function drawLabels(ctx, f) {
+  const a = easeOut(clamp01((f - BEATS.bracketsDraw[0] - 6) / 14));
+  if (a <= 0) return;
+  ctx.font = `400 ${TYPE.monoSize}px "${TYPE.mono}"`;
+  ctx.letterSpacing = "0px";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = rgba(COL.muted, 0.8 * a);
+  const pad = INSET + 32;
+  ctx.textAlign = "left";
+  ctx.fillText(BRAND.hudTopLeft, pad, INSET + 40);
+  ctx.fillText(BRAND.hudBottomLeft, pad, H - INSET - 24);
+  ctx.textAlign = "right";
+  ctx.fillText(timecode(f), W - pad, INSET + 40);
+  ctx.fillText(BRAND.hudBottomRight, W - pad, H - INSET - 24);
+  ctx.textAlign = "left";
+}
+
+function drawTagline(ctx, f) {
+  const [t0, t1] = BEATS.taglineIn;
+  const p = clamp01((f - t0) / (t1 - t0));
+  if (p <= 0) return;
+  const e = easeOut(p);
+  const ruleW = 140 * easeOut(clamp01((f - t0 + 8) / 12));
+  ctx.fillStyle = rgba(COL.ink, 0.4);
+  ctx.fillRect(W / 2 - ruleW / 2, LAYOUT.taglineY - 86, ruleW, 2);
+  ctx.font = `500 ${TYPE.taglineSize}px "${TYPE.display}"`;
+  ctx.letterSpacing = `${0.2 * TYPE.taglineSize}px`;
+  const text = BRAND.tagline.toUpperCase();
+  const tw = ctx.measureText(text).width - 0.2 * TYPE.taglineSize;
+  const x = (W - tw) / 2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x - 4, LAYOUT.taglineY - TYPE.taglineSize, (tw + 8) * e, TYPE.taglineSize * 1.5);
+  ctx.clip();
+  ctx.fillStyle = COL.muted;
+  ctx.textAlign = "left";
+  ctx.fillText(text, x, LAYOUT.taglineY);
+  ctx.restore();
+  if (p < 1) {
+    ctx.fillStyle = COL.cyan;
+    ctx.fillRect(x + tw * e, LAYOUT.taglineY - TYPE.taglineSize * 0.78, 12, TYPE.taglineSize * 0.78);
+  }
+}
+
+// variant "A" is the hologram story, "B" the clean end card.
+function renderScene(ctx, tmp, f, variant) {
+  ctx.clearRect(0, 0, W, H);
+  drawBrackets(ctx, f);
+  drawLabels(ctx, f);
+  const s = 1 + DRIFT * (f / TOTAL_FRAMES);
+  ctx.save();
+  ctx.translate(W / 2, H / 2);
+  ctx.scale(s, s);
+  ctx.translate(-W / 2, -H / 2);
+  if (variant === "A") {
+    const st = holoStory(f);
+    const scan = scanFor(f);
+    const jitter = st.flicker ? Math.round((mulberry32(SEED + f * 31)() - 0.5) * 10) : 0;
+    const scanY = scan ? scan.y : null;
+    drawHoloLogo(ctx, tmp, st.holo, scanY, jitter);
+    drawSolidLogo(ctx, tmp, st.solid, scanY, jitter);
+  } else {
+    drawSolidLogo(ctx, tmp, 1, null, 0);
+    drawTagline(ctx, f);
+  }
+  ctx.restore();
+}
+
+// Glitch effects: seeded burst schedule (built once), RGB split, slice tearing, shatter tiles.
+function burstLength(b) {
+  return REDUCED ? Math.min(b.len, 3) : b.len;
+}
+
+function makeSegments(rng, intensity) {
+  const n = TEAR.slicesMin + Math.floor(rng() * (TEAR.slicesMax - TEAR.slicesMin + 1));
+  const slices = [];
+  for (let i = 0; i < n; i++) {
+    const h = TEAR.heightMin + rng() * (TEAR.heightMax - TEAR.heightMin);
+    const nearLogo = rng() < 0.6;
+    const y = nearLogo ? LAYOUT.logoCenterY - 170 + rng() * 340 : rng() * (H - h);
+    const mag = (10 + 50 * intensity) * (0.4 + 0.6 * rng());
+    slices.push({ y: Math.min(y, H - h), h, dx: (rng() < 0.5 ? -1 : 1) * mag });
+  }
+  slices.sort((a, b) => a.y - b.y);
+  const segs = [];
+  let cur = 0;
+  for (const s of slices) {
+    const y0 = Math.round(Math.max(s.y, cur));
+    const y1 = Math.round(Math.min(H, s.y + s.h));
+    if (y1 <= y0) continue;
+    if (y0 > cur) segs.push({ y0: cur, y1: y0, dx: 0 });
+    segs.push({ y0, y1, dx: Math.round(s.dx) });
+    cur = y1;
+  }
+  if (cur < H) segs.push({ y0: cur, y1: H, dx: 0 });
+  return segs;
+}
+
+function makeBars(rng) {
+  const bars = [];
+  const n = 2 + Math.floor(rng() * 3);
+  for (let i = 0; i < n; i++) {
+    bars.push({
+      x: Math.round(rng() * (W - 700)),
+      y: Math.round(rng() * H),
+      w: Math.round(200 + rng() * 500),
+      h: Math.round(3 + rng() * 3),
+      color: rng() < 0.5 ? COL.cyan : COL.magenta,
+    });
+  }
+  return bars;
+}
+
+// Frame number -> effect parameters. Everything is drawn from seeded generators, so frames repeat exactly.
+function buildFxFrames() {
+  const table = new Map();
+  CONTENT.bursts.forEach((b, idx) => {
+    const intensity = b.intensity * (REDUCED ? 0.5 : 1);
+    const len = burstLength(b);
+    for (let k = 0; k < len; k++) {
+      const f = b.start + k;
+      const rngF = mulberry32(SEED * 7919 + f * 104729 + 13);
+      const rngS = mulberry32(SEED * 131 + b.start * 31 + Math.floor(k / TEAR.holdEvery) * 977);
+      const isCut = b.mode === "cut";
+      const dx = isCut ? CUT_SPLIT : CHANNEL_BASE + CHANNEL_GAIN * intensity;
+      const dy = isCut ? 0 : 2 * intensity;
+      table.set(f, {
+        idx,
+        k,
+        dx,
+        dy: dy * (rngF() < 0.5 ? -1 : 1),
+        flip: rngF() < 0.5 ? -1 : 1,
+        segs: isCut ? [{ y0: 0, y1: H, dx: 0 }] : makeSegments(rngS, intensity),
+        bars: isCut ? [] : makeBars(rngF),
+      });
+    }
+  });
+  return table;
+}
+
+const FX = buildFxFrames();
+
+const tintCyan = makeCanvas();
+const tintMagenta = makeCanvas();
+function tint(target, src, color) {
+  const t = target.getContext("2d");
+  t.globalCompositeOperation = "source-over";
+  t.clearRect(0, 0, W, H);
+  t.drawImage(src, 0, 0);
+  t.globalCompositeOperation = "source-atop";
+  t.fillStyle = color;
+  t.fillRect(0, 0, W, H);
+  t.globalCompositeOperation = "source-over";
+  return target;
+}
+
+function blit(ctx, src, offX, offY, segs, alpha) {
+  ctx.globalAlpha = alpha;
+  for (const s of segs) {
+    ctx.drawImage(src, 0, s.y0, W, s.y1 - s.y0, Math.round(offX + s.dx), Math.round(offY + s.y0), W, s.y1 - s.y0);
+  }
+  ctx.globalAlpha = 1;
+}
+
+// Draw a scene canvas onto ctx, with burst effects when this frame is inside a burst.
+function drawWithBursts(ctx, scene, f) {
+  const fx = FX.get(f);
+  if (!fx) {
+    ctx.drawImage(scene, 0, 0);
+    return;
+  }
+  const cyan = tint(tintCyan, scene, COL.cyan);
+  const magenta = tint(tintMagenta, scene, COL.magenta);
+  blit(ctx, scene, 0, 0, fx.segs, 1);
+  ctx.globalCompositeOperation = "screen";
+  blit(ctx, cyan, -fx.dx * fx.flip, -fx.dy, fx.segs, 0.9);
+  blit(ctx, magenta, fx.dx * fx.flip, fx.dy, fx.segs, 0.9);
+  ctx.globalCompositeOperation = "source-over";
+  for (const b of fx.bars) {
+    ctx.fillStyle = rgba(b.color, 0.55);
+    ctx.fillRect(b.x, b.y, b.w, b.h);
+  }
+}
+
+// Shatter: a grid of tiles cut from the outgoing frame drifts, rotates and fades over the incoming scene.
+function buildTiles() {
+  const rng = mulberry32(SEED * 3 + 7);
+  const tiles = [];
+  for (let r = 0; r < SHATTER.rows; r++) {
+    for (let c = 0; c < SHATTER.cols; c++) {
+      const ang = rng() * Math.PI * 2;
+      const dist = SHATTER.driftMin + rng() * (SHATTER.driftMax - SHATTER.driftMin);
+      tiles.push({
+        x0: Math.round((c * W) / SHATTER.cols),
+        x1: Math.round(((c + 1) * W) / SHATTER.cols),
+        y0: Math.round((r * H) / SHATTER.rows),
+        y1: Math.round(((r + 1) * H) / SHATTER.rows),
+        delay: Math.floor(rng() * (SHATTER.maxDelay + 1)),
+        dx: Math.cos(ang) * dist,
+        dy: Math.sin(ang) * dist,
+        rot: ((rng() * 2 - 1) * SHATTER.rotateMax * Math.PI) / 180,
+      });
+    }
+  }
+  return tiles;
+}
+const TILES = buildTiles();
+
+function shatterEnd() {
+  return BEATS.shatterAt + SHATTER.maxDelay + SHATTER.frames;
+}
+
+function drawShatter(ctx, outgoing, ground, f) {
+  const k = f - BEATS.shatterAt;
+  for (const t of TILES) {
+    const p = clamp01((k - t.delay) / SHATTER.frames);
+    if (p >= 1) continue;
+    const e = easeOut(p);
+    const w = t.x1 - t.x0;
+    const h = t.y1 - t.y0;
+    ctx.save();
+    ctx.translate(t.x0 + w / 2 + t.dx * e, t.y0 + h / 2 + t.dy * e);
+    ctx.rotate(t.rot * e);
+    ctx.globalAlpha = 1 - e * e;
+    ctx.drawImage(ground, t.x0, t.y0, w, h, -w / 2, -h / 2, w, h);
+    ctx.drawImage(outgoing, t.x0, t.y0, w, h, -w / 2, -h / 2, w, h);
+    if (p > 0) {
+      ctx.strokeStyle = rgba(COL.cyan, 0.6);
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-w / 2, -h / 2, w, h);
+    }
+    ctx.restore();
+  }
+}
+
+// Frame compositor and timeline registration. draw(f) is a pure function of the frame number.
+const canvas = document.getElementById("c");
+const out = canvas.getContext("2d");
+const sceneA = makeCanvas();
+const sceneB = makeCanvas();
+const ground = makeCanvas();
+const logoTmp = makeCanvas().getContext("2d");
+const scanPattern = (() => {
+  const c = document.createElement("canvas");
+  c.width = 1;
+  c.height = 4;
+  const g = c.getContext("2d");
+  g.fillStyle = "rgba(255,255,255,0.04)";
+  g.fillRect(0, 0, 1, 2);
+  return out.createPattern(c, "repeat");
+})();
+
+function paintGround() {
+  const g = ground.getContext("2d");
+  g.fillStyle = COL.ground;
+  g.fillRect(0, 0, W, H);
+  const glow = g.createRadialGradient(W / 2, LAYOUT.logoCenterY, 0, W / 2, LAYOUT.logoCenterY, 900);
+  glow.addColorStop(0, rgba(COL.cyan, 0.035));
+  glow.addColorStop(1, rgba(COL.cyan, 0));
+  g.fillStyle = glow;
+  g.fillRect(0, 0, W, H);
+}
+
+function draw(f) {
+  const a = sceneA.getContext("2d");
+  const b = sceneB.getContext("2d");
+  const inShatter = f >= BEATS.shatterAt && f < shatterEnd();
+  out.setTransform(1, 0, 0, 1, 0, 0);
+  out.globalAlpha = 1;
+  out.drawImage(ground, 0, 0);
+  if (f < BEATS.shatterAt) {
+    renderScene(a, logoTmp, f, "A");
+    drawWithBursts(out, sceneA, f);
+  } else {
+    renderScene(b, logoTmp, f, "B");
+    drawWithBursts(out, sceneB, f);
+    if (inShatter) {
+      renderScene(a, logoTmp, f, "A");
+      drawShatter(out, sceneA, ground, f);
+    }
+  }
+  out.save();
+  out.translate(0, f % 4);
+  out.fillStyle = scanPattern;
+  out.fillRect(0, -4, W, H + 4);
+  out.restore();
+}
+
+let lastFrame = 0;
+function drawFrame(f) {
+  lastFrame = f;
+  draw(f);
+}
+
+paintGround();
+drawFrame(0);
+const fontJobs = [
+  `700 ${TYPE.titleSize}px "${TYPE.display}"`,
+  `500 ${TYPE.taglineSize}px "${TYPE.display}"`,
+  `400 ${TYPE.monoSize}px "${TYPE.mono}"`,
+].map((spec) => document.fonts.load(spec));
+Promise.all(fontJobs).then(() => drawFrame(lastFrame));
+
+const proxy = { t: 0 };
+const duration = TOTAL_FRAMES / FPS;
+const tl = gsap.timeline({ paused: true });
+tl.to(proxy, { t: duration, duration, ease: "none", onUpdate: () => drawFrame(Math.round(proxy.t * FPS)) }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+
+  </script>
+</body></html>

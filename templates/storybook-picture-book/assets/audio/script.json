@@ -1,0 +1,42 @@
+{
+  "voice": "en-US-JennyNeural",
+  "rate": "-10%",
+  "segments": [
+    {
+      "id": "cover",
+      "text": "Moko, the little cloud who wanted to rain."
+    },
+    {
+      "id": "p1",
+      "text": "Moko was a little cloud, floating over a very dry garden."
+    },
+    {
+      "id": "p2",
+      "text": "Down below, the flowers hung their heads and waited."
+    },
+    {
+      "id": "p3",
+      "text": "Moko puffed and puffed, but not one drop came."
+    },
+    {
+      "id": "p4",
+      "text": "Moko felt a little sad, and let out a tiny sigh."
+    },
+    {
+      "id": "p5",
+      "text": "Then, softly, soft little drops began to fall."
+    },
+    {
+      "id": "p6",
+      "text": "Pitter, patter, pitter, patter. The garden drank it up."
+    },
+    {
+      "id": "p7",
+      "text": "And the flowers opened, one by one, to say thank you."
+    },
+    {
+      "id": "end",
+      "text": "Good night, little Moko."
+    }
+  ]
+}

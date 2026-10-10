@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "id": "visual-journalism",
+    "title": "The box that rebuilt world trade",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "voice": "en-US-GuyNeural",
+    "rate": "+8%"
+  },
+  "timing": {
+    "leadSec": 0.2,
+    "gapSec": 0.2,
+    "tailSec": 2.2
+  },
+  "theme": {
+    "colors": {
+      "ground": "#0E0E10",
+      "paper": "#EFE6D2",
+      "photoBorder": "#F7F1E3",
+      "plate": "#FFFFFF",
+      "textOnGround": "#F4F1EA",
+      "ink": "#1A1612",
+      "highlighter": "#FFE45C",
+      "red": "#E5383B",
+      "tagBg": "#F4F1EA",
+      "tagInk": "#111111",
+      "diagramSky": "#E3D8BF",
+      "diagramWater": "#B9C3BE",
+      "hull": "#3A3631",
+      "boxRust": "#C8553D",
+      "boxBlue": "#2F5D8A",
+      "boxOchre": "#D9A441",
+      "boxGreen": "#5B7F4F",
+      "muted": "#8E867A"
+    },
+    "fonts": {
+      "serif": "Source Serif 4",
+      "sans": "Inter"
+    },
+    "motion": {
+      "entranceFrames": 16,
+      "staggerFrames": 5,
+      "driftPx": 24,
+      "highlightFrames": 14,
+      "highlightLeadFrames": 2,
+      "drawFrames": 20,
+      "plateFrames": 30,
+      "camPush": 1.03
+    }
+  },
+  "narration": [
+    {
+      "id": "s1",
+      "speech": "Before 1956, moving cargo across an ocean was slow, manual work."
+    },
+    {
+      "id": "s2",
+      "speech": "Goods went aboard piece by piece, and ships sat in port for days."
+    },
+    {
+      "id": "s3",
+      "speech": "On April 26, 1956, the Ideal X sailed from Newark with 58 metal containers."
+    },
+    {
+      "id": "s4",
+      "speech": "Standard sizes followed: twenty or forty feet, stackable on any ship, train, or truck."
+    },
+    {
+      "id": "s5",
+      "speech": "Loading cost fell from about six dollars a ton to sixteen cents."
+    },
+    {
+      "id": "s6",
+      "speech": "Economists find containers lifted trade more than trade agreements did."
+    },
+    {
+      "id": "s7",
+      "speech": "One steel box made the world smaller."
+    }
+  ],
+  "scenes": {
+    "s1": {
+      "kicker": "WORLD TRADE EXPLAINED",
+      "headlineLines": [
+        "The box that",
+        "rebuilt",
+        "world trade"
+      ],
+      "docTitle": "CARGO MANIFEST",
+      "docRows": [
+        "Barrels",
+        "Sacks",
+        "Crates",
+        "Bales",
+        "Drums"
+      ],
+      "docNote": "Loose cargo. Slow, manual work. Days in port.",
+      "docHighlight": "Slow, manual work.",
+      "tag": "ILLUSTRATION. Context: M. Levinson, The Box (2006)"
+    },
+    "s2": {
+      "kicker": "BEFORE: BREAK-BULK CARGO",
+      "diagramLabelPort": "DAYS IN PORT",
+      "diagramLabelSling": "ONE SLING AT A TIME",
+      "tallyTitle": "TALLY SHEET",
+      "tallyRows": [
+        "Barrels",
+        "Sacks",
+        "Crates",
+        "Bales"
+      ],
+      "tallyNote": "Every item handled",
+      "tallyHighlight": "piece by piece",
+      "tagDiagram": "ILLUSTRATION. Context: M. Levinson, The Box (2006)",
+      "tagTally": "ILLUSTRATION"
+    },
+    "s3": {
+      "kicker": "1956: THE FIRST CONTAINER SHIP",
+      "dateLine1": "April 26,",
+      "dateLine2": "1956",
+      "dateRoute": "Port Newark, N.J. to Houston, Texas",
+      "bigNumber": "58",
+      "bigLabel": "metal containers on deck",
+      "portFrom": "NEWARK",
+      "portTo": "HOUSTON",
+      "routeNote": "ROUTE, NOT TO SCALE",
+      "shipName": "IDEAL X",
+      "tagDiagram": "SOURCE: J.-P. Rodrigue, The Geography of Transport Systems (Hofstra Univ.)",
+      "tagDate": "ILLUSTRATION"
+    },
+    "s4": {
+      "kicker": "STANDARD SIZES",
+      "label40": "40 ft",
+      "label20": "20 ft",
+      "labelWidth": "8 ft wide",
+      "teu20": "20 ft = 1 TEU",
+      "teu40": "40 ft = 2 TEU",
+      "teuNote": "TEU: twenty-foot equivalent unit",
+      "sideTitle1": "One box,",
+      "sideTitle2": "any carrier",
+      "carriers": [
+        "SHIP",
+        "TRAIN",
+        "TRUCK"
+      ],
+      "tagDiagram": "SOURCE: ISO 668, freight container dimensions and ratings",
+      "tagSide": "ILLUSTRATION"
+    },
+    "s5": {
+      "kicker": "COST PER TON OF LOADING",
+      "leftHeader": "LOOSE CARGO, 1956",
+      "leftValue": "$5.83",
+      "leftSub": "per ton, conventional loading",
+      "rightHeader": "CONTAINERIZED",
+      "rightValue": "$0.16",
+      "rightSub": "per ton, Ideal X basis",
+      "tagLeft": "SOURCE: McLean's 1956 estimate, in Rodrigue (Hofstra)",
+      "tagRight": "SOURCE: McLean's 1956 estimate, in Rodrigue (Hofstra)"
+    },
+    "s6": {
+      "kicker": "THE EFFECT ON TRADE",
+      "axisLabel": "EFFECT ON TRADE",
+      "bar1Label1": "Trade agreements,",
+      "bar1Label2": "GATT",
+      "bar2Label1": "Containers",
+      "bar2Label2": "",
+      "gapLabel": "MORE",
+      "chartNote": "ILLUSTRATIVE, NOT TO SCALE",
+      "paperKicker": "THE EVIDENCE",
+      "paperTitle": "Estimating the effects of the container revolution on world trade",
+      "paperHighlight": "container revolution",
+      "paperAuthors": "Bernhofen, El-Sahli & Kneller",
+      "paperJournal": "Journal of International Economics, 2016",
+      "tagChart": "ILLUSTRATION. Finding: Bernhofen, El-Sahli & Kneller, 2016",
+      "tagPaper": "SOURCE: Journal of International Economics, 2016"
+    },
+    "s7": {
+      "headlineLines": [
+        "One steel box",
+        "made the",
+        "world smaller."
+      ],
+      "headlineHighlight": "world smaller.",
+      "sourcesTitle": "SOURCES",
+      "sourcesFootnote": "All graphics are code-drawn illustrations."
+    }
+  },
+  "sources": [
+    {
+      "id": "levinson",
+      "label": "M. Levinson, The Box (Princeton Univ. Press, 2006): break-bulk context",
+      "kind": "book",
+      "license": "cited, not reproduced",
+      "short": "M. Levinson, The Box (Princeton Univ. Press, 2006)"
+    },
+    {
+      "id": "rodrigue",
+      "label": "J.-P. Rodrigue, The Geography of Transport Systems (Hofstra Univ.): Ideal X voyage, 58 containers, McLean's $5.83 vs $0.16 per ton",
+      "short": "J.-P. Rodrigue, The Geography of Transport Systems (Hofstra Univ.)",
+      "kind": "web",
+      "url": "https://transportgeography.org/contents/chapter1/the-setting-of-global-transportation-systems/idealx-first-containeriship-1956/",
+      "license": "cited, not reproduced"
+    },
+    {
+      "id": "iso668",
+      "label": "ISO 668: freight container dimensions and ratings (20 ft and 40 ft)",
+      "short": "ISO 668: freight container dimensions and ratings",
+      "kind": "standard",
+      "license": "cited, not reproduced"
+    },
+    {
+      "id": "bernhofen",
+      "label": "Bernhofen, El-Sahli & Kneller, Journal of International Economics, 2016",
+      "short": "Bernhofen, El-Sahli & Kneller, Journal of International Economics, 2016",
+      "kind": "paper",
+      "license": "cited, not reproduced"
+    }
+  ],
+  "sourceList": [
+    "levinson",
+    "rodrigue",
+    "iso668",
+    "bernhofen"
+  ]
+}

@@ -1,0 +1,88 @@
+id: audiogram-visualizer
+tier: experimental
+evidence_strength: weak
+name:
+  en: Audiogram & Music Visualizer
+  zh: 音频波形可视化
+tagline:
+  en: Bars or waveform driven by the audio, cover art, word-synced captions - the podcast clip format.
+  zh: 由音频驱动的频谱条或波形、封面图、逐词字幕，即播客切片格式。
+signature:
+  en:
+    - Spectrum bars or a waveform computed from the audio for each frame
+    - Square cover art or speaker card above the visualizer
+    - Word-synced captions in the lower third
+    - Progress line and show title, 1:1 or 9:16 framing
+  zh:
+    - 每一帧都由音频计算出的频谱条或波形
+    - 可视化上方是方形封面或说话人卡片
+    - 下三分之一为逐词同步字幕
+    - 进度条与节目标题，1:1 或 9:16 构图
+best_for:
+  en:
+    - Podcast clips and audio teasers for X, LinkedIn and Shorts
+    - Music or generated-audio releases that have no footage
+  zh:
+    - 用于 X、LinkedIn 和 Shorts 的播客切片与音频预告
+    - 没有画面素材的音乐或生成音频发布
+avoid_when:
+  en:
+    - A face on camera exists (use talking-head-overlay)
+    - Only styled captions over a voice are needed (use karaoke-caption-short)
+    - The audio is a copyrighted track you cannot license
+  zh:
+    - 已有真人出镜画面（改用 talking-head-overlay）
+    - 只需要人声配风格化字幕（改用 karaoke-caption-short）
+    - 音频是无法获得授权的版权曲目
+tags:
+  use: [social-short, music-video, overlay]
+  platform: [x, linkedin, youtube-shorts, instagram-reels, tiktok-douyin]
+  aspect: ["1:1", "9:16", "16:9"]
+  audio: [music, voiceover, captions]
+  mood: [calm, technical, editorial]
+  needs: [script]
+duration: 15-60 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Remotion's visualizeAudio() and visualizeAudioWaveform() return per-frame data directly. HyperFrames can do it by pre-computing an FFT JSON and indexing it by time.
+    zh: Remotion 的 visualizeAudio() 与 visualizeAudioWaveform() 直接返回逐帧数据。HyperFrames 需先预计算 FFT 的 JSON，再按时间索引。
+variants:
+  - id: waveform-line
+    en: A single thin oscilloscope-style waveform line across the frame instead of bars.
+    zh: 用一条细的示波器风格波形线代替频谱条。
+  - id: music-release
+    en: Large cover art with radial bars around it and a title card, 1:1, for a synthesized or licensed track.
+    zh: 大封面外圈环形频谱条加标题卡，1:1，用于合成或已授权的曲目。
+evidence:
+  - creator: Remotion
+    platform: remotion.dev template
+    region: global
+    url: https://www.remotion.dev/templates/audiogram
+    tool: Remotion
+    note: Official Audiogram template (npx create-video@latest --audiogram); a template, not a finished agent-made video. No finished agent-made audiogram was found.
+    verified: opened
+  - creator: Remotion
+    platform: remotion.dev
+    region: global
+    url: https://www.remotion.dev/templates
+    tool: Remotion
+    note: Audiogram and Music Visualization templates; supporting only.
+    verified: opened
+  - creator: iart-ai
+    platform: skills.sh
+    region: global
+    url: https://www.skills.sh/iart-ai/youtube-video-skills/audiogram
+    tool: skill pack
+    note: Audiogram skill pack, not a finished video; supporting only.
+    verified: snippet
+  - creator: heygen-com
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes
+    tool: HyperFrames
+    note: Ships a /music-to-video skill (music drives pacing); a skill, not a finished audiogram.
+    verified: opened
+template: templates/audiogram-visualizer

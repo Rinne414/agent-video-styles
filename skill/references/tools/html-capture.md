@@ -53,10 +53,28 @@ new p5((p) => {
 
 `pixelDensity(1)` matters: on a HiDPI display p5 otherwise draws a 2x canvas. The canvas size must equal `--width/--height`. `await p.redraw()` worked on p5 2.3.4 (p5 1.x [not run here]).
 
+## Minimal canvas 2D skeleton (no p5)
+
+```html
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W = 1080, H = 1920, ctx = document.getElementById("c").getContext("2d");
+window.__ready = document.fonts.load('64px "MyFont"');            // fonts via @font-face; frame 0 must not use a fallback
+window.renderFrame = (i, fps) => {
+  const t = i / fps;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);                              // reset state left by the previous frame
+  ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+  ctx.clearRect(0, 0, W, H); ctx.fillStyle = "#F3EDE0"; ctx.fillRect(0, 0, W, H);
+  /* draw everything as a pure function of (t, seeded hash); no state carried between frames */
+};
+</script>
+```
+Canvas width/height attributes must equal `--width/--height`; the page margin must be 0 (`body { margin: 0 }`). Static layers (paper, washes) can be built once into offscreen canvases at load, deterministically.
+
 ## Running it
 
 ```bash
-npm i puppeteer-core p5            # in the template dir; puppeteer-core downloads no browser (6 s here)
+pnpm add -E puppeteer-core p5      # in the template dir; puppeteer-core downloads no browser (2-6 s here); npm i also works
 node skill/scripts/capture_html.mjs sketch.html --out out.mp4 --width 1080 --height 1080 --fps 30 --frames 150
 node skill/scripts/capture_html.mjs sketch.html --out out.mp4 --frames 150 --audio tone.mp3     # audio is trimmed to the video (-shortest)
 node skill/scripts/capture_html.mjs sketch.html --out out.mp4 --frames 10 --selector canvas     # screenshot only the canvas element
@@ -71,17 +89,56 @@ ffmpeg -y -ss 2.0 -i out.mp4 -frames:v 1 still.png                              
 ```
 (`--start` and PNG mode verified: a PNG of frame 300, a 15-frame clip starting at 300, and rejection of `--start -2`.)
 
-Verified output: 150 frames at 1080x1080 -> 5.00 s h264 yuv420p + aac, 0.78 MB, ~9 s wall time (about 16 frames/s). Run from any directory; the script path may contain spaces.
+Verified output: 150 frames at 1080x1080 -> 5.00 s h264 yuv420p + aac, 0.78 MB, ~9 s wall time (about 16 frames/s for a simple sketch). Real speed depends on the scene: a layered painterly canvas (10+ bristle strokes, full-frame grain) ran about 1.5 frames/s at 1080x1920 (450 frames in 293 s), so budget about 5 min per 15 s. Run from any directory; the script path may contain spaces.
+
+Sharding for slow scenes: render frame ranges in parallel (each process gets its own Chrome), then join without re-encoding [pattern, not run here as a script; `--start/--frames` verified above]:
+
+```bash
+for k in 0 1 2 3; do   # 4 shards of 120 frames = 480 frames
+  node skill/scripts/capture_html.mjs page.html --out part$k.mp4 --start $((k*120)) --frames 120 --width 1080 --height 1920 --fps 30 --crf 22 &
+done; wait
+printf "file 'part%s.mp4'"'\n' 0 1 2 3 > list.txt
+ffmpeg -y -f concat -safe 0 -i list.txt -c copy joined.mp4
+ffmpeg -y -i joined.mp4 -i song.mp3 -map 0:v -map 1:a -c:v copy -c:a aac -shortest out.mp4     # add audio after the join
+```
+Use identical flags for every shard (concat `-c copy` needs matching codec parameters), and stay within the CPU/RAM that 3-4 Chrome processes need.
 
 Options: `--width/--height` (must be even), `--fps`, `--frames`, `--start`, `--crf` (default 18; animated grain inflated a 20 s clip to 25 MB, so use `--crf 22` for templates with grain), `--audio`, `--selector`, `--chrome <path>`. Chrome is found via `--chrome`, `CHROME_PATH`, then the usual Windows/macOS/Linux install paths (the Windows and macOS/Linux candidate paths other than `C:/Program Files/Google/Chrome/...` were not exercised here).
 
 ## Loading content.json
 
-Opened via `file://`, Chrome blocks `fetch()` and ES modules for local files. Use a build step that reads `content.json` and writes `out/content.js` (`window.CONTENT = {...};`), and load it and your scripts as classic `<script src>` tags before the sketch. Re-run the build after editing content.
+Opened via `file://`, Chrome blocks `fetch()` and ES modules for local files. Use a build step that reads `content.json` and writes `out/content.js` (`window.CONTENT = {...};`), and load it and your scripts as classic `<script src>` tags before the sketch. Re-run the build after editing content. Minimal `scripts/build-content.mjs` [written from a report, not re-run]:
+
+```js
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+const content = JSON.parse(readFileSync(new URL("../content.json", import.meta.url), "utf8"));
+mkdirSync(new URL("../out/", import.meta.url), { recursive: true });
+writeFileSync(new URL("../out/content.js", import.meta.url), `window.CONTENT = ${JSON.stringify(content)};
+`);
+```
+
+In the page: `<script src="out/content.js"></script>` before the sketch. Run it before every render (a `build` step in the `render` script).
 
 ## Standalone templates
 
 Copy `capture_html.mjs` into the template (e.g. `scripts/capture_html.mjs`) and call it from there; a `../../skill/scripts/...` path breaks once the template is extracted. Keep `puppeteer-core` in the template's `package.json`.
+
+Minimal template `package.json` (exact pins, pnpm; `scripts/capture_html.mjs` is the vendored copy; use the id your conventions require as `name`):
+
+```json
+{
+  "name": "my-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-content.mjs",
+    "render": "node scripts/build-content.mjs && node scripts/capture_html.mjs page.html --out out/video.mp4 --width 1080 --height 1080 --fps 30 --frames 150",
+    "still": "node scripts/build-content.mjs && node scripts/capture_html.mjs page.html --out out/still.png --start 0"
+  },
+  "dependencies": { "puppeteer-core": "25.13.0" }
+}
+```
+Add `"p5": "2.3.4"` only for p5 sketches. Run `pnpm install` once, then `pnpm run render`. Seam check for a loop: render frame 0 and frame N (`--out x.png --start N`) and compare them; the last frame should sit one step before frame 0.
 
 Check determinism by rendering one still twice and comparing `md5sum`, or by `ffmpeg -i out.mp4 -f framemd5 -` on two renders.
 
@@ -92,7 +149,7 @@ Dependencies: Node (25 tested), ffmpeg on PATH, Chrome/Chromium installed, `pupp
 ```bash
 ffprobe -v error -show_entries stream=codec_name,pix_fmt,width,height,nb_frames -of csv out.mp4
 ffmpeg -y -ss 2 -i out.mp4 -frames:v 1 f.png          # then look at it
-python skill/scripts/inspect_video.py out.mp4         # writes sheet.png into the cwd: run from a scratch dir
+python skill/scripts/inspect_video.py out.mp4 --out sheet.png   # --out sets the sheet path; without it the sheet lands in the cwd
 ```
 
 ## Pitfalls

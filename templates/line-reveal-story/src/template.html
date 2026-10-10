@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=/*W*/, height=/*H*/" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "Noto Serif"; src: url("fonts/NotoSerif-500.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Noto Serif"; src: url("fonts/NotoSerif-600.woff2") format("woff2"); font-weight: 600; }
+    html, body { margin: 0; width: /*W*/px; height: /*H*/px; overflow: hidden; background: /*PAPER*/; }
+    #root { position: relative; width: /*W*/px; height: /*H*/px; background: /*PAPER*/; color: /*INK*/; font-family: "Noto Serif", serif; }
+    .scene { position: absolute; left: 0; top: 0; width: /*W*/px; height: /*H*/px; }
+    .stage { position: absolute; left: 0; top: 0; width: /*W*/px; height: /*H*/px; transform-origin: 540px 1150px; }
+    .layer { position: absolute; left: 0; top: 0; width: /*W*/px; height: /*H*/px; -webkit-mask-image: linear-gradient(to right, #000 -90px, transparent 0px); }
+    .layer svg { display: block; width: /*W*/px; height: /*H*/px; }
+    .cap { position: absolute; left: /*SIDE*/px; width: /*CAPW*/px; top: /*CAPTOP*/px; text-align: center; font-weight: 500;
+           font-size: /*CAPSIZE*/px; line-height: /*CAPLH*/; opacity: 0; text-wrap: balance; }
+    .titlewrap { position: absolute; left: 0; top: /*CAPTOP*/px; width: /*W*/px; box-sizing: border-box; padding: 0 /*SIDE*/px; text-align: center;
+                 -webkit-mask-image: linear-gradient(to right, #000 -36px, transparent 0px); }
+    .title { margin: 0; font-weight: 600; font-size: /*TITLESIZE*/px; line-height: 1.2; text-wrap: balance; }
+    .sub { position: absolute; left: /*SIDE*/px; width: /*CAPW*/px; top: /*SUBTOP*/px; text-align: center; font-weight: 500;
+           font-size: /*SUBSIZE*/px; line-height: 1.4; opacity: 0; font-style: normal; }
+  </style></head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="/*DURATION*/" data-width="/*W*/" data-height="/*H*/">
+<!--SCENES-->
+  </div>
+  <script>
+    const CFG = /*CFG*/;
+/*RUNTIME*/
+  </script>
+</body></html>

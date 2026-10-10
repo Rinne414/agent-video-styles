@@ -1,0 +1,13 @@
+{
+  "name": "@avs/whiteboard-handwriting",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "tts": "node scripts/build.mjs --script && python ../../skill/scripts/tts.py assets/audio/script.json --out-dir assets/audio",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 2.5,7,14,20,25,29.5",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/whiteboard-handwriting.mp4"
+  }
+}

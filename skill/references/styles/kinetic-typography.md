@@ -15,7 +15,7 @@ An empty stage and one word at a time: type appears, settles and exits exactly o
 | Size | 180-400 px at 1080 px width; a single word may fill 85-92% of the frame width |
 | Tracking | -0.02em (condensed) to -0.04em (grotesk); line-height 0.9 |
 | Case | ALL CAPS for condensed faces; sentence case allowed for grotesk |
-| Palette | stage + type + 1 accent for the key word; poster variant rotates 3-4 fields, e.g. `#FF4D00`, `#0A0A0A`, `#F2F2F2`, `#2F5BFF` |
+| Palette | stage + type + 1 accent for the key word; poster variant rotates 3-4 fields, e.g. `#FF4D00`, `#0A0A0A`, `#F2F2F2`, `#2F5BFF`. Contrast pairs: on `#FF4D00` use near-black type (`#0A0A0A`); white on it is 2.97:1 and fails `check` (needs 3:1); white works on `#2F5BFF` |
 | Density | 1-3 words visible at once; never a full sentence on screen |
 | Safe area | 9:16: keep 220 px top and 340 px bottom clear; 16:9: 96 px |
 
@@ -23,9 +23,9 @@ An empty stage and one word at a time: type appears, settles and exits exactly o
 
 - **Beat grid**: `beatFrame(i) = round(offset + i * 60 / BPM * fps)`. Always compute from the beat index; never accumulate rounded durations (drift).
 - **Unit cycle**: appear (4-8 frames) -> settle (hold) -> exit (4-6 frames). The settle is what the eye reads.
-- **Appear options**: slam `scale 1.30 -> 1.00` + opacity, GSAP `expo.out` (Remotion spring `{damping: 14, stiffness: 220}`); mask rise (`overflow: hidden`, `yPercent 100 -> 0`, 8 frames, `power4.out`); per-letter stagger 1-2 frames.
+- **Appear options**: slam `scale 1.30 -> 1.00` + opacity, GSAP `expo.out` (Remotion spring `{damping: 14, stiffness: 220}`); mask rise (`overflow: hidden`, `yPercent 130 -> 0` for tall condensed faces at line-height 0.9, since `100` leaves glyph tops peeking at the entrance frame; use 130-140; 8 frames, `power4.out`); per-letter stagger 1-2 frames.
 - **Exit options**: scale to 0.9 + fade (5 frames), slide out the mask (6 frames), or hard cut to the next word.
-- **Two-word phrase**: replace in place (first word exits as the second lands) or stack; the key word thumps (`scale 1.00 -> 1.05 -> 1.00`) on each following beat so holds never freeze. Holds are settled or pulsed; the end card is exempt from the 1 s stillness rule.
+- **Two-word phrase**: replace in place (first word exits as the second lands) or stack; the key word thumps (`scale 1.00 -> 1.05 -> 1.00`) on each following beat so holds never freeze. Holds are settled or pulsed; the end card is exempt from the 1 s stillness rule. With no handle or logo, the final phrase is the end card: no thump for its last 1.5 s.
 - **Anchoring**: replace words in the same position so the eye does not travel; move the anchor only on phrase changes.
 - **Downbeats**: every 4 bars, invert stage and type colors or swap the poster color field.
 - **Emphasis**: the key word of each phrase is 1.3x larger or in the accent color, never both.
@@ -45,6 +45,17 @@ For 6-scene pieces, use 150 frames per scene with one phrase per scene.
 
 Scaling: `beats = seconds * BPM / 60`. Short-cut, 20 s = 40 beats at 120 BPM, 5 phrases of 8 beats: first word beat 0, key word beat 2, thumps beats 3-6, exit beat 7.67; finale 8 beats, end card held >= 1.5 s. Vary anchor, scale and appear style between phrases so they do not feel templated.
 
+Worked short example, 15 s square (1080x1080), 100 BPM, 30 fps: one beat = 18 frames, 450 frames = 25 beats, 4 phrases x 6 beats (phrase k starts at beat 6k, frame 108k):
+
+| Event | Beat in phrase | Frame in phrase k |
+|---|---|---|
+| First word lands | 0 | 108k |
+| Key word lands | 2 | 108k + 36 |
+| Key word thumps | 3, 4, 5 | 108k + 54, 72, 90 |
+| Exit (phrases 1-3) | 5.83 | 108k + 105 |
+| Last phrase (k=3, starts frame 324): last thump at beat 22 (frame 396), settled by ~frame 402 | 4 | 324 + 72 = 396 |
+
+The last phrase then sits motionless from frame 402 to 450 (1.6 s, over the 1.5 s minimum; the last 1.5 s is frames 405-450). Compute every frame from the beat index, as above.
 ## Audio
 
 Music is essential; pick 110-130 BPM. Measure BPM and the first downbeat offset (ffmpeg onset detection, or ask the user), then build the beat grid before any animation. Words land on beats with 0-frame tolerance. If there is voiceover, words follow the narration timeline instead (see `karaoke-caption-short`).
@@ -68,7 +79,7 @@ Format: 1080x1920 30fps, <n> s
 - [ ] No word overflows the frame at its largest size
 - [ ] At most one moving word group per frame
 - [ ] Each word readable >= 0.4 s; key phrases >= 1 s
-- [ ] End card held >= 1.5 s
+- [ ] End card held >= 1.5 s and motionless (no thump); if there is no handle/logo, the final phrase is the end card
 - [ ] Silent brief: beat sync is checked by frame numbers only (note it)
 
 ## Pitfalls

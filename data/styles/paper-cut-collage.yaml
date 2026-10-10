@@ -1,0 +1,95 @@
+id: paper-cut-collage
+tier: core
+evidence_strength: medium
+name:
+  en: Paper-Cut Collage
+  zh: 剪纸拼贴
+tagline:
+  en: Torn-edge paper shapes on a cream ground, stop-motion jitter on twos, hand-lettered paper tags.
+  zh: 奶油色底上的撕边纸片造型、隔帧（on twos）定格抖动、手写纸条标签。
+signature:
+  en:
+    - Every shape is a torn-edge paper piece with a soft drop shadow and paper grain
+    - Motion is stepped on twos - positions, rotation jitter and camera change every second frame
+    - Text lives on hand-lettered paper tags, never as bare type
+    - Chronologies joined by shape morphs on blank paper, character beats cut hard on the beat
+  zh:
+    - 每个造型都是撕边纸片，带柔和投影与纸张颗粒
+    - 动作按隔帧（on twos）步进：位置、旋转抖动和镜头每两帧才变一次
+    - 文字写在手写风纸条标签上，不使用裸字
+    - 时间线用空白纸上的形状变形衔接，角色段落卡点硬切
+best_for:
+  en:
+    - Cultural, heritage and history stories with a handmade tone
+    - Chronology pieces (eras, timelines) of 20-60 s for Shorts, Reels and Bilibili
+  zh:
+    - 带手作质感的文化、遗产与历史故事
+    - 20-60 秒的编年体短片，适合 Shorts、Reels 和 B 站
+avoid_when:
+  en:
+    - The piece needs crisp data or UI (use data-story-charts or saas-launch-promo)
+    - You want smooth premium motion rather than stepped, handmade motion (use apple-keynote-minimal)
+    - A sepia engraving look is wanted instead of colored paper (use vintage-sketch)
+  zh:
+    - 内容需要精确数据或 UI（改用 data-story-charts 或 saas-launch-promo）
+    - 想要流畅的高端动效而非定格手作感（改用 apple-keynote-minimal）
+    - 想要棕褐色版画质感而非彩色纸片（改用 vintage-sketch）
+tags:
+  use: [explainer, education, social-short, brand-reel]
+  platform: [youtube, youtube-shorts, bilibili, instagram-reels, tiktok-douyin]
+  aspect: ["16:9", "9:16", "1:1", "4:5"]
+  audio: [music, sfx, captions]
+  mood: [playful, retro, editorial]
+  needs: [script]
+duration: 20-60 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: SVG filters (feTurbulence grain, torn-edge paths) and GSAP step tweens map directly onto paper pieces and stepped timing in plain HTML. Remotion works too if the team already has React components.
+    zh: SVG 滤镜（feTurbulence 颗粒、撕边路径）和 GSAP 步进补间可直接在 HTML 中表达纸片与定格节奏。团队已有 React 组件时也可用 Remotion。
+variants:
+  - id: vox-collage
+    en: Kraft or cream backdrop with film grain, die-cut subjects with a white sticker edge, marker highlights and a slow parallax camera.
+    zh: 牛皮纸或奶油色背景加胶片颗粒，白边贴纸式剪裁主体，马克笔高亮与缓慢视差镜头。
+  - id: halftone-pasteup
+    en: One flat bold color field with black-and-white halftone cut-outs sliding in from the edges on a hold of 3 frames.
+    zh: 单一大色块背景加黑白半调剪贴件，每 3 帧一档从画面边缘滑入。
+evidence:
+  - creator: des13 (Yisheng Technology / iChurch context)
+    platform: des13.com article
+    region: TW
+    url: https://des13.com/news/ai/1734-claude-opus.html
+    tool: Claude Code + HyperFrames
+    note: 45 s 1920x1080 30 fps, 8 scenes; real photos converted by code to paper-cut collage, then watercolor, then postcard/stamp. Render not viewed by the researcher.
+    verified: opened
+  - creator: cth9191
+    platform: GitHub plugin "animate"
+    region: global
+    url: https://github.com/cth9191/animate
+    tool: Claude Code skill + canvas + ffmpeg
+    note: Example "history-of-ai", 60 s cut-paper piece with 15 eras and 13 shape-morph transitions; skill author's own showcase, no published mp4.
+    verified: opened
+  - creator: tmoody1973 "pasteup"
+    platform: GitHub plugin
+    region: global
+    url: https://github.com/tmoody1973/pasteup
+    tool: Claude Code + Gemini image API + local compositor
+    note: Hybrid - "A tiny history of jazz", 7 scenes, about 30 s halftone paper-collage stop-motion; cut-outs come from an image model.
+    verified: opened
+  - creator: hassancs91
+    platform: GitHub
+    region: global
+    url: https://github.com/hassancs91/claude-faceless-shorts-creator
+    tool: Claude Code + Remotion + Gemini images
+    note: Supporting only - Vox-style paper-collage short recipe (DESIGN.md); layers are AI images and no render is committed.
+    verified: opened
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry
+    tool: HyperFrames
+    note: Library components torn-paper-rip and paper-collage-reveal, not a finished video.
+    verified: opened
+template: templates/paper-cut-collage

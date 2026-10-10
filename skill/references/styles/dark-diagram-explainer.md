@@ -43,11 +43,11 @@ A narrated, faceless explainer: SVG diagrams build piece by piece on a dark canv
 | Payoff | 1350-1650 | The "after" state in green; the takeaway sentence on screen |
 | Outro | 1650-1800 | One-line summary + handle, held |
 
-Scale proportionally for other lengths (55 s: Hook 8%, Setup 17%, Mechanism 50%, Payoff 17%, Outro 8%). Mechanism steps are one segment each; extra segments are fine to hit the length. Words = (target s - 1.5 s tail - 0.15 s x segments) x 2.4 for `en-US-AndrewNeural` at +0% (~2.4 words/s). The table is a target. Real boundaries come from the narration: one `timeline.json` segment per beat, scene length = segment `duration_ms` + 8 frames of padding.
+Scale proportionally for other lengths (55 s: Hook 8%, Setup 17%, Mechanism 50%, Payoff 17%, Outro 8%). Mechanism steps are one segment each; extra segments are fine to hit the length. Words = (target s - 1.5 s tail - 0.15 s x segments) x 2.4 for `en-US-AndrewNeural` at +0% (~2.4 words/s); spelled-out acronyms run slower (~2.2 words/s, see `../audio-tts-captions.md` Pacing), so measure after TTS. The table is a target. Real boundaries come from the narration: one `timeline.json` segment per beat, scene length = segment `duration_ms` + 8 frames of padding.
 
 ## Audio
 
-Voiceover is required. Write the script first, generate audio and word timings with `scripts/tts.py` (contract: `{"segments":[{"id","file","duration_ms","words":[{"text","start_ms","end_ms"}]}]}`), or align a recorded voice the same way; see `../audio-tts-captions.md`. Music and SFX are optional unless supplied or asked for (ambient, 80-100 BPM, ducked to -24 to -28 LUFS; soft pop on node entrances, quiet whoosh on camera moves). Voice-only is acceptable; say so. Spelled-out acronyms: store `speech` and `caption` per segment, split caption on whitespace, give `merge` index ranges for spelled-out letters, and throw if the token count differs from the TTS word count.
+Voiceover is required. Write the script first, generate audio and word timings with `scripts/tts.py` (contract: `{"segments":[{"id","file","duration_ms","words":[{"text","start_ms","end_ms"}]}]}`), or align a recorded voice the same way; see `../audio-tts-captions.md`. Music and SFX are optional unless supplied or asked for (ambient, 80-100 BPM, ducked to -24 to -28 LUFS; soft pop on node entrances, quiet whoosh on camera moves). Voice-only is acceptable; say so. Spelled-out acronyms: store `speech` and `caption` per segment, split caption on whitespace, give `merge` index ranges for spelled-out letters, and throw if the token count differs from the TTS word count (helper: `../audio-tts-captions.md`, "Speech text vs caption text"). Show each acronym on screen (a node, label or caption emphasis) at the moment it is spoken, not only in the scene title.
 
 ## Agent brief (template)
 
@@ -64,7 +64,7 @@ Format: 1920x1080 30fps; music <path or none>
 
 ## Quality bar
 
-- [ ] Every noun the narration names appears on screen within +-0.3 s
+- [ ] Every noun the narration names appears on screen within +-0.3 s, spelled-out acronyms included (not only in the scene title)
 - [ ] No idle stretch longer than 2 s, except the end card (give it a slow glow or drift, or run `inspect_video.py --tail-hold`)
 - [ ] Captions max 2 lines; diagram stays inside the safe zone; active-word accent has >= 4.5:1 contrast (lighten indigo or use white)
 - [ ] Max 7 nodes visible; one icon set; one accent per role

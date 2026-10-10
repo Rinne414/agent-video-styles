@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1088, height=1920" />
+<script src="vendor/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-400-normal.woff2") format("woff2");font-weight:400}
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-500-normal.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-600-normal.woff2") format("woff2");font-weight:600}
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-700-normal.woff2") format("woff2");font-weight:700}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1088px;height:1920px;overflow:hidden;background:#000000}
+#root{position:absolute;left:0;top:0;width:1088px;height:1920px;background:#000000;font-family:"Inter",sans-serif;color:#F5F5F7}
+.scene{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.abs{position:absolute}
+/* header */
+#header{left:0;top:220px;width:1080px;height:150px;border-bottom:1px solid #1C1C1F;background:#000000}
+#header .back{left:40px;top:50px;width:28px;height:50px}
+.avatar{border-radius:50%;background:linear-gradient(135deg,#55555D,#2B2B31);display:flex;align-items:center;justify-content:center;font-weight:600;color:#F5F5F7}
+#header .avatar{left:92px;top:27px;width:96px;height:96px;font-size:40px}
+#header .name{left:212px;top:32px;font-size:36px;line-height:44px;font-weight:600;color:#F5F5F7}
+#header .status{left:212px;top:78px;font-size:30px;line-height:38px;font-weight:500;color:#A0A0AA}
+/* thread */
+#viewport{left:0;top:370px;width:1080px;height:1120px;overflow:hidden}
+#thread{left:0;top:0;width:1080px;height:2400px}
+.ts{left:0;width:1080px;text-align:center;font-size:30px;line-height:40px;font-weight:500;color:#A0A0AA;opacity:0}
+.bubble{font-size:44px;line-height:55px;font-weight:400;padding:24px 32px;border-radius:40px;white-space:nowrap;opacity:0}
+.bubble.me{right:48px;background:#0066E0;color:#FFFFFF;border-bottom-right-radius:12px}
+.bubble.them{left:48px;background:#26262A;color:#F5F5F7;border-bottom-left-radius:12px}
+.typing{left:48px;width:120px;height:76px;border-radius:38px;border-bottom-left-radius:12px;background:#26262A;display:flex;align-items:center;justify-content:center;gap:16px;opacity:0}
+.typing i{display:block;width:16px;height:16px;border-radius:50%;background:#F5F5F7}
+.receipt{right:56px;font-size:30px;line-height:36px;font-weight:500;color:#A0A0AA;text-align:right;opacity:0;width:300px}
+.receipt span{position:absolute;right:0;top:0;opacity:0}
+.chip{left:-26px;top:-30px;width:60px;height:60px;border-radius:50%;background:#26262A;border:5px solid #000000;display:flex;align-items:center;justify-content:center;opacity:0}
+.chip svg{width:30px;height:30px;fill:#FF5C7A}
+/* input bar */
+#input{left:48px;top:1506px;width:984px;height:88px;border-radius:44px;background:#1C1C1F;border:2px solid #2E2E33}
+#input .ph{left:36px;top:0;line-height:84px;font-size:38px;color:#A0A0AA}
+#input .typed{left:36px;top:0;line-height:84px;font-size:40px;color:#F5F5F7;white-space:nowrap}
+#input .caret{top:20px;width:3px;height:44px;background:#0066E0}
+#input .disc{right:10px;top:10px;width:64px;height:64px;border-radius:50%;background:#26262A}
+#input .disc svg{position:absolute;left:16px;top:16px;width:32px;height:32px}
+/* feed */
+#cardscene{opacity:0}
+.post{left:80px;width:920px;border-radius:40px;background:#141416;border:2px solid #2A2A2F;opacity:0}
+#post{top:540px;height:531px}
+.post .avatar{left:40px;top:40px;width:88px;height:88px;font-size:38px}
+.post .pname{left:148px;top:44px;font-size:36px;line-height:44px;font-weight:600}
+.post .phandle{left:148px;top:90px;font-size:30px;line-height:38px;font-weight:500;color:#A0A0AA}
+.post .headline{left:40px;top:156px;font-size:104px;line-height:112px;font-weight:700;letter-spacing:-2px;color:#F5F5F7}
+.post .body{left:40px;top:284px;font-size:44px;line-height:55px;font-weight:400;color:#F5F5F7;white-space:nowrap}
+.post .rule{left:40px;top:421px;width:836px;height:2px;background:#2A2A2F}
+.post .stats{left:40px;top:447px;height:44px;display:flex;gap:56px;align-items:center;font-size:32px;font-weight:600}
+.post .stat{display:flex;align-items:center;gap:14px;color:#F5F5F7}
+.post .stat svg{width:40px;height:40px;fill:#A0A0AA}
+.post .stat.like svg{fill:#FF5C7A}
+#comment{top:1095px;height:204px}
+#comment .avatar{left:32px;top:32px;width:72px;height:72px;font-size:32px}
+#comment .cname{left:128px;top:30px;font-size:32px;line-height:40px;font-weight:600}
+#comment .cbody{left:128px;top:76px;font-size:40px;line-height:50px;font-weight:400;white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1088" data-height="1920">
+
+    <section id="chat" class="scene clip" data-start="0" data-duration="15.833333333333334" data-track-index="0">
+      <div id="header" class="abs">
+        <svg class="abs back" viewBox="0 0 28 50" fill="none" stroke="#0066E0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 5L5 25l17 20"/></svg>
+        <div class="abs avatar">P</div>
+        <div class="abs name">Priya Nair</div>
+        <div class="abs status">Active now</div>
+      </div>
+      <div id="viewport" class="abs">
+        <div id="thread" class="abs" data-layout-allow-overflow style="top:0">
+        <div id="ts" class="abs ts" style="top:12px">Today 2:07 AM</div>
+        <div id="b0" class="abs bubble me" style="top:64px;height:103px">are you up? prod is down</div><div id="rc0" class="abs receipt" style="top:173px"><span class="d">Delivered</span><span class="r">Read</span></div>
+        <div id="typ1" class="abs typing" style="top:223px"><i></i><i></i><i></i></div><div id="b1" class="abs bubble them" style="top:223px;height:103px">what does it say?</div>
+        <div id="b2" class="abs bubble me" style="top:342px;height:103px">total of undefined</div><div id="rc2" class="abs receipt" style="top:451px"><span class="d">Delivered</span><span class="r">Read</span></div>
+        <div id="typ3" class="abs typing" style="top:501px"><i></i><i></i><i></i></div><div id="b3" class="abs bubble them" style="top:501px;height:158px">guest cart is null.<br>use cart?.total ?? 0</div>
+        <div id="b4" class="abs bubble me" style="top:675px;height:103px">oh thank god. that fixed it<div id="chip4" class="abs chip" data-layout-allow-overflow><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div><div id="rc4" class="abs receipt" style="top:784px"><span class="d">Delivered</span><span class="r">Read</span></div>
+        </div>
+      </div>
+      <div id="input" class="abs">
+        <div id="ph" class="abs ph">Message</div>
+        <div id="typed" class="abs typed"></div>
+        <div id="caret" class="abs caret" style="left:36px"></div>
+        <div id="disc" class="abs disc"><svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div>
+      </div>
+    </section>
+
+    <section id="cardscene" class="scene clip" data-start="15.633333333333333" data-duration="4.366666666666666" data-track-index="1">
+      <div id="post" class="abs post">
+        <div class="abs avatar">D</div>
+        <div class="abs pname">Dani Voss</div>
+        <div class="abs phandle">@danivoss &middot; 2:41 AM</div>
+        <div class="abs headline">Shipped.</div>
+        <div class="abs body">Checkout is live again.<br>One bug, one very good friend.</div>
+        <div class="abs rule"></div>
+        <div class="abs stats">
+          <div class="stat like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="nLikes">0</span></div>
+          <div class="stat reply"><svg viewBox="0 0 24 24"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg><span id="nReplies">0</span></div>
+          <div class="stat repost"><svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg><span id="nReposts">0</span></div>
+        </div>
+      </div>
+      <div id="comment" class="abs post">
+        <div class="abs avatar">P</div>
+        <div class="abs cname">Priya Nair</div>
+        <div class="abs cbody">told you it was one line.<br>now go to sleep.</div>
+      </div>
+    </section>
+</div>
+<script>
+const S = {"y0":1096,"ts":{"at":4,"slot":64,"top":0},"msgs":[{"from":"me","lines":["are you up? prod is down"],"id":0,"text":"are you up? prod is down","chars":24,"h":103,"hasReceipt":true,"slot":159,"typeStart":12,"pushAt":60,"land":60,"end":72,"readAt":124,"top":64},{"from":"them","lines":["what does it say?"],"id":1,"text":"what does it say?","chars":17,"h":103,"hasReceipt":false,"slot":119,"indStart":104,"indLen":27,"pushAt":104,"land":131,"end":143,"top":223},{"from":"me","lines":["total of undefined"],"id":2,"text":"total of undefined","chars":18,"h":103,"hasReceipt":true,"slot":159,"typeStart":164,"pushAt":200,"land":200,"end":212,"readAt":263,"top":342},{"from":"them","lines":["guest cart is null.","use cart?.total ?? 0"],"id":3,"text":"guest cart is null. use cart?.total ?? 0","chars":40,"h":158,"hasReceipt":false,"slot":174,"indStart":243,"indLen":60,"pushAt":243,"land":303,"end":315,"top":501},{"from":"me","lines":["oh thank god. that fixed it"],"reaction":"heart","id":4,"text":"oh thank god. that fixed it","chars":27,"h":103,"hasReceipt":true,"slot":159,"typeStart":359,"pushAt":413,"land":413,"end":425,"reactAt":425,"readAt":425,"top":675}],"pushes":[{"at":4,"slot":64,"y":1032},{"at":60,"slot":159,"y":873},{"at":104,"slot":119,"y":754},{"at":200,"slot":159,"y":595},{"at":243,"slot":174,"y":421},{"at":413,"slot":159,"y":262}],"fadeOutAt":465,"cardAt":469,"likesAt":477,"commentAt":509,"settledAt":523};
+const K = {"fps":30,"totalFrames":600,"typeFramesPerChar":2,"enter":12,"pushFrames":10,"fadeOut":10,"cardIn":18,"likesCount":36,"driftScale":1.03,"sentFill":"#0066E0","recvFill":"#26262A"};
+const P = {"headline":"Shipped.","body":["Checkout is live again.","One bug, one very good friend."],"time":"2:41 AM","likes":1284,"replies":48,"reposts":213,"comment":{"name":"Priya Nair","lines":["told you it was one line.","now go to sleep."]}};
+// Inlined into index.html by build.mjs. Globals injected before this file: S (schedule), K (theme constants), P (post data).
+// Every value is a function of the frame number; no clocks, no randomness.
+const sec = (f) => f / K.fps;
+const $ = (id) => document.getElementById(id);
+const tl = gsap.timeline({ paused: true });
+
+// ---- timestamp label
+tl.fromTo("#ts", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: sec(8), ease: "power2.out" }, sec(S.ts.at));
+
+// ---- thread push (bottom anchored container)
+S.pushes.forEach((p, i) => {
+  const from = i === 0 ? S.y0 : S.pushes[i - 1].y;
+  tl.fromTo("#thread", { y: from }, { y: p.y, duration: sec(K.pushFrames), ease: "power3.out", immediateRender: i === 0 }, sec(p.at));
+});
+
+// ---- messages
+S.msgs.forEach((m) => {
+  const origin = m.from === "me" ? "100% 100%" : "0% 100%";
+  tl.fromTo(
+    "#b" + m.id,
+    { opacity: 0, y: 60, scale: 0.9, transformOrigin: origin },
+    { opacity: 1, y: 0, scale: 1, duration: sec(K.enter), ease: "back.out(1.2)" },
+    sec(m.land)
+  );
+  if (m.from === "them") {
+    tl.fromTo("#typ" + m.id, { opacity: 0, y: 24, scale: 0.9, transformOrigin: "0% 100%" }, { opacity: 1, y: 0, scale: 1, duration: sec(8), ease: "back.out(1.2)" }, sec(m.indStart));
+    tl.to("#typ" + m.id, { opacity: 0, duration: sec(4), ease: "power1.in" }, sec(m.land));
+  }
+  if (m.hasReceipt) {
+    const rc = "#rc" + m.id;
+    tl.fromTo(rc, { opacity: 0 }, { opacity: 1, duration: sec(6) }, sec(m.land + 8));
+    tl.set(rc + " .d", { opacity: 1 }, sec(m.land + 8));
+    tl.set(rc + " .d", { opacity: 0 }, sec(m.readAt));
+    tl.set(rc + " .r", { opacity: 1 }, sec(m.readAt));
+  }
+  if (m.reaction) {
+    const chip = "#chip" + m.id;
+    tl.fromTo(chip, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1.15, duration: sec(6), ease: "power2.out" }, sec(m.reactAt));
+    tl.to(chip, { scale: 1, duration: sec(4), ease: "power2.inOut" }, sec(m.reactAt + 6));
+  }
+});
+
+// ---- per-frame imperatives: input bar typing, caret, typing dots
+const typed = $("typed"), caret = $("caret"), ph = $("ph"), disc = $("disc");
+const me = S.msgs.filter((m) => m.from === "me");
+const them = S.msgs.filter((m) => m.from === "them");
+const dots = them.map((m) => [...$("typ" + m.id).querySelectorAll("i")]);
+// caret x positions: measured once at load, before the timeline is registered
+const prefixW = new Map();
+me.forEach((m) => {
+  const ws = [0];
+  for (let n = 1; n <= m.chars; n++) {
+    typed.textContent = m.text.slice(0, n);
+    ws.push(typed.getBoundingClientRect().width);
+  }
+  prefixW.set(m.id, ws);
+});
+typed.textContent = "";
+
+function applyFrame(f) {
+  // input bar
+  let text = "";
+  let w = 0;
+  for (const m of me) {
+    if (f >= m.typeStart && f < m.pushAt) {
+      const n = Math.min(m.chars, Math.floor((f - m.typeStart) / K.typeFramesPerChar) + 1);
+      text = m.text.slice(0, n);
+      w = prefixW.get(m.id)[n];
+    }
+  }
+  typed.textContent = text;
+  ph.style.opacity = text ? 0 : 1;
+  disc.style.background = text ? K.sentFill : K.recvFill;
+  caret.style.left = 36 + w + (text ? 3 : 0) + "px";
+  caret.style.opacity = Math.floor(f / 15) % 2 === 0 || text ? 1 : 0;
+  // typing dots: opacity 1 -> 0.5 over 15 frames, 10-frame stagger per dot
+  them.forEach((m, mi) => {
+    if (f < m.indStart || f > m.land) return;
+    dots[mi].forEach((d, di) => {
+      const ph30 = (((f - m.indStart - 10 * di) % 30) + 30) % 30;
+      d.style.opacity = ph30 < 15 ? 1 - (0.5 * ph30) / 15 : 0.5 + (0.5 * (ph30 - 15)) / 15;
+    });
+  });
+  // like counters
+  const p0 = (f - S.likesAt) / K.likesCount;
+  const q = Math.min(1, Math.max(0, p0));
+  const e = 1 - Math.pow(1 - q, 2);
+  $("nLikes").textContent = Math.round(P.likes * e).toLocaleString("en-US");
+  $("nReplies").textContent = Math.round(P.replies * e).toLocaleString("en-US");
+  $("nReposts").textContent = Math.round(P.reposts * e).toLocaleString("en-US");
+}
+const proxy = { f: 0 };
+tl.to(proxy, { f: K.totalFrames, duration: sec(K.totalFrames), ease: "none", onUpdate: () => applyFrame(Math.round(proxy.f)) }, 0);
+applyFrame(0);
+
+// ---- cutaway: chat out, post card in
+tl.to("#chat", { opacity: 0, duration: sec(K.fadeOut), ease: "power2.in" }, sec(S.fadeOutAt));
+tl.set("#cardscene", { opacity: 1 }, sec(S.cardAt));
+tl.fromTo("#post", { opacity: 0, scale: 0.94, y: 40, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, y: 0, duration: sec(K.cardIn), ease: "back.out(1.2)" }, sec(S.cardAt));
+tl.fromTo("#nLikes", { scale: 1, transformOrigin: "0% 50%" }, { scale: 1.12, duration: sec(6), ease: "power2.out" }, sec(S.likesAt));
+tl.to("#nLikes", { scale: 1, duration: sec(8), ease: "power2.inOut" }, sec(S.likesAt + 6));
+tl.fromTo("#comment", { opacity: 0, scale: 0.94, y: 40, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, y: 0, duration: sec(K.cardIn), ease: "back.out(1.2)" }, sec(S.commentAt));
+
+// ---- camera drift (screens never frozen)
+tl.fromTo("#chat", { scale: 1, transformOrigin: "540px 960px" }, { scale: K.driftScale, duration: sec(S.fadeOutAt + K.fadeOut), ease: "sine.inOut" }, 0);
+tl.fromTo("#cardscene", { scale: 1, transformOrigin: "540px 960px" }, { scale: K.driftScale, duration: sec(K.totalFrames - S.cardAt), ease: "sine.inOut" }, sec(S.cardAt));
+
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+
+</script>
+</body></html>

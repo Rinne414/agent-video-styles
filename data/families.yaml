@@ -30,4 +30,12 @@
   blurb:
     en: Drawn worlds made entirely in code.
     zh: 完全用代码画出来的世界。
-  ids: [flat-cartoon-explainer, pixel-retro, painterly-canvas]
+  ids: [flat-cartoon-explainer, pixel-retro, painterly-canvas, paper-cut-collage]
+- id: experimental
+  name:
+    en: Experimental
+    zh: 实验性
+  blurb:
+    en: Fewer public examples so far. Each one was still built and checked from its recipe, and some are the best choice for a narrow job.
+    zh: 公开案例较少，但每一种都按配方实际做过并检查过，其中有些在特定场景下是最佳选择。
+  ids: [chat-social-ui, broadcast-news, whiteboard-handwriting, line-reveal-story, isometric-explainer, glitch-vfx, audiogram-visualizer, abstract-generative-loop, storybook-picture-book, visual-journalism, icon-burst-title, vintage-sketch, social-carousel-cards, product-turntable-3d, editorial-swiss, map-geo-story]

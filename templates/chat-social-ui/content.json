@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "fps": 30,
+    "durationSeconds": 20,
+    "seed": 7
+  },
+  "theme": {
+    "bg": "#000000",
+    "sentFill": "#0066E0",
+    "sentText": "#FFFFFF",
+    "recvFill": "#26262A",
+    "recvText": "#F5F5F7",
+    "meta": "#A0A0AA",
+    "inputFill": "#1C1C1F",
+    "inputBorder": "#2E2E33",
+    "cardFill": "#141416",
+    "cardBorder": "#2A2A2F",
+    "accent": "#FF5C7A"
+  },
+  "parties": {
+    "me": {
+      "name": "Dani Voss",
+      "handle": "@danivoss",
+      "initial": "D"
+    },
+    "them": {
+      "name": "Priya Nair",
+      "status": "Active now",
+      "initial": "P"
+    }
+  },
+  "timestamp": "Today 2:07 AM",
+  "inputPlaceholder": "Message",
+  "script": [
+    {
+      "from": "me",
+      "lines": [
+        "are you up? prod is down"
+      ]
+    },
+    {
+      "from": "them",
+      "lines": [
+        "what does it say?"
+      ]
+    },
+    {
+      "from": "me",
+      "lines": [
+        "total of undefined"
+      ]
+    },
+    {
+      "from": "them",
+      "lines": [
+        "guest cart is null.",
+        "use cart?.total ?? 0"
+      ]
+    },
+    {
+      "from": "me",
+      "lines": [
+        "oh thank god. that fixed it"
+      ],
+      "reaction": "heart"
+    }
+  ],
+  "post": {
+    "headline": "Shipped.",
+    "body": [
+      "Checkout is live again.",
+      "One bug, one very good friend."
+    ],
+    "time": "2:41 AM",
+    "likes": 1284,
+    "replies": 48,
+    "reposts": 213,
+    "comment": {
+      "name": "Priya Nair",
+      "lines": [
+        "told you it was one line.",
+        "now go to sleep."
+      ]
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "voice": "en-US-JennyNeural",
+  "segments": [
+    {
+      "id": "cover",
+      "file": "cover.mp3",
+      "duration_ms": 3792,
+      "words": [
+        {
+          "text": "Moko",
+          "start_ms": 106,
+          "end_ms": 703
+        },
+        {
+          "text": "the",
+          "start_ms": 869,
+          "end_ms": 980
+        },
+        {
+          "text": "little",
+          "start_ms": 994,
+          "end_ms": 1258
+        },
+        {
+          "text": "cloud",
+          "start_ms": 1272,
+          "end_ms": 1703
+        },
+        {
+          "text": "who",
+          "start_ms": 1717,
+          "end_ms": 1828
+        },
+        {
+          "text": "wanted",
+          "start_ms": 1842,
+          "end_ms": 2189
+        },
+        {
+          "text": "to",
+          "start_ms": 2203,
+          "end_ms": 2328
+        },
+        {
+          "text": "rain",
+          "start_ms": 2342,
+          "end_ms": 2814
+        }
+      ]
+    },
+    {
+      "id": "p1",
+      "file": "p1.mp3",
+      "duration_ms": 4608,
+      "words": [
+        {
+          "text": "Moko",
+          "start_ms": 106,
+          "end_ms": 523
+        },
+        {
+          "text": "was",
+          "start_ms": 536,
+          "end_ms": 717
+        },
+        {
+          "text": "a",
+          "start_ms": 731,
+          "end_ms": 800
+        },
+        {
+          "text": "little",
+          "start_ms": 814,
+          "end_ms": 1106
+        },
+        {
+          "text": "cloud",
+          "start_ms": 1119,
+          "end_ms": 1633
+        },
+        {
+          "text": "floating",
+          "start_ms": 1814,
+          "end_ms": 2245
+        },
+        {
+          "text": "over",
+          "start_ms": 2258,
+          "end_ms": 2466
+        },
+        {
+          "text": "a",
+          "start_ms": 2481,
+          "end_ms": 2537
+        },
+        {
+          "text": "very",
+          "start_ms": 2550,
+          "end_ms": 2842
+        },
+        {
+          "text": "dry",
+          "start_ms": 2856,
+          "end_ms": 3092
+        },
+        {
+          "text": "garden",
+          "start_ms": 3106,
+          "end_ms": 3634
+        }
+      ]
+    },
+    {
+      "id": "p2",
+      "file": "p2.mp3",
+      "duration_ms": 4152,
+      "words": [
+        {
+          "text": "Down",
+          "start_ms": 106,
+          "end_ms": 398
+        },
+        {
+          "text": "below",
+          "start_ms": 411,
+          "end_ms": 953
+        },
+        {
+          "text": "the",
+          "start_ms": 1147,
+          "end_ms": 1258
+        },
+        {
+          "text": "flowers",
+          "start_ms": 1272,
+          "end_ms": 1758
+        },
+        {
+          "text": "hung",
+          "start_ms": 1772,
+          "end_ms": 1994
+        },
+        {
+          "text": "their",
+          "start_ms": 2008,
+          "end_ms": 2161
+        },
+        {
+          "text": "heads",
+          "start_ms": 2175,
+          "end_ms": 2522
+        },
+        {
+          "text": "and",
+          "start_ms": 2536,
+          "end_ms": 2661
+        },
+        {
+          "text": "waited",
+          "start_ms": 2675,
+          "end_ms": 3175
+        }
+      ]
+    },
+    {
+      "id": "p3",
+      "file": "p3.mp3",
+      "duration_ms": 4152,
+      "words": [
+        {
+          "text": "Moko",
+          "start_ms": 106,
+          "end_ms": 509
+        },
+        {
+          "text": "puffed",
+          "start_ms": 522,
+          "end_ms": 869
+        },
+        {
+          "text": "and",
+          "start_ms": 883,
+          "end_ms": 994
+        },
+        {
+          "text": "puffed",
+          "start_ms": 1008,
+          "end_ms": 1550
+        },
+        {
+          "text": "but",
+          "start_ms": 1717,
+          "end_ms": 1898
+        },
+        {
+          "text": "not",
+          "start_ms": 1911,
+          "end_ms": 2133
+        },
+        {
+          "text": "one",
+          "start_ms": 2147,
+          "end_ms": 2341
+        },
+        {
+          "text": "drop",
+          "start_ms": 2356,
+          "end_ms": 2675
+        },
+        {
+          "text": "came",
+          "start_ms": 2689,
+          "end_ms": 3189
+        }
+      ]
+    },
+    {
+      "id": "p4",
+      "file": "p4.mp3",
+      "duration_ms": 4392,
+      "words": [
+        {
+          "text": "Moko",
+          "start_ms": 106,
+          "end_ms": 550
+        },
+        {
+          "text": "felt",
+          "start_ms": 564,
+          "end_ms": 814
+        },
+        {
+          "text": "a",
+          "start_ms": 828,
+          "end_ms": 884
+        },
+        {
+          "text": "little",
+          "start_ms": 897,
+          "end_ms": 1175
+        },
+        {
+          "text": "sad",
+          "start_ms": 1189,
+          "end_ms": 1675
+        },
+        {
+          "text": "and",
+          "start_ms": 1897,
+          "end_ms": 2064
+        },
+        {
+          "text": "let",
+          "start_ms": 2078,
+          "end_ms": 2245
+        },
+        {
+          "text": "out",
+          "start_ms": 2258,
+          "end_ms": 2397
+        },
+        {
+          "text": "a",
+          "start_ms": 2411,
+          "end_ms": 2467
+        },
+        {
+          "text": "tiny",
+          "start_ms": 2481,
+          "end_ms": 2884
+        },
+        {
+          "text": "sigh",
+          "start_ms": 2897,
+          "end_ms": 3425
+        }
+      ]
+    },
+    {
+      "id": "p5",
+      "file": "p5.mp3",
+      "duration_ms": 4584,
+      "words": [
+        {
+          "text": "Then",
+          "start_ms": 106,
+          "end_ms": 564
+        },
+        {
+          "text": "softly",
+          "start_ms": 731,
+          "end_ms": 1384
+        },
+        {
+          "text": "soft",
+          "start_ms": 1550,
+          "end_ms": 1897
+        },
+        {
+          "text": "little",
+          "start_ms": 1911,
+          "end_ms": 2133
+        },
+        {
+          "text": "drops",
+          "start_ms": 2147,
+          "end_ms": 2536
+        },
+        {
+          "text": "began",
+          "start_ms": 2550,
+          "end_ms": 2925
+        },
+        {
+          "text": "to",
+          "start_ms": 2939,
+          "end_ms": 3036
+        },
+        {
+          "text": "fall",
+          "start_ms": 3050,
+          "end_ms": 3606
+        }
+      ]
+    },
+    {
+      "id": "p6",
+      "file": "p6.mp3",
+      "duration_ms": 5928,
+      "words": [
+        {
+          "text": "Pitter",
+          "start_ms": 106,
+          "end_ms": 550
+        },
+        {
+          "text": "patter",
+          "start_ms": 758,
+          "end_ms": 1272
+        },
+        {
+          "text": "pitter",
+          "start_ms": 1453,
+          "end_ms": 1925
+        },
+        {
+          "text": "patter",
+          "start_ms": 2119,
+          "end_ms": 2688
+        },
+        {
+          "text": "The",
+          "start_ms": 3653,
+          "end_ms": 3806
+        },
+        {
+          "text": "garden",
+          "start_ms": 3819,
+          "end_ms": 4194
+        },
+        {
+          "text": "drank",
+          "start_ms": 4208,
+          "end_ms": 4500
+        },
+        {
+          "text": "it",
+          "start_ms": 4514,
+          "end_ms": 4611
+        },
+        {
+          "text": "up",
+          "start_ms": 4625,
+          "end_ms": 4972
+        }
+      ]
+    },
+    {
+      "id": "p7",
+      "file": "p7.mp3",
+      "duration_ms": 4608,
+      "words": [
+        {
+          "text": "And",
+          "start_ms": 106,
+          "end_ms": 287
+        },
+        {
+          "text": "the",
+          "start_ms": 300,
+          "end_ms": 397
+        },
+        {
+          "text": "flowers",
+          "start_ms": 411,
+          "end_ms": 911
+        },
+        {
+          "text": "opened",
+          "start_ms": 925,
+          "end_ms": 1383
+        },
+        {
+          "text": "one",
+          "start_ms": 1564,
+          "end_ms": 1814
+        },
+        {
+          "text": "by",
+          "start_ms": 1828,
+          "end_ms": 1995
+        },
+        {
+          "text": "one",
+          "start_ms": 2008,
+          "end_ms": 2439
+        },
+        {
+          "text": "to",
+          "start_ms": 2633,
+          "end_ms": 2744
+        },
+        {
+          "text": "say",
+          "start_ms": 2758,
+          "end_ms": 2994
+        },
+        {
+          "text": "thank",
+          "start_ms": 3008,
+          "end_ms": 3300
+        },
+        {
+          "text": "you",
+          "start_ms": 3314,
+          "end_ms": 3647
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "file": "end.mp3",
+      "duration_ms": 2784,
+      "words": [
+        {
+          "text": "Good",
+          "start_ms": 106,
+          "end_ms": 314
+        },
+        {
+          "text": "night",
+          "start_ms": 328,
+          "end_ms": 745
+        },
+        {
+          "text": "little",
+          "start_ms": 939,
+          "end_ms": 1189
+        },
+        {
+          "text": "Moko",
+          "start_ms": 1203,
+          "end_ms": 1814
+        }
+      ]
+    }
+  ]
+}

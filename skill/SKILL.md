@@ -1,6 +1,6 @@
 ---
 name: agent-video-styles
-description: Turn a video request into a styled, rendered MP4 by writing code. Picks one proven visual style (SaaS launch promo, Apple-style keynote, kinetic typography, data story, dark explainer, 3Blue1Brown math, karaoke captions, character dialogue, pixel art and more), chooses the right tool (Remotion, HyperFrames, Manim, HTML capture), then storyboards, builds, renders and verifies the video. Use whenever the user asks to make, design, restyle or fix a video, promo, launch film, explainer, motion graphic, animated captions, lyric video or short with code, even if they name no style or tool (e.g. "make a launch video for my app", "turn this article into a video", "做个产品宣传片"). Not for generative video models (Sora, Veo, Kling, Seedance) or digital avatars.
+description: Turn a video request into a styled, rendered MP4 by writing code. Picks one documented visual style (SaaS launch promo, Apple-style keynote, kinetic typography, data story, dark explainer, 3Blue1Brown math, karaoke captions, character dialogue, pixel art and more), chooses the right tool (Remotion, HyperFrames, Manim, HTML capture), then storyboards, builds, renders and verifies the video. Use whenever the user asks to make, design, restyle or fix a video, promo, launch film, explainer, motion graphic, animated captions, lyric video or short with code, even if they name no style or tool (e.g. "make a launch video for my app", "turn this article into a video", "做个产品宣传片"). Not for generative video models (Sora, Veo, Kling, Seedance) or digital avatars.
 ---
 
 # Agent Video Styles
@@ -24,7 +24,7 @@ Extract, or ask for only what is missing and cannot be defaulted (max 3 question
 
 ### 2. Pick a style
 
-Use the table below (full details in `references/catalog.md`). Match on goal, platform and the inputs the user actually has. If the user names a look, map it with the aliases. If two styles fit equally, give the user the top two with a one-line reason each and a recommendation, then proceed with the recommendation unless they object. Never blend two styles unless asked; use a style's listed variants instead.
+Use the table below (full details in `references/catalog.md`). Match on goal, platform and the inputs the user actually has. If the user names a look, map it with the aliases. If two styles fit equally, give the user the top two with a one-line reason each and a recommendation, then proceed with the recommendation unless they object. Never blend two styles unless asked; use a style's listed variants instead. Prefer core styles; choose an experimental one only when the brief clearly asks for its specific look, and tell the user it is less proven.
 
 <!-- catalog:start -->
 | Style | Pick it for | Tool | Aspect |
@@ -41,14 +41,38 @@ Use the table below (full details in `references/catalog.md`). Match on goal, pl
 | `kinetic-typography` | Manifestos, announcements, quotes and teasers with no visuals available | hyperframes | 9:16, 16:9, 1:1 |
 | `math-manim` | Math, physics, algorithms and machine-learning concepts | manim | 16:9, 9:16 |
 | `painterly-canvas` | Lyric videos, poems, story moments and emotional brand pieces | html-capture | 1:1, 9:16, 16:9 |
+| `paper-cut-collage` | Cultural, heritage and history stories with a handmade tone | hyperframes | 16:9, 9:16, 1:1, 4:5 |
 | `pixel-retro` | Vertical music videos, PSAs and playful brand shorts for Douyin, TikTok and Reels | hyperframes | 9:16, 16:9 |
 | `procedural-3d-sting` | Logo stings, channel or app openers, game and festival intros | remotion | 16:9, 1:1 |
 | `saas-launch-promo` | App, SaaS or browser-extension launch on X, Product Hunt or LinkedIn | remotion | 16:9, 9:16 |
 | `talking-head-overlay` | Knowledge creators and founders who already record talking-head videos | remotion | 16:9, 9:16 |
 | `ui-camera-tour` | Product demos, feature walkthroughs, changelog videos | remotion | 16:9, 9:16 |
+
+**Experimental** (fewer public examples; pick one only when the brief asks for that specific look):
+
+| Style | Pick it for | Tool | Aspect |
+|---|---|---|---|
+| `abstract-generative-loop` | Website hero backgrounds and ambient loops | html-capture | 1:1, 16:9, 9:16 |
+| `audiogram-visualizer` | Podcast clips and audio teasers for X, LinkedIn and Shorts | remotion | 1:1, 9:16, 16:9 |
+| `broadcast-news` | Daily AI-news or changelog digests with TTS narration, produced in bulk | hyperframes | 16:9 |
+| `chat-social-ui` | Story-driven or meme shorts told as a text conversation on TikTok, Reels and Shorts | hyperframes | 9:16, 16:9 |
+| `editorial-swiss` | Reports, annual summaries, research findings and statistics | hyperframes | 16:9, 4:5 |
+| `glitch-vfx` | Gaming, crypto and hacker-themed intros and stings (5-20 s) | hyperframes | 16:9, 9:16 |
+| `icon-burst-title` | Channel intros and course openers (10-15 s) | remotion | 16:9, 9:16 |
+| `isometric-explainer` | Infrastructure, cloud, device and product-system explainers | remotion | 1:1, 9:16, 16:9 |
+| `line-reveal-story` | Picture-book style and emotional brand stories for vertical platforms | hyperframes | 9:16, 4:5 |
+| `map-geo-story` | Travel, logistics or expansion routes; location datasets | remotion | 16:9, 9:16 |
+| `product-turntable-3d` | Hardware and e-commerce launch teasers | remotion | 16:9, 1:1 |
+| `social-carousel-cards` | Tips, listicles, tutorials and recaps for Instagram and Xiaohongshu feeds | remotion | 4:5 |
+| `storybook-picture-book` | Children's bedtime stories and holiday greetings (30-60 s) | hyperframes | 16:9, 9:16, 1:1 |
+| `vintage-sketch` | History, craft, heritage and biography explainers | hyperframes | 16:9, 4:5 |
+| `visual-journalism` | Commentary and history explainers (60-120 s) | hyperframes | 16:9, 9:16 |
+| `whiteboard-handwriting` | Classroom explainers and onboarding walkthroughs | hyperframes | 16:9, 1:1 |
 <!-- catalog:end -->
 
-**Aliases**: "Apple style" -> apple-keynote-minimal; "3Blue1Brown", "3b1b" -> math-manim; "Fireship", "Kurzgesagt" -> dark-diagram-explainer; "TikTok/Hormozi captions" -> karaoke-caption-short; "Zundamon", "ゆっくり", "VOICEVOX" -> character-dialogue; "公众号/文章转视频", "B站科普" -> card-explainer; "bar chart race", "Top 10" -> data-story-charts (ranking variant); "Product Hunt video" -> saas-launch-promo; "sizzle reel", "showreel" -> cinematic-hud-reel; "logo intro" -> procedural-3d-sting; "lyric video" -> kinetic-typography (lyric variant), pixel-retro or painterly-canvas.
+**Aliases**: "Apple style" -> apple-keynote-minimal; "3Blue1Brown", "3b1b" -> math-manim; "Fireship", "Kurzgesagt" -> dark-diagram-explainer; "TikTok/Hormozi captions" -> karaoke-caption-short; "Zundamon", "ゆっくり", "VOICEVOX" -> character-dialogue; "公众号/文章转视频", "B站科普" -> card-explainer; "bar chart race", "Top 10" -> data-story-charts (ranking variant); "Product Hunt video" -> saas-launch-promo; "sizzle reel", "showreel" -> cinematic-hud-reel; "logo intro" -> procedural-3d-sting; "lyric video" -> kinetic-typography (lyric variant), pixel-retro or painterly-canvas; "paper cut", "collage", "剪纸" -> paper-cut-collage.
+
+**Experimental aliases**: "news bulletin", "breaking news" -> broadcast-news; "fake text story", "iMessage story", "tweet animation" -> chat-social-ui; "whiteboard animation" -> whiteboard-handwriting; "isometric" -> isometric-explainer; "glitch intro" -> glitch-vfx; "podcast clip", "audiogram", "waveform" -> audiogram-visualizer; "looping background", "hero loop" -> abstract-generative-loop; "picture book", "bedtime story", "绘本" -> storybook-picture-book; "Vox style" -> visual-journalism; "line art reveal" -> line-reveal-story; "channel intro title" -> icon-burst-title; "engraving", "sepia sketch" -> vintage-sketch; "carousel", "card news", "小红书卡片" -> social-carousel-cards; "product turntable", "360 product" -> product-turntable-3d; "Swiss design", "grid poster" -> editorial-swiss; "map animation", "route map" -> map-geo-story.
 
 ### 3. Load the recipe
 
@@ -100,7 +124,7 @@ Give the output path, duration, resolution, the style id used, and how to change
 |---|---|
 | `scripts/tts.py` | Text segments -> per-segment MP3 + `timeline.json` with word timings (Edge TTS) |
 | `scripts/inspect_video.py` | Probe summary, contact sheet, warnings for black/frozen/mismatched output |
-| `scripts/make_preview.py` | Compress a render into a small web preview MP4 + poster image |
+| `scripts/make_preview.py` | Compress a render into a small web preview MP4 + poster image (`--poster-at` takes a 0-1 fraction or seconds) |
 | `scripts/capture_html.mjs` | Render any deterministic HTML/canvas page (`window.renderFrame(i, fps)`) to MP4 |
 
 ## Rules that apply to every style

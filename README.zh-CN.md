@@ -30,11 +30,33 @@
 | [动态文字快闪](skill/references/styles/kinetic-typography.md) | 没有素材时的宣言、公告、金句与预告 | hyperframes | [观看](previews/kinetic-typography.mp4) |
 | [数学动画讲解（Manim）](skill/references/styles/math-manim.md) | 数学、物理、算法与机器学习概念 | manim | [观看](previews/math-manim.mp4) |
 | [水彩水墨笔触动画](skill/references/styles/painterly-canvas.md) | 歌词视频、诗歌、故事片段与情感向品牌短片 | html-capture | [观看](previews/painterly-canvas.mp4) |
+| [剪纸拼贴](skill/references/styles/paper-cut-collage.md) | 带手作质感的文化、遗产与历史故事 | hyperframes | [观看](previews/paper-cut-collage.mp4) |
 | [像素复古风](skill/references/styles/pixel-retro.md) | 抖音、TikTok、Reels 的竖屏 MV、公益短片和活泼的品牌短片 | hyperframes | [观看](previews/pixel-retro.mp4) |
 | [程序化 3D 片头标志](skill/references/styles/procedural-3d-sting.md) | Logo 片头、频道或 App 开场、游戏与活动开场 | remotion | [观看](previews/procedural-3d-sting.mp4) |
 | [SaaS 产品发布宣传片](skill/references/styles/saas-launch-promo.md) | 在 X、Product Hunt、LinkedIn 发布 App、SaaS 或浏览器插件 | remotion | [观看](previews/saas-launch-promo.mp4) |
 | [口播动效叠加包](skill/references/styles/talking-head-overlay.md) | 已经在拍口播的知识博主与创始人 | remotion | [观看](previews/talking-head-overlay.mp4) |
 | [产品界面运镜导览](skill/references/styles/ui-camera-tour.md) | 产品演示、功能导览、更新日志视频 | remotion | [观看](previews/ui-camera-tour.mp4) |
+
+**实验性风格**：公开案例较少，但在特定场景下可能是最佳选择。
+
+| 风格 | 适合 | 工具 | 预览 |
+|---|---|---|---|
+| [抽象生成式循环](skill/references/styles/abstract-generative-loop.md) | 网站首屏背景与氛围循环 | html-capture | [观看](previews/abstract-generative-loop.mp4) |
+| [音频波形可视化](skill/references/styles/audiogram-visualizer.md) | 用于 X、LinkedIn 和 Shorts 的播客切片与音频预告 | remotion | [观看](previews/audiogram-visualizer.mp4) |
+| [新闻播报台](skill/references/styles/broadcast-news.md) | 带 TTS 旁白、可批量生产的每日 AI 资讯或更新日志速递 | hyperframes | [观看](previews/broadcast-news.mp4) |
+| [聊天与社交界面故事](skill/references/styles/chat-social-ui.md) | 抖音、TikTok、Reels、Shorts 上以聊天记录讲述的故事或梗短片 | hyperframes | [观看](previews/chat-social-ui.mp4) |
+| [瑞士网格编辑风](skill/references/styles/editorial-swiss.md) | 报告、年度总结、研究发现与统计数据 | hyperframes | [观看](previews/editorial-swiss.mp4) |
+| [故障风特效](skill/references/styles/glitch-vfx.md) | 游戏、加密与黑客主题的开场和片头（5-20 秒） | hyperframes | [观看](previews/glitch-vfx.mp4) |
+| [图标爆发标题](skill/references/styles/icon-burst-title.md) | 频道片头与课程开场（10-15 秒） | remotion | [观看](previews/icon-burst-title.mp4) |
+| [等距视角讲解](skill/references/styles/isometric-explainer.md) | 基础设施、云、设备与产品系统类讲解 | remotion | [观看](previews/isometric-explainer.mp4) |
+| [线稿显影插画故事](skill/references/styles/line-reveal-story.md) | 竖屏平台的绘本风与情感品牌故事 | hyperframes | [观看](previews/line-reveal-story.mp4) |
+| [地图叙事动画](skill/references/styles/map-geo-story.md) | 旅行、物流或扩张路线；地点类数据集 | remotion | [观看](previews/map-geo-story.mp4) |
+| [3D 产品旋转展示](skill/references/styles/product-turntable-3d.md) | 硬件与电商新品发布预告 | remotion | [观看](previews/product-turntable-3d.mp4) |
+| [社交轮播卡片](skill/references/styles/social-carousel-cards.md) | 面向 Instagram 与小红书信息流的干货、清单、教程与复盘 | remotion | [观看](previews/social-carousel-cards.mp4) |
+| [绘本故事](skill/references/styles/storybook-picture-book.md) | 儿童睡前故事与节日祝福（30-60 秒） | hyperframes | [观看](previews/storybook-picture-book.mp4) |
+| [复古素描](skill/references/styles/vintage-sketch.md) | 历史、工艺、文化遗产与人物传记类讲解 | hyperframes | [观看](previews/vintage-sketch.mp4) |
+| [视觉新闻（Vox 风）](skill/references/styles/visual-journalism.md) | 评论与历史类讲解（60-120 秒） | hyperframes | [观看](previews/visual-journalism.mp4) |
+| [白板手写](skill/references/styles/whiteboard-handwriting.md) | 课堂讲解与新人引导视频 | hyperframes | [观看](previews/whiteboard-handwriting.mp4) |
 <!-- styles:end -->
 
 ## 快速开始
@@ -70,12 +92,12 @@ python -m http.server 8000 --directory site/dist
 
 ## 收录标准
 
-一种风格必须同时满足：
+每一种风格都有配方，以及 Agent **只凭配方**做出来的模板。风格分为两级：
 
-1. 至少有**两个彼此独立的公开案例**，由 Agent 写代码完成（不同创作者或不同项目）；
-2. Agent **只凭配方**就做出了 `templates/` 里的模板。
+- **核心**：至少有**两个彼此独立的公开案例**，由 Agent 写代码完成（不同创作者或不同项目）。
+- **实验性**：公开案例较少（有时只有 skill 包或组件库），但每一种都按配方实际做过并检查过。其中有些在特定场景下是最佳选择，例如播客片段、聊天记录故事、等距视角的系统图。只有当需求明确要这种视觉时，Agent 才会选用。
 
-尚未达标的风格保存在 [`data/candidates.yaml`](data/candidates.yaml)，写明缺少什么、以及在哪些场景下仍可能是最佳选择，例如聊天界面故事、新闻播报台、白板手写、地图叙事。其中两种的配方草稿在 `data/drafts/`。
+研究过但刻意不收录的两种类型及原因，见 [`data/candidates.yaml`](data/candidates.yaml)。
 
 每种风格背后的研究与出处在 `research/`。
 

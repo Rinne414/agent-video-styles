@@ -84,11 +84,22 @@ def build_schedule(self):                 # segment start = cumulative duration 
 def cue(self, sid, ms): return self.seg[sid]["t0"] + ms / 1000
 # self.until(self.seg["s2"]["t0"]); self.add_sound(path); ...; self.until(self.cue("s2", 1000))
 
-def add_caption(self, text, t0, t1):      # one updater per sentence; keep snippets short
-    cap = Text(text, font_size=30).to_edge(DOWN); cap.set_opacity(0)
+CAPTION_BOTTOM = -config.frame_height / 2 + 0.6      # 0.6 units = 80 px at 1080p (frame height 8 = 1080 px, 135 px/unit)
+
+def add_caption(self, text, t0, t1):      # one updater per caption; keep snippets short
+    cap = Text(text, font_size=30); cap.set_opacity(0)
+    cap.align_to(CAPTION_BOTTOM * UP, DOWN)           # anchor the bottom edge of the text at the safe area
     cap.add_updater(lambda m: m.set_opacity(1 if t0 <= self.renderer.time < t1 else 0))
-    self.add(cap)                          # t0/t1 = first word of this sentence / first word of the next (or segment end)
+    self.add(cap)                          # t0/t1 = first word of this caption / first word of the next (or segment end)
+
+def captions_by_word(self, rows):         # rows: [(segment id, first word index, text), ...] in order, last row of a segment ends at its end
+    for k, (sid, wi, text) in enumerate(rows):
+        s = self.seg[sid]; t0 = s["t0"] + s["words"][wi]
+        nxt = rows[k + 1] if k + 1 < len(rows) else None
+        t1 = (self.seg[nxt[0]]["t0"] + self.seg[nxt[0]]["words"][nxt[1]]) if nxt and nxt[0] == sid else s["t0"] + s["dur"]
+        self.add_caption(text, t0, t1)
 ```
+Do not use `.to_edge(DOWN)`: its default margin is about 0.4 units (about 54 px), inside a 90 px safe area. A top equation needs `to_edge(UP, buff=0.8)` or more, so lower the geometry if a brace label would collide.
 When narration is the master clock, "hold >= 1 s after each reveal" means "or until the end of the narration sentence".
 
 Shapes that rotate and translate: `Transform` between them distorts (sectors, wedges). Rebuild the shape from the animation parameter instead:
@@ -98,7 +109,14 @@ self.play(LaggedStart(*[UpdateFromAlphaFunc(w, f_k, rate_func=smooth) for ...], 
 ```
 Bind loop variables as default args (`def f(m, alpha, a0=a0, ...)`).
 
-`MathTex(...).set_color_by_tex("r")` matches substrings (it also colours `rac`). Match `tex_strings` exactly instead: `for part in eq: if part.tex_string == "r": part.set_color(GOLD)`. Colour a result by outlining or boxing it; keep each symbol's own colour.
+Splitting `MathTex` into addressable parts with `{{ }}` (reported from a Manim 0.22 regression run, not re-run here). Put a space around every group. Adjacent groups (`{{n}}{{=}}{{?}}`) silently merge into one part, a group right after a parenthesis (`({{...}}`) does not split, and groups inside `\frac{ }` fail the same way. Works:
+```python
+eq = MathTex(r"2 \times ( {{1+2+3+\cdots+}} {{n}} ) = {{n}} ( {{n}} +1)")
+print([p.tex_string for p in eq])        # always print before animating: part indexes (eq[-1], Indicate) depend on the split
+```
+`MathTex(...).set_color_by_tex("r")` matches substrings (it also colours `\frac`). Match `tex_strings` exactly instead: `for part in eq: if part.tex_string == "r": part.set_color(GOLD)`. Colour a result by outlining or boxing it; keep each symbol's own colour.
+
+Budget: a 720p15 draft of a 42 s scene took about 70 s, so batch every still of a pass into one draft render.
 
 Quick-look stills (`-s` renders only the last frame): draft render, then grab frames at segment starts:
 ```bash

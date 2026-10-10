@@ -4,11 +4,12 @@ import path from 'node:path';
 import YAML from 'yaml';
 
 export const TOOLS = ['remotion', 'hyperframes', 'manim', 'html-capture', 'motion-canvas'];
-const TIERS = ['core'];
-const STRENGTHS = ['strong', 'medium'];
+const TIERS = ['core', 'experimental'];
+const STRENGTHS = ['strong', 'medium', 'weak'];
 const VERIFIED = ['opened', 'aggregator', 'snippet'];
 const TAG_KEYS = ['use', 'platform', 'aspect', 'audio', 'mood', 'needs'];
-const MIN_EVIDENCE = 2;
+// Core styles need two independent public examples; experimental ones need at least one.
+const MIN_EVIDENCE = { core: 2, experimental: 1 };
 
 const exists = (p) => access(p).then(() => true, () => false);
 
@@ -43,7 +44,8 @@ function validateStyle(style, fileId) {
     if (!v.id || !v.en || !v.zh) errors.push(`${id}: every variant needs id, en, zh`);
   }
   const evidence = style.evidence ?? [];
-  if (evidence.length < MIN_EVIDENCE) errors.push(`${id}: needs at least ${MIN_EVIDENCE} evidence entries`);
+  const minEvidence = MIN_EVIDENCE[style.tier] ?? 2;
+  if (evidence.length < minEvidence) errors.push(`${id}: a ${style.tier} style needs at least ${minEvidence} evidence entries`);
   for (const e of evidence) {
     if (!e.url?.startsWith('http')) errors.push(`${id}: evidence "${e.creator}" has no valid url`);
     if (!VERIFIED.includes(e.verified)) errors.push(`${id}: evidence "${e.creator}" verified must be one of ${VERIFIED}`);

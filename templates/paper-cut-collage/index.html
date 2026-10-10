@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    @font-face { font-family: "Fredoka"; src: url("fonts/fredoka-latin-600-normal.woff2") format("woff2"); font-weight: 600; }
+    @font-face { font-family: "Caveat Brush"; src: url("fonts/caveat-brush-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1920px; height: 1080px; overflow: hidden; background: #F3EAD6; }
+    #root { position: relative; width: 1920px; height: 1080px; }
+    #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1920" data-height="1080">
+    <section class="clip" data-start="0" data-duration="30" data-track-index="0" style="position:absolute;inset:0">
+      <svg id="stage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+        <defs id="defs"></defs>
+        <rect width="1920" height="1080" fill="#F3EAD6"/>
+        <g id="layer"></g>
+        <rect width="1920" height="1080" filter="url(#grain)" opacity="0.16" style="mix-blend-mode:multiply"/>
+      </svg>
+    </section>
+  </div>
+  <script>
+const CONTENT = {"video":{"width":1920,"height":1080,"fps":30,"durationFrames":900,"holdFrames":2,"grainOpacity":0.16},"palette":{"table":"#F3EAD6","ink":"#2A1D18","paper":"#FBF6EA","navy":"#26315F","mustard":"#D9A441","teal":"#3F9F9A","mint":"#A9D9C6","pink":"#F3A3BF","sky":"#CFE2EE","purple":"#8C7AD8","green":"#5AA05A","orange":"#EC7A4F","skin":"#E8B592","leafDark":"#2F6B3A","olive":"#9A9A3F","brown":"#8B5E3C","kraft":"#C9A87C","cupShade":"#E6DCC3"},"fonts":{"title":"Fredoka","tag":"Caveat Brush","titleWidthEm":0.56,"tagWidthEm":0.4},"title":{"text":"The Journey of Tea","sub":"in four moments"},"moments":[{"start":90,"kicker":"moment one","title":"Picked in the mist"},{"start":270,"kicker":"moment two","title":"Rolled and dried"},{"start":450,"kicker":"moment three","title":"Carried by sea"},{"start":630,"kicker":"moment four","title":"Poured at last"}],"end":{"text":"From hill to cup.","at":840},"tagArriveFrame":36};
+// Seeded randomness: every value is a pure function of (id, hold index).
+function hash32(s) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+// One value in [0,1) for a named thing at hold index k (the "boil" re-roll).
+function rnd(id, k) {
+  const r = mulberry32(hash32(id) ^ Math.imul(k + 1, 2654435761));
+  r();
+  return r();
+}
+
+// Paper engine: torn-edge pieces, patterns, easing, tags. Pure functions of the held frame.
+const W = CONTENT.video.width;
+const H = CONTENT.video.height;
+const HOLD = CONTENT.video.holdFrames;
+const PAL = CONTENT.palette;
+const FONT = CONTENT.fonts;
+
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const prog = (h, s, d) => clamp((h - s) / d, 0, 1);
+const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+const sw = (h, period) => (Math.floor(h / period) % 2 === 0 ? 1 : -1); // square wave on holds
+const f1 = (n) => Math.round(n * 10) / 10;
+
+// ---------- base outlines (closed polygons, local coordinates centred on 0,0) ----------
+const rectG = (w, h) => [[-w / 2, -h / 2], [w / 2, -h / 2], [w / 2, h / 2], [-w / 2, h / 2]];
+const ellG = (rx, ry, n = 48) =>
+  Array.from({ length: n }, (_, i) => [Math.cos((i / n) * Math.PI * 2) * rx, Math.sin((i / n) * Math.PI * 2) * ry]);
+const polyG = (pts) => pts;
+const leafG = (len, wid) => {
+  const up = [], dn = [];
+  for (let i = 0; i <= 10; i++) {
+    const t = i / 10, x = (t - 0.5) * len, y = wid * Math.pow(Math.sin(Math.PI * t), 0.8);
+    up.push([x, -y]); dn.unshift([x, y]);
+  }
+  return up.concat(dn.slice(1, -1));
+};
+// Hill: wavy top, flat bottom. waves = sum of two sines.
+const hillG = (w, h, amp, freq = 1.3, ph = 0) => {
+  const pts = [], n = 32;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, x = -w / 2 + u * w;
+    pts.push([x, -h / 2 + amp * (Math.sin(u * Math.PI * 2 * freq + ph) * 0.65 + Math.sin(u * Math.PI * 2 * freq * 2.3 + ph * 1.7) * 0.35)]);
+  }
+  pts.push([w / 2, h / 2], [-w / 2, h / 2]);
+  return pts;
+};
+// Scalloped strip (tea bush row / waves): bumps on top, flat bottom.
+const scallopG = (w, h, bumps, bumpH) => {
+  const pts = [], n = bumps * 8;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, x = -w / 2 + u * w;
+    pts.push([x, -h / 2 - bumpH * Math.abs(Math.sin(u * bumps * Math.PI))]);
+  }
+  pts.push([w / 2, h / 2], [-w / 2, h / 2]);
+  return pts;
+};
+const cloudG = (w, h) => {
+  const pts = [], n = 30;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n;
+    pts.push([-w / 2 + u * w, -h * Math.pow(Math.abs(Math.sin(u * Math.PI * 2.5)), 0.7) * Math.pow(Math.sin(Math.PI * u), 0.5)]);
+  }
+  pts.push([w / 2, 0], [-w / 2, 0]);
+  return pts;
+};
+const starG = (r1, r2, n) =>
+  Array.from({ length: n * 2 }, (_, i) => {
+    const a = (i / (n * 2)) * Math.PI * 2, r = i % 2 ? r2 : r1;
+    return [Math.cos(a) * r, Math.sin(a) * r];
+  });
+// Thick arc (cup handle): angles in degrees, radius r, thickness t.
+const arcG = (r, t, a0, a1, n = 14) => {
+  const o = [], inn = [];
+  for (let i = 0; i <= n; i++) {
+    const a = ((a0 + ((a1 - a0) * i) / n) * Math.PI) / 180;
+    o.push([Math.cos(a) * (r + t / 2), Math.sin(a) * (r + t / 2)]);
+    inn.unshift([Math.cos(a) * (r - t / 2), Math.sin(a) * (r - t / 2)]);
+  }
+  return o.concat(inn);
+};
+// Wavy vertical ribbon (steam, stream).
+const ribbonG = (len, wid, wob, ph) => {
+  const l = [], r = [], n = 12;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n, x = Math.sin(u * Math.PI * 2 + ph) * wob * u, wv = wid * (1 - 0.6 * u);
+    l.push([x - wv / 2, -u * len]); r.unshift([x + wv / 2, -u * len]);
+  }
+  return l.concat(r);
+};
+
+// ---------- torn edge ----------
+function bounds(pts) {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const [x, y] of pts) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+  return { w: x1 - x0, h: y1 - y0 };
+}
+function resample(pts, n) {
+  const seg = [];
+  let tot = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i], b = pts[(i + 1) % pts.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    seg.push(l); tot += l;
+  }
+  const step = tot / n, out = [];
+  let i = 0, acc = 0;
+  for (let k = 0; k < n; k++) {
+    const target = k * step;
+    while (acc + seg[i] < target && i < pts.length - 1) { acc += seg[i]; i++; }
+    const a = pts[i], b = pts[(i + 1) % pts.length], t = seg[i] ? (target - acc) / seg[i] : 0;
+    out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+  }
+  return out;
+}
+const PATHS = new Map();
+// Closed path with 40-70 points offset along the normal by seeded noise.
+function tornPath(key, pts, amp, grow) {
+  if (PATHS.has(key)) return PATHS.get(key);
+  let area = 0;
+  for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i + 1) % pts.length]; area += a[0] * b[1] - b[0] * a[1]; }
+  const base = area < 0 ? pts.slice().reverse() : pts;
+  let per = 0;
+  for (let i = 0; i < base.length; i++) { const a = base[i], b = base[(i + 1) % base.length]; per += Math.hypot(b[0] - a[0], b[1] - a[1]); }
+  const n = clamp(Math.round(per / 22), 40, 70), q = resample(base, n), r = mulberry32(hash32(key));
+  const out = q.map((p, i) => {
+    const a = q[(i + n - 1) % n], b = q[(i + 1) % n];
+    const tx = b[0] - a[0], ty = b[1] - a[1], l = Math.hypot(tx, ty) || 1;
+    const o = (r() * 2 - 1) * amp + grow;
+    return [p[0] + (ty / l) * o, p[1] - (tx / l) * o];
+  });
+  const d = "M" + out.map((p) => f1(p[0]) + "," + f1(p[1])).join("L") + "Z";
+  PATHS.set(key, d);
+  return d;
+}
+
+// ---------- pieces ----------
+const CUR = { k: 0, buf: "", ui: "" };
+
+// o: id, g (outline), fill, pat, x, y, r, s, sx, sy, amp, rim, shadow, jit, extra, ui
+function piece(o) {
+  const k = CUR.k, j = o.jit == null ? 1 : o.jit;
+  const jr = (rnd(o.id + ":r", k) - 0.5) * 2.4 * j;
+  const jx = (rnd(o.id + ":x", k) - 0.5) * 4 * j;
+  const jy = (rnd(o.id + ":y", k) - 0.5) * 4 * j;
+  const b = bounds(o.g);
+  const amp = o.amp != null ? o.amp : clamp(Math.min(b.w, b.h) * 0.05, 2.5, 8);
+  const rimOn = o.rim !== false && amp > 0;
+  const fillD = tornPath(o.id, o.g, amp, 0);
+  const rimD = rimOn ? tornPath(o.id + ":rim", o.g, amp + 2, 3.5) : "";
+  const sx = (o.sx != null ? o.sx : 1) * (o.s != null ? o.s : 1), sy = (o.sy != null ? o.sy : 1) * (o.s != null ? o.s : 1);
+  const tf = `translate(${f1((o.x || 0) + jx)} ${f1((o.y || 0) + jy)}) rotate(${f1((o.r || 0) + jr)}) scale(${f1(sx * 1000) / 1000} ${f1(sy * 1000) / 1000})`;
+  let inner = "";
+  if (rimOn) inner += `<path d="${rimD}" fill="${PAL.paper}"/>`;
+  inner += `<path d="${fillD}" fill="${o.fill}"/>`;
+  if (o.pat) inner += `<path d="${fillD}" fill="url(#p-${o.pat})"/>`;
+  const shadow = o.shadow === false ? "" : ' filter="url(#sh)"';
+  const s = `<g transform="${tf}"><g${shadow}>${inner}</g>${o.extra || ""}</g>`;
+  if (o.ui) CUR.ui += s; else CUR.buf += s;
+}
+
+// Arrival helpers: return null before start so the piece is not drawn at all.
+function slide(L, start, dx, dy, dur = 8) {
+  if (L < start) return null;
+  const e = 1 - easeOut(prog(L, start, dur));
+  return { x: dx * e, y: dy * e };
+}
+function pop(L, start, dur = 6) {
+  if (L < start) return 0;
+  const p = prog(L, start, dur);
+  return p < 0.67 ? 0.6 + (p / 0.67) * 0.46 : 1.06 - ((p - 0.67) / 0.33) * 0.06;
+}
+
+// Paper tag with text. kind 'title' (Fredoka 600) or 'tag' (Caveat Brush). o.left pins the left edge.
+function tagW(text, size, kind) {
+  const em = kind === "tag" ? FONT.tagWidthEm : FONT.titleWidthEm;
+  return text.length * size * em + size * 1.1;
+}
+function tag(o) {
+  const fam = o.kind === "tag" ? FONT.tag : FONT.title;
+  const wgt = o.kind === "tag" ? 400 : 600;
+  const w = tagW(o.text, o.size, o.kind), h = o.size * 1.5;
+  const x = (o.left != null ? o.left + w / 2 : o.x) + (o.dx || 0);
+  const text = `<text x="0" y="${f1(o.size * 0.34)}" text-anchor="middle" font-family="${fam}" font-weight="${wgt}" font-size="${o.size}" fill="${PAL.ink}">${o.text}</text>`;
+  piece({ id: o.id, g: rectG(w, h), fill: o.fill || PAL.paper, rim: false, amp: 4, x, y: o.y + (o.dy || 0), r: o.r || 0, s: o.s, extra: text, ui: true, pat: o.pat });
+  return { w, h };
+}
+
+// ---------- persistent defs: patterns, shadow, grain ----------
+function defsMarkup() {
+  const paper = PAL.paper, ink = PAL.ink;
+  return `
+<filter id="sh" x="-10%" y="-10%" width="125%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="${ink}" flood-opacity="0.28"/></filter>
+<filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" seed="7" result="n"/><feColorMatrix type="matrix" values="0.4 0 0 0 0.62  0.4 0 0 0 0.62  0.4 0 0 0 0.62  0 0 0 0 1"/></filter>
+<pattern id="p-stripeL" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="28" height="9" fill="${paper}" fill-opacity="0.55"/></pattern>
+<pattern id="p-stripeD" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="28" height="9" fill="${ink}" fill-opacity="0.2"/></pattern>
+<pattern id="p-dotsL" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="6" fill="${paper}" fill-opacity="0.6"/></pattern>
+<pattern id="p-dotsD" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="6" fill="${ink}" fill-opacity="0.2"/></pattern>
+<pattern id="p-gingham" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="20" height="40" fill="${paper}" fill-opacity="0.45"/><rect width="40" height="20" fill="${paper}" fill-opacity="0.45"/></pattern>`;
+}
+
+// Run fn and wrap every piece it draws in a scale about (cx, cy): lets one scene cluster be built at design size.
+function scaled(cx, cy, k, fn) {
+  const save = CUR.buf;
+  CUR.buf = "";
+  fn();
+  const inner = CUR.buf;
+  CUR.buf = save + `<g transform="translate(${cx} ${cy}) scale(${k}) translate(${-cx} ${-cy})">${inner}</g>`;
+}
+
+// Title card and moment one (misty hillside). L = scene-local held frame.
+const cupG = (w, h) => {
+  const pts = [[-w / 2, -h / 2], [w / 2, -h / 2]];
+  for (let i = 1; i <= 14; i++) { const a = (i / 14) * Math.PI; pts.push([Math.cos(a) * (w / 2), -h / 2 + Math.sin(a) * h]); }
+  return pts;
+};
+const birdG = (up) => (up ? [[-28, -8], [0, 2], [28, -8], [0, -3]] : [[-28, 6], [0, -6], [28, 6], [0, -1]]);
+const tuftG = () => [[-22, 0], [-14, -34], [-7, -8], [0, -44], [7, -8], [15, -36], [22, 0]];
+
+// Chapter tags: kicker first, then the title card (text tag arrives last).
+function momentTags(L, m, idx) {
+  const t0 = CONTENT.tagArriveFrame;
+  if (L >= t0) {
+    const e = 1 - easeOut(prog(L, t0, 8));
+    tag({ id: "kick" + idx, kind: "tag", text: m.kicker, size: 56, left: 96, y: 132, r: -3, dx: -700 * e, fill: PAL.mustard });
+  }
+  if (L >= t0 + 6) {
+    const e = 1 - easeOut(prog(L, t0 + 6, 8));
+    tag({ id: "ttl" + idx, kind: "title", text: m.title, size: 104, left: 96, y: 285, r: 1.5, dx: -1500 * e });
+  }
+}
+
+function sceneTitle(L) {
+  const T = CONTENT.title;
+  let a;
+  if ((a = slide(L, 4, 0, 700))) piece({ id: "t-hillL", g: hillG(1200, 560, 60), fill: PAL.green, pat: "stripeD", x: 260, y: 1010 + a.y });
+  if ((a = slide(L, 8, 0, 700))) piece({ id: "t-hillR", g: hillG(1300, 500, 50, 1.1, 1), fill: PAL.teal, pat: "dotsL", x: 1640, y: 1030 + a.y });
+  if ((a = slide(L, 12, -600, 0))) piece({ id: "t-pink", g: ellG(140, 100), fill: PAL.pink, pat: "gingham", x: 250 + a.x, y: 230 });
+  const sp = pop(L, 16);
+  if (sp) piece({ id: "t-sun", g: ellG(140, 140), fill: PAL.mustard, pat: "dotsL", x: 1590, y: 250, s: sp });
+  if ((a = slide(L, 20, 0, 600))) piece({ id: "t-leaf1", g: leafG(330, 90), fill: PAL.green, pat: "dotsL", x: 430, y: 820 + a.y, r: -28 });
+  if ((a = slide(L, 24, 0, 600))) piece({ id: "t-leaf2", g: leafG(260, 74), fill: PAL.leafDark, pat: "stripeL", x: 1500 + a.x, y: 790 + a.y, r: 38 });
+  const cp = pop(L, 28);
+  if (cp) {
+    piece({ id: "t-saucer", g: ellG(190, 36), fill: PAL.paper, x: 960, y: 930, s: cp, pat: "dotsD" });
+    piece({ id: "t-cup", g: cupG(250, 150), fill: PAL.orange, pat: "stripeL", x: 960, y: 830, s: cp });
+    piece({ id: "t-handle", g: arcG(48, 18, -90, 90), fill: PAL.orange, x: 1090, y: 820, s: cp });
+  }
+  for (let i = 0; i < 2; i++) {
+    const sd = pop(L, 40 + i * 4);
+    if (sd) piece({ id: "t-steam" + i, g: ribbonG(100, 24, 26, i * 2), fill: PAL.sky, x: 930 + i * 60, y: 750, s: sd, rim: false, amp: 2 });
+  }
+  const dropT = slide(L, 0, 0, -700, 10);
+  const tw = tagW(T.text, 132, "title");
+  tag({ id: "t-title", kind: "title", text: T.text, size: 132, x: 960, y: 440 + (dropT ? dropT.y : -700), r: -2 });
+  if (L >= 40) {
+    const e = 1 - easeOut(prog(L, 40, 8));
+    tag({ id: "t-sub", kind: "tag", text: T.sub, size: 72, x: 960, y: 585, r: 2, dy: -300 * e, fill: PAL.mustard });
+  }
+  return tw;
+}
+
+function drawPicker(L, px, py) {
+  const s0 = pop(L, 14);
+  if (!s0) return;
+  scaled(px, py, 1.7, () => {
+    const s = s0, reach = sw(L, 12) > 0;
+    for (let i = 0; i < 3; i++) {
+      const t = (L + i * 12) % 36;
+      if (t >= 30) continue;
+      const ph = t / 30, sx = px + 125, sy = py - 120, ex = px - 62, ey = py - 110;
+      const x = sx + (ex - sx) * ph, y = sy + (ey - sy) * ph - Math.sin(ph * Math.PI) * 40;
+      piece({ id: "h-fly" + i, g: leafG(40, 13), fill: PAL.green, x, y, r: ph * 220, amp: 1.5, rim: false, shadow: false });
+    }
+    piece({ id: "h-basket", g: polyG([[-30, -45], [30, -45], [22, 45], [-22, 45]]), fill: PAL.orange, pat: "stripeL", x: px - 62, y: py - 100, r: -8, s });
+    piece({ id: "h-body", g: polyG([[-34, -70], [34, -70], [58, 70], [-58, 70]]), fill: PAL.pink, pat: "gingham", x: px, y: py - 70, s });
+    piece({
+      id: "h-head", g: ellG(36, 38), fill: PAL.skin, x: px, y: py - 172, s, amp: 2.5, rim: false,
+      extra: `<circle cx="-12" cy="-2" r="4" fill="${PAL.ink}"/><circle cx="12" cy="-2" r="4" fill="${PAL.ink}"/><path d="M-8 14 Q0 20 8 14" stroke="${PAL.ink}" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+    });
+    piece({ id: "h-hat", g: polyG([[-90, 14], [90, 14], [0, -50]]), fill: PAL.mustard, pat: "stripeD", x: px, y: py - 208, s });
+    piece({ id: "h-arm", g: polyG([[-9, 0], [9, 0], [9, 92], [-9, 92]]), fill: PAL.skin, x: px + 28, y: py - 132, r: reach ? -68 : -112, s, amp: 2, rim: false });
+  });
+}
+
+function sceneHill(L) {
+  const m = CONTENT.moments[0];
+  piece({ id: "h-sky", g: rectG(2100, 1300), fill: PAL.sky, x: 960, y: 540, shadow: false, jit: 0.3 });
+  const sun = pop(L, 6);
+  if (sun) piece({ id: "h-sun", g: ellG(105, 105), fill: PAL.mustard, x: 1500, y: 230, s: sun });
+  [[300, 190, 300, 0.35], [980, 120, 220, 0.25], [1700, 340, 260, 0.3]].forEach((c, i) => {
+    piece({ id: "h-cloud" + i, g: cloudG(c[2], 80), fill: PAL.paper, x: c[0] + Math.floor(L / 2) * c[3] * 2, y: c[1], rim: false, amp: 3 });
+  });
+    piece({ id: "h-far", g: hillG(2400, 520, 70), fill: PAL.mint, pat: "stripeL", x: 960, y: 760 });
+  piece({ id: "h-mist1", g: hillG(2300, 90, 26, 2), fill: PAL.paper, x: 900 + sw(L, 40) * 20 + Math.floor(L / 4), y: 640, rim: false, amp: 5 });
+  piece({ id: "h-mid", g: hillG(2700, 560, 60, 1.4, 1), fill: PAL.teal, pat: "dotsL", x: 900, y: 860 });
+  piece({ id: "h-mist2", g: hillG(2300, 100, 28, 1.6, 1), fill: PAL.paper, x: 1000 - Math.floor(L / 4), y: 790, rim: false, amp: 5 });
+  piece({ id: "h-mist3", g: hillG(1500, 120, 30, 1.5), fill: PAL.paper, x: 380 + sw(L, 48) * 12 + Math.floor(L / 6), y: 720, rim: false, amp: 5 });
+  piece({ id: "h-front", g: hillG(2700, 520, 50, 0.9, 2), fill: PAL.green, pat: "stripeD", x: 1300, y: 1000 });
+  piece({ id: "h-row1", g: scallopG(2400, 60, 19, 26), fill: PAL.leafDark, pat: "dotsL", x: 1100, y: 850 });
+  drawPicker(L, 1300, 975);
+  piece({ id: "h-row2", g: scallopG(2200, 80, 16, 32), fill: PAL.leafDark, pat: "dotsL", x: 1000, y: 960 });
+  piece({ id: "h-row3", g: scallopG(2600, 100, 14, 40), fill: PAL.leafDark, pat: "dotsL", x: 1100, y: 1080 });
+  [[200, 1000], [640, 1040], [1760, 1020]].forEach((t, i) => piece({ id: "h-tuft" + i, g: tuftG(), fill: PAL.green, x: t[0], y: t[1], s: 1.5, rim: false, amp: 1.5 }));
+  for (let i = 0; i < 3; i++) {
+    const bx = ((L * 4 + i * 520) % 2300) - 200;
+    piece({ id: "h-bird" + i, g: birdG(sw(L + i * 4, 6) > 0), fill: PAL.navy, x: bx, y: 300 + i * 70 + Math.sin(L / 14 + i) * 14, rim: false, amp: 1.5, shadow: false });
+  }
+  momentTags(L, m, 1);
+}
+
+// Moments two (rolled and dried), three (carried by sea) and four (poured at last).
+const tri = (L, period) => {
+  const m = L % period, half = period / 2;
+  return (m < half ? m / half : (period - m) / half) * 2 - 1;
+};
+// Dried-tea colour ladder: fresh green, then olive, then brown.
+const leafColour = (L) => (L < 70 ? PAL.green : L < 120 ? PAL.olive : PAL.brown);
+// Offset a ship/pot-local point by rotation about its origin.
+const rot2 = (dx, dy, deg) => {
+  const a = (deg * Math.PI) / 180, c = Math.cos(a), s = Math.sin(a);
+  return [dx * c - dy * s, dx * s + dy * c];
+};
+
+function sceneDry(L) {
+  const m = CONTENT.moments[1];
+  piece({ id: "d-wall", g: rectG(2100, 1300), fill: PAL.pink, pat: "stripeL", x: 960, y: 540, shadow: false, jit: 0.3 });
+  const sun = pop(L, 6);
+  if (sun) piece({ id: "d-sun", g: starG(125, 88, 10), fill: PAL.orange, pat: "dotsL", x: 1640, y: 200, r: L * 5, s: sun });
+  for (let i = 0; i < 7; i++) {
+    const a = slide(L, 8 + i * 3, 0, -200);
+    if (a) piece({ id: "d-flag" + i, g: polyG([[-34, -30], [34, -30], [0, 40]]), fill: [PAL.mustard, PAL.teal, PAL.paper][i % 3], pat: i % 2 ? "dotsD" : "stripeD", x: 80 + i * 150 + (i > 3 ? 600 : 0) * 0, y: 70 + a.y + Math.abs(i - 3) * -4, r: sw(L + i * 2, 12) * 3, amp: 3 });
+  }
+  // lantern on a cord
+  piece({ id: "d-cord", g: rectG(5, 130), fill: PAL.ink, x: 1100, y: 65, rim: false, amp: 0, shadow: false, jit: 0.3 });
+  piece({ id: "d-lantern", g: ellG(46, 60), fill: PAL.mustard, pat: "stripeD", x: 1100, y: 170, r: sw(L, 16) * 3 });
+  piece({ id: "d-table", g: rectG(2100, 420), fill: PAL.navy, pat: "dotsD", x: 960, y: 980 });
+  // drying rack (right)
+  piece({ id: "d-pole1", g: rectG(16, 470), fill: PAL.ink, x: 1470, y: 560, rim: false, amp: 1.5 });
+  piece({ id: "d-pole2", g: rectG(16, 470), fill: PAL.ink, x: 1810, y: 560, rim: false, amp: 1.5 });
+  piece({ id: "d-bar", g: rectG(380, 18), fill: PAL.ink, x: 1640, y: 340, rim: false, amp: 1.5 });
+  for (let i = 0; i < 5; i++) {
+    const a = slide(L, 14 + i * 4, 0, -500);
+    if (a) piece({ id: "d-hang" + i, g: leafG(130, 32), fill: leafColour(L), x: 1510 + i * 70, y: 430 + a.y, r: 90 + sw(L + i * 6, 10) * 5, pat: "stripeD" });
+  }
+  // tray, pile and the rolling hand
+  scaled(740, 860, 1.4, () => {
+  const tr = pop(L, 10);
+  if (tr) {
+    piece({ id: "d-tray", g: ellG(400, 95), fill: PAL.mustard, pat: "stripeD", x: 740, y: 860, s: tr });
+    piece({ id: "d-pile", g: ellG(230, 62), fill: leafColour(L), pat: "dotsD", x: 740, y: 830, s: tr });
+  }
+  if (L >= 20) {
+    const t = tri(L, 48), hx = 740 + t * 80;
+    piece({ id: "d-roll", g: ellG(92, 46), fill: L < 70 ? PAL.leafDark : L < 120 ? PAL.brown : PAL.ink, pat: "stripeD", x: 740 + t * 40, y: 770, r: t * 70 });
+    piece({ id: "d-sleeve", g: rectG(330, 84), fill: PAL.teal, pat: "gingham", x: hx + 240, y: 685, r: -8 });
+    piece({ id: "d-hand", g: polyG([[-86, -26], [70, -30], [96, 0], [70, 30], [-86, 26]]), fill: PAL.skin, x: hx, y: 705, r: -6, amp: 3 });
+  }
+  });
+  // sleeping cat
+  const c = pop(L, 24);
+  if (c) {
+    piece({ id: "d-tail", g: leafG(150, 22), fill: PAL.purple, x: 90, y: 940, r: sw(L, 20) * 10 - 20, s: c });
+    piece({ id: "d-cat", g: ellG(125, 62), fill: PAL.purple, pat: "stripeD", x: 250, y: 930, s: c });
+    piece({
+      id: "d-cathead", g: ellG(52, 46), fill: PAL.purple, x: 365, y: 905, s: c, amp: 3, rim: false,
+      extra: `<path d="M-24 0 Q-14 8 -4 0 M8 0 Q18 8 28 0" stroke="${PAL.ink}" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+    });
+    piece({ id: "d-ear1", g: polyG([[-18, 20], [0, -26], [18, 20]]), fill: PAL.purple, x: 342, y: 865, s: c, rim: false, amp: 1.5 });
+    piece({ id: "d-ear2", g: polyG([[-18, 20], [0, -26], [18, 20]]), fill: PAL.purple, x: 392, y: 865, s: c, rim: false, amp: 1.5 });
+  }
+  // potted plant + dust motes
+  piece({ id: "d-pot", g: polyG([[-40, -36], [40, -36], [30, 40], [-30, 40]]), fill: PAL.teal, pat: "dotsL", x: 1290, y: 800 });
+  for (let i = 0; i < 3; i++) piece({ id: "d-pl" + i, g: leafG(110, 30), fill: PAL.green, x: 1290 + (i - 1) * 40, y: 720 - (i === 1 ? 20 : 0), r: -90 + (i - 1) * 40 + sw(L + i * 4, 14) * 3, rim: false, amp: 2 });
+  for (let i = 0; i < 4; i++) {
+    const x = 500 + i * 230 + rnd("d-dust" + i, Math.floor(L / 8)) * 60, y = 380 + ((L * 1.5 + i * 90) % 260);
+    piece({ id: "d-dust" + i, g: ellG(6, 6, 12), fill: PAL.mustard, x, y, rim: false, amp: 0, shadow: false });
+  }
+  momentTags(L, m, 2);
+}
+
+function sceneShip(L) {
+  const m = CONTENT.moments[2];
+  piece({ id: "s-sky", g: rectG(2100, 1300), fill: PAL.mustard, pat: "dotsL", x: 960, y: 540, shadow: false, jit: 0.3 });
+  const sun = pop(L, 6);
+  if (sun) piece({ id: "s-sun", g: ellG(135, 135), fill: PAL.paper, pat: "dotsD", x: 1500, y: 300, s: sun, amp: 3 });
+  [[420, 200, 320], [1000, 130, 240], [1700, 180, 300]].forEach((c, i) => {
+    piece({ id: "s-cloud" + i, g: cloudG(c[2], 80), fill: PAL.pink, x: c[0] + Math.floor(L / 2) * (3 + i), y: c[1], rim: false, amp: 3 });
+  });
+  piece({ id: "s-island", g: hillG(900, 240, 40), fill: PAL.purple, pat: "stripeL", x: 380, y: 720 });
+  const wave = (id, w, bumps, spd, y, fill, pat, h, bh) => {
+    const period = w / bumps;
+    piece({ id, g: scallopG(w, h, bumps, bh), fill, pat, x: 960 - ((L * spd) % period), y, jit: 0.5 });
+  };
+  wave("s-sea1", 3800, 19, 1.5, 850, PAL.teal, "dotsL", 400, 34);
+  // ship
+  const sh = slide(L, 8, -1500, 0, 16);
+  if (sh) scaled(1200, 650, 1.1, () => {
+    const sx = 1250 + sh.x + L * 1.2, tilt = sw(L, 16) * 2.2, sy = 650 + sw(L + 8, 16) * 6;
+    const P = (dx, dy) => { const [rx, ry] = rot2(dx, dy, tilt); return [sx + rx, sy + ry]; };
+    const place = (id, g, fill, dx, dy, o = {}) => { const [x, y] = P(dx, dy); piece(Object.assign({ id, g, fill, x, y, r: tilt }, o)); };
+    place("s-mast1", rectG(14, 340), PAL.ink, -60, -190, { rim: false, amp: 1.5 });
+    place("s-mast2", rectG(14, 290), PAL.ink, 100, -165, { rim: false, amp: 1.5 });
+    place("s-sail1", polyG([[-84, -120], [84, -120], [74, 120], [-74, 120]]), PAL.paper, -60, -170, { pat: "stripeD" });
+    place("s-sail2", polyG([[-66, -100], [66, -100], [58, 100], [-58, 100]]), PAL.paper, 100, -150, { pat: "stripeD" });
+    place("s-flag", polyG([[0, -20], [70, 0], [0, 20]]), PAL.orange, -60 + 44, -352, { r: tilt + sw(L, 8) * 8, rim: false, amp: 2 });
+    place("s-hull", polyG([[-230, -40], [230, -40], [160, 55], [-160, 55]]), PAL.pink, 0, 30, { pat: "gingham" });
+    place("s-crate1", rectG(62, 58), PAL.mustard, -140, -22, { pat: "stripeD" });
+    place("s-crate2", rectG(62, 58), PAL.mustard, -72, -22, { pat: "stripeD" });
+    place("s-crate3", rectG(62, 58), PAL.mustard, -106, -80, { pat: "stripeD" });
+  });
+  wave("s-sea2", 3600, 14, 2.5, 940, PAL.navy, "stripeL", 400, 38);
+  wave("s-sea3", 3600, 11, 4, 1040, PAL.teal, "dotsL", 400, 40);
+  for (let i = 0; i < 3; i++) {
+    const bx = ((L * 3 + i * 700) % 2400) - 240;
+    piece({ id: "s-gull" + i, g: birdG(sw(L + i * 6, 6) > 0), fill: PAL.ink, x: bx, y: 230 + i * 90 + Math.sin(L / 12 + i) * 16, rim: false, amp: 1.5, shadow: false, s: 1.2 });
+  }
+  const jf = (L + 20) % 60;
+  if (jf < 24) {
+    const u = jf / 24;
+    piece({ id: "s-fish", g: leafG(90, 26), fill: PAL.paper, x: 1250 + u * 160, y: 870 - Math.sin(u * Math.PI) * 120, r: -50 + u * 100, rim: false, amp: 1.5 });
+  }
+  momentTags(L, m, 3);
+}
+
+function sceneCup(L) {
+  const m = CONTENT.moments[3];
+  piece({ id: "c-wall", g: rectG(2100, 1300), fill: PAL.teal, pat: "dotsL", x: 960, y: 540, shadow: false, jit: 0.3 });
+  const win = pop(L, 4);
+  if (win) {
+    piece({ id: "c-window", g: rectG(340, 440), fill: PAL.sky, x: 1730, y: 370, s: win });
+    piece({ id: "c-sun", g: ellG(70, 70), fill: PAL.mustard, x: 1690, y: 310, s: win, rim: false, amp: 3, shadow: false });
+    piece({ id: "c-bar1", g: rectG(14, 440), fill: PAL.paper, x: 1730, y: 370, s: win, rim: false, amp: 1.5 });
+    piece({ id: "c-bar2", g: rectG(340, 14), fill: PAL.paper, x: 1730, y: 370, s: win, rim: false, amp: 1.5 });
+  }
+  piece({ id: "c-table", g: rectG(2100, 420), fill: PAL.kraft, pat: "stripeD", x: 960, y: 990 });
+  const pl = pop(L, 12);
+  if (pl) {
+    for (let i = 0; i < 3; i++) piece({ id: "c-pl" + i, g: leafG(130, 36), fill: PAL.green, x: 210 + (i - 1) * 46, y: 640, r: -90 + (i - 1) * 42 + sw(L + i * 4, 14) * 3, s: pl, rim: false, amp: 2 });
+    piece({ id: "c-pot", g: polyG([[-46, -42], [46, -42], [34, 46], [-34, 46]]), fill: PAL.mustard, pat: "dotsD", x: 210, y: 735, s: pl });
+  }
+  const cp = pop(L, 14);
+  if (cp) {
+    piece({ id: "c-saucer", g: ellG(190, 38), fill: PAL.paper, pat: "dotsD", x: 960, y: 830, s: cp });
+    piece({ id: "c-handle", g: arcG(48, 20, -90, 90), fill: PAL.paper, x: 1096, y: 720, s: cp });
+    piece({ id: "c-cup", g: cupG(290, 190), fill: PAL.paper, pat: "dotsD", x: 960, y: 730, s: cp });
+    piece({ id: "c-open", g: ellG(145, 30), fill: PAL.cupShade, x: 960, y: 636, s: cp, rim: false, amp: 2, shadow: false });
+    const fill = prog(L, 72, 80);
+    if (fill > 0) piece({ id: "c-tea", g: ellG(128, 24), fill: PAL.orange, x: 960, y: 640, sy: Math.max(0.15, fill), rim: false, amp: 2, shadow: false });
+  }
+  for (let i = 0; i < 2; i++) {
+    const b = pop(L, 26 + i * 4);
+    if (b) piece({ id: "c-bisc" + i, g: ellG(48, 48, 24), fill: PAL.mustard, pat: "dotsD", x: 1390 + i * 90, y: 860 + i * 18, s: b });
+  }
+  // teapot: pieces rotate about the pot centre
+  const slideIn = slide(L, 20, 700, 0, 10);
+  if (slideIn) {
+    const down = L >= 160 ? 1 - prog(L, 160, 24) : prog(L, 40, 24);
+    const th = -24 * easeOut(down), cx = 1180 + slideIn.x, cy = 480;
+    const place = (id, g, fill, dx, dy, o = {}) => { const [rx, ry] = rot2(dx, dy, th); piece(Object.assign({ id, g, fill, x: cx + rx, y: cy + ry, r: th }, o)); };
+    place("c-spout", polyG([[-95, -5], [-175, -65], [-195, -80], [-205, -62], [-120, 32]]), PAL.navy, -20, 0, { pat: "stripeL" });
+    place("c-phandle", arcG(62, 24, -70, 70), PAL.navy, 120, 0);
+    place("c-pot-body", ellG(135, 108), PAL.navy, 0, 0, { pat: "stripeL" });
+    place("c-lid", ellG(72, 22), PAL.navy, 0, -104, { pat: "dotsL" });
+    place("c-knob", ellG(15, 15, 16), PAL.mustard, 0, -130, { amp: 1.5, rim: false });
+    const sg = L >= 64 && L < 160 ? easeOut(prog(L, 64, 8)) : 0;
+    if (sg > 0) piece({ id: "c-stream", g: rectG(20, 150), fill: PAL.orange, x: 975, y: 495 + 75 * sg, sy: sg, rim: false, amp: 2, shadow: false });
+  }
+  if (L >= 150) {
+    for (let i = 0; i < 3; i++) {
+      const st = pop(L, 150 + i * 6);
+      if (st) piece({ id: "c-steam" + i, g: ribbonG(170, 30, 36, i * 2 + Math.floor(L / 6) * 0.9), fill: PAL.paper, x: 900 + i * 60, y: 600, s: st, rim: false, amp: 2 });
+    }
+  }
+  if (L >= 176) {
+    [[740, 560], [1190, 590], [1060, 440]].forEach((p, i) => {
+      const s = pop(L, 176 + i * 4) * (sw(L + i * 4, 8) > 0 ? 1 : 0.8);
+      if (s) piece({ id: "c-spark" + i, g: starG(24, 8, 4), fill: PAL.mustard, x: p[0], y: p[1], s, rim: false, amp: 1.5, shadow: false });
+    });
+  }
+  if (L < 204) momentTags(L, m, 4);
+  else if (L < 210) {
+    const s = Math.max(0, 1 - prog(L, 204, 6));
+    if (s > 0) tag({ id: "ttl4", kind: "title", text: m.title, size: 104, left: 96, y: 285, r: 1.5, s });
+  }
+  if (L >= 210) {
+    const e = 1 - easeOut(prog(L, 210, 8));
+    tag({ id: "end", kind: "title", text: CONTENT.end.text, size: 112, x: 900, y: 250, r: -2, dy: -600 * e });
+  }
+}
+
+// Frame driver: every output is a pure function of the held frame number.
+const BOUNDS = [0].concat(CONTENT.moments.map((m) => m.start));
+const SCENES = [sceneTitle, sceneHill, sceneDry, sceneShip, sceneCup];
+const SCENE_LEN = BOUNDS.map((b, i) => (i + 1 < BOUNDS.length ? BOUNDS[i + 1] : CONTENT.video.durationFrames) - b);
+const WIPE_FILL = [PAL.green, PAL.pink, PAL.mustard, PAL.teal]; // next scene's colour, one strip leads the paper strip
+const WIPE_STEPS = 5;
+
+function sceneIndexAt(h) {
+  let s = 0;
+  BOUNDS.forEach((b, i) => { if (h >= b) s = i; });
+  return s;
+}
+
+// Torn paper strip crossing the screen (right to left) in 10 frames; scene swaps at its centre step.
+function wipeMarkup(h) {
+  for (let i = 1; i < BOUNDS.length; i++) {
+    const step = (h - (BOUNDS[i] - 4)) / HOLD;
+    if (step < 0 || step >= WIPE_STEPS) continue;
+    const left = 1920 - 1230 * step;
+    const save = CUR.buf;
+    CUR.buf = "";
+    piece({ id: "wipeB" + i, g: rectG(3600, 1300), fill: WIPE_FILL[i - 1], x: left - 380 + 1800, y: 540, shadow: false, amp: 8, jit: 0.4 });
+    piece({ id: "wipeA" + i, g: rectG(3600, 1300), fill: PAL.paper, x: left + 1800, y: 540, amp: 7, rim: false, jit: 0.4 });
+    const out = CUR.buf;
+    CUR.buf = save;
+    return out;
+  }
+  return "";
+}
+
+function draw(frame) {
+  const h = frame - (frame % HOLD);
+  if (draw.last === h) return;
+  draw.last = h;
+  CUR.k = h / HOLD; CUR.buf = ""; CUR.ui = "";
+  const s = sceneIndexAt(h), L = Math.max(0, h - BOUNDS[s]);
+  SCENES[s](L);
+  const p = prog(L, 0, SCENE_LEN[s]);
+  const cam = 1 + 0.06 * p;
+  const camTf = `translate(960 540) scale(${f1(cam * 1000) / 1000}) translate(${f1(-960 - 30 * p)} -540)`;
+  document.getElementById("layer").innerHTML = `<g transform="${camTf}">${CUR.buf}</g>${CUR.ui}${wipeMarkup(h)}`;
+}
+
+  </script>
+  <script>
+    document.getElementById("defs").innerHTML = defsMarkup();
+    const proxy = { t: 0 };
+    const tl = gsap.timeline({ paused: true });
+    const TOTAL = CONTENT.video.durationFrames / CONTENT.video.fps;
+    tl.to(proxy, { t: TOTAL, duration: TOTAL, ease: "none", onUpdate: () => draw(Math.round(proxy.t * CONTENT.video.fps)) }, 0);
+    draw(0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["main"] = tl;
+  </script>
+</body>
+</html>

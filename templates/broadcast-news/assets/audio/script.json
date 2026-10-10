@@ -1,0 +1,26 @@
+{
+  "voice": "en-US-GuyNeural",
+  "rate": "+8%",
+  "segments": [
+    {
+      "id": "open",
+      "text": "Welcome to the tech desk. This is a sample bulletin."
+    },
+    {
+      "id": "s1",
+      "text": "Story one. A new model ships with a two million token context window."
+    },
+    {
+      "id": "s2",
+      "text": "Story two. An open image dataset passes one billion images."
+    },
+    {
+      "id": "s3",
+      "text": "Story three. A robotics startup raises forty million dollars."
+    },
+    {
+      "id": "close",
+      "text": "That was the sample bulletin. All stories are fictional."
+    }
+  ]
+}

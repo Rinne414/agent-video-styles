@@ -68,6 +68,7 @@ function scoreStyle(style, answers, lang) {
   if (useHit.length) { score += 4; reasons.push(tagLabel(lang, useHit[0])); }
   if ((answers.use ?? []).includes(style.tags.use[0])) score += 2; // the style's main purpose
   if (style.evidence_strength === 'strong') score += 0.5;
+  if (style.tier === 'experimental') score -= 1.5; // less proven: only wins on a clearly better fit
   const aspectHit = overlap(answers.aspect ?? [], style.tags.aspect);
   if (aspectHit.length) { score += 2; reasons.push(aspectHit[0]); }
   else if (answers.aspect?.length) score -= 2;

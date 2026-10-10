@@ -11,6 +11,8 @@ HTML in, MP4 out. A composition is an `index.html` whose DOM declares timing wit
 
 ## Setup
 
+**Step 1, right after `init`: delete the generated agent files: `rm -f AGENTS.md CLAUDE.md`** (PowerShell: `Remove-Item AGENTS.md,CLAUDE.md`). They are auto-loaded into the session and tell the agent to invoke other skills first, which conflicts with this skill.
+
 ```bash
 npx --yes hyperframes@0.8.143 init my-video --non-interactive    # ~10 s; scaffolds a blank 1920x1080, 10 s project
 npx --yes hyperframes@0.8.143 init my-video --non-interactive --resolution portrait   # 1080x1920, verified (writes portrait root + viewport)
@@ -18,8 +20,9 @@ cd my-video && npx --yes hyperframes@0.8.143 doctor
 ```
 
 - Needs Node 22+, ffmpeg, and Chrome. No Chrome download was needed when a system Chrome was installed (`doctor` is all green except optional whisper-cpp/Kokoro/MusicGen).
-- `init` writes `index.html`, `hyperframes.json`, `meta.json`, `package.json` (scripts pin the CLI version, e.g. `hyperframes@0.8.143`) plus `AGENTS.md` / `CLAUDE.md` (8.6 KB each; delete them after `init` when building a template; `hyperframes.json`/`meta.json` can stay) and sets root `data-duration="10"`, which your build script must override. Set `HYPERFRAMES_SKIP_SKILLS=1` to stop it checking for skill updates.
+- `init` writes `index.html`, `hyperframes.json`, `meta.json`, `package.json` (scripts pin the CLI version, e.g. `hyperframes@0.8.143`) plus `AGENTS.md` / `CLAUDE.md` (8.6 KB each; see step 1; `hyperframes.json`/`meta.json` can stay) and sets root `data-duration="10"`, which your build script must override. Set `HYPERFRAMES_SKIP_SKILLS=1` to stop it checking for skill updates.
 - Pin the version in commands (as above). Newer versions change defaults.
+- `init` quirks (reported by template builders, not all re-run): `init my-video` creates a subfolder, so a template built in place should `init` in a scratch folder, copy `hyperframes.json`/`meta.json` up and discard the rest; `init . --non-interactive` in an empty existing folder also works. `init` is optional: a folder with only `index.html` + `package.json` passed `check` and `render` (reported), which removes the AGENTS.md step. For a template, replace the scaffold's `npx` scripts with a `hyperframes` devDependency pin (`pnpm exec hyperframes` then works offline) and a small `scripts/render.mjs` wrapper that renders and does the 1088 crop (see Check, then render). If `index.html` is generated, run the build script before `check`/`render` and commit the generated file.
 
 ## Minimal project
 
@@ -76,8 +79,16 @@ npx --yes hyperframes@0.8.143 render --variables-file vars.json --output out.mp4
 ```
 
 - Lint hits seen on specific styles: `text_not_painted` is an error for `color: transparent` + `-webkit-text-stroke` (use a low-opacity solid fill); `content_overlap` is an error, not a warning, when a panel sits under a slammed word at different times or a scaled window crosses a fixed label (zoom about the window's top edge, cap ~1.10); intentional off-canvas rows need `data-layout-allow-overflow`; `composition_file_too_large` fires on a generated single-file `index.html` (harmless); `canvas_content_at_edge` on a full-bleed canvas and `rotation_pivot_drift` on shoulder-pivoted arms are expected.
+- Lint traps: a custom attribute named `data-end` (or starting `end`) is error `deprecated_data_end` and, like any lint error, silently disables the layout/contrast audits ("0 samples"); name it `data-to`. `getBoundingClientRect` inside a timeline `onUpdate` fails `gsap_callback_dom_measurement`: measure DOM once at load, after fonts are ready and before registering the timeline, and keep the results in variables. A tall scrolling container needs `data-layout-allow-overflow` (`escaped_container`); a clipped numeral strip floods `canvas_overflow`/`text_box_overflow` infos (harmless; whether the attribute silences them was not tested). `data-layout-allow-overlap` on a scene section did not clear a `content_overlap` between two headlines at a crossfade (reported).
+- Marquee/ticker text sliding under a label chip raises `text_occluded` errors (4 in one report). `data-layout-allow-*`, `clip-path: inset(0)`, `contain: paint` and a mask on the window did not clear them. The render is unaffected and `render` does not require a passing `check`; look at frames instead. A source-tag pill covering diagram text raises the same check, so keep a ~70 px footer clear.
+- `GSAP target not found` warnings from selectors that match nothing in some scene, and `studio_missing_editable_id`, are harmless.
 - `check` can pass with only warnings. `nested_structure_needs_subcomposition` (content nested inside a timed `<section>`) is a Studio-timeline hint and did not affect rendering. `content_overlap` warnings during a deliberate cross-fade are expected (ignore, or mark `data-layout-allow-overlap`); `container_overflow` info on an intentional overflow-hidden sweep is likewise fine. A lint error silently turns off the layout/contrast audits ("0 samples").
 - Vertical: change the composition itself (`data-width="1080" data-height="1920"`, `html, body` size, viewport meta); the render takes size from there. `--resolution` only scales an existing aspect ratio (e.g. 1080p -> 4k). Verified 1080x1920 output.
+- **Width bug (verified, minimal 1080x1080 repro; also with `--resolution square` and `--no-browser-gpu`): a composition whose width is not a multiple of 16 renders with the right-most 8 px columns black in the MP4.** `snapshot` PNGs are clean, and it is invisible on dark stages but obvious on light ones. It hits 1080x1920 and 1080x1080, not 1920x1080. Workaround: compose 1088 wide (`data-width`, `html, body`, viewport) with the art in the left 1080 px, render, then crop:
+  ```bash
+  ffmpeg -i in.mp4 -vf crop=1080:<h>:0:0 -c:v libx264 -crf 14 -preset slow -pix_fmt yuv420p out.mp4   # <h> = 1080 or 1920; audio: add -c:a copy
+  ```
+  This costs one extra lossy encode (negligible at CRF 14). `inspect_video.py` flags it ("right edge: 8 px black band"); verified on two affected renders, with no false positives on 13 other previews.
 - Output is h264 yuv420p (+aac when audio exists). `--crf` / `--video-bitrate` override quality. `--workers N` sets parallel Chrome processes (auto here = 1 for a 4 s clip).
 - Preview/edit in a browser: `npx hyperframes preview` [not run here].
 
@@ -93,12 +104,17 @@ Authoring rules (full list in the official `hyperframes-core` skill, `references
 - `repeat: -1` only under a finite root `data-duration`.
 - Canvas/WebGL must be a pure function of time: drive 2D canvas from a GSAP proxy tween's `onUpdate` (`tl.to(proxy, {t: 3, duration: 3, ease: "none", onUpdate: () => draw(proxy.t)})`), and Three.js from `window.addEventListener("hf-seek", e => renderAt(e.detail.time))` plus `renderAt(window.__hfThreeTime || 0)` once at load. Both verified; frame `t=2.000` rendered exactly. The root still needs `data-duration`.
 - The proxy tween also drives a whole DOM/SVG scene (set transforms, text and SVG attributes imperatively per frame); prefer it for beat-grid styles, where one GSAP tween per event means hundreds of tweens.
+- Call the render function once at load (`draw(0)`) so the paused first frame is right for `check`/`snapshot`. Updating attributes such as clipPath rect sizes from `onUpdate` works in the render (reported, used for a reveal).
+- Canvas compositor (built in one glitch template, reported; recipe not re-run): draw the DOM-free scene into an offscreen canvas, then build the output on the visible canvas with `drawImage(off, sx, sy, sw, sh, dx, dy, dw, dh)` slice strips, tinted channel copies (`globalCompositeOperation = "source-atop"` fill, then `"screen"` to combine) and sub-rect tiles for shatter. Pass the canvas element to `drawImage`, not `ctx`: mixing them throws inside the proxy `onUpdate`, and the page then shows a stale or blank frame with no lint error. Canvas text needs the font loaded first: declare `@font-face`, put a hidden DOM span in that family, and `await document.fonts.load('700 48px "Family"')` before the first draw (`@font-face` alone does not load for canvas). A pure-canvas scene with `shadowBlur` was visually but not byte identical across 5 workers on GPU (PSNR >= 50 dB), like CSS glow.
+- Half-rate "on twos" or boil on many pieces: quantize first (`h = frame - frame % 2`), derive everything from `h`, seed jitter with `rnd(id, h / 2)`, rebuild SVG only when `h` changes. Do not `tl.set` per piece per two frames (hundreds of tweens).
+- Marquee/scanline: one proxy tween; set `x = -((t * speed) % loopWidth)` with `loopWidth` measured once at load (`track.offsetWidth / 2`), whole pixels.
 - Vendor Three.js locally and map it with an importmap (`{"imports":{"three":"./vendor/three.module.min.js"}}`; for three >= 0.17x also download `three.core.min.js` next to it). Verified with three@0.181.2. Lint may warn `canvas_content_at_edge` for full-bleed canvases; harmless.
 
 ## Fonts, including CJK
 
 - Inter (and the other families on HyperFrames' auto-resolve list) work with only `font-family: Inter`: at compile time the CLI fetches the woff2 files from Google Fonts, caches them in `~/.cache/hyperframes/fonts/` and injects deterministic `@font-face` rules. First use needs network; later runs are offline.
 - Auto-resolve is not universal, and a miss is silent: text falls back to Arial while `check` stays green (only CJK raised `font_family_without_font_face`). Resolved in reports: Inter, JetBrains Mono. Did NOT resolve: Space Grotesk, Archivo, Bebas Neue, Oswald, Noto Sans SC. Untested for auto-resolve (shipped via fontsource instead): Anton, Baloo 2, Nunito, Press Start 2P. Confirm with `Fetched N font face(s) for "<family>"` in the `check` output, and look at a snapshot: a bold sans that looks like Arial Black means a fallback. Also check the family has the weight you want (Space Grotesk stops at 700).
+- Quick vendoring without a project install: `npm pack @fontsource/<font>@<ver>` then `tar xzf fontsource-<font>-<ver>.tgz` and copy `package/files/*.woff2` (verified with Anton 5.2.5).
 - Local route that works offline (verified for Archivo 800, Anton, Baloo 2, Nunito, Press Start 2P, Inter, JetBrains Mono): pin an exact `@fontsource/<name>` version (look it up with `pnpm view`; guessed versions failed), copy `node_modules/@fontsource/<name>/files/<name>-latin-<weight>-normal.woff2` (10-40 KB) into `fonts/` in the build script, and declare it:
   ```css
   @font-face { font-family: "Archivo"; src: url("fonts/archivo-latin-800-normal.woff2") format("woff2"); font-weight: 800; }
@@ -116,6 +132,8 @@ Authoring rules (full list in the official `hyperframes-core` skill, `references
   ```
   The step order was verified; the exact flags above follow the fontTools docs [not re-run here].
   Declare it with `src: url("fonts/NotoSansSC.woff2") format("woff2")`. `@fontsource` CJK is impractical here (dozens of unicode-range slices). For an OS font use `src: local("Microsoft YaHei")` [not rendered here; machine-dependent].
+- A weight the family does not ship falls back silently (Space Grotesk and fontsource stop at 700, so "800" renders as 700 or a fallback). Use only weights that exist in the files you vendored.
+- Text inside inline SVG `<text>` uses the same `@font-face`. For text width in a Node build script (no `getBBox`), per-font em factors per character worked within ~8 percent (reported: Fredoka 600 about 0.56 em, Caveat Brush about 0.40 em).
 - Look at a frame to confirm glyphs: `ffmpeg -y -ss 1.5 -i out.mp4 -frames:v 1 f.png`, then open the PNG.
 
 ## Audio and word-timed captions
@@ -145,6 +163,7 @@ for (const seg of timeline.segments) {
 html = tpl.replace("<!--AUDIO-->", audio).replace("<!--SCENES-->", scenes)
           .replace(/(id="root"[^>]*data-duration=")[^"]*/, `$1${cursor}`);
 ```
+Per-word cues: put `data-cue="word"` in markup and resolve it to a time at build, failing loudly if the word is absent. TTS can return a date or number as ONE token ("April 26, 1956"), so the cue must match that token.
 Variants (both verified): a no-audio procedural template concatenates `src/*.js` into one inline script, injects `window.CONTENT`, and sets the root `data-duration`; a canvas-driven whole video uses a proxy tween `onUpdate` -> `draw(Math.round(t * fps))`. To hand word times to the inline GSAP script, inject `const TL = {...}` (absolute times) before the animation code and look words up with a helper.
 A lighter variant writes `content.js` (`window.CONTENT = ...`) plus the root `data-duration`. Git-ignore `out/` and `snapshots/`.
 
@@ -180,7 +199,11 @@ Text-driven templates (typed code, terminals) need no per-character tweens. The 
 ## SVG / GSAP character rigs
 
 - Draw all geometry in absolute coordinates with no `transform` attributes, and put `svgOrigin: "x y"` on every rotate/scale tween. For a nested part (forearm inside upper arm) the pivot is in the parent's coordinate space. Verified; `rotation_pivot_drift` from `check` is harmless.
-- Draw-on strokes: `pathLength="1" stroke-dasharray="1 2"`, then tween `strokeDashoffset` 1 -> 0.
+- Draw-on strokes: `pathLength="1" stroke-dasharray="1 2"`, then tween the ATTRIBUTE: `fromTo(path, {attr: {"stroke-dashoffset": 1}}, {attr: {"stroke-dashoffset": 0}, duration, ease})`. **Verified bug:** tweening `strokeDashoffset` as a CSS property rounded to whole pixels in GSAP 3.14.2 (`1px` -> `0px`), so with `pathLength="1"` every stroke stayed invisible until 50% of the tween, then popped in. A whole template rendered empty at the draw-on moments while `check`, `snapshot` and `inspect_video` passed. Always extract a frame mid-animation from the MP4 and confirm a partial stroke. The `1 2` gap (longer than the path) keeps round caps from showing as dots at offset 1.
+- A dashed line cannot draw on via its own dashoffset (that is the dash pattern). Duplicate it into an SVG `<mask>` (`maskUnits="userSpaceOnUse"`, white stroke, `pathLength="1"`, dasharray `1 2`), tween the mask path's dashoffset, and keep the visible path's dashes (reported; objectBoundingBox masks fail on a perfectly horizontal line).
+- Several `tl.to()` calls on one SVG element: `tl.set(el, {rotation: 0, svgOrigin})` at time 0 and repeat `svgOrigin` in every tween, in `from` and `to` of a `fromTo` too, or frame 0 uses the wrong origin. Repeat the "from" values in `gsap.set` for `immediateRender: false` chains.
+- Soft-edged wipe (line reveal): two stacked layers with CSS `-webkit-mask-image: linear-gradient(to right, #000 Xpx, transparent calc(Xpx + feather))`, X = `-feather + p * (W + feather)` set per frame (reported).
+- Highlighter on text: an inline `<mark>` with an SVG `background-image` whose `background-size` tweens `0% H` -> `100% H` wraps with the text and needs no measurement. Reset the UA default `background-color: yellow` to `transparent` (it shows as a yellow box outside the wipe) and add `white-space: nowrap` for multi-line phrases (reported).
 - Scene switching: one root-level `<section class="scene clip" data-start data-duration>` per scene, captions as separate `.clip` elements. Clips hide themselves outside their window; no visibility tweens. Put a transition cut where an overlay fully covers the screen.
 
 ## Verify the output
@@ -188,9 +211,9 @@ Text-driven templates (typed code, terminals) need no per-character tweens. The 
 ```bash
 ffprobe -v error -show_entries stream=codec_name,pix_fmt,width,height,r_frame_rate,nb_frames -of csv out.mp4
 ffmpeg -v error -i out.mp4 -f framemd5 - > a.md5            # frame hashes, for A/B comparison
-python skill/scripts/inspect_video.py out.mp4               # black/frozen/audio checks + contact sheet (written to the cwd: run from a scratch dir)
+python skill/scripts/inspect_video.py out.mp4               # black, still, audio and edge-band checks + contact sheet (use --out to choose its path)
 ```
-Then open 2-3 stills with an image viewer; do not trust exit code 0 alone. Render summary line 2 says `drawelement` vs `screenshot` capture and `hardware gpu`/`software gpu`.
+Then open 2-3 stills with an image viewer; do not trust exit code 0 alone. `snapshot` PNGs are not proof of the MP4 (see the width bug): always check at least one frame of the MP4 itself (`ffmpeg -ss ... -frames:v 1`), including its right edge. Render summary line 2 says `drawelement` vs `screenshot` capture and `hardware gpu`/`software gpu`.
 
 ## Reference timings (i9-12900K, RTX 3090, Windows 11)
 
@@ -202,6 +225,7 @@ Then open 2-3 stills with an image viewer; do not trust exit code 0 alone. Rende
 - Docker Desktop installed but daemon stopped makes `--docker` fail; start Docker Desktop first.
 - The `init` template pulls GSAP from a CDN; a render then depends on network. Vendor it.
 - Render notes: "A frame failed verification ... fell back to the screenshot path" is not an error (re-enable with `HF_DE_PARALLEL_ROUTER=true`); under parallel load a 35 s video took 2.4 s per video second. `snapshot --at` takes seconds (`sec = frame / fps`; use `(hitFrame + 2) / fps` to see a settled hit) and overwrites the previous run.
+- `snapshot` with 6 or fewer frames names its sheet `contact-sheet.jpg` (cosmetic).
 - `snapshot` writes `snapshots/` (plus `descriptions.md`) and prints "Describing frames with Gemini" / tries `npm install @google/genai` even without a key; harmless. Delete or git-ignore the folder; it also adds a last frame at the composition end.
 - Git Bash heredocs holding several long files fail or write empty files: use the editor tool (see Minimal project).
 - Frame-cache lives in `%TEMP%\hyperframes-extract-cache-*`; `--frames-cache-dir` relocates it off a small C: drive.

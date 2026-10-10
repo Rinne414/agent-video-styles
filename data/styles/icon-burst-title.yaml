@@ -1,0 +1,67 @@
+id: icon-burst-title
+tier: experimental
+evidence_strength: weak
+name:
+  en: Icon-Burst Title Card
+  zh: 图标爆发标题
+tagline:
+  en: A glowing dot bursts into rays, letters bounce in, icons orbit into a circular badge.
+  zh: 发光圆点爆开成射线，文字弹入，图标环绕汇聚成圆形徽章。
+signature:
+  en:
+    - An orange dot springs up and bursts into 12 rays
+    - Title letters pop in 6 frames apart with a slight bounce
+    - Three line icons fly in with labels, then rotate and converge into a round badge
+    - Badge shrinks to the side, tagline settles, fade to dark
+  zh:
+    - 橙色圆点弹起并爆开成 12 道射线
+    - 标题文字间隔 6 帧弹入，带轻微回弹
+    - 三个线性图标连同标签飞入，随后旋转汇聚成圆形徽章
+    - 徽章缩小到一侧，标语落定，淡出到暗色
+best_for:
+  en:
+    - Channel intros and course openers (10-15 s)
+    - Small-creator title cards and feature-list stings
+  zh:
+    - 频道片头与课程开场（10-15 秒）
+    - 小型创作者的标题卡与功能列表片头
+avoid_when:
+  en:
+    - A 3D logo reveal is wanted (use procedural-3d-sting)
+    - The piece needs more than 15 s of explanation (use dark-diagram-explainer)
+    - Heavy glitch or hype effects are wanted (use glitch-vfx)
+  zh:
+    - 想要 3D Logo 揭示（改用 procedural-3d-sting）
+    - 内容需要超过 15 秒的讲解（改用 dark-diagram-explainer）
+    - 想要强烈的故障或炫技特效（改用 glitch-vfx）
+tags:
+  use: [logo-intro, brand-reel, education]
+  platform: [youtube, bilibili, youtube-shorts, instagram-reels]
+  aspect: ["16:9", "9:16"]
+  audio: [sfx, music]
+  mood: [energetic, playful, premium]
+  needs: [logo]
+duration: 10-15 s
+difficulty: 2
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Springs, staggered letters and polar-coordinate icon motion are direct Remotion spring() and interpolate() work. HyperFrames with GSAP motionPath achieves the same.
+    zh: 弹簧动画、逐字错开和极坐标图标运动正是 Remotion 的 spring() 与 interpolate() 擅长的。HyperFrames 搭配 GSAP motionPath 也能做到。
+variants:
+  - id: vertical-intro
+    en: 9:16, icons stacked instead of split screen, 10 s.
+    zh: 9:16，图标纵向堆叠而非左右分屏，10 秒。
+  - id: light-ground
+    en: Cream ground `#FFF6E9` with dark ink text and the same orange burst.
+    zh: 奶油色背景 `#FFF6E9`，深色文字，橙色爆发保持不变。
+evidence:
+  - creator: 阿正老師 (channel 軟體玩家)
+    platform: pcrookie.com article
+    region: TW
+    url: https://pcrookie.com/claude-remotion-motion-graphics-video-guide-2026/
+    tool: Claude Code + Remotion
+    note: Prompt recipe with exact hex codes and a 15 s timeline; the page says the author has not tested it, and no rendered video exists. A recipe, not a finished video.
+    verified: opened
+template: templates/icon-burst-title

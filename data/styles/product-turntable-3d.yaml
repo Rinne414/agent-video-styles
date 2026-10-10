@@ -1,0 +1,88 @@
+id: product-turntable-3d
+tier: experimental
+evidence_strength: weak
+name:
+  en: 3D Product Turntable
+  zh: 3D 产品旋转展示
+tagline:
+  en: A procedurally modelled product turning on a soft studio sweep, with feature callouts tied to the geometry.
+  zh: 程序化建模的产品在柔光摄影棚弧形背景上旋转，功能标注与几何体绑定。
+signature:
+  en:
+    - A hero product built from primitives (headphones or a speaker), no downloaded models
+    - Seamless studio sweep, soft contact shadow and a three-light setup
+    - Slow eased rotation with a gentle camera push between feature stops
+    - Thin leader-line callouts that follow the product and hide when it turns away
+  zh:
+    - 由基础几何体搭建的主角产品（耳机或音箱），不下载任何模型
+    - 无缝摄影棚弧形背景、柔和接触阴影与三灯布光
+    - 缓慢缓动的旋转，功能停留点之间镜头轻推
+    - 细引线标注跟随产品，产品转走时自动隐藏
+best_for:
+  en:
+    - Hardware and e-commerce launch teasers
+    - Feature highlights for a physical product when no 3D asset exists
+  zh:
+    - 硬件与电商新品发布预告
+    - 没有 3D 资产时的实体产品功能亮点展示
+avoid_when:
+  en:
+    - A real product with exact industrial design must be shown (use ui-camera-tour with photos, or supply a licensed model)
+    - Only a logo reveal is needed (use procedural-3d-sting)
+    - The product is software (use saas-launch-promo)
+  zh:
+    - 必须呈现真实产品的精确工业设计（改用带照片的 ui-camera-tour，或提供有授权的模型）
+    - 只需要 Logo 揭示（改用 procedural-3d-sting）
+    - 产品是软件（改用 saas-launch-promo）
+tags:
+  use: [product-launch, feature-update]
+  platform: [x, youtube, website-hero, product-hunt]
+  aspect: ["16:9", "1:1"]
+  audio: [music, sfx]
+  mood: [premium, cinematic, technical]
+  needs: [logo]
+duration: 10-30 s
+difficulty: 3
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: "@remotion/three with React Three Fiber gives frame-driven rotation and shared camera maths for DOM callouts. HyperFrames can host a vendored three.js scene driven by the hf-seek event."
+    zh: "@remotion/three 搭配 React Three Fiber，可由帧号驱动旋转，并与 DOM 标注共享相机计算。HyperFrames 也能承载本地引入的 three.js 场景，由 hf-seek 事件驱动。"
+variants:
+  - id: speaker
+    en: A cylinder speaker with grille dots, a ring light and a base plate; same sweep and callouts.
+    zh: 圆柱音箱，带网罩圆点、环形灯与底座；背景与标注不变。
+  - id: dark-studio
+    en: "#0B0D10 sweep with a cool rim light and a faked glossy floor reflection."
+    zh: "#0B0D10 背景，冷色轮廓光，用假反射模拟光泽地面。"
+evidence:
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: global
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry/blocks
+    tool: HyperFrames block product-turntable
+    note: Registry block, not a finished video.
+    verified: opened
+  - creator: Remotion
+    platform: remotion.dev
+    region: global
+    url: https://www.remotion.dev/templates
+    tool: "@remotion/three template"
+    note: Template page (3D phone with swappable video), not a finished video.
+    verified: opened
+  - creator: Kevin Ngo (via ai-bot.cn roundup)
+    platform: ai-bot.cn
+    region: cn
+    url: https://ai-bot.cn/claude-opus-5-5-video-tutorial/
+    tool: Claude Opus 5.5 + Python + Blender
+    note: Adjacent only - gentle Blender-rendered 3D animation, not a code-rendered browser product shot.
+    verified: opened
+  - creator: "@arumii_movie, @colecornelll, @DengenT"
+    platform: X (via skillry.dev listing)
+    region: global
+    url: https://skillry.dev/ai-videos/opus-5-5
+    tool: Three.js + GLSL
+    note: Aggregator listing of product-adjacent Three.js pieces (glass refraction, logo end-card); no turntable among them.
+    verified: aggregator
+template: templates/product-turntable-3d

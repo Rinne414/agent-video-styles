@@ -1,0 +1,88 @@
+id: abstract-generative-loop
+tier: experimental
+evidence_strength: medium
+name:
+  en: Abstract Generative Loop
+  zh: 抽象生成式循环
+tagline:
+  en: Shapes and particles morphing in a seamless seeded loop - the last frame equals the first.
+  zh: 形状与粒子在带种子的无缝循环中变形，末帧与首帧一致。
+signature:
+  en:
+    - Every motion is periodic in the loop phase, so frame N would equal frame 0
+    - A small set of shapes (circles, rounded squares, rings) morphing through shared states
+    - Particles placed by a seeded generator and moved analytically
+    - Restrained 2-3 color palette, no text or one short word
+  zh:
+    - 所有运动都是循环相位的周期函数，第 N 帧等于第 0 帧
+    - 少量形状（圆、圆角方块、环）通过共享状态变形
+    - 粒子由带种子的生成器布置并以解析方式运动
+    - 克制的 2-3 色，无文字或仅一个短词
+best_for:
+  en:
+    - Website hero backgrounds and ambient loops
+    - Music visuals and UI-morph teasers for LinkedIn and Instagram
+  zh:
+    - 网站首屏背景与氛围循环
+    - 适合 LinkedIn 与 Instagram 的音乐视觉和 UI 变形预告
+avoid_when:
+  en:
+    - The video must explain something or carry a script (use dark-diagram-explainer)
+    - Sharp product copy is the point (use saas-launch-promo)
+    - You want audio-reactive bars (use audiogram-visualizer)
+  zh:
+    - 视频需要讲解或带脚本（改用 dark-diagram-explainer）
+    - 重点是清晰的产品文案（改用 saas-launch-promo）
+    - 想要随音频跳动的频谱条（改用 audiogram-visualizer）
+tags:
+  use: [brand-reel, social-short, music-video]
+  platform: [website-hero, instagram-reels, linkedin, x]
+  aspect: ["1:1", "16:9", "9:16"]
+  audio: [music]
+  mood: [calm, premium, cinematic]
+  needs: []
+duration: 8-20 s
+difficulty: 2
+tools:
+  primary: html-capture
+  alternatives: [hyperframes]
+  why:
+    en: A canvas or p5.js page driven by renderFrame(i, fps) is the simplest way to guarantee a pure function of the loop phase. HyperFrames works if the loop is built from a seekable GSAP timeline.
+    zh: 由 renderFrame(i, fps) 驱动的 canvas 或 p5.js 页面最容易保证画面是循环相位的纯函数。若循环由可 seek 的 GSAP 时间线构成，也可用 HyperFrames。
+variants:
+  - id: ui-morph-loop
+    en: One UI element (button, loader, toggle, tab) morphs through 8-14 states on a light grey canvas on the beat, ending back at the first state.
+    zh: 单个 UI 元素（按钮、加载器、开关、标签）在浅灰画布上卡点经过 8-14 个状态，最后回到初始状态。
+  - id: particle-field
+    en: 400-1200 seeded particles orbiting on a ring flow field over a dark ground.
+    zh: 400-1200 个带种子的粒子在深色背景上沿环形流场运行。
+evidence:
+  - creator: AI Xiaoji (article author; case creator not named)
+    platform: ai-bot.cn
+    region: CN
+    url: https://ai-bot.cn/claude-opus-5-5-video-tutorial/
+    tool: Claude Opus 5.5 + numpy + Playwright + ffmpeg
+    note: UI shape-morph loop, 1:1 1440x1440, 120 BPM, 7 bars, last frame must equal the first including cursor position and velocity. Described, no media link.
+    verified: opened
+  - creator: argbeknwn
+    platform: X via skillry
+    region: global
+    url: https://skillry.dev/ai-videos/opus-5-5/argbeknwn-466818
+    tool: Remotion
+    note: 15 s wordless abstract piece; loop status unknown, listing only.
+    verified: aggregator
+  - creator: howseen-ai
+    platform: GitHub
+    region: global
+    url: https://github.com/howseen-ai/claude-motion-design
+    tool: Claude Code skill + HTML + Playwright + ffmpeg
+    note: Skill pack with a loop seam check (position and velocity); supporting only, shipped example is not a loop.
+    verified: opened
+  - creator: prompt-motion tags
+    platform: gallery
+    region: global
+    url: https://prompt-motion.com
+    tool: various
+    note: Tag counts of 44 (Shapes) and 43 (Particles); entries not mapped to loops, supporting only.
+    verified: opened
+template: templates/abstract-generative-loop

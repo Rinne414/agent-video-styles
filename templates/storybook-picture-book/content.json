@@ -1,0 +1,36 @@
+{
+  "title": "Moko, the little cloud who wanted to rain",
+  "endTag": "The End",
+  "voice": { "id": "en-US-JennyNeural", "rate": "-10%" },
+  "video": { "width": 1920, "height": 1080, "fps": 30 },
+  "timing": {
+    "turnFrames": 14,
+    "leadFrames": 12,
+    "tailFrames": 12,
+    "endTagDelayFrames": 60,
+    "endHoldFrames": 66
+  },
+  "palette": {
+    "paper": "#FBF3E4",
+    "sky": "#BFE3F2",
+    "meadow": "#CDE8B0",
+    "sun": "#FFD98E",
+    "rose": "#F4A9A8",
+    "lavender": "#C9B8E8",
+    "peach": "#F9C9A0",
+    "ink": "#5B4636",
+    "text": "#3E2F25",
+    "cloud": "#FFFBF2"
+  },
+  "pages": [
+    { "id": "cover", "scene": "cover", "caption": "Moko, the little cloud who wanted to rain." },
+    { "id": "p1", "scene": "dry", "caption": "Moko was a little cloud, floating over a very dry garden." },
+    { "id": "p2", "scene": "droop", "caption": "Down below, the flowers hung their heads and waited." },
+    { "id": "p3", "scene": "puff", "caption": "Moko puffed and puffed, but not one drop came." },
+    { "id": "p4", "scene": "sad", "caption": "Moko felt a little sad, and let out a tiny sigh." },
+    { "id": "p5", "scene": "first", "caption": "Then, softly, soft little drops began to fall." },
+    { "id": "p6", "scene": "rain", "caption": "Pitter, patter, pitter, patter. The garden drank it up." },
+    { "id": "p7", "scene": "bloom", "caption": "And the flowers opened, one by one, to say thank you." },
+    { "id": "end", "scene": "night", "caption": "Good night, little Moko." }
+  ]
+}

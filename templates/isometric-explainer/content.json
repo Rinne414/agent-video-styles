@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "id": "isometric-explainer",
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 900,
+    "title": "A web request, end to end"
+  },
+  "theme": {
+    "ground": "#FFFFFF",
+    "edge": "#A4A4AC",
+    "inner": "#E0E0E4",
+    "accent": "#232327",
+    "textDark": "#232327",
+    "textMid": "#5C5C64",
+    "edgePx": 2,
+    "unit": 56,
+    "sceneCenter": [
+      960,
+      500
+    ],
+    "captionY": 985,
+    "captionSize": 46,
+    "titleSize": 64,
+    "tagSize": 26,
+    "pushTo": 1.05,
+    "springs": {
+      "damping": 22,
+      "stiffness": 150,
+      "mass": 1
+    },
+    "dropUnits": 6,
+    "focusRamp": 10,
+    "padSize": 3,
+    "padThickness": 0.14
+  },
+  "timing": {
+    "plinthDrawFrames": 30,
+    "connectorDrawFrames": 24,
+    "keyStagger": 1
+  },
+  "parts": [
+    {
+      "id": "laptop",
+      "kind": "laptop",
+      "tag": "CLIENT",
+      "at": [
+        -0.5,
+        16
+      ],
+      "assembleAt": 50,
+      "focus": [
+        80,
+        96
+      ]
+    },
+    {
+      "id": "lb",
+      "kind": "balancer",
+      "tag": "LB",
+      "at": [
+        5.5,
+        16
+      ],
+      "assembleAt": 120,
+      "focus": [
+        148,
+        164
+      ]
+    },
+    {
+      "id": "s1",
+      "kind": "server",
+      "tag": "APP-1",
+      "at": [
+        1.5,
+        9.5
+      ],
+      "assembleAt": 190,
+      "focus": null
+    },
+    {
+      "id": "s2",
+      "kind": "server",
+      "tag": "APP-2",
+      "at": [
+        5.5,
+        9.5
+      ],
+      "assembleAt": 198,
+      "focus": [
+        226,
+        230
+      ]
+    },
+    {
+      "id": "s3",
+      "kind": "server",
+      "tag": "APP-3",
+      "at": [
+        9.5,
+        9.5
+      ],
+      "assembleAt": 206,
+      "focus": null
+    },
+    {
+      "id": "cache",
+      "kind": "cache",
+      "tag": "CACHE",
+      "at": [
+        5.5,
+        3
+      ],
+      "assembleAt": 262,
+      "focus": [
+        290,
+        294
+      ]
+    },
+    {
+      "id": "db",
+      "kind": "database",
+      "tag": "DB",
+      "at": [
+        11.5,
+        3
+      ],
+      "assembleAt": 285,
+      "focus": [
+        318,
+        322
+      ]
+    }
+  ],
+  "connectors": [
+    {
+      "id": "c-l-lb",
+      "start": 335,
+      "path": [
+        [
+          1,
+          16
+        ],
+        [
+          4,
+          16
+        ]
+      ]
+    },
+    {
+      "id": "c-lb-s1",
+      "start": 355,
+      "path": [
+        [
+          5.5,
+          14.5
+        ],
+        [
+          5.5,
+          12.75
+        ],
+        [
+          1.5,
+          12.75
+        ],
+        [
+          1.5,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "c-lb-s2",
+      "start": 361,
+      "path": [
+        [
+          5.5,
+          14.5
+        ],
+        [
+          5.5,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "c-lb-s3",
+      "start": 367,
+      "path": [
+        [
+          5.5,
+          14.5
+        ],
+        [
+          5.5,
+          12.75
+        ],
+        [
+          9.5,
+          12.75
+        ],
+        [
+          9.5,
+          11
+        ]
+      ]
+    },
+    {
+      "id": "c-s1-c",
+      "start": 385,
+      "path": [
+        [
+          1.5,
+          8
+        ],
+        [
+          1.5,
+          6.25
+        ],
+        [
+          5.5,
+          6.25
+        ],
+        [
+          5.5,
+          4.5
+        ]
+      ]
+    },
+    {
+      "id": "c-s2-c",
+      "start": 391,
+      "path": [
+        [
+          5.5,
+          8
+        ],
+        [
+          5.5,
+          4.5
+        ]
+      ]
+    },
+    {
+      "id": "c-s3-c",
+      "start": 397,
+      "path": [
+        [
+          9.5,
+          8
+        ],
+        [
+          9.5,
+          6.25
+        ],
+        [
+          5.5,
+          6.25
+        ],
+        [
+          5.5,
+          4.5
+        ]
+      ]
+    },
+    {
+      "id": "c-c-db",
+      "start": 415,
+      "path": [
+        [
+          7,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ]
+    }
+  ],
+  "connectorHalfWidth": 0.17,
+  "packet": {
+    "start": 440,
+    "speedPxPerFrame": 8,
+    "dwell": 20,
+    "hideRadius": 1.25,
+    "z": 0.55,
+    "size": 0.5,
+    "route": [
+      "laptop",
+      "lb",
+      "s2",
+      "cache",
+      "db"
+    ],
+    "labelsOut": [
+      "GET /",
+      "GET /",
+      "GET /",
+      "SELECT"
+    ],
+    "labelsBack": [
+      "rows",
+      "rows",
+      "200 OK",
+      "200 OK"
+    ]
+  },
+  "hero": {
+    "part": "laptop"
+  },
+  "captions": [
+    {
+      "from": 0,
+      "to": 50,
+      "text": "How a web request travels"
+    },
+    {
+      "from": 50,
+      "to": 120,
+      "text": "A browser sends the request"
+    },
+    {
+      "from": 120,
+      "to": 190,
+      "text": "A load balancer picks a server"
+    },
+    {
+      "from": 190,
+      "to": 265,
+      "text": "Three app servers share the work"
+    },
+    {
+      "from": 265,
+      "to": 345,
+      "text": "A cache sits in front of the database"
+    },
+    {
+      "from": 345,
+      "to": 440,
+      "text": "Wires link every tier"
+    },
+    {
+      "from": 440,
+      "to": 504,
+      "text": "The request hits the balancer"
+    },
+    {
+      "from": 504,
+      "to": 580,
+      "text": "One server takes it"
+    },
+    {
+      "from": 580,
+      "to": 644,
+      "text": "Cache miss: ask the database"
+    },
+    {
+      "from": 644,
+      "to": 736,
+      "text": "The answer travels back"
+    },
+    {
+      "from": 736,
+      "to": 814,
+      "text": "The response reaches the browser"
+    },
+    {
+      "from": 822,
+      "to": 900,
+      "text": "A web request, end to end",
+      "end": true
+    }
+  ]
+}

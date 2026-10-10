@@ -20,12 +20,14 @@ for (const [from, to] of vendor) {
 }
 
 const { width, height, fps } = content.video;
+// HyperFrames blacks out the right-most 8 px when width is not a multiple of 16: compose wider, crop in `pnpm run render`.
+const compWidth = Math.ceil(width / 16) * 16;
 const t = content.timing;
 const frames = t.titleFrames + t.questFrames * content.quests.length + t.outroFrames;
 const scripts = ["gfx", "hero", "world", "hud", "scenes", "main"].map((n) => read(`src/${n}.js`)).join("\n");
 
 const html = read("src/template.html")
-  .replaceAll("{{WIDTH}}", width).replaceAll("{{HEIGHT}}", height)
+  .replaceAll("{{COMP_WIDTH}}", compWidth).replaceAll("{{WIDTH}}", width).replaceAll("{{HEIGHT}}", height)
   .replace("{{DURATION}}", frames / fps)
   .replace("{{CRT}}", content.crt ? "block" : "none")
   .replace("{{CONTENT}}", () => JSON.stringify(content))

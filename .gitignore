@@ -18,3 +18,6 @@ dist/
 Thumbs.db
 .vscode/
 .idea/
+
+# regression runs (reports live in research/07-regression/)
+regression/

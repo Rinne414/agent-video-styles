@@ -16,7 +16,7 @@ License: free for individuals and companies of up to 3 people. Companies of 4+ n
 # scaffold (non-interactive; also runs npm install by itself, ~100 s)
 npx create-video@latest --yes --blank --no-tailwind my-video
 ```
-Prefer pnpm: delete the scaffold's `node_modules` and `package-lock.json` (PowerShell: `Remove-Item -Recurse -Force node_modules, package-lock.json`; Bash `rm -rf` may be denied by a harness), then `pnpm install` (12 s with a warm store). pnpm prints "Ignored build scripts: esbuild" - harmless. Fastest path: scaffold in a scratch dir and copy only `src/index.ts`, `remotion.config.ts`, `tsconfig.json`; strip the scaffold's eslint packages. pnpm inside a repo with a parent `package.json` (not a workspace) works.
+Prefer pnpm: delete the scaffold's `node_modules` and `package-lock.json` (PowerShell: `Remove-Item -Recurse -Force node_modules, package-lock.json`; Bash `rm -rf` may be denied by a harness), then `pnpm install` (12 s with a warm store). pnpm prints "Ignored build scripts: esbuild" - harmless. Fastest path (reported by two builders, 8 s): skip the scaffold (`create-video` refuses an existing directory), hand-write `package.json` with exact pins and run `pnpm install --ignore-workspace`; or scaffold in a scratch dir and copy only `src/index.ts`, `remotion.config.ts`, `tsconfig.json`. pnpm inside a repo with a parent `package.json` (not a workspace) works.
 
 ```bash
 cd my-video
@@ -58,7 +58,11 @@ export const Hello = ({ text }: { text: string }) => {
 ```
 The scaffold's `remotion.config.ts` sets `Config.setVideoImageFormat("jpeg")` and `Config.setRspack(true)`.
 
+Types: `@types/react` 19 has no global `JSX` namespace (`Cannot find namespace 'JSX'`); write `React.JSX.Element`. Add `declare module "*.css"` next to the `*.woff2` one when importing `@fontsource/*/*.css` under `tsc`. Pins that worked together: react/react-dom 19.2.3, `@types/react` 19.2.7, typescript 5.9.3, `@fontsource/inter` 5.2.8, `lucide-react` 1.54.0; `@fontsource/jetbrains-mono` (`latin-500.css`) for mono. d3-geo/topojson need `@types/d3-geo`, `@types/topojson-client`, `@types/topojson-specification`, `@types/geojson`, and `as unknown as Topology` casts on JSON imports.
+
 tsconfig: the scaffold's `lib: ["es2015"]` fails on `document.fonts`, `Object.values`, `padStart`. Set `"lib": ["dom","es2020"]` and `"resolveJsonModule": true`. Content plumbing: `import content from "../content.json"` in one theme module that every component imports (works with the scaffold's rspack); do not use `--props` for it.
+
+Studio sweep (reported, product turntable): key light 2.2 + hemisphere 0.6 + `RoomEnvironment` renders a light backdrop pure white and bands the curve. Build the sweep unlit instead: floor+wall mesh with `MeshBasicMaterial` and `vertexColors` (0.8-1.0 of the base colour as a soft pool of light), plus a `ShadowMaterial` copy or a baked radial-gradient blob for the shadow. Shadow maps looked hard and `PCFSoftShadowMap` ignores `shadow.radius`, so keep them optional. Details live in `styles/product-turntable-3d.md`.
 
 3D notes (verified in stills): `transmission` glass on a transparent `ThreeCanvas` over a dark void has nothing to refract and renders as a flat slab (iridescence/clearcoat variants rendered black); use a fresnel/gradient `ShaderMaterial` instead (see the style file for the shader approach). `@react-three/postprocessing` is untested here; the working bloom fallback is additive `ShaderMaterial` strips (soft gaussian falloff, else rectangle edges show) plus a DOM `radial-gradient` with `mix-blend-mode: screen` at the projected point. Write camera setup in a child component's render body and share a pure `cameraAt(frame)` helper with DOM overlays.
 
@@ -66,7 +70,7 @@ tsconfig: the scaffold's `lib: ["es2015"]` fails on `document.fonts`, `Object.va
 
 Run from the project folder (paths with spaces work).
 ```bash
-pnpm exec remotion render Hello out/hello.mp4                       # h264 mp4, 3 s 1080p30: ~10 s
+pnpm exec remotion render Hello out/hello.mp4                       # h264 mp4, 3 s 1080p30: ~10 s (hand-built project without a package.json script: `remotion render src/index.ts Hello out/hello.mp4`)
 pnpm exec remotion still  Hello out/f45.png --frame=45              # one frame: ~8 s
 pnpm exec remotion still  Fonts out/fonts.png                       # <Still> composition
 pnpm exec remotion render Hello out/frames --sequence --frames=0,30,90 --image-format=png   # [not run here without audio] crashes with <Audio>, see below
@@ -160,7 +164,13 @@ const Segment = ({ seg }) => {
 ```
 Use real `duration_ms` from the audio (ffprobe), not the last word end. Official skill advice: `<Audio>` from `@remotion/media`; for `@remotion/captions` use the `Caption` type `{text,startMs,endMs,timestampMs,confidence}` and its Basic Captions element; keep a clip's captions in the same `<Sequence>` as its video. Official voiceover guidance uses ElevenLabs; any TTS that outputs mp3 works with the JSON above. Test audio here was ffmpeg sine tones, not speech.
 
+Fixed brief length: `Math.ceil` can land one frame over (`round(total_ms / 1000 * fps)` too). For a requested length use `Math.floor` in `calculateMetadata` and trim the audio with `-t`.
+
+Audio-reactive visuals (`useAudioData`/`visualizeAudio` from `@remotion/media-utils`) need ONE audio file and `@remotion/media-utils` at the exact same version as `remotion` (no `^`; reported). A wav in `public` works. Bins 0-47 of 128 cover about 0-9 kHz and speech sits in the lowest ~10 bins (reported). To make one file from several TTS segments see `audio-tts-captions.md`.
+
 Timeline helper: `import timeline from "../public/timeline.json"` (with `resolveJsonModule`) instead of `fetch` keeps `durationInFrames` computable at module load. Word frame = `segStartFrame + round(word.start_ms / 1000 * fps)`; write one `at(seg, wordIndex)` helper and reuse it for every cue.
+
+Icons: `<Icon size strokeWidth absoluteStrokeWidth />` gives a fixed pixel stroke regardless of size (reported). One `<Still>` per card with the local frame as a prop suits carousels; each `remotion still` re-bundles (~8 s), so a script calling `renderStill` on one bundle is faster [not run here].
 
 Icons in SVG diagrams: `lucide-react` icons accept `x`, `y`, `size`, `color`, `strokeWidth` and nest directly in `<svg>` (verified, lucide-react 1.54.0): `<Cpu x={40} y={60} size={48} color="#7cf" strokeWidth={1.75} />`.
 

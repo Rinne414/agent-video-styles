@@ -1,0 +1,10 @@
+{
+  "show": { "title": "The Small Batch Podcast", "episode": "Episode 12", "initial": "S", "url": "smallbatch.example", "speaker": "Host" },
+  "theme": { "bg": "#0E1117", "accent": "#38BDF8", "floor": "#1F2937", "text": "#F5F7FA", "cardA": "#0B2A3C", "cardB": "#14587A" },
+  "audio": { "voice": "en-US-AndrewNeural", "rate": "+0%", "introMs": 1500, "gapMs": 700, "outroMs": 3300 },
+  "segments": [
+    { "id": "s1", "text": "Every extra person on a team adds another meeting, another handoff, and another wait." },
+    { "id": "s2", "text": "Small teams decide in a hallway, ship by lunch, and learn from real users the same day." },
+    { "id": "s3", "text": "Keep the batch small, and keep moving." }
+  ]
+}

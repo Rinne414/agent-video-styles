@@ -1,0 +1,72 @@
+id: isometric-explainer
+tier: experimental
+evidence_strength: medium
+name:
+  en: Isometric Explainer
+  zh: 等距视角讲解
+tagline:
+  en: White-ground hairline blocks and devices assemble on an isometric grid, with one dark accent as the focus.
+  zh: 白底细线条方块与设备在等距网格上拼装，一个深色强调元素作为焦点。
+signature:
+  en:
+    - Pure white ground with constant-weight hairline edges and no shadows or gradients
+    - Rounded slabs with thickness, drawn back to front on a 30-degree grid
+    - Parts rise or drop into place on springs, staggered along the iso diagonal
+    - Exactly one dark accent per frame, and it is the thing to look at
+  zh:
+    - 纯白底，等粗细发丝线边缘，无阴影、无渐变
+    - 带厚度的圆角板块，在 30 度网格上由后向前绘制
+    - 部件用弹簧升起或落位，沿等距对角线依次错开
+    - 每帧只有一个深色强调元素，也就是观众该看的地方
+best_for:
+  en:
+    - Infrastructure, cloud, device and product-system explainers
+    - Square or vertical teasers on a clean ground
+  zh:
+    - 基础设施、云、设备与产品系统类讲解
+    - 干净底色上的方形或竖屏预告
+avoid_when:
+  en:
+    - The message is data or rankings (use data-story-charts)
+    - A real 3D model or product rotation is needed (use product-turntable-3d)
+  zh:
+    - 内容是数据或排名（改用 data-story-charts）
+    - 需要真实 3D 模型或产品旋转展示（改用 product-turntable-3d）
+tags:
+  use: [explainer, product-launch, tutorial]
+  platform: [x, linkedin, instagram-reels, website-hero]
+  aspect: ["1:1", "9:16", "16:9"]
+  audio: [music, sfx, captions]
+  mood: [technical, premium, calm]
+  needs: [script]
+duration: 15-45 s
+difficulty: 3
+tools:
+  primary: remotion
+  alternatives: [hyperframes]
+  why:
+    en: Projection, depth sort and per-part springs are plain React and SVG driven by the frame number, which Remotion does well. HyperFrames works with a proxy tween calling the same projection function.
+    zh: 投影、深度排序与逐部件弹簧都是由帧号驱动的 React + SVG，Remotion 很擅长。HyperFrames 可用代理补间调用同一个投影函数实现。
+variants:
+  - id: dark-ground
+    en: Near-black ground with light hairlines and a white accent; same geometry rules.
+    zh: 近黑底、浅色发丝线、白色强调元素；几何规则相同。
+  - id: color-accent
+    en: Replace the dark accent with one brand color; every other element stays neutral.
+    zh: 用一种品牌色替换深色强调元素；其余元素保持中性。
+evidence:
+  - creator: cth9191
+    platform: GitHub
+    region: unknown
+    url: https://github.com/cth9191/animate
+    tool: Claude Code skill, canvas, Playwright, ffmpeg
+    note: Skill-author demo, not a published video; an isometric style folder with a 6 s 9:16 120 BPM demo (laptop on plinth, keys rising in a wave) and a dark variant. The measured spec in this style comes from its STYLE.md. This is a 2:1 dimetric projection, here adapted to true 30 degrees.
+    verified: opened
+  - creator: iart-ai
+    platform: GitHub
+    region: unknown
+    url: https://github.com/iart-ai/awesome-motion-skills
+    tool: Claude Code skills
+    note: Skill pack, not a finished video; a whiteboard and isometric explainer pack.
+    verified: opened
+template: templates/isometric-explainer

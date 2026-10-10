@@ -67,6 +67,7 @@ export function renderDetail(style, lang) {
         h('h2', { class: 'style-name' }, style.name[lang]),
         h('p', { class: 'tagline' }, style.tagline[lang]),
         h('dl', { class: 'facts' },
+          h('dt', {}, t.tier), h('dd', {}, style.tier === 'experimental' ? t.tierExperimental : t.tierCore),
           h('dt', {}, t.duration), h('dd', {}, style.duration),
           h('dt', {}, t.difficulty), h('dd', {}, `${style.difficulty} / 3`),
           h('dt', {}, t.needs), h('dd', {}, needs),

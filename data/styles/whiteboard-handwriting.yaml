@@ -1,0 +1,86 @@
+id: whiteboard-handwriting
+tier: experimental
+evidence_strength: weak
+name:
+  en: Whiteboard & Handwriting
+  zh: 白板手写
+tagline:
+  en: Marker ink writes itself across a white board while doodle icons draw on, one idea per zone.
+  zh: 白板上的马克笔墨迹自己写出来，涂鸦图标逐笔画出，一个区域讲一个观点。
+signature:
+  en:
+    - Off-white board with a thin frame and a faint marker-tray shadow
+    - Single-stroke handwriting that writes itself at pen speed, with a pen tip following the path
+    - Doodle icons and arrows drawn with stroke-dashoffset, never faded in
+    - Key words underlined or circled in a second marker color
+  zh:
+    - 米白色白板，细边框，带淡淡的笔槽阴影
+    - 单线手写体按笔速自己写出，笔尖沿路径移动
+    - 涂鸦图标与箭头用 stroke-dashoffset 逐笔画出，不用淡入
+    - 关键词用另一种马克笔颜色划线或圈出
+best_for:
+  en:
+    - Classroom explainers and onboarding walkthroughs
+    - Simple process or cause-and-effect explanations for YouTube and Bilibili
+  zh:
+    - 课堂讲解与新人引导视频
+    - YouTube、B 站上的流程或因果关系科普
+avoid_when:
+  en:
+    - A premium or polished brand tone is needed (use apple-keynote-minimal)
+    - The content is equations or algorithms (use math-manim)
+  zh:
+    - 需要高端精致的品牌调性（改用 apple-keynote-minimal）
+    - 内容是公式或算法（改用 math-manim）
+tags:
+  use: [education, explainer, tutorial]
+  platform: [youtube, bilibili, instagram-reels]
+  aspect: ["16:9", "1:1"]
+  audio: [voiceover, music, captions]
+  mood: [playful, calm]
+  needs: [script]
+duration: 30-90 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [remotion]
+  why:
+    en: Draw-on strokes are pathLength plus strokeDashoffset, which HyperFrames verified, and one proxy tween can drive hundreds of paths. Remotion has evolvePath in @remotion/paths for the same job.
+    zh: 逐笔绘制就是 pathLength 加 strokeDashoffset，HyperFrames 已验证，一个代理补间可驱动上百条路径。Remotion 的 @remotion/paths 提供 evolvePath 完成同样的事。
+variants:
+  - id: sketchbook
+    en: Cream paper page, graphite lines and one accent color, hand lettering instead of marker; calmer and more editorial.
+    zh: 奶油色纸页、石墨线条加一种强调色、手写字替代马克笔，更安静、更偏编辑感。
+  - id: blackboard
+    en: Dark green board with chalk strokes at 85% opacity and a slight grain; same drawing rules.
+    zh: 深绿黑板、85% 不透明度的粉笔笔触并带轻微颗粒；绘制规则相同。
+evidence:
+  - creator: Sabrina Ramonov
+    platform: Substack
+    region: en
+    url: https://www.sabrina.dev/p/5-insane-claude-code-video-prompts
+    tool: Claude Code + Remotion
+    note: A prompt template asking for self-drawing diagrams via SVG stroke-dashoffset, not a finished whiteboard video. There are no finished examples for this style.
+    verified: snippet
+  - creator: HyperFrames registry
+    platform: GitHub
+    region: US
+    url: https://github.com/heygen-com/hyperframes/tree/main/registry
+    tool: HyperFrames
+    note: Component library, not a finished video; hw-* handwriting components and whiteboard-ink.
+    verified: opened
+  - creator: iart-ai
+    platform: GitHub
+    region: unknown
+    url: https://github.com/iart-ai/awesome-motion-skills
+    tool: Claude Code skills
+    note: Skill pack, not a finished video; includes whiteboard and isometric explainer packs.
+    verified: opened
+  - creator: cth9191
+    platform: GitHub
+    region: unknown
+    url: https://github.com/cth9191/animate
+    tool: Claude Code skill, canvas
+    note: Skill pack, not a whiteboard video; its sketchbook style is the adjacent look behind the sketchbook variant.
+    verified: opened
+template: templates/whiteboard-handwriting

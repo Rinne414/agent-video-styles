@@ -1,0 +1,65 @@
+id: line-reveal-story
+tier: experimental
+evidence_strength: medium
+name:
+  en: Line-Reveal Illustrated Story
+  zh: 线稿显影插画故事
+tagline:
+  en: Black line art sweeps in left to right, then soft low-saturation color floods the same way, scene after scene.
+  zh: 黑色线稿从左到右扫入，随后低饱和柔和色彩按同方向铺满，一景接一景。
+signature:
+  en:
+    - Paper-white page with the subject in the lower half and a large empty area above
+    - Line art reveals left to right, then color fills in the same direction
+    - Muted palette with five or six soft fills, no gradients, no heavy black masses
+    - Short captions in the empty space, and 7-9 scenes of about 5 s
+  zh:
+    - 纸白底，主体位于下半部分，上方留大片空白
+    - 线稿从左到右显现，之后色彩同方向铺满
+    - 低饱和柔和配色，五六种平涂色，无渐变，无大面积黑块
+    - 空白处放短字幕，7-9 个场景，每景约 5 秒
+best_for:
+  en:
+    - Picture-book style and emotional brand stories for vertical platforms
+    - Short personal-essay or small-moment stories with captions
+  zh:
+    - 竖屏平台的绘本风与情感品牌故事
+    - 带字幕的个人随笔或生活小片段
+avoid_when:
+  en:
+    - Detailed or photoreal illustrations from an image model are wanted (use storybook-picture-book)
+    - The piece needs data, UI or product shots (use ui-camera-tour)
+  zh:
+    - 需要图像模型生成的精细或写实插画（改用 storybook-picture-book）
+    - 内容需要数据、界面或产品画面（改用 ui-camera-tour）
+tags:
+  use: [social-short, brand-reel, personal-brand]
+  platform: [tiktok-douyin, instagram-reels, youtube-shorts, bilibili]
+  aspect: ["9:16", "4:5"]
+  audio: [music, captions]
+  mood: [calm, editorial]
+  needs: [script]
+duration: 35-45 s
+difficulty: 3
+tools:
+  primary: hyperframes
+  alternatives: [html-capture]
+  why:
+    en: The only example uses HyperFrames + GSAP for the sweeping masks. This recipe draws every illustration as SVG in code, so no image model is needed; html-capture works if the scenes are written as one canvas page.
+    zh: 唯一案例用 HyperFrames + GSAP 做扫描遮罩。本配方所有插画都由代码以 SVG 绘制，无需图像模型；若把场景写成单个 canvas 页面，也可用 html-capture。
+variants:
+  - id: single-color-ink
+    en: Line art only, in one ink color, with a single spot-color accent shape per scene; no fill pass.
+    zh: 只有线稿，单一墨色，每景一个点缀色块；省略填色阶段。
+  - id: night-page
+    en: Deep navy page with cream lines and muted warm fills; same sweeps.
+    zh: 深藏青底、奶油色线条、柔和暖色填充；扫描方式相同。
+evidence:
+  - creator: xiejunjie524
+    platform: GitHub
+    region: cn
+    url: https://github.com/xiejunjie524/handdraw-story-video
+    tool: HyperFrames + GSAP + Python, Codex skill, external image model
+    note: Skill author's own example "Soy milk at 4 a.m." (720x960, 30 fps, 40 s, 7-9 scenes). Its color master images come from an external image model (hybrid); this recipe replaces them with code-drawn SVG and has no such evidence of its own.
+    verified: opened
+template: templates/line-reveal-story

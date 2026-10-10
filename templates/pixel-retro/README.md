@@ -12,6 +12,8 @@ pnpm run render        # builds index.html, writes out/pixel-retro.mp4
 pnpm run still         # snapshots/ PNGs (edit the --at times in package.json)
 ```
 
+The page is composed 1088 px wide (artwork in the left 1080 px) and cropped to 1080x1920 by ffmpeg, because HyperFrames 0.8.143 renders the right-most 8 px black when the width is not a multiple of 16; the uncropped render is `out/raw.mp4`.
+
 ## Edit
 
 Everything is in `content.json`: palette, title and quest copy, XP values, task names, level-up text, sky colors per scene, sun position, scene lengths in frames (`timing`, keep them multiples of 15 to stay on the beat), `crt` overlay on/off. `scripts/build.mjs` regenerates `index.html` from `content.json` and `src/*.js`; do not edit `index.html` by hand. Quest action timing (`completeAt`) is in frames relative to the quest start; the hero poses in `src/scenes.js` are keyed to the same beat grid.

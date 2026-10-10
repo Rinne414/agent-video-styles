@@ -1,0 +1,449 @@
+{
+  "voice": "en-US-GuyNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 5208,
+      "words": [
+        {
+          "text": "Before",
+          "start_ms": 96,
+          "end_ms": 408
+        },
+        {
+          "text": "1956",
+          "start_ms": 420,
+          "end_ms": 1439
+        },
+        {
+          "text": "moving",
+          "start_ms": 1566,
+          "end_ms": 1867
+        },
+        {
+          "text": "cargo",
+          "start_ms": 1890,
+          "end_ms": 2249
+        },
+        {
+          "text": "across",
+          "start_ms": 2272,
+          "end_ms": 2584
+        },
+        {
+          "text": "an",
+          "start_ms": 2608,
+          "end_ms": 2701
+        },
+        {
+          "text": "ocean",
+          "start_ms": 2724,
+          "end_ms": 3013
+        },
+        {
+          "text": "was",
+          "start_ms": 3036,
+          "end_ms": 3175
+        },
+        {
+          "text": "slow",
+          "start_ms": 3198,
+          "end_ms": 3487
+        },
+        {
+          "text": "manual",
+          "start_ms": 3650,
+          "end_ms": 4044
+        },
+        {
+          "text": "work",
+          "start_ms": 4066,
+          "end_ms": 4367
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 3960,
+      "words": [
+        {
+          "text": "Goods",
+          "start_ms": 96,
+          "end_ms": 351
+        },
+        {
+          "text": "went",
+          "start_ms": 362,
+          "end_ms": 501
+        },
+        {
+          "text": "aboard",
+          "start_ms": 513,
+          "end_ms": 802
+        },
+        {
+          "text": "piece",
+          "start_ms": 825,
+          "end_ms": 1033
+        },
+        {
+          "text": "by",
+          "start_ms": 1045,
+          "end_ms": 1184
+        },
+        {
+          "text": "piece",
+          "start_ms": 1207,
+          "end_ms": 1531
+        },
+        {
+          "text": "and",
+          "start_ms": 1682,
+          "end_ms": 1798
+        },
+        {
+          "text": "ships",
+          "start_ms": 1821,
+          "end_ms": 2064
+        },
+        {
+          "text": "sat",
+          "start_ms": 2087,
+          "end_ms": 2272
+        },
+        {
+          "text": "in",
+          "start_ms": 2284,
+          "end_ms": 2365
+        },
+        {
+          "text": "port",
+          "start_ms": 2388,
+          "end_ms": 2596
+        },
+        {
+          "text": "for",
+          "start_ms": 2619,
+          "end_ms": 2735
+        },
+        {
+          "text": "days",
+          "start_ms": 2747,
+          "end_ms": 3129
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 6312,
+      "words": [
+        {
+          "text": "On",
+          "start_ms": 96,
+          "end_ms": 270
+        },
+        {
+          "text": "April 26, 1956",
+          "start_ms": 293,
+          "end_ms": 2318
+        },
+        {
+          "text": "the",
+          "start_ms": 2527,
+          "end_ms": 2643
+        },
+        {
+          "text": "Ideal",
+          "start_ms": 2654,
+          "end_ms": 2955
+        },
+        {
+          "text": "X",
+          "start_ms": 2967,
+          "end_ms": 3141
+        },
+        {
+          "text": "sailed",
+          "start_ms": 3163,
+          "end_ms": 3395
+        },
+        {
+          "text": "from",
+          "start_ms": 3418,
+          "end_ms": 3592
+        },
+        {
+          "text": "Newark",
+          "start_ms": 3615,
+          "end_ms": 3939
+        },
+        {
+          "text": "with",
+          "start_ms": 3950,
+          "end_ms": 4100
+        },
+        {
+          "text": "58",
+          "start_ms": 4124,
+          "end_ms": 4587
+        },
+        {
+          "text": "metal",
+          "start_ms": 4599,
+          "end_ms": 4877
+        },
+        {
+          "text": "containers",
+          "start_ms": 4888,
+          "end_ms": 5478
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "file": "s4.mp3",
+      "duration_ms": 5808,
+      "words": [
+        {
+          "text": "Standard",
+          "start_ms": 96,
+          "end_ms": 536
+        },
+        {
+          "text": "sizes",
+          "start_ms": 559,
+          "end_ms": 929
+        },
+        {
+          "text": "followed",
+          "start_ms": 953,
+          "end_ms": 1265
+        },
+        {
+          "text": "twenty",
+          "start_ms": 1474,
+          "end_ms": 1740
+        },
+        {
+          "text": "or",
+          "start_ms": 1763,
+          "end_ms": 1867
+        },
+        {
+          "text": "forty",
+          "start_ms": 1890,
+          "end_ms": 2168
+        },
+        {
+          "text": "feet",
+          "start_ms": 2191,
+          "end_ms": 2457
+        },
+        {
+          "text": "stackable",
+          "start_ms": 2689,
+          "end_ms": 3164
+        },
+        {
+          "text": "on",
+          "start_ms": 3187,
+          "end_ms": 3303
+        },
+        {
+          "text": "any",
+          "start_ms": 3325,
+          "end_ms": 3487
+        },
+        {
+          "text": "ship",
+          "start_ms": 3511,
+          "end_ms": 3800
+        },
+        {
+          "text": "train",
+          "start_ms": 3916,
+          "end_ms": 4286
+        },
+        {
+          "text": "or",
+          "start_ms": 4506,
+          "end_ms": 4610
+        },
+        {
+          "text": "truck",
+          "start_ms": 4622,
+          "end_ms": 4981
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "file": "s5.mp3",
+      "duration_ms": 4200,
+      "words": [
+        {
+          "text": "Loading",
+          "start_ms": 96,
+          "end_ms": 455
+        },
+        {
+          "text": "cost",
+          "start_ms": 478,
+          "end_ms": 779
+        },
+        {
+          "text": "fell",
+          "start_ms": 802,
+          "end_ms": 987
+        },
+        {
+          "text": "from",
+          "start_ms": 1011,
+          "end_ms": 1161
+        },
+        {
+          "text": "about",
+          "start_ms": 1184,
+          "end_ms": 1416
+        },
+        {
+          "text": "six",
+          "start_ms": 1439,
+          "end_ms": 1705
+        },
+        {
+          "text": "dollars",
+          "start_ms": 1717,
+          "end_ms": 2053
+        },
+        {
+          "text": "a",
+          "start_ms": 2075,
+          "end_ms": 2133
+        },
+        {
+          "text": "ton",
+          "start_ms": 2156,
+          "end_ms": 2353
+        },
+        {
+          "text": "to",
+          "start_ms": 2376,
+          "end_ms": 2469
+        },
+        {
+          "text": "sixteen",
+          "start_ms": 2492,
+          "end_ms": 2932
+        },
+        {
+          "text": "cents",
+          "start_ms": 2955,
+          "end_ms": 3395
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "file": "s6.mp3",
+      "duration_ms": 4464,
+      "words": [
+        {
+          "text": "Economists",
+          "start_ms": 96,
+          "end_ms": 802
+        },
+        {
+          "text": "find",
+          "start_ms": 825,
+          "end_ms": 1068
+        },
+        {
+          "text": "containers",
+          "start_ms": 1080,
+          "end_ms": 1612
+        },
+        {
+          "text": "lifted",
+          "start_ms": 1636,
+          "end_ms": 1925
+        },
+        {
+          "text": "trade",
+          "start_ms": 1948,
+          "end_ms": 2249
+        },
+        {
+          "text": "more",
+          "start_ms": 2272,
+          "end_ms": 2446
+        },
+        {
+          "text": "than",
+          "start_ms": 2457,
+          "end_ms": 2573
+        },
+        {
+          "text": "trade",
+          "start_ms": 2596,
+          "end_ms": 2828
+        },
+        {
+          "text": "agreements",
+          "start_ms": 2851,
+          "end_ms": 3302
+        },
+        {
+          "text": "did",
+          "start_ms": 3325,
+          "end_ms": 3649
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "file": "s7.mp3",
+      "duration_ms": 3000,
+      "words": [
+        {
+          "text": "One",
+          "start_ms": 96,
+          "end_ms": 374
+        },
+        {
+          "text": "steel",
+          "start_ms": 397,
+          "end_ms": 698
+        },
+        {
+          "text": "box",
+          "start_ms": 710,
+          "end_ms": 1034
+        },
+        {
+          "text": "made",
+          "start_ms": 1045,
+          "end_ms": 1242
+        },
+        {
+          "text": "the",
+          "start_ms": 1265,
+          "end_ms": 1358
+        },
+        {
+          "text": "world",
+          "start_ms": 1381,
+          "end_ms": 1670
+        },
+        {
+          "text": "smaller",
+          "start_ms": 1682,
+          "end_ms": 2180
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "meta": { "id": "product-turntable-3d", "fps": 30, "width": 1920, "height": 1080, "durationInFrames": 450 },
+  "brand": {
+    "name": "Aura One",
+    "tagline": "Quiet, carried.",
+    "footnote": "Fictional product. Sample specs."
+  },
+  "colors": {
+    "sweep": "#E9E6E1",
+    "ink": "#1A1A1A",
+    "accent": "#E4572E",
+    "shell": "#2A2C31",
+    "cushion": "#1B1C1F",
+    "metal": "#C9CCD1",
+    "rim": "#BFD6FF"
+  },
+  "features": [
+    { "label": "40 h battery", "claim": "On a single charge", "anchor": "cupLeft" },
+    { "label": "Adaptive noise cancelling", "claim": "Tunes to your surroundings", "anchor": "cupRight" },
+    { "label": "Fold-flat design", "claim": "Slips into any bag", "anchor": "hingeRight" }
+  ],
+  "timing": {
+    "revealEnd": 56,
+    "featureLength": 112,
+    "calloutIn": 36,
+    "calloutOut": 104,
+    "lockupSettle": 405,
+    "nameFadeIn": 40,
+    "exposureFade": 24,
+    "foldStart": 330,
+    "foldEnd": 352,
+    "unfoldStart": 378,
+    "unfoldEnd": 400
+  },
+  "turn": {
+    "stopYawDeg": [125, 245, 320],
+    "endYawDeg": 360
+  },
+  "camera": {
+    "fov": 40,
+    "distanceFrom": 7.0,
+    "distanceTo": 6.2,
+    "elevationDeg": 10,
+    "orbitDeg": 3,
+    "targetY": 1.45,
+    "lockupTargetY": 0.9
+  }
+}

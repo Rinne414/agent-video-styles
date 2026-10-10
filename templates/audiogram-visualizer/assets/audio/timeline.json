@@ -1,0 +1,216 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "segments": [
+    {
+      "id": "s1",
+      "file": "s1.mp3",
+      "duration_ms": 5328,
+      "words": [
+        {
+          "text": "Every",
+          "start_ms": 100,
+          "end_ms": 400
+        },
+        {
+          "text": "extra",
+          "start_ms": 412,
+          "end_ms": 762
+        },
+        {
+          "text": "person",
+          "start_ms": 775,
+          "end_ms": 1163
+        },
+        {
+          "text": "on",
+          "start_ms": 1175,
+          "end_ms": 1313
+        },
+        {
+          "text": "a",
+          "start_ms": 1325,
+          "end_ms": 1387
+        },
+        {
+          "text": "team",
+          "start_ms": 1400,
+          "end_ms": 1800
+        },
+        {
+          "text": "adds",
+          "start_ms": 1925,
+          "end_ms": 2150
+        },
+        {
+          "text": "another",
+          "start_ms": 2162,
+          "end_ms": 2524
+        },
+        {
+          "text": "meeting",
+          "start_ms": 2538,
+          "end_ms": 2900
+        },
+        {
+          "text": "another",
+          "start_ms": 3162,
+          "end_ms": 3424
+        },
+        {
+          "text": "handoff",
+          "start_ms": 3438,
+          "end_ms": 4000
+        },
+        {
+          "text": "and",
+          "start_ms": 4238,
+          "end_ms": 4300
+        },
+        {
+          "text": "another",
+          "start_ms": 4312,
+          "end_ms": 4612
+        },
+        {
+          "text": "wait",
+          "start_ms": 4625,
+          "end_ms": 4950
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "file": "s2.mp3",
+      "duration_ms": 6024,
+      "words": [
+        {
+          "text": "Small",
+          "start_ms": 112,
+          "end_ms": 424
+        },
+        {
+          "text": "teams",
+          "start_ms": 438,
+          "end_ms": 738
+        },
+        {
+          "text": "decide",
+          "start_ms": 750,
+          "end_ms": 1225
+        },
+        {
+          "text": "in",
+          "start_ms": 1238,
+          "end_ms": 1313
+        },
+        {
+          "text": "a",
+          "start_ms": 1325,
+          "end_ms": 1363
+        },
+        {
+          "text": "hallway",
+          "start_ms": 1375,
+          "end_ms": 1900
+        },
+        {
+          "text": "ship",
+          "start_ms": 2262,
+          "end_ms": 2524
+        },
+        {
+          "text": "by",
+          "start_ms": 2538,
+          "end_ms": 2676
+        },
+        {
+          "text": "lunch",
+          "start_ms": 2688,
+          "end_ms": 3163
+        },
+        {
+          "text": "and",
+          "start_ms": 3462,
+          "end_ms": 3600
+        },
+        {
+          "text": "learn",
+          "start_ms": 3612,
+          "end_ms": 3850
+        },
+        {
+          "text": "from",
+          "start_ms": 3862,
+          "end_ms": 4087
+        },
+        {
+          "text": "real",
+          "start_ms": 4100,
+          "end_ms": 4438
+        },
+        {
+          "text": "users",
+          "start_ms": 4450,
+          "end_ms": 4925
+        },
+        {
+          "text": "the",
+          "start_ms": 4938,
+          "end_ms": 5038
+        },
+        {
+          "text": "same",
+          "start_ms": 5050,
+          "end_ms": 5350
+        },
+        {
+          "text": "day",
+          "start_ms": 5362,
+          "end_ms": 5662
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "file": "s3.mp3",
+      "duration_ms": 2472,
+      "words": [
+        {
+          "text": "Keep",
+          "start_ms": 100,
+          "end_ms": 275
+        },
+        {
+          "text": "the",
+          "start_ms": 288,
+          "end_ms": 376
+        },
+        {
+          "text": "batch",
+          "start_ms": 388,
+          "end_ms": 676
+        },
+        {
+          "text": "small",
+          "start_ms": 688,
+          "end_ms": 1138
+        },
+        {
+          "text": "and",
+          "start_ms": 1412,
+          "end_ms": 1474
+        },
+        {
+          "text": "keep",
+          "start_ms": 1488,
+          "end_ms": 1738
+        },
+        {
+          "text": "moving",
+          "start_ms": 1750,
+          "end_ms": 2100
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: /*BOARD*/; }
+    #root { position: relative; width: 1920px; height: 1080px; }
+    .scene { position: absolute; inset: 0; }
+    svg { display: block; }
+    #ink path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  </style></head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="/*DURATION*/" data-width="1920" data-height="1080">
+    <section id="scene" class="scene clip" data-start="0" data-duration="/*DURATION*/" data-track-index="0">
+      <svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="clip-hook"><rect id="clip-hook-rect" x="0" y="0" width="1920" height="1080" /></clipPath>
+          <clipPath id="clip-main"><rect id="clip-main-rect" x="0" y="0" width="1920" height="1080" /></clipPath>
+        </defs>
+        <rect width="1920" height="1080" fill="/*BOARD*/" />
+        <rect x="24" y="24" width="1872" height="1032" rx="10" fill="none" stroke="/*FRAME*/" stroke-width="3" />
+        <rect x="24" y="1064" width="1872" height="16" fill="/*TRAY*/" />
+        <g id="cam">
+          <g id="ink">
+            <g id="g-hook" clip-path="url(#clip-hook)">/*INK_HOOK*/</g>
+            <g id="g-main" clip-path="url(#clip-main)">/*INK_MAIN*/</g>
+            <g id="g-end">/*INK_END*/</g>
+          </g>
+          <g id="eraser" display="none">
+            <rect x="0" y="70" width="70" height="940" rx="14" fill="#CFCFC6" stroke="#B5B5AB" stroke-width="3" />
+            <rect x="0" y="940" width="70" height="70" rx="14" fill="#8F8F86" />
+          </g>
+          <g id="pen" display="none">
+            <g transform="rotate(35)">
+              <path d="M0 0 L-9 -30 L9 -30 Z" fill="#D8D2C4" stroke="#1B1F2A" stroke-width="2" stroke-linejoin="round" />
+              <rect id="pen-cap" x="-14" y="-124" width="28" height="94" rx="9" fill="#1B1F2A" />
+              <rect x="-14" y="-62" width="28" height="12" fill="#FAFAF7" opacity="0.85" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </section>
+    /*AUDIO*/
+  </div>
+  <script>
+    const DATA = /*DATA*/;
+  </script>
+  <script>
+/*DRIVER*/
+  </script>
+</body></html>

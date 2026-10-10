@@ -1,0 +1,12 @@
+{
+  "name": "@avs/vintage-sketch",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bake": "python scripts/bake-paper.py",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/vintage-sketch.mp4"
+  }
+}

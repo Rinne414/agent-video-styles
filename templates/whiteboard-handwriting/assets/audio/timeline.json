@@ -1,0 +1,497 @@
+{
+  "voice": "en-US-JennyNeural",
+  "segments": [
+    {
+      "id": "hook",
+      "file": "hook.mp3",
+      "duration_ms": 2928,
+      "words": [
+        {
+          "text": "Why",
+          "start_ms": 95,
+          "end_ms": 288
+        },
+        {
+          "text": "does",
+          "start_ms": 300,
+          "end_ms": 436
+        },
+        {
+          "text": "a",
+          "start_ms": 448,
+          "end_ms": 493
+        },
+        {
+          "text": "hundred",
+          "start_ms": 505,
+          "end_ms": 789
+        },
+        {
+          "text": "dollars",
+          "start_ms": 800,
+          "end_ms": 1118
+        },
+        {
+          "text": "snowball",
+          "start_ms": 1130,
+          "end_ms": 1516
+        },
+        {
+          "text": "over",
+          "start_ms": 1527,
+          "end_ms": 1675
+        },
+        {
+          "text": "time",
+          "start_ms": 1686,
+          "end_ms": 2141
+        }
+      ]
+    },
+    {
+      "id": "year1",
+      "file": "year1.mp3",
+      "duration_ms": 6360,
+      "words": [
+        {
+          "text": "Put",
+          "start_ms": 95,
+          "end_ms": 254
+        },
+        {
+          "text": "a",
+          "start_ms": 266,
+          "end_ms": 300
+        },
+        {
+          "text": "hundred",
+          "start_ms": 311,
+          "end_ms": 595
+        },
+        {
+          "text": "dollars",
+          "start_ms": 607,
+          "end_ms": 982
+        },
+        {
+          "text": "in",
+          "start_ms": 993,
+          "end_ms": 1073
+        },
+        {
+          "text": "the",
+          "start_ms": 1084,
+          "end_ms": 1152
+        },
+        {
+          "text": "bank",
+          "start_ms": 1164,
+          "end_ms": 1437
+        },
+        {
+          "text": "at",
+          "start_ms": 1448,
+          "end_ms": 1550
+        },
+        {
+          "text": "ten",
+          "start_ms": 1561,
+          "end_ms": 1754
+        },
+        {
+          "text": "percent",
+          "start_ms": 1766,
+          "end_ms": 2096
+        },
+        {
+          "text": "a",
+          "start_ms": 2107,
+          "end_ms": 2141
+        },
+        {
+          "text": "year",
+          "start_ms": 2152,
+          "end_ms": 2572
+        },
+        {
+          "text": "After",
+          "start_ms": 3352,
+          "end_ms": 3647
+        },
+        {
+          "text": "one",
+          "start_ms": 3659,
+          "end_ms": 3864
+        },
+        {
+          "text": "year",
+          "start_ms": 3875,
+          "end_ms": 4205
+        },
+        {
+          "text": "you",
+          "start_ms": 4398,
+          "end_ms": 4478
+        },
+        {
+          "text": "have",
+          "start_ms": 4489,
+          "end_ms": 4648
+        },
+        {
+          "text": "one",
+          "start_ms": 4659,
+          "end_ms": 4829
+        },
+        {
+          "text": "hundred",
+          "start_ms": 4841,
+          "end_ms": 5125
+        },
+        {
+          "text": "ten",
+          "start_ms": 5136,
+          "end_ms": 5568
+        }
+      ]
+    },
+    {
+      "id": "year2",
+      "file": "year2.mp3",
+      "duration_ms": 6528,
+      "words": [
+        {
+          "text": "In",
+          "start_ms": 95,
+          "end_ms": 243
+        },
+        {
+          "text": "year",
+          "start_ms": 255,
+          "end_ms": 403
+        },
+        {
+          "text": "two",
+          "start_ms": 414,
+          "end_ms": 755
+        },
+        {
+          "text": "you",
+          "start_ms": 970,
+          "end_ms": 1084
+        },
+        {
+          "text": "earn",
+          "start_ms": 1095,
+          "end_ms": 1265
+        },
+        {
+          "text": "ten",
+          "start_ms": 1277,
+          "end_ms": 1482
+        },
+        {
+          "text": "percent",
+          "start_ms": 1493,
+          "end_ms": 1879
+        },
+        {
+          "text": "on",
+          "start_ms": 1891,
+          "end_ms": 2027
+        },
+        {
+          "text": "one",
+          "start_ms": 2039,
+          "end_ms": 2187
+        },
+        {
+          "text": "hundred",
+          "start_ms": 2198,
+          "end_ms": 2459
+        },
+        {
+          "text": "ten",
+          "start_ms": 2470,
+          "end_ms": 2879
+        },
+        {
+          "text": "That",
+          "start_ms": 3659,
+          "end_ms": 3898
+        },
+        {
+          "text": "extra",
+          "start_ms": 3909,
+          "end_ms": 4216
+        },
+        {
+          "text": "dollar",
+          "start_ms": 4227,
+          "end_ms": 4557
+        },
+        {
+          "text": "is",
+          "start_ms": 4568,
+          "end_ms": 4704
+        },
+        {
+          "text": "interest",
+          "start_ms": 4716,
+          "end_ms": 5080
+        },
+        {
+          "text": "on",
+          "start_ms": 5091,
+          "end_ms": 5182
+        },
+        {
+          "text": "interest",
+          "start_ms": 5193,
+          "end_ms": 5727
+        }
+      ]
+    },
+    {
+      "id": "snowball",
+      "file": "snowball.mp3",
+      "duration_ms": 6120,
+      "words": [
+        {
+          "text": "Like",
+          "start_ms": 95,
+          "end_ms": 300
+        },
+        {
+          "text": "a",
+          "start_ms": 311,
+          "end_ms": 356
+        },
+        {
+          "text": "snowball",
+          "start_ms": 368,
+          "end_ms": 777
+        },
+        {
+          "text": "rolling",
+          "start_ms": 789,
+          "end_ms": 1084
+        },
+        {
+          "text": "downhill",
+          "start_ms": 1095,
+          "end_ms": 1629
+        },
+        {
+          "text": "it",
+          "start_ms": 1823,
+          "end_ms": 1903
+        },
+        {
+          "text": "picks",
+          "start_ms": 1914,
+          "end_ms": 2141
+        },
+        {
+          "text": "up",
+          "start_ms": 2152,
+          "end_ms": 2266
+        },
+        {
+          "text": "more",
+          "start_ms": 2277,
+          "end_ms": 2504
+        },
+        {
+          "text": "snow",
+          "start_ms": 2516,
+          "end_ms": 2743
+        },
+        {
+          "text": "with",
+          "start_ms": 2755,
+          "end_ms": 2891
+        },
+        {
+          "text": "every",
+          "start_ms": 2902,
+          "end_ms": 3118
+        },
+        {
+          "text": "turn",
+          "start_ms": 3130,
+          "end_ms": 3505
+        },
+        {
+          "text": "so",
+          "start_ms": 3698,
+          "end_ms": 3846
+        },
+        {
+          "text": "it",
+          "start_ms": 3857,
+          "end_ms": 3937
+        },
+        {
+          "text": "grows",
+          "start_ms": 3948,
+          "end_ms": 4209
+        },
+        {
+          "text": "faster",
+          "start_ms": 4220,
+          "end_ms": 4618
+        },
+        {
+          "text": "and",
+          "start_ms": 4630,
+          "end_ms": 4710
+        },
+        {
+          "text": "faster",
+          "start_ms": 4720,
+          "end_ms": 5334
+        }
+      ]
+    },
+    {
+      "id": "early",
+      "file": "early.mp3",
+      "duration_ms": 5904,
+      "words": [
+        {
+          "text": "So",
+          "start_ms": 95,
+          "end_ms": 322
+        },
+        {
+          "text": "start",
+          "start_ms": 334,
+          "end_ms": 618
+        },
+        {
+          "text": "early",
+          "start_ms": 630,
+          "end_ms": 1073
+        },
+        {
+          "text": "Forty",
+          "start_ms": 1852,
+          "end_ms": 2170
+        },
+        {
+          "text": "years",
+          "start_ms": 2182,
+          "end_ms": 2432
+        },
+        {
+          "text": "of",
+          "start_ms": 2443,
+          "end_ms": 2523
+        },
+        {
+          "text": "growth",
+          "start_ms": 2534,
+          "end_ms": 2829
+        },
+        {
+          "text": "beats",
+          "start_ms": 2841,
+          "end_ms": 3125
+        },
+        {
+          "text": "thirty",
+          "start_ms": 3136,
+          "end_ms": 3420
+        },
+        {
+          "text": "by",
+          "start_ms": 3432,
+          "end_ms": 3557
+        },
+        {
+          "text": "more",
+          "start_ms": 3568,
+          "end_ms": 3773
+        },
+        {
+          "text": "than",
+          "start_ms": 3784,
+          "end_ms": 3932
+        },
+        {
+          "text": "two",
+          "start_ms": 3943,
+          "end_ms": 4170
+        },
+        {
+          "text": "and",
+          "start_ms": 4182,
+          "end_ms": 4296
+        },
+        {
+          "text": "a",
+          "start_ms": 4307,
+          "end_ms": 4330
+        },
+        {
+          "text": "half",
+          "start_ms": 4341,
+          "end_ms": 4568
+        },
+        {
+          "text": "times",
+          "start_ms": 4580,
+          "end_ms": 5114
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "file": "end.mp3",
+      "duration_ms": 2904,
+      "words": [
+        {
+          "text": "Start",
+          "start_ms": 95,
+          "end_ms": 413
+        },
+        {
+          "text": "early",
+          "start_ms": 425,
+          "end_ms": 789
+        },
+        {
+          "text": "and",
+          "start_ms": 959,
+          "end_ms": 1095
+        },
+        {
+          "text": "let",
+          "start_ms": 1107,
+          "end_ms": 1277
+        },
+        {
+          "text": "time",
+          "start_ms": 1289,
+          "end_ms": 1494
+        },
+        {
+          "text": "do",
+          "start_ms": 1505,
+          "end_ms": 1596
+        },
+        {
+          "text": "the",
+          "start_ms": 1607,
+          "end_ms": 1698
+        },
+        {
+          "text": "work",
+          "start_ms": 1709,
+          "end_ms": 2107
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "durationInFrames": 900
+  },
+  "theme": {
+    "ocean": "#0E1621",
+    "land": "#1F2A37",
+    "text": "#F5F7FA",
+    "highlight": "#F59E0B",
+    "route": "#38BDF8",
+    "panel": "rgba(14,22,33,0.88)",
+    "scrim": "rgba(14,22,33,0.9)",
+    "fontFamily": "Inter",
+    "safe": 96,
+    "regionActiveOpacity": 0.85,
+    "regionDimOpacity": 0.4,
+    "regionOutroOpacity": 0.6
+  },
+  "text": {
+    "kicker": "TRADE ROUTES OF EURASIA  ·  C. 130 BCE – 1450S CE",
+    "title": "The Silk Road in 30 seconds",
+    "source": "Map: Natural Earth via world-atlas  ·  Route is schematic  ·  Modern borders shown for orientation",
+    "outro": [
+      "Not one road, but a relay of traders:",
+      "goods moved 6,000+ km, hand to hand."
+    ]
+  },
+  "places": {
+    "changan": {
+      "name": "Chang'an",
+      "lonlat": [
+        108.94,
+        34.27
+      ],
+      "label": {
+        "anchor": "start",
+        "dx": 24,
+        "dy": 12
+      }
+    },
+    "dunhuang": {
+      "name": "Dunhuang",
+      "lonlat": [
+        94.66,
+        40.14
+      ]
+    },
+    "kashgar": {
+      "name": "Kashgar",
+      "lonlat": [
+        75.99,
+        39.47
+      ],
+      "label": {
+        "anchor": "middle",
+        "dx": 0,
+        "dy": 56
+      }
+    },
+    "samarkand": {
+      "name": "Samarkand",
+      "lonlat": [
+        66.96,
+        39.65
+      ],
+      "label": {
+        "anchor": "middle",
+        "dx": 0,
+        "dy": -28
+      }
+    },
+    "merv": {
+      "name": "Merv",
+      "lonlat": [
+        62.19,
+        37.66
+      ]
+    },
+    "baghdad": {
+      "name": "Baghdad",
+      "lonlat": [
+        44.36,
+        33.31
+      ],
+      "label": {
+        "anchor": "middle",
+        "dx": 0,
+        "dy": 56
+      }
+    },
+    "aleppo": {
+      "name": "Aleppo",
+      "lonlat": [
+        37.16,
+        36.2
+      ]
+    },
+    "constantinople": {
+      "name": "Constantinople",
+      "lonlat": [
+        28.98,
+        41.01
+      ],
+      "label": {
+        "anchor": "middle",
+        "dx": 0,
+        "dy": -28
+      }
+    }
+  },
+  "legs": [
+    {
+      "places": [
+        "changan",
+        "dunhuang",
+        "kashgar",
+        "samarkand"
+      ],
+      "from": 200,
+      "to": 310
+    },
+    {
+      "places": [
+        "samarkand",
+        "merv",
+        "baghdad"
+      ],
+      "from": 395,
+      "to": 490
+    },
+    {
+      "places": [
+        "baghdad",
+        "aleppo",
+        "constantinople"
+      ],
+      "from": 585,
+      "to": 685
+    }
+  ],
+  "regions": [
+    {
+      "name": "China",
+      "from": 150,
+      "dimAt": 320
+    },
+    {
+      "name": "Uzbekistan",
+      "from": 312,
+      "dimAt": 495
+    },
+    {
+      "name": "Iraq",
+      "from": 492,
+      "dimAt": 690
+    },
+    {
+      "name": "Turkey",
+      "from": 685,
+      "dimAt": 9999
+    }
+  ],
+  "annotations": [
+    {
+      "place": "changan",
+      "from": 205,
+      "to": 305,
+      "dx": -590,
+      "dy": 70,
+      "width": 540,
+      "head": "Silk leaves Chang'an",
+      "lines": [
+        "Han and Tang capital, today's",
+        "Xi'an: the road's eastern end"
+      ]
+    },
+    {
+      "place": "samarkand",
+      "from": 322,
+      "to": 440,
+      "dx": 60,
+      "dy": 90,
+      "width": 560,
+      "head": "Sogdian relay",
+      "lines": [
+        "Silk goes west; paper-making",
+        "follows after 751 CE"
+      ]
+    },
+    {
+      "place": "baghdad",
+      "from": 495,
+      "to": 600,
+      "dx": 150,
+      "dy": 30,
+      "width": 560,
+      "head": "Abbasid hub",
+      "lines": [
+        "Capital from 762; paper mill",
+        "by 794; spices and textiles"
+      ]
+    },
+    {
+      "place": "constantinople",
+      "from": 690,
+      "to": 770,
+      "dx": -530,
+      "dy": 110,
+      "width": 480,
+      "head": "Western end",
+      "lines": [
+        "Silkworm eggs smuggled in",
+        "c. 552 CE: Byzantine silk"
+      ]
+    }
+  ],
+  "camera": [
+    {
+      "frame": 0,
+      "center": [
+        72,
+        38
+      ],
+      "scale": 700
+    },
+    {
+      "frame": 100,
+      "center": [
+        72,
+        38
+      ],
+      "scale": 700
+    },
+    {
+      "frame": 190,
+      "center": [
+        88,
+        37.5
+      ],
+      "scale": 1800
+    },
+    {
+      "frame": 320,
+      "center": [
+        88,
+        37.5
+      ],
+      "scale": 1800
+    },
+    {
+      "frame": 390,
+      "center": [
+        58,
+        37
+      ],
+      "scale": 1800
+    },
+    {
+      "frame": 510,
+      "center": [
+        58,
+        37
+      ],
+      "scale": 1800
+    },
+    {
+      "frame": 580,
+      "center": [
+        36,
+        37.5
+      ],
+      "scale": 2400
+    },
+    {
+      "frame": 750,
+      "center": [
+        36,
+        37.5
+      ],
+      "scale": 2400
+    },
+    {
+      "frame": 815,
+      "center": [
+        68,
+        37
+      ],
+      "scale": 950
+    },
+    {
+      "frame": 900,
+      "center": [
+        68,
+        37
+      ],
+      "scale": 950
+    }
+  ],
+  "driftPercent": 1.5,
+  "outro": {
+    "from": 815,
+    "settleBy": 845
+  }
+}

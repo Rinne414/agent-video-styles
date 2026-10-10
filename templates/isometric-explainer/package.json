@@ -1,0 +1,23 @@
+{
+  "name": "@avs/isometric-explainer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Isometric explainer: how a web request travels. Remotion 4.0.534.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render IsometricExplainer out/isometric-explainer.mp4",
+    "still": "remotion still IsometricExplainer out/still.png --image-format=png --frame=300"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@fontsource/jetbrains-mono": "5.2.8",
+    "@remotion/cli": "4.0.534",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

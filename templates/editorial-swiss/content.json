@@ -1,0 +1,36 @@
+{
+  "video": { "width": 1920, "height": 1080, "fps": 30 },
+  "timing": { "mastheadFrames": 90, "statFrames": 114, "colophonFrames": 90 },
+  "theme": {
+    "paper": "#F2EFE8",
+    "ink": "#111111",
+    "secondary": "#5C5C5C",
+    "rail": "#CFCBC0",
+    "signal": "#E30613",
+    "headlineFont": "Inter Tight",
+    "labelFont": "IBM Plex Mono"
+  },
+  "studio": "Studio Halden",
+  "sampleLabel": "Sample data",
+  "source": "Source: sample data, fictional studio",
+  "masthead": {
+    "titleLines": [
+      { "text": "Annual report ", "accent": "2026" },
+      { "text": "in five numbers" }
+    ],
+    "counter": "Cover",
+    "meta": ["Edition 01", "Fiscal year 2026", "Five numbers"]
+  },
+  "stats": [
+    { "kicker": "Output", "digits": "48", "suffix": "", "headline": ["Projects", "shipped"], "body": ["Across brand, product and", "editorial work."] },
+    { "kicker": "Team", "digits": "12", "suffix": "", "headline": ["People"], "body": ["Designers, engineers and", "producers under one roof."] },
+    { "kicker": "Footprint", "digits": "3", "suffix": "", "headline": ["Offices"], "body": ["Zurich, Basel and Lisbon,", "one shared grid."] },
+    { "kicker": "Loyalty", "digits": "97", "suffix": "%", "headline": ["Client", "retention"], "body": ["Clients who renewed for", "a second year."] },
+    { "kicker": "Launch", "digits": "1", "suffix": "", "headline": ["New", "product"], "body": ["A type specimen tool,", "launched in autumn."] }
+  ],
+  "colophon": {
+    "summaryLines": ["Five numbers.", "One studio."],
+    "credits": ["All figures are sample data", "Studio Halden", "Annual report 2026"],
+    "endLabel": "End"
+  }
+}

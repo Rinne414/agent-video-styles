@@ -1,0 +1,11 @@
+{
+  "name": "@avs/paper-cut-collage",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 check",
+    "still": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 snapshot --at 1,5,9,13,17,22,26,29.5",
+    "render": "node scripts/build.mjs && npx --yes hyperframes@0.8.143 render --output out/paper-cut-collage.mp4"
+  }
+}

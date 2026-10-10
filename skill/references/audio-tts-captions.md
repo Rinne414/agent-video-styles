@@ -36,7 +36,8 @@ Output `timeline.json` (times in ms, relative to the start of that segment's mp3
 Facts verified by running it:
 - `duration_ms` comes from ffprobe on the mp3, and is longer than the last word's `end_ms` (3048 vs 2675 ms: trailing silence). Place segments back to back using `duration_ms`, not the last `end_ms`.
 - edge-tts 7.x defaults to sentence boundaries; tts.py requests `boundary="WordBoundary"`. Offsets are 100 ns ticks (divide by 10 000).
-- English: one event per word, punctuation is not a separate event ("Hello," -> `Hello`).
+- English: one event per word, punctuation is not a separate event ("Hello," -> `Hello`). Dates and numbers in digits come back as ONE token (`58`, `1956`, `April 26, 1956`), so a cue or highlight must match that whole token, and per-word caption counts differ from the script's word count (use the `merge` helper below).
+- Every segment ends with trailing silence inside `duration_ms`: ~0.37 s for Guy, 0.7-0.9 s for Jenny, Ana and some others (reported; Andrew 3048 vs 2675 ms above). It already acts as a gap, so use a shorter explicit gap (0 to 0.3 s) and let transitions play in it instead of adding more.
 - Chinese (zh-CN): the service returns short words/phrases of 1-3 characters, e.g. `大家|好|今天|我们|来讲|一|讲|傅里|叶|变换`. Segmentation is imperfect (`傅里|叶`); treat units as timing anchors, not linguistic words. Units keep inner spaces (`25 分钟`), punctuation is dropped, and a numeral is one unit. Rebuild display text from the original script with the recipe below.
 - If the machine's DNS is odd (VPN adapter), aiodns raised "Could not contact DNS servers"; tts.py uses the OS resolver to avoid it.
 - Edge TTS is an unofficial client of Microsoft's online service: fine for prototyping; check Microsoft's terms before commercial use. Needs internet.
@@ -47,6 +48,7 @@ Facts verified by running it:
 |--------|-------|-------|
 | en-US | `en-US-AndrewNeural` (M), `en-US-AvaNeural` (F) | warm, clear; default for explainers |
 | en-US | `en-US-ChristopherNeural` (M), `en-US-EmmaNeural` (F) | authority / cheerful |
+| en-US | `en-US-GuyNeural` (M) | slower than Andrew: ~2.1-2.3 words/s at +0% (13 words 6.0 s; 11 words 5.2 s; 91 words 37.6 s), +8% shortened clips ~7% (reported by two builders) |
 | en-US | `en-US-AnaNeural` (F) | child-like and slow: ~110 wpm (13 words took 7.1 s), ~0.8 s trailing silence; use rate +10..+15% |
 | zh-CN | `zh-CN-YunxiNeural` (M), `zh-CN-XiaoxiaoNeural` (F) | lively / warm; both tested |
 | zh-CN | `zh-CN-YunyangNeural` (M) | professional, news-like |
@@ -58,7 +60,7 @@ Adjust speed with `"rate": "-10%"` .. `"+15%"`. Do not exceed about +20%.
 
 ## Pacing and caption limits
 
-- English: 150-170 words per minute (about 2.5-2.8 words/s). Measured: `en-US-AndrewNeural` at +0% ran about 2.4 words/s (137 words = 56.9 s), so words = (target s - 1.5 s tail - 0.15 s x segments) x 2.4. Chinese: 4-5.5 characters/s. Leave 0.3-0.6 s between sentences/segments.
+- English: 150-170 words per minute (about 2.5-2.8 words/s). Measured: `en-US-AndrewNeural` at +0% ran about 2.4 words/s (137 words = 56.9 s), so words = (target s - 1.5 s tail - 0.15 s x segments) x 2.4. Spelled-out acronyms ("H T T P S") count one TTS word per letter at about 0.3 s each, which dropped one run to about 2.2 words/s (102 words = 46.3 s); count each letter as 0.3 s rather than a word, or generate, measure, then set `rate` (+5..+10%) instead of trusting the formula. Chinese: 4-5.5 characters/s. Leave 0.3-0.6 s between sentences/segments.
 - Caption line: at most ~42 Latin characters or ~14-16 CJK characters, 1-2 lines, at least 1 s on screen. Budget for a two-line caption at 48 px on 1080p (box about 1280 px wide): about 88 Latin characters total (~46 per line); split longer lines into two segments.
 - Keep segments to one idea (1-2 sentences, under ~12 s) so a re-render only changes one mp3.
 
@@ -88,21 +90,28 @@ Chunking rules: split the script at `PUNCT`; merge clauses under ~4-6 characters
 
 ## English caption chunking
 
-Latin text has word-level units, so chunk by clause, not by character mapping. [Not run here as written; the idea was verified in a report.] TTS drops punctuation, so run it on caption tokens taken from the original script text, each carrying its word's times (the next section). Break at punctuation, split any clause over ~38 characters at the most balanced word boundary (a greedy fill leaves orphans like "a lot of | tiny raindrops"), merge pieces under ~8 characters into a neighbor:
+Latin text has word-level units, so chunk by clause, not by character mapping. [Not run here as written; the idea was verified in a report.] TTS drops punctuation, so run it on caption tokens taken from the original script text, each carrying its word's times (the next section). Break at punctuation, split any clause over ~38 characters at the most balanced word boundary (a greedy fill leaves orphans like "a lot of | tiny raindrops"), merge pieces under ~3 words (or ~8 characters) into a neighbor, so no lone "HTTPS:" caption, and keep a hard maximum of 42 characters per line:
 
 ```js
-function chunk(words, max = 38) {                      // words: caption tokens [{text (with punctuation),start_ms,end_ms}]
+function chunk(words, max = 38, minWords = 3, hard = 42) {   // words: caption tokens [{text (with punctuation),start_ms,end_ms}]
   const out = []; let cur = [];
   const flush = () => { if (cur.length) out.push(cur); cur = []; };
-  for (const w of words) { cur.push(w); if (/[.,;:?!]$/.test(w.text)) flush(); } 
+  for (const w of words) { cur.push(w); if (/[.,;:?!]$/.test(w.text)) flush(); }
   flush();
-  return out.flatMap(c => {
-    const len = a => a.map(w => w.text).join(" ").length;
-    if (len(c) <= max) return [c];
+  const len = a => a.map(w => w.text).join(" ").length;
+  const split = c => {
+    if (len(c) <= max || c.length < 2) return [c];
     let best = 1, diff = 1e9;                           // most balanced split
     for (let k = 1; k < c.length; k++) { const d = Math.abs(len(c.slice(0, k)) - len(c.slice(k))); if (d < diff) { diff = d; best = k; } }
-    return [c.slice(0, best), c.slice(best)];
-  });
+    return [...split(c.slice(0, best)), ...split(c.slice(best))];
+  };
+  const res = [];
+  for (const c of out.flatMap(split)) {                 // merge fragments shorter than minWords into a neighbour
+    const prev = res.at(-1);
+    if (prev && (prev.length < minWords || c.length < minWords) && len([...prev, ...c]) <= hard) res[res.length - 1] = [...prev, ...c];
+    else res.push(c);
+  }
+  return res;
 }
 ```
 A chunk shows from its first word's `start_ms` to the next chunk's first `start_ms`.
@@ -115,11 +124,36 @@ TTS must hear "C D N" but the caption must read "CDN" (same for symbols: speak "
 {"segments": [{"id": "s1", "speech": "A C D N serves files from nearby.", "caption": "A CDN serves files from nearby.",
                "merge": [[1, 3]]}]}
 ```
+Helper (builds timed caption tokens; write `merge` by hand, one range per spelled-out acronym) [not run here; adapted from a regression run's `buildTokens`]:
+
+```js
+function captionTokens(seg, ttsWords) {               // seg: {speech, caption, merge}; ttsWords: timeline words of this segment
+  const merge = seg.merge ?? [];                      // [[first,last],...] TTS word indexes, ascending
+  const groups = []; let w = 0;
+  for (const [a, b] of [...merge, [ttsWords.length, ttsWords.length]]) {
+    while (w < a) groups.push([w, w++]);
+    w = b + 1; if (a < ttsWords.length) groups.push([a, b]);
+  }
+  const cap = seg.caption.split(/\s+/);
+  if (cap.length !== groups.length) throw new Error(`caption/speech mismatch in ${seg.id}`);
+  return groups.map(([a, b], k) => ({ text: cap[k], start_ms: ttsWords[a].start_ms, end_ms: ttsWords[b].end_ms }));
+}
+```
 Feed `speech` to `tts.py`. TTS returns word units `A | C | D | N | serves ...`. Split `caption` on whitespace; each `merge` range `[first, last]` (indexes into the TTS words) collapses those words into one caption token whose time span runs from the first word's `start_ms` to the last word's `end_ms`. Throw if the caption token count after merging differs from the number of TTS word groups, so a drifted script fails loudly.
+
+## One audio file from several segments
+
+Players that want a single track (audio visualizers, `visualizeAudio`) need the segments merged. Compute each offset as the cumulative `duration_ms` plus gap, delay each mp3, mix, and pad to the video length (reported from a template's `mix.py`; the `adelay`+`amix`+`apad` filters are the same ones used in the ducking recipe, not re-run as written):
+
+```bash
+# offsets 0, 3348, 7096 ms for three segments
+ffmpeg -y -i s1.mp3 -i s2.mp3 -i s3.mp3 -filter_complex "[1:a]adelay=3348|3348[b];[2:a]adelay=7096|7096[c];[0:a][b][c]amix=inputs=3:normalize=0:duration=longest,apad=whole_dur=30[o]" -map "[o]" -ar 48000 narration.wav
+```
+Write the offsets to a `layout.json` so captions use the same cumulative times. `amix` with `normalize=0` keeps levels. Without gaps `concat` works too; for gaps use `adelay`, or insert `anullsrc` pieces in a concat list.
 
 ## Hitting a target length
 
-Measure before building: sum of `duration_ms` plus gaps. Rules of thumb at rate `+0%`: Chinese ~120 characters is about 24 s; English about 150 wpm. Rates of +5..+10% for shorts can leave a 30 s brief at 22-24 s, so use rate `-5%..+0%`, 0.3-0.5 s gaps between segments, and add framing sentences (hook, "remember this", summary, outro) to reach longer targets. A 170-character article gave about 35 s.
+Measure before building: sum of `duration_ms` plus gaps (trailing silence is already in `duration_ms`: 6 segments of one report spent 4.8 s of a 30 s piece in it). Rules of thumb at rate `+0%`: Chinese ~120 characters is about 24 s; English about 150 wpm. Rates of +5..+10% for shorts can leave a 30 s brief at 22-24 s, so use rate `-5%..+0%`, 0.3-0.5 s gaps between segments, and add framing sentences (hook, "remember this", summary, outro) to reach longer targets. A 170-character article gave about 35 s.
 
 ## Caption styles
 

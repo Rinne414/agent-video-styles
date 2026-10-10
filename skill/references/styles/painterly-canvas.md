@@ -16,7 +16,45 @@ Watercolor washes and ink brush strokes painted procedurally on canvas, with tex
 | Ink lines | sepia or indigo; outlines drawn as a few long strokes, not many short ones |
 | Characters | simple silhouettes; faces = 2 dots and a line; 3-6 strokes per figure |
 | Text | Cormorant Garamond or LXGW WenKai (CJK), 48-72 px, ink color, rotation +/-1 deg |
-| Composition | one subject per scene and at least 40% empty paper |
+| Composition | one subject per scene and at least 40% empty paper (measure: fraction of pixels within a small delta of the paper color, one python/ffmpeg line on a still) |
+| 9:16 (1080x1920) | Keep 200 px top and 340 px bottom free of text. Type stays 56-72 px (do not scale it with the canvas); put the text block in the upper third, left-aligned near x 120 and y about 340, and the art in the lower two thirds. Washes may bleed to the edges; text never crosses an edge. Scale the subject to roughly 40-60% of the width so the empty-paper share holds on the tall canvas (placement from one run, adjust by eye) |
+
+## Reference brushes (stateless; [not run here as written; condensed from a regression run's brush design])
+
+Jitter comes from a hash of `(stroke, bristle, step, floor(i/3))`, with step as the major index, so drawing on to a partial `t` never shifts earlier points and nothing flickers or wobbles between frames.
+
+```js
+const hash = (a, b, c, d) => { let h = (a * 374761393 + b * 668265263 + c * 2147483647 + d * 1274126177) | 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
+function brush(ctx, pts, { id, i, t = 1, w = 14, n = 7, color, alpha = 0.5, boil = 1.2 }) {   // pts: [{x,y}] along the path
+  const steps = Math.max(2, Math.floor(pts.length * t)), fr = Math.floor(i / 3);
+  ctx.strokeStyle = color; ctx.lineCap = "round";
+  for (let k = 0; k < n; k++) {
+    const off = (k / (n - 1) - 0.5) * w;
+    for (let j = 1; j < steps; j++) {
+      if (hash(id, k, j >> 3, 7) < 0.12) continue;                      // dropout in runs of 8 steps
+      const u = j / (steps - 1), taper = Math.sin(Math.PI * Math.min(1, u * 0.9 + 0.05));   // thin at both ends
+      const a = pts[j - 1], b = pts[j], dx = b.x - a.x, dy = b.y - a.y, L = Math.hypot(dx, dy) || 1;
+      const jx = (hash(id, k, j, fr) - 0.5) * 2 * boil, jy = (hash(id, k, j, fr + 99) - 0.5) * 2 * boil;
+      ctx.globalAlpha = alpha * (0.6 + 0.4 * hash(id, k, 0, 3)); ctx.lineWidth = Math.max(0.8, (w / n) * 1.6 * taper);
+      ctx.beginPath(); ctx.moveTo(a.x - dy / L * off * taper + jx, a.y + dx / L * off * taper + jy);
+      ctx.lineTo(b.x - dy / L * off * taper + jx, b.y + dx / L * off * taper + jy); ctx.stroke();
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+function makeWash(seed, r, color) {                                        // build once, cache, then drawImage with an alpha ramp
+  const c = document.createElement("canvas"); c.width = c.height = Math.ceil(r * 2.4); const g = c.getContext("2d");
+  g.translate(c.width / 2, c.height / 2); g.fillStyle = color; g.globalAlpha = 0.07;
+  for (let layer = 0; layer < 14; layer++) { g.beginPath();
+    for (let a = 0; a < 24; a++) { const th = a / 24 * Math.PI * 2, rr = r * (0.8 + 0.2 * hash(seed, layer, a, 1)) * (1 - layer * 0.012);
+      a ? g.lineTo(Math.cos(th) * rr, Math.sin(th) * rr) : g.moveTo(Math.cos(th) * rr, Math.sin(th) * rr); }
+    g.closePath(); g.fill(); }
+  g.globalAlpha = 0.18; g.strokeStyle = color; g.lineWidth = 2; g.stroke();   // darker edge on the last polygon
+  return c;
+}
+```
+Use `ctx.setTransform(1,0,0,1,0,0)` and `globalCompositeOperation = "source-over"` at the start of every frame.
 
 ## Motion grammar
 
@@ -26,7 +64,7 @@ Watercolor washes and ink brush strokes painted procedurally on canvas, with tex
 - **Characters on threes**: hold each drawing 3 frames (about 8-10 drawings per second).
 - **Camera**: slow pan or zoom of the art layer only (text stays fixed on the safe area), about 0.7% per second, total zoom at most ~15%.
 - **Transitions**: a big brush stroke wipes the frame in 15-20 frames, or washes fade back to blank paper.
-- **Lyrics**: fade in + 6 px rise over 10 frames, hold for the line, fade out over 8 frames.
+- **Lyrics**: fade in + 6 px rise over 10 frames, hold for the line, fade out over 8 frames. For a poem or haiku, lines instead stay and stack, and the Close holds the full text (washes may fade, the text does not).
 
 ## Determinism contract
 
@@ -66,7 +104,7 @@ Format: <1080x1080 | 1080x1920> <24 | 30> fps, <seconds> s
 - [ ] At least 40% empty paper in most frames
 - [ ] At most 7 colors with restrained saturation
 - [ ] Lyrics and text legible on the paper
-- [ ] Average draw time per frame stays under about 2 s, so a 30 s render finishes in reasonable time
+- [ ] Average draw time per frame stays under about 2 s. Budget: a layered scene with 10+ bristle strokes and full-frame grain ran about 0.65 s/frame at 1080x1920 (450 frames in 293 s, 1.5 fps), so plan about 5 min per 15 s and shard the render (`../tools/html-capture.md`)
 
 ## Pitfalls
 
@@ -75,6 +113,7 @@ Format: <1080x1080 | 1080x1920> <24 | 30> fps, <seconds> s
 - **Accumulation**: the default p5 `draw()` loop paints on top of the last frame, so seeking or parallel capture breaks. Redraw from scratch in `renderFrame`.
 - **Wrong size**: a high-DPI screen doubles the canvas; set `pixelDensity(1)`.
 - **Minutes per frame**: dozens of watercolor fills per frame are very slow. Pre-render static layers once and composite them.
+- **Creatures**: draw bodies thin; make the neck and legs the signature and wings long and tapered. A stiff rigid bar for a wing upstroke reads as a bug, so bend wings through 2-3 control points between poses.
 - **Clip-art colors**: fully saturated digital colors kill the watercolor feel; desaturate.
 
 ## Variants
