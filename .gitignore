@@ -21,3 +21,5 @@ Thumbs.db
 
 # regression runs (reports live in research/07-regression/)
 regression/
+
+.vercel

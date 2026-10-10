@@ -1,0 +1,7 @@
+# Only the gallery build needs uploading: data/, skill/, previews/, site/src, scripts/ and the root package files.
+templates/
+regression/
+research/
+node_modules/
+site/dist/
+.vercel/

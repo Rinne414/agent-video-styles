@@ -225,3 +225,6 @@ dialog.picker::backdrop { background: rgba(28, 30, 34, 0.55); }
   .select-mark ellipse { animation: none; stroke-dashoffset: 0; }
   .frame { transition: none; }
 }
+
+/* SVG filter definitions only; takes no space. */
+.defs { position: absolute; }
